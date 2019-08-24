@@ -666,7 +666,7 @@ class Flasik(object):
             else Flask(flask_or_import_name)
 
         app.url_map.converters['regex'] = RegexConverter
-        app.template_folder = "%s/templates" % cls.app_dir
+        app.template_folder = "%s/views/templates" % cls.app_dir
         app.static_folder = "%s/static" % cls.app_dir
 
         # Load configs

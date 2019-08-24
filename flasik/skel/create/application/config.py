@@ -35,7 +35,7 @@ class BaseConfig(object):
 #: Config
 
     #: Site's name or Name of the application
-    APPLICATION_NAME = "Flasik"
+    APPLICATION_NAME = "My-Application-Name"
 
     #: The application url
     APPLICATION_URL = ""

@@ -1,0 +1,5 @@
+
+
+Location: `/application/static`
+
+---

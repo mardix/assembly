@@ -1,0 +1,15 @@
+
+- Finish login/registration settings
+    - Add link to register/login
+- Components
+    - Nav: option for panel to show only current
+
+- Finish Babel
+- Admin contrib, to skip decorators for login, signup, etc. Otherwise you can't login since the page is locked
+
+- web assets: css/js_asset() when literal string are put with slash, try to build the relative path, so it can use S3
+
+- contrib.base
+    - create class .responsive-image
+
+- Create random secret key form PROD

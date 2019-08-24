@@ -1,0 +1,5 @@
+# For development
+
+# PropelC is a deployment tool that uses Propel and Ansible to deploy your application
+# https://github.com/mardix/propelc to learn more
+PropelC

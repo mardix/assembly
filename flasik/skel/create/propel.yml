@@ -1,0 +1,80 @@
+###############################################################################
+#                                   Propel
+#
+# A config file to deploy Flasik projects
+#
+# Go to `https://github.com/mardix/propel` for more info and config options
+#
+# How to run?
+#
+# After `pip install propel` on the production applicationr, you can run the following
+# commands:
+#
+#   'propel -w $sitename' on the hosting application to launch a web application
+#   'propel -k $worker-name' on the hosting application to launch a worker application by name
+#   'propel -s $script-name' on the hosting application to execute a script by name
+#
+###############################################################################
+
+
+# Virtualenv
+#
+virtualenv:
+
+  # *Required - The name of the virtual environment
+  name: ""
+
+
+# WEB:
+# list of dict of web sites/application to deploy
+web:
+  -
+    # Required - The site name
+    name: ""
+
+    # The application entry point
+    application: "__flasik__:app"
+
+    # The environment to use. ie: app="main:prod"
+    environment: app="main:prod"
+
+    # Nginx related config
+    nginx:
+      aliases:
+        "/static": "app/static"
+        "/uploads": "app/var/uploads"
+
+    # List of host to deploy it
+    hosts:
+      - web
+
+
+# SCRIPTS:
+# A dict of all scripts to execute
+scripts:
+
+  # Scripts to before anything else
+  before_all:
+    -
+      command: "flasik setup"
+      environment: app="main:prod"
+
+
+  # Scripts to run when undeploying
+  undeploy:
+    - command: ""
+
+
+# WORKERS:
+# Run custom script or app in the background using supervisor
+workers:
+
+  # Tasks:
+  tasks:
+    -
+      name: "worker-task-1"
+      command: "" # flasik cmd
+      environment: app="main:prod"
+
+
+

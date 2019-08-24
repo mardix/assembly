@@ -1,0 +1,77 @@
+
+site_name: Mocha
+site_description: ""
+site_url: "https://mardix.github.com/mocha"
+copyright: 'Copyright &copy; 2016 - 2017++ Mardix'
+
+repo_url: https://github.com/mardix/mocha
+repo_name: "mocha"
+theme: "material" # readthedocs
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - markdown_include.include:
+      base_path: docs
+
+extra:
+  palette:
+    primary: 'Brown'
+    accent: 'Amber'
+
+pages:
+
+  - Home: index.md
+  - Setup: setup.md
+  - First App: first-app.md
+  - Config: config.md
+
+  - Views:
+    - Views: views/index.md
+    - Route: views/route.md
+    - Request: views/request.md
+    - Redirect: views/redirect.md
+    - Render: views/render.md
+    - Url_For: views/url_for.md
+    - Abort: views/abort.md
+    - Session & Flash: views/session-flash.md
+    - Decorators: views/decorators.md
+    - Helpers: views/helpers.md
+
+  - Templates:
+    - Templates: templates/index.md
+    - Filters: templates/filters.md
+    - Forms: templates/forms.md
+    - Widgets: templates/widgets.md
+    - Navs: templates/navs.md
+
+  - Assets: assets.md
+  - Models: models.md
+
+  - Utils: utils.md
+  - Pagination: pagination.md
+  - Signals: signals.md
+
+  - Arrow: ext/arrow.md
+  - Bcrypt: ext/bcrypt.md
+  - Cache: ext/cache.md
+  - Storage: ext/storage.md
+  - CSRF: ext/csrf.md
+  - Mail: ext/mail.md
+  - Recaptcha: ext/recaptcha.md
+
+  - Logging: logging.md
+
+  - Contrib: contrib/index.md
+  - Auth: contrib/auth.md
+  - Admin: contrib/admin.md
+  - Contact Page: contrib/contact-page.md
+  - Error Page: contrib/error-page.md
+  - Error Page: contrib/maintenance-page.md
+  - Exceptions: exceptions.md
+  - CLI: cli.md
+  - Deployment: deploy.md
+#  - Snippets:
+#    - Home: snippets/index.md
+
+

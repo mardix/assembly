@@ -318,7 +318,7 @@ def utc_now():
     return arrow.utcnow()
 
 
-def local_datetime(utcdatetime, format=None, timezone=None):
+def format_datetime(utcdatetime, format=None, timezone=None):
     """
     Return local datetime based on the timezone
     It will automatically format the date. 

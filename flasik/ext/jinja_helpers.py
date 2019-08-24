@@ -9,7 +9,7 @@ import humanize
 import arrow
 from flasik import (init_app,
                      config,
-                     local_datetime,
+                     format_datetime,
                      utils)
 
 
@@ -85,12 +85,10 @@ FILTERS = {
     "slug": utils.slugify,  # slug
     "int_comma": humanize.intcomma,  # Transform an int to comma
     "strip_decimal": lambda d: d.split(".")[0],
-    "bool_yes": lambda b: "Yes" if b else "No",
-    "bool_int": lambda b: 1 if b else 0,
     "markdown": lambda text: Markup(md.html(text)),  # Return a markdown to HTML
     "nl2br": nl2br,
-    "local_datetime": local_datetime,
-    "local_time_since": lambda dt: local_datetime(dt, False).humanize(),
+    "format_datetime": format_datetime,
+    "time_since": lambda dt: format_datetime(dt, False).humanize(),
     "oembed": oembed,
     "img_src": img_src,
     "static": static_url

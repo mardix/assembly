@@ -168,18 +168,18 @@ def init():
         print("- Launch app on development mode, run [ flasik-admin run ]")
         print("")
 
-@cli_admin.command("add-view")
+
+@cli_admin.command("add-template")
 @click.argument("name")
-@click.option("--no-template", "-t", is_flag=True, default=False)
-def add_view(name, no_template):
+def add_view(name):
     """ Add a new view and template page """
 
     app_dest = app_dir
-    viewsrc = "%s/create-view/view.py" % SKELETON_DIR
+    viewsrc = "%s/create-view/views.py" % SKELETON_DIR
     tplsrc = "%s/create-view/template.html" % SKELETON_DIR
     viewdest_dir = os.path.join(app_dest, "views")
     viewdest = os.path.join(viewdest_dir, "%s.py" % name)
-    tpldest_dir = os.path.join(app_dest, "templates/%s/Index" % name)
+    tpldest_dir = os.path.join(viewdest_dir, "templates/%s/Index" % name)
     tpldest = os.path.join(tpldest_dir, "index.html")
 
     header("Adding New View")
@@ -195,9 +195,7 @@ def add_view(name, no_template):
             utils.make_dirs(viewdest_dir)
         copy_resource_file(viewsrc, viewdest)
         with open(viewdest, "r+") as vd:
-            content = vd.read()\
-                .replace("%ROUTE%", name.lower())\
-                .replace("%NAV_TITLE%", name.capitalize())
+            content = vd.read().replace("%ROUTE%", name.lower())
             vd.seek(0)
             vd.write(content)
             vd.truncate()
@@ -207,6 +205,33 @@ def add_view(name, no_template):
                 utils.make_dirs(tpldest_dir)
             copy_resource_file(tplsrc, tpldest)
 
+    print("")
+    print("*" * 80)
+
+@cli_admin.command("add-api")
+@click.argument("name")
+def add_view(name):
+    """ Add a new api endpoint without the templates """
+
+    header("Adding API Endpoint")
+
+    app_dest = app_dir
+    viewsrc = "%s/create-view/views-api.py" % SKELETON_DIR
+    viewdest_dir = os.path.join(app_dest, "views")
+    viewdest = os.path.join(viewdest_dir, "%s.py" % name)
+
+    if os.path.isfile(viewdest):
+        print("ERROR: View file exists already")
+    else:
+        print("View: %s" % viewdest.replace(CWD, ""))       
+        if not os.path.isdir(viewdest_dir):
+            utils.make_dirs(viewdest_dir)
+        copy_resource_file(viewsrc, viewdest)
+        with open(viewdest, "r+") as vd:
+            content = vd.read().replace("%ROUTE%", name.lower())
+            vd.seek(0)
+            vd.write(content)
+            vd.truncate()
     print("")
     print("*" * 80)
 

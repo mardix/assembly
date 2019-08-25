@@ -35,8 +35,8 @@ web:
     # The application entry point
     application: "__flasik__:app"
 
-    # The environment to use. ie: app="main:prod"
-    environment: app="main:prod"
+    # The environment to use. ie: flasik="main:prod"
+    environment: flasik="main:prod"
 
     # Nginx related config
     nginx:
@@ -57,7 +57,7 @@ scripts:
   before_all:
     -
       command: "flasik setup"
-      environment: app="main:prod"
+      environment: flasik="main:prod"
 
 
   # Scripts to run when undeploying
@@ -74,7 +74,7 @@ workers:
     -
       name: "worker-task-1"
       command: "" # flasik cmd
-      environment: app="main:prod"
+      environment: flasik="main:prod"
 
 
 

@@ -15,17 +15,18 @@ from flasik import Init
 # Comment out to omit
 import application.commander
 
-# == PROJECTS ==
-# a dict with list of views that will be loaded by name
-# ie: `app=main flasik-admin run` will serve all the views in the `main` list
+# == Views ==
+# a dict with list of views to load by name
+# ie: `flasik=main flasik-admin run` will serve all the views in the `main` list
 # Views are placed in application/views directory, and should be listed as string
 # without the `.py`
-# You can add as many projects as you want, containing as many views
+# You can add as many views as you want, containing as many views
 # It also allows you to use multiple config env
-# ie: `app=main:production flasik-admin run` will use the `main` project with
+# ie: `flasik=main:production flasik-admin run` will use the `main` project with
 # `production` config
 
-projects = {
+
+views = {
     "main": [
         "main"
     ]
@@ -34,4 +35,4 @@ projects = {
 # == INIT ==
 # Init the application
 # 'app' variable is required to use the commander -> flasik
-app = Init(__name__, projects)
+app = Init(__name__, views)

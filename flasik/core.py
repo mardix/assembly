@@ -127,14 +127,14 @@ def get_env():
 
 def get_app_env():
     """
-    if the app and the envi are passed in the command line as 'app=$app:$env'
+    if the app and the envi are passed in the command line as 'flasik=$app:$env'
     :return: tuple app, env
     """
     app, env = None, get_env()
-    if "app" in os.environ:
-        app = os.environ["app"].lower()
+    if "flasik" in os.environ:
+        app = os.environ["flasik"].lower()
         if ":" in app:
-            app, env = os.environ["app"].split(":", 2)
+            app, env = os.environ["flasik"].split(":", 2)
             set_env(env)
     return app, env
 

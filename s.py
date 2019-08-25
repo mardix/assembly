@@ -1,21 +1,11 @@
 
-def init_app(kls):
-    """
-    To bind middlewares, plugins that needs the 'app' object to init
-    Bound middlewares will be assigned on cls.init()
-    """
-    if not hasattr(kls, "__call__"):
-        raise Error("init_app: '%s' is not callable" % kls)
-    #Flasik._init_apps.add(kls)
-    print('registered 1')
-    return kls
+from collections import namedtuple
 
-def deco(f):
-  print('register deco')
-  init_app(f)
+d = {
+  "NAME": "Jones"
+}
+d_named = namedtuple('Struct', d.keys())(*d.values())
 
-@init_app
-def hello():
-  pass
-
-init_app(hello)
+print(d_named.NAME)
+d_named.NAME = "DARN"
+print(d_named.NAME)

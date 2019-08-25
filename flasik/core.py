@@ -51,7 +51,6 @@ __all__ = [
     "get_env_config",
     "set_page_context",
     "extends",
-    "register_package",
     "register_models",
 
     # For convenience when importing from flasik, but can use
@@ -65,11 +64,15 @@ __all__ = [
     "redirect",
     "url_for",
 
-    "ext"
+    "ext",
+    "register_application_module",
+    "vendor_config"
 ]
 
 # Hold the current environment
 __ENV__ = None
+
+
 
 is_method = lambda x: inspect.ismethod if six.PY2 else inspect.isfunction
 
@@ -91,7 +94,10 @@ models = type('', (), {})
 db = FlasikDB()
 
 # Extensions objects
+# Can be used to store extension objects
 ext = type('', (), {})
+
+vendor_config = {}
 
 def register_models(**kwargs):
     """
@@ -171,9 +177,9 @@ def extends(kls):
     return kls
 
 
-def register_package(pkg, prefix=None):
+def register_application_module(pkg, prefix=None):
     """
-    Allow to register an app packages by loading and exposing: templates, static,
+    Allow to register an app modules by loading and exposing: templates, static,
     and exceptions for abort()
 
     Structure of package
@@ -204,7 +210,7 @@ def register_package(pkg, prefix=None):
     template_path = os.path.join(root_pkg_dir, "templates")
     static_path = os.path.join(root_pkg_dir, "static")
 
-    logging.info("Registering App: " + pkg)
+    logging.info("Registering Module Package: " + pkg)
     if os.path.isdir(template_path):
         loader = jinja2.FileSystemLoader(template_path)
         if prefix:
@@ -465,6 +471,7 @@ class Flasik(object):
         cls._setup_db()
         cls._expose_models()
         
+        vendor_packages = None
         try:
             # import models
             m = "%s.models" % cls.app_dir
@@ -478,9 +485,28 @@ class Flasik(object):
             if project_name not in projects:
                 raise ValueError("Missing project: %s" % project_name)
 
+            
             _projects = projects.get(project_name)
             if isinstance(_projects, six.string_types):
                 _projects = [_projects]
+
+            """    
+                {
+                    "main": {
+                        "views": [...views,],
+                        "vendors": [
+                            ('module.name', {}),
+                            ...
+                        ]
+                    }
+                }
+            """
+            if isinstance(_projects, dict) and "views" in _projects:
+                if "vendors" in _projects: 
+                    vendor_packages = _projects["vendors"]
+                if "views" in _projects:
+                    _projects = _projects["views"] 
+
             for _ in _projects:
                 werkzeug.import_string("%s.views.%s" % (cls.app_dir, _))
         except ImportError as ie1:
@@ -509,13 +535,53 @@ class Flasik(object):
                 if subcls.__name__.lower() == "index":
                     base_route = "/"
             subcls._register(cls._app, base_route=base_route)
+
         # Extensions
         # instanciate all functions that may need the flask.app object
         # Usually for flask extension to be setup
         [_app(cls._app) for _app in cls._init_apps]
 
+        # Application modules
+        if vendor_packages:
+            cls.load_vendor_packages(vendor_packages)
+
         return cls._app
 
+    @classmethod
+    def load_vendor_packages(cls, vendor_packages):
+        """
+        To import 3rd party applications along with associated properties
+        It is a list of dict or string.
+        When a dict, it contains the `app` key and the configuration,
+        if it's a string, it is just the app name
+        If you require dependencies from other packages, dependencies
+        must be placed before the calling package.
+        It is required that __init__ in the package app has an entry point method
+        -> 'main(**kw)' which will be used to setup the default app.
+        As a dict
+            [
+                ("multi.app.list.in.a.list.of.tuple", {options}),
+                ("multi.app.list.in.a.list.of.tuple2", {options})
+            ]
+        :return:
+        """
+        for mp in vendor_packages:
+            module, props = mp
+
+            # set the props in the config 
+            name = module.replace(".", "_")
+            vendor_config.update({
+                name: props
+            })
+            print(vendor_config)
+            #print('CONFIG', name, props, get_config("vendor").drink)
+            # Models
+            werkzeug.import_string(module + ".models", False)
+            cls._expose_models()
+
+            # Views
+            werkzeug.import_string(module)
+            cls._expose_models()
 
     @classmethod
     def render(cls, data={}, _template=None, _layout=None, **kwargs):

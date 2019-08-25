@@ -32,6 +32,19 @@ views = {
     ]
 }
 
+# To load vendor packages
+__views = {
+    "main": {
+        "views": [
+            "main"
+        ],
+        "vendors": [
+            ("a.vendor.package.path", {}) # (package_name<string>, config{any})
+        ]
+    }
+}
+
+
 # == INIT ==
 # Init the application
 # 'app' variable is required to use the commander -> flasik

@@ -15,7 +15,7 @@ __all__ = [
 ]
 
 __title__ = "Flasik"
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __summary__ = "A mid stack Flask based framework that put structure in the " \
               "file system. Features: Caching, Mailing, Storage, CSRF, recaptcha, Cors. " \
               "Supports HTML and Markdown " \

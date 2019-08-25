@@ -570,11 +570,8 @@ class Flasik(object):
 
             # set the props in the config 
             name = module.replace(".", "_")
-            vendor_config.update({
-                name: props
-            })
-            print(vendor_config)
-            #print('CONFIG', name, props, get_config("vendor").drink)
+            vendor_config.update({ name: props })
+
             # Models
             werkzeug.import_string(module + ".models", False)
             cls._expose_models()

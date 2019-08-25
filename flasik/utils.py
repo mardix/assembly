@@ -215,130 +215,16 @@ def dict_replace(subject_dict, string):
     return string
 
 
-def sign_jwt(data, secret_key, expires_in, salt=None, **kw):
-    """
-    To create a signed JWT
-    :param data:
-    :param secret_key:
-    :param expires_in:
-    :param salt:
-    :param kw:
-    :return: string
-    """
-    s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key=secret_key,
-                                                     expires_in=expires_in,
-                                                     salt=salt,
-                                                      **kw)
-    return s.dumps(data)
-
-
-def unsign_jwt(token, secret_key, salt=None, **kw):
-    """
-    To unsign a JWT token
-    :param token:
-    :param kw:
-    :return: mixed data
-    """
-    s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key, salt=salt, **kw)
-    return s.loads(token)
-
-
-class TimestampSigner2(itsdangerous.TimestampSigner):
-    expires_in = 0
-
-    def get_timestamp(self):
-        now = datetime.datetime.utcnow()
-        expires_in = now + datetime.timedelta(seconds=self.expires_in)
-        return int(expires_in.strftime("%s"))
-
-    @staticmethod
-    def timestamp_to_datetime(ts):
-        return datetime.datetime.fromtimestamp(ts)
-
-
-class URLSafeTimedSerializer2(itsdangerous.URLSafeTimedSerializer):
-    default_signer = TimestampSigner2
-
-    def __init__(self, secret_key, expires_in=3600, salt=None, **kwargs):
-        self.default_signer.expires_in = expires_in
-        super(self.__class__, self).__init__(secret_key, salt=salt, **kwargs)
-
-
-def sign_url_safe(data, secret_key, expires_in=None, salt=None, **kw):
-    """
-    To sign url safe data.
-    If expires_in is provided it will Time the signature
-    :param data: (mixed) the data to sign
-    :param secret_key: (string) the secret key
-    :param expires_in: (int) in minutes. Time to expire
-    :param salt: (string) a namespace key
-    :param kw: kwargs for itsdangerous.URLSafeSerializer
-    :return:
-    """
-    if expires_in:
-        expires_in *= 60
-        s = URLSafeTimedSerializer2(secret_key=secret_key,
-                                    expires_in=expires_in,
-                                    salt=salt,
-                                    **kw)
-    else:
-        s = itsdangerous.URLSafeSerializer(secret_key=secret_key,
-                                           salt=salt,
-                                           **kw)
-    return s.dumps(data)
-
-
-def unsign_url_safe(token, secret_key, salt=None, **kw):
-    """
-    To sign url safe data.
-    If expires_in is provided it will Time the signature
-    :param token:
-    :param secret_key:
-    :param salt: (string) a namespace key
-    :param kw:
-    :return:
-    """
-    if len(token.split(".")) == 3:
-        s = URLSafeTimedSerializer2(secret_key=secret_key, salt=salt, **kw)
-        value, timestamp = s.loads(token, max_age=None, return_timestamp=True)
-        now = datetime.datetime.utcnow()
-        if timestamp > now:
-            return value
-        else:
-            raise itsdangerous.SignatureExpired(
-                'Signature age %s < %s ' % (timestamp, now),
-                payload=value,
-                date_signed=timestamp)
-    else:
-        s = itsdangerous.URLSafeSerializer(secret_key=secret_key, salt=salt, **kw)
-        return s.loads(token)
-
-
-def sign_data(data, secret_key, expires_in=None, salt=None, **kw):
-    if expires_in:
-        pass
-    else:
-        s = itsdangerous.Serializer(secret_key=secret_key, salt=salt, **kw)
-        return s.dumps(data)
-
-
-def unsign_data(data, secret_key, salt=None, **kw):
-    s = itsdangerous.Serializer(secret_key=secret_key, salt=salt, **kw)
-    return s.loads(data)
-
-# ------------------------------------------------------------------------------
-
-
 def to_json(d):
     """
     Convert data to json. It formats datetime/arrow time
     :param d: dict or list
     :return: json data
     """
-    return json.dumps(d, cls=_MochaJSONEncoder)
+    return json.dumps(d, cls=_FlasikJSONEncoder)
 
 
-class _MochaJSONEncoder(json.JSONEncoder):
+class _FlasikJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, arrow.Arrow):
             return obj.for_json()

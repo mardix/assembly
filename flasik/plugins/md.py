@@ -9,8 +9,10 @@ get_images: Return a list of images, can be used to extract the top image
 
 import os
 import markdown
+import flasik
 from jinja2.nodes import CallBlock
 from jinja2.ext import Extension
+from jinja2 import Markup
 
 # ------------------------------------------------------------------------------
 
@@ -97,4 +99,14 @@ def convert(text):
     '''
     mkd.reset()
     return mkd.convert(text)
+
+
+@flasik.extends
+def setup(app):
+    app.jinja_env.add_extension(MarkdownTagExtension)
+    app.jinja_env.add_extension(MarkdownExtension)
+
+    app.jinja_env.filters.update({
+        "markdown": lambda text: Markup(convert(text))
+    })
 

@@ -4,8 +4,6 @@ Commander.py
 Place all your command line functionalities in here.
 Execute your commands in as `flasik $command-name`
 
-Documentation: https://click.palletsprojects.com/
-
 === Example ===
 
 # 1
@@ -23,10 +21,13 @@ def do_something(name):
 
 # run > flasik do-something Mardix
 
+# 3
+run > 'flasik' to view all of your commands
+
 """
 
 from flasik.commander import (command, option, argument, click)
-from flasik import models
+from flasik import db 
 
 @command()
 def setup():

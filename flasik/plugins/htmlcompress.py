@@ -24,6 +24,7 @@
       {% strip %} ... {% endstrip %}
 
 """
+import flasik
 from jinja2.ext import Extension
 from jinja2.lexer import Token, describe_token
 from jinja2 import TemplateSyntaxError
@@ -162,3 +163,9 @@ class SelectiveHTMLCompress(HTMLCompress):
             else:
                 yield stream.current
             next(stream)
+
+@flasik.extends 
+def setup(app):
+    if app.config.get("COMPRESS_HTML"):
+        app.jinja_env.add_extension(HTMLCompress)
+            

@@ -138,6 +138,7 @@ def cli_admin():
     (http://mardix.github.io/flasik) 
     
     """
+    
 # Object to expose
 command = cli.command 
 argument = click.argument

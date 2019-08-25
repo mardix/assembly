@@ -4,7 +4,7 @@ ________________________________________________________________________________
 FLASIK: https://github.com/mardix/flasik
 ________________________________________________________________________________
 
-That's the application entry point
+That's the application's entry point
 """
 
 from flasik import Init
@@ -14,7 +14,6 @@ from flasik import Init
 # Import commander to use your own command line functions.
 # Comment out to omit
 import application.commander
-
 
 # == PROJECTS ==
 # a dict with list of views that will be loaded by name

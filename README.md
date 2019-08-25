@@ -23,11 +23,10 @@ Technically Flasik is my attempt of making a simple framework based on Flask Gre
 
 - Auto rendering by returning a dict of None
 
-- Use Jade (Pug) template by default, but you can also use HTML. 
 
-- Templates are mapped as the model in the class the $module/$class/$method.jade
+- Templates are mapped as the model in the class the $module/$class/$method.html
 
-- Markdown ready: Along with Jade and HTML, it can also properly parse Markdown
+- Markdown ready: Along with  HTML, it can also properly parse Markdown
 
 - Auto route can be edited with @route()
 
@@ -59,50 +58,6 @@ Technically Flasik is my attempt of making a simple framework based on Flask Gre
 
 - Decorators, lots of decorators
 
-## Built-in Contrib
-
-- Basic Layout
-
-- Index page
-
-- User Auth
-
-    - login
-    
-    - signup
-    
-    - lost-password
-    
-    - account-settings
-    
-    - Can login with:
-        
-        - username 
-        
-        - email 
-        
-        - social login
-        
-    - JWT 
-    
-    - Ability to sign endpoint
-
-- User Admin
-
-- Contact Page
-
-- Error Page (Custom error page)
-
-- Maintenance Page
-
-- JQuery
-
-- Bootstrap 3.x
-
-- Bootswatch
-
-- Font-Awesome
-
 
 
 ## Quickstart
@@ -124,9 +79,9 @@ Now Flasik has been installed, let's create our first application
 
     cd your-dir
     
-    flasik init
+    flasik-admin setup
     
-`flasik init` setup the structure along with the necessary files to get started
+`flasik-admin setup` setup the structure along with the necessary files to get started
  
  You will see a structure similar to this
  

@@ -2,26 +2,30 @@
 Flasik Views
 """
 from flasik import (Flasik,
-                   page_attr,
-                   config,
-                   flash_success,
-                   flash_error,
-                   abort,
-                   request,
-                   url_for,
-                   redirect,
-                   models,
-                   utils,
-                   paginate,
-                   render,
-                   decorators as deco
-                   )
-
+                    set_page_context,
+                    get_config,
+                    abort,
+                    url_for,
+                    redirect,
+                    models,
+                    request,
+                    response,
+                    functions,
+                    utils)
 
 # ------------------------------------------------------------------------------
 
 
 class Index(Flasik):
+
     def index(self):
-        page_attr(title="Hello View!")
+        set_page_context(title="Hello World", description="Under Construction")
         return
+
+    @response.cors()
+    @response.json 
+    def api(self):
+        return {
+            "date": functions.utc_now(),
+            "location": "NC"
+        }

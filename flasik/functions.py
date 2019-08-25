@@ -6,28 +6,23 @@ Extensions
 import re
 import six
 import logging
-from flask import request, current_app, send_file
+import inspect
+import functools
+import itsdangerous
+import arrow
+import copy
+import blinker
+from flask import (request, current_app, send_file, session)
 import flask_cloudy
 import flask_recaptcha
 import flask_seasurf
-import flask_kvsession
 import flask_caching
-import ses_mailer
-import flask_mail
-import flask_s3
-import flask_babel
-from flask_babel import lazy_gettext as _
 from passlib.hash import bcrypt as passhash
 from . import (Flasik,
-               init_app,
+               extends,
                utils,
-               exceptions,
                g,
-               config,
-               signals)
-
-from .ext import jinja_helpers, flasik_db
-from paginator import Paginator
+               get_config)
 
 __all__ = ["cache",
            "storage",
@@ -43,8 +38,11 @@ __all__ = ["cache",
            "_",
            ]
 
-
-def _setup(app):
+@extends
+def setup(app):
+    app.jinja_env.filters.update({
+        "format_datetime": format_datetime
+    })
 
     check_config_keys = [
         "SECRET_KEY",
@@ -64,182 +62,56 @@ def _setup(app):
             msg = "Missing config key value: %s " % k
             logging.warning(msg)
 
-init_app(_setup)
 
-# ------------------------------------------------------------------------------
-
-# Session
-#
-# It uses KV session to allow multiple backend for the session
-def _session(app):
-    store = None
-    uri = app.config.get("SESSION_URL")
-    if uri:
-        parse_uri = utils.urlparse(uri)
-        scheme = parse_uri.scheme
-        username = parse_uri.username
-        password = parse_uri.password
-        hostname = parse_uri.hostname
-        port = parse_uri.port
-        bucket = parse_uri.path.strip("/")
-
-        if "redis" in scheme:
-            import redis
-            from simplekv.memory.redisstore import RedisStore
-            conn = redis.StrictRedis.from_url(url=uri)
-            store = RedisStore(conn)
-        elif "s3" in scheme or "google_storage" in scheme:
-            from simplekv.net.botostore import BotoStore
-            import boto
-            if "s3" in scheme:
-                _con_fn = boto.connect_s3
-            else:
-                _con_fn = boto.connect_gs
-            conn = _con_fn(username, password)
-            _bucket = conn.create_bucket(bucket)
-            store = BotoStore(_bucket)
-        elif "memcache" in scheme:
-            import memcache
-            from simplekv.memory.memcachestore import MemcacheStore
-            host_port = "%s:%s" % (hostname, port)
-            conn = memcache.Client(servers=[host_port])
-            store = MemcacheStore(conn)
-        elif "sql" in scheme:
-            from simplekv.db.sql import SQLAlchemyStore
-            from sqlalchemy import create_engine, MetaData
-            engine = create_engine(uri)
-            metadata = MetaData(bind=engine)
-            store = SQLAlchemyStore(engine, metadata, 'kvstore')
-            metadata.create_all()
-        else:
-            raise exceptions.FlasikError("Invalid Session Store. '%s' provided" % scheme)
-    if store:
-        flask_kvsession.KVSessionExtension(store, app)
-
-init_app(_session)
-# ------------------------------------------------------------------------------
-# Mailer
-class _Mailer(object):
+def set_flash_data(data):
     """
-    config key: MAIL_*
-    A simple wrapper to switch between SES-Mailer and Flask-Mail based on config
+    Set temporary data in the session. 
+    It will replace the previous one
+    :param data:
+    :return:
     """
-    mail = None
-    provider = None
-    config = None
-    _template = None
+    session["_flash_data"] = data
 
-    @property
-    def validated(self):
-        return bool(self.mail)
+def get_flashed_data():
+    """
+    Retrieve and pop data from the session
+    :return: mixed
+    """
+    return session.pop("_flash_data", None)
 
-    def init_app(self, app):
-        self.config = app.config
-        scheme = None
+def utc_now():
+    """
+    Return the utcnow arrow object
+    :return: Arrow
+    """
+    return arrow.utcnow()
 
-        mailer_uri = self.config.get("MAIL_URL")
-        if mailer_uri:
-            mailer_uri = utils.urlparse(mailer_uri)
-            scheme = mailer_uri.scheme
-            hostname = mailer_uri.hostname
 
-            # Using ses-mailer
-            if "ses" in scheme.lower():
-                self.provider = "SES"
+def format_datetime(utcdatetime, format=None, timezone=None):
+    """
+    Return local datetime based on the timezone
+    It will automatically format the date. 
+    To not format the date, set format=False
+    
+    :param utcdatetime: Arrow or string
+    :param format: string of format or False
+    :param timezone: string, ie: US/Eastern
+    :return:
+    """
+    if utcdatetime is None:
+        return None
 
-                access_key = mailer_uri.username or app.config.get("AWS_ACCESS_KEY_ID")
-                secret_key = mailer_uri.password or app.config.get("AWS_SECRET_ACCESS_KEY")
-                region = hostname or self.config.get("AWS_REGION", "us-east-1")
-                
-                self.mail = ses_mailer.Mail(aws_access_key_id=access_key,
-                                            aws_secret_access_key=secret_key,
-                                            region=region,
-                                            sender=self.config.get("MAIL_SENDER"),
-                                            reply_to=self.config.get("MAIL_REPLY_TO"),
-                                            template=self.config.get("MAIL_TEMPLATE"),
-                                            template_context=self.config.get("MAIL_TEMPLATE_CONTEXT"))
+    timezone = timezone or get_config("DATETIME_TIMEZONE", "US/Eastern")
+    dt = utcdatetime.to(timezone) \
+        if isinstance(utcdatetime, arrow.Arrow) \
+        else arrow.get(utcdatetime, timezone)
+    if format is False:
+        return dt
 
-            # SMTP will use flask-mail
-            elif "smtp" in scheme.lower():
-                self.provider = "SMTP"
+    _ = get_config("DATETIME_FORMAT")
+    format = _.get("default") or "MM/DD/YYYY" if not format else _.get(format)
+    return dt.format(format)
 
-                class _App(object):
-                    config = {
-                        "MAIL_SERVER": mailer_uri.hostname,
-                        "MAIL_USERNAME": mailer_uri.username,
-                        "MAIL_PASSWORD": mailer_uri.password,
-                        "MAIL_PORT": mailer_uri.port,
-                        "MAIL_USE_TLS": True if "tls" in mailer_uri.scheme else False,
-                        "MAIL_USE_SSL": True if "ssl" in mailer_uri.scheme else False,
-                        "MAIL_DEFAULT_SENDER": app.config.get("MAIL_SENDER"),
-                        "TESTING": app.config.get("TESTING"),
-                        "DEBUG": app.config.get("DEBUG")
-                    }
-                    debug = app.config.get("DEBUG")
-                    testing = app.config.get("TESTING")
-
-                _app = _App()
-                self.mail = flask_mail.Mail(app=_app)
-
-                _ses_mailer = ses_mailer.Mail(template=self.config.get("MAIL_TEMPLATE"),
-                                              template_context=self.config.get("MAIL_TEMPLATE_CONTEXT"))
-                self._template = _ses_mailer.parse_template
-            else:
-                logging.warning("Mailer Error. Invalid scheme '%s'" % scheme)
-
-    def send(self, to, subject=None, body=None, reply_to=None, template=None, **kwargs):
-        """
-        To send email
-        :param to: the recipients, list or string
-        :param subject: the subject
-        :param body: the body
-        :param reply_to: reply_to
-        :param template: template, will use the templates instead
-        :param kwargs: context args
-        :return: bool - True if everything is ok
-        """
-        sender = self.config.get("MAIL_SENDER")
-        recipients = [to] if not isinstance(to, list) else to
-        kwargs.update({
-            "subject": subject,
-            "body": body,
-            "reply_to": reply_to
-        })
-
-        if not self.validated:
-            raise exceptions.FlasikError("Mail configuration error")
-
-        if self.provider == "SES":
-            kwargs["to"] = recipients
-            if template:
-                self.mail.send_template(template=template, **kwargs)
-            else:
-               self.mail.send(**kwargs)
-
-        elif self.provider == "SMTP":
-            if template:
-                data = self._template(template=template, **kwargs)
-                kwargs["subject"] = data["subject"]
-                kwargs["body"] = data["body"]
-            kwargs["recipients"] = recipients
-            kwargs["sender"] = sender
-
-            # Remove invalid Messages keys
-            _safe_keys = ["recipients", "subject", "body", "html", "alts",
-                          "cc", "bcc", "attachments", "reply_to", "sender",
-                           "date", "charset", "extra_headers", "mail_options",
-                           "rcpt_options"]
-            for k in kwargs.copy():
-                if k not in _safe_keys:
-                    del kwargs[k]
-
-            message = flask_mail.Message(**kwargs)
-            self.mail.send(message)
-        else:
-            raise exceptions.FlasikError("Invalid mail provider. Must be 'SES' or 'SMTP'")
-
-mail = _Mailer()
-init_app(mail.init_app)
 
 def send_mail(template, to, **kwargs):
     """
@@ -252,106 +124,18 @@ def send_mail(template, to, **kwargs):
     """
 
     def cb():
-        return mail.send(to=to, template=template, **kwargs)
+        return flasik.ext.mail.mail.send(to=to, template=template, **kwargs)
 
     return signals.send_mail(cb, data={"to": to, "template": template, "kwargs": kwargs})
 
 
-# ------------------------------------------------------------------------------
-
-# Assets Delivery
-class _AssetsDelivery(flask_s3.FlaskS3):
-    def init_app(self, app):
-        delivery_method = app.config.get("ASSETS_DELIVERY_METHOD")
-        if delivery_method and delivery_method.upper() in ["S3", "CDN"]:
-            #with app.app_context():
-            is_secure = False #request.is_secure
-
-            if delivery_method.upper() == "CDN":
-                domain = app.config.get("ASSETS_DELIVERY_DOMAIN")
-                if "://" in domain:
-                    domain_parsed = utils.urlparse(domain)
-                    is_secure = domain_parsed.scheme == "https"
-                    domain = domain_parsed.netloc
-                app.config.setdefault("S3_CDN_DOMAIN", domain)
-
-            app.config["FLASK_ASSETS_USE_S3"] = True
-            app.config["FLASKS3_ACTIVE"] = True
-            app.config["FLASKS3_URL_STYLE"] = "path"
-            app.config.setdefault("FLASKS3_USE_HTTPS", is_secure)
-            app.config.setdefault("FLASKS3_ONLY_MODIFIED", True)
-            app.config.setdefault("FLASKS3_GZIP", True)
-            app.config.setdefault("FLASKS3_BUCKET_NAME", app.config.get("AWS_S3_BUCKET_NAME"))
-
-            super(self.__class__, self).init_app(app)
-
-assets_delivery = _AssetsDelivery()
-init_app(assets_delivery.init_app)
-
-# ------------------------------------------------------------------------------
-
-# Set CORS
-def set_cors_config(app):
-    """
-    Flask-Cors (3.x.x) extension set the config as CORS_*,
-     But we'll hold the config in CORS key.
-     This function will convert them to CORS_* values
-    :param app:
-    :return:
-    """
-    if "CORS" in app.config:
-        for k, v in app.config["CORS"].items():
-            _ = "CORS_" + k.upper()
-            if _ not in app.config:
-                app.config[_] = v
-
-init_app(set_cors_config)
-
-# ------------------------------------------------------------------------------
-# BCRYPT
-class Bcrypt(object):
-    """
-
-    https://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html
-
-    CONFIG 
-        BCRYPT_ROUNDS = 12  # salt string
-        BCRYPT_SALT= None #
-        BCRYPT_IDENT = '2b'
-
-    """
-
-    def __init__(self, app=None):
-        self.config = {
-            "rounds": 12
-        }
-        if app is not None:
-            self.init_app(app)
-
-    def init_app(self, app):
-        self.config = app.config.get_namespace("BCRYPT_")
-
-    def hash(self, string):
-        return passhash.using(**self.config).hash(string)
-
-    def verify(self, string, hash):
-        return passhash.verify(string, hash)
-
-bcrypt = Bcrypt()
-init_app(bcrypt.init_app)
-
-# ------------------------------------------------------------------------------
-
-
-
 # Cache
 cache = flask_caching.Cache()
-init_app(cache.init_app)
+extends(cache.init_app)
 
 # Storage
 storage = flask_cloudy.Storage()
-init_app(storage.init_app)
-
+extends(storage.init_app)
 
 # Upload file
 def upload_file(_props_key, file, **kw):
@@ -377,7 +161,7 @@ def upload_file(_props_key, file, **kw):
     """
     kwargs = {}
     if _props_key is not None:
-        conf = config("STORAGE_UPLOAD_FILE_PROPS")
+        conf = get_config("STORAGE_UPLOAD_FILE_PROPS")
         if not conf:
             raise ValueError("Missing STORAGE_UPLOAD_FILE_PROPS in config")
         if _props_key not in conf:
@@ -387,7 +171,7 @@ def upload_file(_props_key, file, **kw):
 
     return signals.upload_file(lambda: storage.upload(file, **kwargs))
 
-
+# Get file
 def get_file(object_name):
     """
     Alias to get file from storage 
@@ -396,7 +180,7 @@ def get_file(object_name):
     """
     return storage.get(object_name)
 
-
+# Delete file
 def delete_file(fileobj):
     """
     Alias to delete a file from storage
@@ -407,7 +191,7 @@ def delete_file(fileobj):
         raise TypeError("Invalid file type. Must be of flask_cloudy.Object")
     return signals.delete_file(lambda: fileobj.delete())
 
-
+# Download file
 def download_file(filename, object_name=None, content=None, as_attachment=True, timeout=60):
     """
     Alias to download a file object as attachment, or convert some text as . 
@@ -435,49 +219,252 @@ def download_file(filename, object_name=None, content=None, as_attachment=True, 
                          as_attachment=as_attachment)
     raise TypeError("`file` object or `content` text must be provided")
 
-
 # Recaptcha
 recaptcha = flask_recaptcha.ReCaptcha()
-init_app(recaptcha.init_app)
+extends(recaptcha.init_app)
 
 # CSRF
+# :decorator
+#   - csrf.exempt
+# https://flask-seasurf.readthedocs.io/en/latest/
 csrf = flask_seasurf.SeaSurf()
-init_app(csrf.init_app)
+extends(csrf.init_app)
 
+# ------------------------------------------------------------------------------
 
-def paginate(iter, **kwargs):
+"""
+# Signals
+:decorator
+
+Signals allow you to connect to a function and re
+
+Usage
+
+1.  Emitter.
+    Decorate your function with @emit_signal.
+    That function itself will turn into a decorator that you can use to
+    receivers to be dispatched pre and post execution of the function
+
+    @emit_signal()
+    def login(*a, **kw):
+        # Run the function
+        return
+
+    @emit_signal()
+    def logout(your_fn_args)
+        # run function
+        return
+
+2.  Receivers/Observer.
+    The function that was emitted now become signal decorator to use on function
+    that will dispatch pre and post action. The pre and post function will
+    be executed before and after the signal function runs respectively.
+
+    @login.pre.connect
+    def my_pre_login(*a, **kw):
+        # *a, **kw are the same arguments passed to the function
+        print("This will run before the signal is executed")
+
+    @login.post.connect
+    def my_post_login(result, **kw):
+        result: the result back
+        **kw
+            params: params passed 
+            sender: the name of the funciton
+            emitter: the function that emits this signal
+            name: the name of the signal
+        print("This will run after the signal is executed")
+
+    # or for convenience, same as `post.connect`, but using `observe`
+    @login.observe
+    def my_other_post_login(result, **kw):
+        pass
+    
+3.  Send Signal
+    Now sending a signal is a matter of running the function.
+
+    ie:
+    login(username, password)
+
+That's it!
+"""
+__signals_namespace = blinker.Namespace()
+
+def emit_signal(sender=None, namespace=None):
     """
-     A wrapper around the Paginator that takes config data
-    :param iter: Query object or any iterables
-    :param kwargs:
-        - page: current page
-        - per_page: max number of items per page
-        - total: Max number of items. If not provided, it will use the query to count
-        - padding: Number of elements of the next page to show
-        - callback: a function to callback on each item being iterated.
-        - static_query: bool - When True it will return the query as is, without slicing/limit. Usally when using the paginator to just create the pagination.
-    :return: Paginator
+    @emit_signal
+    A decorator to mark a method or function as a signal emitter
+    It will turn the function into a decorator that can be used to 
+    receive signal with: $fn_name.pre.connect, $fn_name.post.connect 
+    *pre will execute before running the function
+    *post will run after running the function
+    
+    **observe is an alias to post.connect
+    
+    :param sender: string  to be the sender.
+    If empty, it will use the function __module__+__fn_name,
+    or method __module__+__class_name__+__fn_name__
+    :param namespace: The namespace. If None, it will use the global namespace
+    :return:
+
     """
-    kwargs.setdefault("page", int(request.args.get('page', 1)))
-    kwargs.setdefault("per_page", int(config("PAGINATION_PER_PAGE", 1)))
-    kwargs.setdefault("padding", int(config("PAGINATION_PADDING", 0)))
-    return Paginator(iter, **kwargs)
+    if not namespace:
+        namespace = __signals_namespace
 
-# Babel
-babel = flask_babel.Babel()
+    def decorator(fn):
+        fname = sender
+        if not fname:
+            fnargs = inspect.getargspec(fn).args
+            fname = fn.__module__
+            if 'self' in fnargs or 'cls' in fnargs:
+                caller = inspect.currentframe().f_back
+                fname += "_" + caller.f_code.co_name
+            fname += "__" + fn.__name__
+
+        # pre and post
+        fn.pre = namespace.signal('pre_%s' % fname)
+        fn.post = namespace.signal('post_%s' % fname)
+        # alias to post.connect
+        fn.observe = fn.post.connect
+
+        def send(action, *a, **kw):
+            sig_name = "%s_%s" % (action, fname)
+            result = kw.pop("result", None)
+            kw.update(inspect.getcallargs(fn, *a, **kw))
+            sendkw = {
+                "kwargs": {k: v for k, v in kw.items() if k in kw.keys()},
+                "sender": fn.__name__,
+                "emitter": kw.get('self', kw.get('cls', fn))
+            }
+            if action == 'post':
+                namespace.signal(sig_name).send(result, **sendkw)
+            else:
+                namespace.signal(sig_name).send(**sendkw)
+
+        @functools.wraps(fn)
+        def wrapper(*args, **kwargs):
+            send('pre', *args, **kwargs)
+            result = fn(*args, **kwargs)
+            kwargs["result"] = result
+            send('post', *args, **kwargs)
+            return result
+        return wrapper
+    return decorator
 
 
-def init_babel(app):
-    babel.init_app(app)
 
-    # languages = app.config.get("LANGUAGES", {})
-    #
-    # @babel.localeselector
-    # def get_locale():
-    #     lang = request.params.get("lang", "en")
-    #     return request.accept_languages.best_match(languages.keys())
-init_app(init_babel)
+# ----
 
+def sign_jwt(data, secret_key, expires_in, salt=None, **kw):
+    """
+    To create a signed JWT
+    :param data:
+    :param secret_key:
+    :param expires_in:
+    :param salt:
+    :param kw:
+    :return: string
+    """
+    s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key=secret_key,
+                                                     expires_in=expires_in,
+                                                     salt=salt,
+                                                      **kw)
+    return s.dumps(data)
+
+
+def unsign_jwt(token, secret_key, salt=None, **kw):
+    """
+    To unsign a JWT token
+    :param token:
+    :param kw:
+    :return: mixed data
+    """
+    s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key, salt=salt, **kw)
+    return s.loads(token)
+
+
+class TimestampSigner2(itsdangerous.TimestampSigner):
+    expires_in = 0
+
+    def get_timestamp(self):
+        now = datetime.datetime.utcnow()
+        expires_in = now + datetime.timedelta(seconds=self.expires_in)
+        return int(expires_in.strftime("%s"))
+
+    @staticmethod
+    def timestamp_to_datetime(ts):
+        return datetime.datetime.fromtimestamp(ts)
+
+
+class URLSafeTimedSerializer2(itsdangerous.URLSafeTimedSerializer):
+    default_signer = TimestampSigner2
+
+    def __init__(self, secret_key, expires_in=3600, salt=None, **kwargs):
+        self.default_signer.expires_in = expires_in
+        super(self.__class__, self).__init__(secret_key, salt=salt, **kwargs)
+
+
+def sign_url_safe(data, secret_key, expires_in=None, salt=None, **kw):
+    """
+    To sign url safe data.
+    If expires_in is provided it will Time the signature
+    :param data: (mixed) the data to sign
+    :param secret_key: (string) the secret key
+    :param expires_in: (int) in minutes. Time to expire
+    :param salt: (string) a namespace key
+    :param kw: kwargs for itsdangerous.URLSafeSerializer
+    :return:
+    """
+    if expires_in:
+        expires_in *= 60
+        s = URLSafeTimedSerializer2(secret_key=secret_key,
+                                    expires_in=expires_in,
+                                    salt=salt,
+                                    **kw)
+    else:
+        s = itsdangerous.URLSafeSerializer(secret_key=secret_key,
+                                           salt=salt,
+                                           **kw)
+    return s.dumps(data)
+
+
+def unsign_url_safe(token, secret_key, salt=None, **kw):
+    """
+    To sign url safe data.
+    If expires_in is provided it will Time the signature
+    :param token:
+    :param secret_key:
+    :param salt: (string) a namespace key
+    :param kw:
+    :return:
+    """
+    if len(token.split(".")) == 3:
+        s = URLSafeTimedSerializer2(secret_key=secret_key, salt=salt, **kw)
+        value, timestamp = s.loads(token, max_age=None, return_timestamp=True)
+        now = datetime.datetime.utcnow()
+        if timestamp > now:
+            return value
+        else:
+            raise itsdangerous.SignatureExpired(
+                'Signature age %s < %s ' % (timestamp, now),
+                payload=value,
+                date_signed=timestamp)
+    else:
+        s = itsdangerous.URLSafeSerializer(secret_key=secret_key, salt=salt, **kw)
+        return s.loads(token)
+
+
+def sign_data(data, secret_key, expires_in=None, salt=None, **kw):
+    if expires_in:
+        pass
+    else:
+        s = itsdangerous.Serializer(secret_key=secret_key, salt=salt, **kw)
+        return s.dumps(data)
+
+
+def unsign_data(data, secret_key, salt=None, **kw):
+    s = itsdangerous.Serializer(secret_key=secret_key, salt=salt, **kw)
+    return s.loads(data)
 
 # ------------------------------------------------------------------------------
 

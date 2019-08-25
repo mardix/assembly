@@ -5,41 +5,48 @@
 
 ## Directory Structure
 
-    - serve.py
+```
+
+    #ROOT
     |
-    |-- /app
+    |-- __flasik__.py
+    |
+    |-- propel.yml
+    |
+    |-- requirements.txt
+    |
+    |-- /application
+        |-- __init__.py
+        |
+        |-- commander.py
         |
         |-- config.py
         |
-        |-- models.py  
+        |-- models.py    
         |
-        |-- helpers.py
+        |-- lib/
         |
-        |-- cli.py
+        |-- static/ 
+        |
+        |-- var/
         |
         |-- views/
             |
             |-- main.py
-        |
-        |-- templates/
             |
-            |-- layouts/
+            |-- templates
                 |
-                |-- base.html
-                |
-            |-- main/
-                |
-                |-- Index/
+                |-- main/
                     |
-                    |-- index.html
-        |
-        |-- /static/
-        |
-        |-- /var/
+                    |-- Index/
+                        |
+                        |-- index.html
 
----
+```
 
 ## Serve your app
 
-    flasik serve
+```
+flasik-admin run
+```
 

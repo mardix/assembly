@@ -35,7 +35,7 @@ class BaseConfig(object):
 #: Config
 
     #: Site's name or Name of the application
-    APPLICATION_NAME = "My-Application-Name"
+    APPLICATION_NAME = "Flasik"
 
     #: The application url
     APPLICATION_URL = ""
@@ -80,9 +80,9 @@ class BaseConfig(object):
 
     # Datetime format
     # Dict of all dates format used by your application, inn your template
-    # {{ date_var | format_datetime }}
-    # or {{ date_var | format_datetime('long_datetime') }}
-    # or {{ date_var | format_datetime('MM/DD/YYYY') }}
+    # {{ date_var | local_datetime }}
+    # or {{ date_var | local_datetime('long_datetime') }}
+    # or {{ date_var | local_datetime('MM/DD/YYYY') }}
     # By default it will fallback to default, or use the format provided
     # For all the tokens: http://crsmithdev.com/arrow/#tokens
     # You can add as many keys as you want

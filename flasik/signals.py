@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-from . import decorators as deco
+from functions import emit_signal
 
-@deco.emit_signal()
+@emit_signal()
 def upload_file(change):
     return change()
 
-@deco.emit_signal()
+@emit_signal()
 def delete_file(change):
     return change()
 
-@deco.emit_signal()
+@emit_signal()
 def send_mail(change, **kwargs):
     return change()
 

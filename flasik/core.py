@@ -20,8 +20,7 @@ from . import utils
 import pkg_resources
 import logging.config
 from .__about__ import *
-from . import exceptions
-from .ext.flasik_db import FlasikDB
+from .flasik_db import FlasikDB
 from flask_assets import Environment
 from werkzeug.contrib.fixers import ProxyFix
 from werkzeug.routing import (BaseConverter, parse_rule)
@@ -32,14 +31,12 @@ from flask import (Flask,
                    session,
                    make_response,
                    Response,
-                   request as f_request,
+                   request,
                    abort,
                    url_for as f_url_for,
                    redirect as f_redirect)
 
 # ------------------------------------------------------------------------------
-
-
 
 __all__ = [
     "Flasik",
@@ -47,34 +44,28 @@ __all__ = [
     "db",
     "models",
     "views",
-    "config",
+    "get_config",
     "get_env",
     "set_env",
     "get_app_env",
     "get_env_config",
-    "page_attr",
-    "flash_success",
-    "flash_error",
-    "flash_info",
-    "flash_data",
-    "get_flash_data",
-    "init_app",
+    "set_page_context",
+    "extends",
     "register_package",
     "register_models",
-    "utc_now",
-    "local_datetime",
 
     # For convenience when importing from flasik, but can use
     # the flask one
     "flash",
     "session",
-    "request",
     "abort",
     "g",
 
     # They have been altered with extra functionalities
     "redirect",
-    "url_for"
+    "url_for",
+
+    "ext"
 ]
 
 # Hold the current environment
@@ -99,6 +90,8 @@ models = type('', (), {})
 # also, it exposes the db object to all modules
 db = FlasikDB()
 
+# Extensions objects
+ext = type('', (), {})
 
 def register_models(**kwargs):
     """
@@ -154,13 +147,26 @@ def get_env_config(config):
     return getattr(config, get_env())
 
 
-def init_app(kls):
+def extends(kls):
     """
-    To bind middlewares, plugins that needs the 'app' object to init
+    To bind middlewares, plugins that needs the 'app' context to initialize
     Bound middlewares will be assigned on cls.init()
+    Usage:
+
+    # As a function 
+    def myfn(app):
+        pass
+
+    extends(myfn)
+
+    # As a decorator
+    @extends
+    def myfn(app):
+        pass
+
     """
     if not hasattr(kls, "__call__"):
-        raise exceptions.FlasikError("init_app: '%s' is not callable" % kls)
+        raise FlasikError("extends: '%s' is not callable" % kls)
     Flasik._init_apps.add(kls)
     return kls
 
@@ -213,7 +219,7 @@ def register_package(pkg, prefix=None):
         Flasik._add_asset_bundle(static_path)
 
 
-def config(key, default=None):
+def get_config(key, default=None):
     """
     Shortcut to access the application's config in your class
     :param key: The key to access
@@ -223,9 +229,10 @@ def config(key, default=None):
     return Flasik._app.config.get(key, default) if Flasik._app else default
 
 
-def page_attr(title=None, **kwargs):
+def set_page_context(**kwargs):
     """
-    Page Attr allows you to add page meta data in the request `g` context
+    To set page context
+    Page  allows you to add page meta data in the request `g` context
     :params **kwargs:
 
     meta keys we're expecting:
@@ -234,117 +241,23 @@ def page_attr(title=None, **kwargs):
         url (str) (Will pick it up by itself if not set)
         image (str)
         site_name (str) (but can pick it up from config file)
-        object_type (str)
         keywords (list)
         locale (str)
-        card (str)
 
-        **Boolean By default these keys are True
-        use_opengraph
-        use_twitter
-        use_googleplus
-python
     """
     default = dict(
-        title="",
-        description="",
-        url="",
-        image="",
-        site_name="",
-        object_type="article",
-        locale="",
-        keywords=[],
-        use_opengraph=True,
-        use_googleplus=True,
-        use_twitter=True,
-        properties={}
+        title=None,
+        description=None,
+        keywords=None,
+        url=None,
+        image=None,
+        site_name=None,
+        locale=None
     )
-    meta = getattr(g, "__META__", default)
-    if title:
-        kwargs["title"] = title
-    meta.update(**kwargs)
-    setattr(g, "__META__", meta)
-
-
-def flash_success(msg):
-    """
-    Alias to flash, but set a success message
-    :param msg:
-    :return:
-    """
-    return flash(msg, "success")
-
-
-def flash_error(msg):
-    """
-    Alias to flash, but set an error message
-    :param msg:
-    :return:
-    """
-    return flash(msg, "error")
-
-
-def flash_info(msg):
-    """
-    Alias to flash, but set an info message
-    :param msg:
-    :return:
-    """
-    return flash(msg, "info")
-
-
-def flash_data(data):
-    """
-    Just like flash, but will save data
-    :param data:
-    :return:
-    """
-    session["_flash_data"] = data
-
-
-def get_flash_data():
-    """
-    Retrieved
-    :return: mixed
-    """
-    return session.pop("_flash_data", None)
-
-
-def utc_now():
-    """
-    Return the utcnow arrow object
-    :return: Arrow
-    """
-    return arrow.utcnow()
-
-
-def format_datetime(utcdatetime, format=None, timezone=None):
-    """
-    Return local datetime based on the timezone
-    It will automatically format the date. 
-    To not format the date, set format=False
-    
-    :param utcdatetime: Arrow or string
-    :param format: string of format or False
-    :param timezone: string, ie: US/Eastern
-    :return:
-    """
-    if utcdatetime is None:
-        return None
-
-    timezone = timezone or config("DATETIME_TIMEZONE", "US/Eastern")
-    dt = utcdatetime.to(timezone) \
-        if isinstance(utcdatetime, arrow.Arrow) \
-        else arrow.get(utcdatetime, timezone)
-    if format is False:
-        return dt
-
-    _ = config("DATETIME_FORMAT")
-    format = _.get("default") or "MM/DD/YYYY" if not format else _.get(format)
-    return dt.format(format)
-
-
-
+    key = "PAGE_CONTEXT"
+    context = getattr(g, key , default)
+    context.update(**kwargs)
+    setattr(g, key, context)
 
 
 class FlasikError(Exception):
@@ -353,15 +266,9 @@ class FlasikError(Exception):
     It helps catch Core problems.
     """
 
-class AppError(FlasikError):
-    """ Use this exception in your application level. """
-
-class ModelError(FlasikError):
-    """ Use this exception in your model level. """
 
 # ------------------------------------------------------------------------------
 # Altered flask functions
-
 
 def url_for(endpoint, **kw):
     """
@@ -388,7 +295,7 @@ def url_for(endpoint, **kw):
     if _endpoint:
         return f_url_for(_endpoint, **kw)
     else:
-        raise exceptions.FlasikError('Flasik `url_for` received an invalid endpoint')
+        raise FlasikError('Flasik `url_for` received an invalid endpoint')
 
 
 def redirect(endpoint, **kw):
@@ -438,7 +345,7 @@ def redirect(endpoint, **kw):
     if _endpoint:
         return f_redirect(url_for(_endpoint, **kw))
     else:
-        raise exceptions.FlasikError("Invalid endpoint")
+        raise FlasikError("Invalid endpoint")
 
 
 def _get_action_endpoint(action):
@@ -481,133 +388,6 @@ def _build_endpoint_route_name(endpoint):
 
     return build_endpoint_route_name(cls, method_name, class_name)
 
-
-class _RequestProxy(object):
-    """
-    A request proxy, that attaches some special attributes to the request object
-    """
-
-    @property
-    def IS_GET(self):
-        return f_request.method == "GET"
-
-    @property
-    def IS_POST(cls):
-        return f_request.method == "POST"
-
-    @property
-    def IS_PUT(self):
-        return f_request.method == "PUT"
-
-    @property
-    def IS_DELETE(self):
-        return f_request.method == "DELETE"
-
-    @classmethod
-    def _accept_method(cls, methods, f):
-        kw = {
-            "append_method": True,
-            "methods": methods
-        }
-        Flasik._bind_route_rule_cache(f, rule=None, **kw)
-        return f
-
-    @classmethod
-    def get(cls, f):
-        """ decorator to accept GET method """
-        return cls._accept_method(["GET"], f)
-
-    @classmethod
-    def post(cls, f):
-        """ decorator to accept POST method """
-        return cls._accept_method(["POST"], f)
-
-    @classmethod
-    def post_get(cls, f):
-        """ decorator to accept POST & GET method """
-        return cls._accept_method(["POST", "GET"], f)
-
-    @classmethod
-    def delete(cls, f):
-        """ decorator to accept DELETE method """
-        return cls._accept_method(["DELETE"], f)
-
-    @classmethod
-    def put(cls, f):
-        """ decorator to accept PUT method """
-        return cls._accept_method(["PUT"], f)
-
-    @classmethod
-    def all(cls, f):
-        """ decorator to accept ALL methods """
-        return cls._accept_method(["GET", "POST", "DELETE", "PUT", "OPTIONS", "UPDATE"], f)
-
-    @classmethod
-    def options(cls, f):
-        """ decorator to accept OPTIONS methods """
-        return cls._accept_method(["OPTIONS"], f)
-
-    @classmethod
-    def route(cls, rule=None, **kwargs):
-        """
-        This decorator defines custom route for both class and methods in the view.
-        It behaves the same way as Flask's @app.route
-
-        on class:
-            It takes the following args
-                - rule: the root route of the endpoint
-                - decorators: a list of decorators to run on each method
-
-        on methods:
-            along with the rule, it takes kwargs
-                - endpoint
-                - defaults
-                - ...
-
-        :param rule:
-        :param kwargs:
-        :return:
-        """
-
-        _restricted_keys = ["route", "decorators"]
-
-        def decorator(f):
-            if inspect.isclass(f):
-                kwargs.setdefault("route", rule)
-                kwargs["decorators"] = kwargs.get("decorators", []) + f.decorators
-                setattr(f, "_route_extends__", kwargs)
-                setattr(f, "base_route", kwargs.get("route"))
-                setattr(f, "decorators", kwargs.get("decorators", []))
-            else:
-                if not rule:
-                    raise ValueError("'rule' is missing in @route ")
-
-                for k in _restricted_keys:
-                    if k in kwargs:
-                        del kwargs[k]
-
-                Flasik._bind_route_rule_cache(f, rule=rule, **kwargs)
-            return f
-
-        return decorator
-
-    def __getattr__(self, item):
-        # Fall back to flask_request
-        return getattr(f_request, item)
-
-    @classmethod
-    def get_auth_token(cls):
-        """
-        Return the authorization token
-        :return: string
-        """
-        if 'Authorization' not in f_request.headers:
-            raise ValueError("Missing Authorization Bearer in headers")
-        data = f_request.headers['Authorization'].encode('ascii', 'ignore')
-        return str.replace(str(data), 'Bearer ', '').strip()
-
-request = _RequestProxy()
-
 # ------------------------------------------------------------------------------
 
 
@@ -619,7 +399,6 @@ class Flasik(object):
     base_layout = "layouts/base.html"
     template_markup = "html"
     assets = None
-    logger = None
     _ext = set()
     __special_methods = ["get", "put", "patch", "post", "delete", "index"]
     _app = None
@@ -653,6 +432,7 @@ class Flasik(object):
         :param app_dir: the directory name relative to the current execution path
         :return:
         """
+        
         if app_dir:
             cls.app_dir = app_dir
 
@@ -679,16 +459,13 @@ class Flasik(object):
         # USE_PROXY_FIX = False
         if app.config.get("USE_PROXY_FIX", True):
             app.wsgi_app = werkzeug.contrib.fixers.ProxyFix(app.wsgi_app)
-
+        
         cls._app = app
         cls.assets = Environment(cls._app)
-        cls._load_extensions()
-        cls._setup_logger()
         cls._setup_db()
         cls._expose_models()
-
+        
         try:
-
             # import models
             m = "%s.models" % cls.app_dir
             werkzeug.import_string(m)
@@ -705,17 +482,11 @@ class Flasik(object):
             if isinstance(_projects, six.string_types):
                 _projects = [_projects]
             for _ in _projects:
-                print('S', "%s.views.%s" % (cls.app_dir, _))
                 werkzeug.import_string("%s.views.%s" % (cls.app_dir, _))
-
         except ImportError as ie1:
-            pass
-        cls._expose_models()
+            logging.critical(ie1)
 
-        # Setup init_app
-        # init_app instanciate functions that may need the flask.app object
-        # Usually for flask extension to be setup
-        _ = [_app(cls._app) for _app in cls._init_apps]
+        cls._expose_models()
 
         # Add bundles
         cls._add_asset_bundle(cls._app.static_folder)
@@ -738,7 +509,10 @@ class Flasik(object):
                 if subcls.__name__.lower() == "index":
                     base_route = "/"
             subcls._register(cls._app, base_route=base_route)
-
+        # Extensions
+        # instanciate all functions that may need the flask.app object
+        # Usually for flask extension to be setup
+        [_app(cls._app) for _app in cls._init_apps]
 
         return cls._app
 
@@ -753,13 +527,13 @@ class Flasik(object):
         """
 
         # Invoke the page meta so it can always be set
-        page_attr()
+        set_page_context()
 
         # Add some global Flasik data in g, along with APPLICATION DATA
         vars = dict(
             __NAME__=__title__,
             __VERSION__=__version__,
-            __YEAR__=utc_now().year
+            __YEAR__=arrow.utcnow().year
         )
         for k, v in vars.items():
             setattr(g, k, v)
@@ -786,30 +560,6 @@ class Flasik(object):
         f = "%s/assets.yml" % path
         if os.path.isfile(f):
             cls._asset_bundles.add(f)
-
-    @classmethod
-    def _setup_logger(cls):
-        logging_config = cls._app.config.get("LOGGING")
-        if not logging_config:
-            logging_config = {
-                "version": 1,
-                "handlers": {
-                    "default": {
-                        "class": cls._app.config.get("LOGGING_CLASS", "logging.StreamHandler")
-                    }
-                },
-                'loggers': {
-                    '': {
-                        'handlers': ['default'],
-                        'level': 'WARN',
-                    }
-                }
-            }
-
-        logging.config.dictConfig(logging_config)
-        cls.logger = logging.getLogger("root")
-        cls._app._logger = cls.logger
-        cls._app._loger_name = cls.logger.name
 
     @classmethod
     def _setup_db(cls):
@@ -1082,42 +832,37 @@ class Flasik(object):
             cls.base_args = [r[2] for r in base_rule]
         return base_route.strip("/")
 
-    @staticmethod
-    def _bind_route_rule_cache(f, rule, append_method=False, **kwargs):
-        # Put the rule cache on the method itself instead of globally
-        if rule is None:
-            rule = utils.dasherize(f.__name__) + "/"
-        if not hasattr(f, '_rule_cache') or f._rule_cache is None:
-            f._rule_cache = {f.__name__: [(rule, kwargs)]}
-        elif not f.__name__ in f._rule_cache:
-            f._rule_cache[f.__name__] = [(rule, kwargs)]
-        else:
-            # when and endpoint accepts multiple METHODS, ie: post(), get()
-            if append_method:
-                for r in f._rule_cache[f.__name__]:
-                    if r[0] == rule and "methods" in r[1] and "methods" in kwargs:
-                        r[1]["methods"] = list(set(r[1]["methods"] + kwargs["methods"]))
-            else:
-                f._rule_cache[f.__name__].append((rule, kwargs))
-        return f
-
-    @classmethod
-    def _load_extensions(cls):
-        extensions = [
-            'flasik.ext.md.MarkdownExtension',
-            'flasik.ext.md.MarkdownTagExtension',
-        ]
-        if cls._app.config.get("COMPRESS_HTML"):
-            extensions.append('flasik.ext.htmlcompress.HTMLCompress')
-        for ext in extensions:
-            cls._app.jinja_env.add_extension(ext)
-
-
 # Init, initialize Flasik as a single instance that will be served
 Init = Flasik()
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
+
+
+def _bind_route_rule_cache(f, rule, append_method=False, **kwargs):
+
+    """
+    Put the rule cache on the method itself instead of globally
+    :param f:
+    :param rule:
+    :param append_method:
+
+    """
+    if rule is None:
+        rule = utils.dasherize(f.__name__) + "/"
+    if not hasattr(f, '_rule_cache') or f._rule_cache is None:
+        f._rule_cache = {f.__name__: [(rule, kwargs)]}
+    elif not f.__name__ in f._rule_cache:
+        f._rule_cache[f.__name__] = [(rule, kwargs)]
+    else:
+        # when and endpoint accepts multiple METHODS, ie: post(), get()
+        if append_method:
+            for r in f._rule_cache[f.__name__]:
+                if r[0] == rule and "methods" in r[1] and "methods" in kwargs:
+                    r[1]["methods"] = list(set(r[1]["methods"] + kwargs["methods"]))
+        else:
+            f._rule_cache[f.__name__].append((rule, kwargs))
+    return f
 
 
 def build_endpoint_route_name(cls, method_name, class_name=None):
@@ -1270,6 +1015,3 @@ def view_namespace(view, cls_name=None):
     return ns
 
 # ------------------------------------------------------------------------------
-
-
-

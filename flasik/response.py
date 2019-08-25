@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
-
 import copy
 import inspect
 import arrow
@@ -11,12 +9,11 @@ import flask_cors
 from jinja2 import Markup
 from dicttoxml import dicttoxml
 from werkzeug.wrappers import BaseResponse
+import flask_cors
 from .core import (Flasik,
-                   init_app as h_init_app,
                    apply_function_to_members,
-                   build_endpoint_route_name,
-                   set_view_attr,
-                   get_view_attr)
+                   build_endpoint_route_name
+                   )
 from flask import (Response,
                    jsonify,
                    request,
@@ -89,12 +86,12 @@ def _build_response(data, renderer=None):
         data = {} if data is None else data
         for _ in __view_parsers:
             data = _(data)
-        return renderer(data), 200
+        return make_response(renderer(data), 200, None)
     elif isinstance(data, tuple):
         data, status, headers = _normalize_response_tuple(data)
         for _ in __view_parsers:
             data = _(data)
-        return renderer(data or {}), status, headers
+        return make_response(renderer(data or {}), status, headers)
     return data
 
 json_renderer = lambda i, data: _build_response(data, jsonify)
@@ -218,3 +215,68 @@ def template(page=None, layout=None, **kwargs):
             return wrap
     return decorator
 
+
+def cors(*args, **kwargs):
+    """
+    Decorator
+    A wrapper around flask-cors cross_origin, to also act on classes
+
+    **An extra note about cors, a response must be available before the
+    cors is applied. Dynamic return is applied after the fact, so use the
+    decorators, json, xml, or return self.render() for txt/html
+    ie:
+    @cors()
+    class Index(Flasik):
+        def index(self):
+            return self.render()
+
+        @json
+        def json(self):
+            return {}
+
+    class Index2(Flasik):
+        def index(self):
+            return self.render()
+
+        @cors()
+        @json
+        def json(self):
+            return {}
+
+
+    :return:
+    """
+    def decorator(fn):
+        cors_fn = flask_cors.cross_origin(automatic_options=True, *args, **kwargs)
+        if inspect.isclass(fn):
+            apply_function_to_members(fn, cors_fn)
+        else:
+            return cors_fn(fn)
+    return decorator
+
+def headers(params={}):
+    """This decorator adds the headers passed in to the response
+    http://flask.pocoo.org/snippets/100/
+    """
+    def decorator(f):
+
+        if inspect.isclass(f):
+            h = headers(params)
+            apply_function_to_members(f, h)
+            return f
+
+        @functools.wraps(f)
+        def decorated_function(*args, **kwargs):
+            resp = make_response(f(*args, **kwargs))
+            h = resp.headers
+            for header, value in params.items():
+                h[header] = value
+            return resp
+        return decorated_function
+    return decorator
+
+def noindex(f):
+    """This decorator passes X-Robots-Tag: noindex
+    http://flask.pocoo.org/snippets/100/
+    """
+    return headers({'X-Robots-Tag': 'noindex'})(f)

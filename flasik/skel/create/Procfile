@@ -1,0 +1,1 @@
+web: gunicorn __flasik__:app --workers=4

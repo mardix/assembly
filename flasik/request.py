@@ -14,13 +14,14 @@ def is_put():
 def is_delete(self):
     return request.method == "DELETE"
 
-def _accept_method(cls, methods, f):
+def _accept_method(methods, f):
     kw = {
         "append_method": True,
         "methods": methods
     }
     _bind_route_rule_cache(f, rule=None, **kw)
     return f
+
 
 def get(f):
     """ decorator to accept GET method """

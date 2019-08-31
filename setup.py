@@ -1,24 +1,5 @@
 """
-Flassic
-
-Flassic is a Flask based framework to help quickly develop web applications, by
-adding structure to your views and templates.
-
-Philosophy:
-
-To create a framework that runs everywhere, regardless of the platform, by
-providing cloud balh...
-
-It made the following decisions for you: (of course you can change them)
-
-
-It comes with pre-built components:
-
-
-And it is still Flask.
-
-https://github.com/mardix/flasik
-
+Flasik
 """
 
 import os
@@ -26,12 +7,16 @@ from setuptools import setup, find_packages
 
 base_dir = os.path.dirname(__file__)
 
+
 __about__ = {}
 with open(os.path.join(base_dir, "flasik", "__about__.py")) as f:
     exec(f.read(), __about__)
 
 with open('requirements.txt') as f:
     install_requires = f.read().splitlines()
+
+with open("README.md", "r") as f:
+    long_description = f.read()
 
 setup(
     name=__about__["__title__"],
@@ -41,7 +26,8 @@ setup(
     author_email=__about__["__email__"],
     description=__about__["__summary__"],
     url=__about__["__uri__"],
-    long_description=__doc__,
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     py_modules=['flasik'],
     entry_points=dict(console_scripts=[
         'flasik=flasik.commander:cmd',
@@ -57,8 +43,7 @@ setup(
               'classy',
               'framework',
               "mvc",
-              "blueprint",
-              "flasik"],
+              "blueprint"],
     platforms='any',
     classifiers=[
         'Environment :: Web Environment',

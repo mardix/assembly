@@ -1,6 +1,8 @@
 import inspect
 from flask import  request
-from .core import _bind_route_rule_cache
+from .core import _bind_route_rule_cache, extends
+import flask_seasurf
+
 
 def is_get():
     return request.method == "GET"
@@ -113,3 +115,11 @@ def get_auth_token():
     data = request.headers['Authorization'].encode('ascii', 'ignore')
     return str.replace(str(data), 'Bearer ', '').strip()
 
+# CSRF
+# :decorator
+#   - csrf.exempt
+# @request.csrf_exempt
+# https://flask-seasurf.readthedocs.io/en/latest/
+csrf = flask_seasurf.SeaSurf()
+extends(csrf.init_app)
+csrf_exempt = csrf.exempt

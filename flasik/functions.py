@@ -15,7 +15,6 @@ import blinker
 from flask import (request, current_app, send_file, session)
 import flask_cloudy
 import flask_recaptcha
-import flask_seasurf
 import flask_caching
 from passlib.hash import bcrypt as passhash
 from . import (Flasik,
@@ -31,7 +30,6 @@ __all__ = ["cache",
            "download_file",
            "get_file",
            "recaptcha",
-           "csrf",
            "bcrypt",
            "send_mail",
            "paginate",
@@ -222,13 +220,6 @@ def download_file(filename, object_name=None, content=None, as_attachment=True, 
 # Recaptcha
 recaptcha = flask_recaptcha.ReCaptcha()
 extends(recaptcha.init_app)
-
-# CSRF
-# :decorator
-#   - csrf.exempt
-# https://flask-seasurf.readthedocs.io/en/latest/
-csrf = flask_seasurf.SeaSurf()
-extends(csrf.init_app)
 
 # ------------------------------------------------------------------------------
 

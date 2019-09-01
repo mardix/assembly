@@ -8,8 +8,6 @@ import copy
 import blinker
 from flask import (request, current_app, send_file, session)
 import flask_cloudy
-import flask_recaptcha
-import flask_seasurf
 import flask_kvsession
 import flask_caching
 import ses_mailer
@@ -258,7 +256,6 @@ class Bcrypt(object):
 
 flasik.ext.bcrypt = Bcrypt()
 flasik.extends(flasik.ext.bcrypt.init_app)
-
 
 
 # Set CORS

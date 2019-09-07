@@ -8,7 +8,6 @@ import six
 import logging
 import inspect
 import functools
-import itsdangerous
 import arrow
 import copy
 import blinker
@@ -16,7 +15,6 @@ from flask import (request, current_app, send_file, session)
 import flask_cloudy
 import flask_recaptcha
 import flask_caching
-from passlib.hash import bcrypt as passhash
 from . import (Flasik,
                extends,
                utils,
@@ -30,11 +28,12 @@ __all__ = ["cache",
            "download_file",
            "get_file",
            "recaptcha",
-           "bcrypt",
            "send_mail",
-           "paginate",
-           "_",
+           "utc_now",
+           "format_datetime",
+           "emit_signal"
            ]
+
 
 @extends
 def setup(app):
@@ -70,12 +69,14 @@ def set_flash_data(data):
     """
     session["_flash_data"] = data
 
+
 def get_flashed_data():
     """
     Retrieve and pop data from the session
     :return: mixed
     """
     return session.pop("_flash_data", None)
+
 
 def utc_now():
     """
@@ -90,7 +91,7 @@ def format_datetime(utcdatetime, format=None, timezone=None):
     Return local datetime based on the timezone
     It will automatically format the date. 
     To not format the date, set format=False
-    
+
     :param utcdatetime: Arrow or string
     :param format: string of format or False
     :param timezone: string, ie: US/Eastern
@@ -136,6 +137,8 @@ storage = flask_cloudy.Storage()
 extends(storage.init_app)
 
 # Upload file
+
+
 def upload_file(_props_key, file, **kw):
     """
     Wrapper around storage.upload to upload a file conveniently by using set 
@@ -170,6 +173,8 @@ def upload_file(_props_key, file, **kw):
     return signals.upload_file(lambda: storage.upload(file, **kwargs))
 
 # Get file
+
+
 def get_file(object_name):
     """
     Alias to get file from storage 
@@ -179,6 +184,7 @@ def get_file(object_name):
     return storage.get(object_name)
 
 # Delete file
+
 def delete_file(fileobj):
     """
     Alias to delete a file from storage
@@ -190,6 +196,8 @@ def delete_file(fileobj):
     return signals.delete_file(lambda: fileobj.delete())
 
 # Download file
+
+
 def download_file(filename, object_name=None, content=None, as_attachment=True, timeout=60):
     """
     Alias to download a file object as attachment, or convert some text as . 
@@ -216,6 +224,7 @@ def download_file(filename, object_name=None, content=None, as_attachment=True, 
                          attachment_filename=filename,
                          as_attachment=as_attachment)
     raise TypeError("`file` object or `content` text must be provided")
+
 
 # Recaptcha
 recaptcha = flask_recaptcha.ReCaptcha()
@@ -281,6 +290,7 @@ That's it!
 """
 __signals_namespace = blinker.Namespace()
 
+
 def emit_signal(sender=None, namespace=None):
     """
     @emit_signal
@@ -289,9 +299,9 @@ def emit_signal(sender=None, namespace=None):
     receive signal with: $fn_name.pre.connect, $fn_name.post.connect 
     *pre will execute before running the function
     *post will run after running the function
-    
+
     **observe is an alias to post.connect
-    
+
     :param sender: string  to be the sender.
     If empty, it will use the function __module__+__fn_name,
     or method __module__+__class_name__+__fn_name__
@@ -343,119 +353,4 @@ def emit_signal(sender=None, namespace=None):
     return decorator
 
 
-
-# ----
-
-def sign_jwt(data, secret_key, expires_in, salt=None, **kw):
-    """
-    To create a signed JWT
-    :param data:
-    :param secret_key:
-    :param expires_in:
-    :param salt:
-    :param kw:
-    :return: string
-    """
-    s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key=secret_key,
-                                                     expires_in=expires_in,
-                                                     salt=salt,
-                                                      **kw)
-    return s.dumps(data)
-
-
-def unsign_jwt(token, secret_key, salt=None, **kw):
-    """
-    To unsign a JWT token
-    :param token:
-    :param kw:
-    :return: mixed data
-    """
-    s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key, salt=salt, **kw)
-    return s.loads(token)
-
-
-class TimestampSigner2(itsdangerous.TimestampSigner):
-    expires_in = 0
-
-    def get_timestamp(self):
-        now = datetime.datetime.utcnow()
-        expires_in = now + datetime.timedelta(seconds=self.expires_in)
-        return int(expires_in.strftime("%s"))
-
-    @staticmethod
-    def timestamp_to_datetime(ts):
-        return datetime.datetime.fromtimestamp(ts)
-
-
-class URLSafeTimedSerializer2(itsdangerous.URLSafeTimedSerializer):
-    default_signer = TimestampSigner2
-
-    def __init__(self, secret_key, expires_in=3600, salt=None, **kwargs):
-        self.default_signer.expires_in = expires_in
-        super(self.__class__, self).__init__(secret_key, salt=salt, **kwargs)
-
-
-def sign_url_safe(data, secret_key, expires_in=None, salt=None, **kw):
-    """
-    To sign url safe data.
-    If expires_in is provided it will Time the signature
-    :param data: (mixed) the data to sign
-    :param secret_key: (string) the secret key
-    :param expires_in: (int) in minutes. Time to expire
-    :param salt: (string) a namespace key
-    :param kw: kwargs for itsdangerous.URLSafeSerializer
-    :return:
-    """
-    if expires_in:
-        expires_in *= 60
-        s = URLSafeTimedSerializer2(secret_key=secret_key,
-                                    expires_in=expires_in,
-                                    salt=salt,
-                                    **kw)
-    else:
-        s = itsdangerous.URLSafeSerializer(secret_key=secret_key,
-                                           salt=salt,
-                                           **kw)
-    return s.dumps(data)
-
-
-def unsign_url_safe(token, secret_key, salt=None, **kw):
-    """
-    To sign url safe data.
-    If expires_in is provided it will Time the signature
-    :param token:
-    :param secret_key:
-    :param salt: (string) a namespace key
-    :param kw:
-    :return:
-    """
-    if len(token.split(".")) == 3:
-        s = URLSafeTimedSerializer2(secret_key=secret_key, salt=salt, **kw)
-        value, timestamp = s.loads(token, max_age=None, return_timestamp=True)
-        now = datetime.datetime.utcnow()
-        if timestamp > now:
-            return value
-        else:
-            raise itsdangerous.SignatureExpired(
-                'Signature age %s < %s ' % (timestamp, now),
-                payload=value,
-                date_signed=timestamp)
-    else:
-        s = itsdangerous.URLSafeSerializer(secret_key=secret_key, salt=salt, **kw)
-        return s.loads(token)
-
-
-def sign_data(data, secret_key, expires_in=None, salt=None, **kw):
-    if expires_in:
-        pass
-    else:
-        s = itsdangerous.Serializer(secret_key=secret_key, salt=salt, **kw)
-        return s.dumps(data)
-
-
-def unsign_data(data, secret_key, salt=None, **kw):
-    s = itsdangerous.Serializer(secret_key=secret_key, salt=salt, **kw)
-    return s.loads(data)
-
 # ------------------------------------------------------------------------------
-

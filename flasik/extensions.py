@@ -3,24 +3,41 @@
 import re
 import six
 import logging
-import arrow
 import copy
-import blinker
+import itsdangerous
 from flask import (request, current_app, send_file, session)
-import flask_cloudy
 import flask_kvsession
-import flask_caching
 import ses_mailer
 import flask_mail
 import flask_s3
-import flasik
-from passlib.hash import bcrypt as passhash
-from . import (htmlcompress, md)
+from passlib.hash import bcrypt
+from . import (get_config, ext, extends)
+# mail, 
+# assets_delivery, 
+# crypt
 
-# mail, assets_delivery, bcrypt
+#------------------------------------------------------------------------------
+# Set CORS
 
+@extends
+def set_cors_config(app):
+    """
+    Flask-Cors (3.x.x) extension set the config as CORS_*,
+     But we'll hold the config in CORS key.
+     This function will convert them to CORS_* values
+    :param app:
+    :return:
+    """
+    if "CORS" in app.config:
+        for k, v in app.config["CORS"].items():
+            _ = "CORS_" + k.upper()
+            if _ not in app.config:
+                app.config[_] = v
+
+#------------------------------------------------------------------------------
 # Session
-@flasik.extends
+
+@extends
 def session(app):
     """
     Sessions
@@ -66,12 +83,13 @@ def session(app):
             store = SQLAlchemyStore(engine, metadata, 'kvstore')
             metadata.create_all()
         else:
-            raise exceptions.FlasikError("Invalid Session Store. '%s' provided" % scheme)
+            raise Error("Invalid Session Store. '%s' provided" % scheme)
     if store:
         flask_kvsession.KVSessionExtension(store, app)
 
-
+#------------------------------------------------------------------------------
 # Mailer
+
 class _Mailer(object):
     """
     config key: MAIL_*
@@ -103,7 +121,7 @@ class _Mailer(object):
                 access_key = mailer_uri.username or app.config.get("AWS_ACCESS_KEY_ID")
                 secret_key = mailer_uri.password or app.config.get("AWS_SECRET_ACCESS_KEY")
                 region = hostname or self.config.get("AWS_REGION", "us-east-1")
-                
+
                 self.mail = ses_mailer.Mail(aws_access_key_id=access_key,
                                             aws_secret_access_key=secret_key,
                                             region=region,
@@ -160,14 +178,14 @@ class _Mailer(object):
         })
 
         if not self.validated:
-            raise exceptions.FlasikError("Mail configuration error")
+            raise Error("Mail configuration error")
 
         if self.provider == "SES":
             kwargs["to"] = recipients
             if template:
                 self.mail.send_template(template=template, **kwargs)
             else:
-               self.mail.send(**kwargs)
+                self.mail.send(**kwargs)
 
         elif self.provider == "SMTP":
             if template:
@@ -180,8 +198,8 @@ class _Mailer(object):
             # Remove invalid Messages keys
             _safe_keys = ["recipients", "subject", "body", "html", "alts",
                           "cc", "bcc", "attachments", "reply_to", "sender",
-                           "date", "charset", "extra_headers", "mail_options",
-                           "rcpt_options"]
+                          "date", "charset", "extra_headers", "mail_options",
+                          "rcpt_options"]
             for k in kwargs.copy():
                 if k not in _safe_keys:
                     del kwargs[k]
@@ -189,19 +207,20 @@ class _Mailer(object):
             message = flask_mail.Message(**kwargs)
             self.mail.send(message)
         else:
-            raise exceptions.FlasikError("Invalid mail provider. Must be 'SES' or 'SMTP'")
+            raise Error("Invalid mail provider. Must be 'SES' or 'SMTP'")
 
-flasik.ext.mail = _Mailer()
-flasik.extends(flasik.ext.mail.init_app)
+ext.mail = _Mailer()
+extends(ext.mail.init_app)
 
-
+#------------------------------------------------------------------------------
 # Assets Delivery
+
 class _AssetsDelivery(flask_s3.FlaskS3):
     def init_app(self, app):
         delivery_method = app.config.get("ASSETS_DELIVERY_METHOD")
         if delivery_method and delivery_method.upper() in ["S3", "CDN"]:
-            #with app.app_context():
-            is_secure = False #request.is_secure
+            # with app.app_context():
+            is_secure = False  # request.is_secure
 
             if delivery_method.upper() == "CDN":
                 domain = app.config.get("ASSETS_DELIVERY_DOMAIN")
@@ -221,55 +240,146 @@ class _AssetsDelivery(flask_s3.FlaskS3):
 
             super(self.__class__, self).init_app(app)
 
-flasik.ext.assets_delivery = _AssetsDelivery()
-flasik.extends(flasik.ext.assets_delivery.init_app)
+ext.assets_delivery = _AssetsDelivery()
+extends(ext.assets_delivery.init_app)
 
+#------------------------------------------------------------------------------
+# Crypt
 
-# BCRYPT
-class Bcrypt(object):
+class TimestampSigner2(itsdangerous.TimestampSigner):
+    expires_in = 0
+
+    def get_timestamp(self):
+        now = datetime.datetime.utcnow()
+        expires_in = now + datetime.timedelta(seconds=self.expires_in)
+        return int(expires_in.strftime("%s"))
+
+    @staticmethod
+    def timestamp_to_datetime(ts):
+        return datetime.datetime.fromtimestamp(ts)
+
+class URLSafeTimedSerializer2(itsdangerous.URLSafeTimedSerializer):
+    default_signer = TimestampSigner2
+
+    def __init__(self, secret_key, expires_in=3600, salt=None, **kwargs):
+        self.default_signer.expires_in = expires_in
+        super(self.__class__, self).__init__(secret_key, salt=salt, **kwargs)
+
+class Crypt(object):
+    def __init__(self, secret_key=None, salt=None, rounds=12):
+        pass
+        
+    def init_app(self, app):
+        self.secret_key = get_config("SECRET_KEY")
+        self.salt = "flasik.security.salt.0"
+        self.rounds = 12
+
     """
-
     https://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html
-
     CONFIG 
         BCRYPT_ROUNDS = 12  # salt string
         BCRYPT_SALT= None #
         BCRYPT_IDENT = '2b'
-
     """
-
-    def __init__(self, app=None):
-        self.config = {
-            "rounds": 12
+    def hash_string(self, string):
+        """
+        To hash a non versible hashed string. Can be used to hash password
+        :returns: string
+        """
+        config = {
+            "rounds": self.rounds
         }
-        if app is not None:
-            self.init_app(app)
+        return bcrypt.using(**config).hash(string)
 
-    def init_app(self, app):
-        self.config = app.config.get_namespace("BCRYPT_")
+    def verify_hashed_string(self, string, hash):
+        """
+        check if string match its hashed. ie: To compare password
+        :returns: bool
+        """
+        return bcrypt.verify(string, hash)
 
-    def hash(self, string):
-        return passhash.using(**self.config).hash(string)
+    def jwt_encode(self, data, expires_in=1, **kw):
+        """
+        To encode JWT data
+        :param data:
+        :param expires_in: in minutes
+        :param kw:
+        :return: string
+        """
+        expires_in *= 60
+        s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key=self.secret_key,
+                                                         expires_in=expires_in,
+                                                         salt=self.salt,
+                                                         **kw)
+        return s.dumps(data)
 
-    def verify(self, string, hash):
-        return passhash.verify(string, hash)
+    def jwt_decode(self, token, **kw):
+        """
+        To decode a JWT token
+        :param token:
+        :param kw:
+        :return: mixed data
+        """
+        s = itsdangerous.TimedJSONWebSignatureSerializer(self.secret_key, salt=self.salt, **kw)
+        return s.loads(token)
 
-flasik.ext.bcrypt = Bcrypt()
-flasik.extends(flasik.ext.bcrypt.init_app)
+    def url_safe_encode(self, data, expires_in=None, **kw):
+        """
+        To sign url safe data.
+        If expires_in is provided it will Time the signature
+        :param data: (mixed) the data to sign
+        :param expires_in: (int) in minutes. Time to expire
+        :param kw: kwargs for itsdangerous.URLSafeSerializer
+        :return:
+        """
+        if expires_in:
+            expires_in *= 60
+            s = URLSafeTimedSerializer2(secret_key=self.secret_key,
+                                        expires_in=expires_in,
+                                        salt=self.salt,
+                                        **kw)
+        else:
+            s = itsdangerous.URLSafeSerializer(secret_key=self.secret_key,
+                                               salt=self.salt,
+                                               **kw)
+        return s.dumps(data)
+
+    def url_safe_decode(self, token,  **kw):
+        """
+        To sign url safe data.
+        If expires_in is provided it will Time the signature
+        :param token:
+        :param secret_key:
+        :param salt: (string) a namespace key
+        :param kw:
+        :return:
+        """
+        if len(token.split(".")) == 3:
+            s = URLSafeTimedSerializer2(secret_key=self.secret_key, salt=self.salt, **kw)
+            value, timestamp = s.loads(token, max_age=None, return_timestamp=True)
+            now = datetime.datetime.utcnow()
+            if timestamp > now:
+                return value
+            else:
+                raise itsdangerous.SignatureExpired(
+                    'Signature age %s < %s ' % (timestamp, now),
+                    payload=value,
+                    date_signed=timestamp)
+        else:
+            s = itsdangerous.URLSafeSerializer(secret_key=self.secret_key, salt=self.salt, **kw)
+            return s.loads(token)
+
+    def data_encode(self, data, **kw):
+        s = itsdangerous.Serializer(secret_key=self.secret_key, salt=self.salt, **kw)
+        return s.dumps(data)
+
+    def data_ecode(self, data, **kw):
+        s = itsdangerous.Serializer(secret_key=self.secret_key, salt=self.salt, **kw)
+        return s.loads(data)
 
 
-# Set CORS
-@flasik.extends
-def set_cors_config(app):
-    """
-    Flask-Cors (3.x.x) extension set the config as CORS_*,
-     But we'll hold the config in CORS key.
-     This function will convert them to CORS_* values
-    :param app:
-    :return:
-    """
-    if "CORS" in app.config:
-        for k, v in app.config["CORS"].items():
-            _ = "CORS_" + k.upper()
-            if _ not in app.config:
-                app.config[_] = v
+ext.crypto = Crypt()
+extends(ext.crypto.init_app)
+
+
+

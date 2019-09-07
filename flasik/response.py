@@ -250,6 +250,7 @@ def cors(*args, **kwargs):
         cors_fn = flask_cors.cross_origin(automatic_options=True, *args, **kwargs)
         if inspect.isclass(fn):
             apply_function_to_members(fn, cors_fn)
+            return fn
         else:
             return cors_fn(fn)
     return decorator

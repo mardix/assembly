@@ -105,9 +105,9 @@ def route(rule=None, **kwargs):
 
 
 
-def get_auth_token():
+def get_auth_bearer():
     """
-    Return the authorization token
+    Return the authorization bearer
     :return: string
     """
     if 'Authorization' not in request.headers:

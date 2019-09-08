@@ -35,8 +35,8 @@ web:
     # The application entry point
     application: "__flasik__:app"
 
-    # The environment to use. ie: flasik="main:prod"
-    environment: flasik="main:prod"
+    # The environment to use. ie: flasik="default:Production"
+    environment: FLASIK_PROJECT="default:Production"
 
     # Nginx related config
     nginx:

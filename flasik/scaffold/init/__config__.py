@@ -3,7 +3,7 @@
 CONFIGURATION
 
 Class based config file, where each class is an environment:
-ie: Dev = Development, Prod=Production, ...
+ie: Dev = Development, Production=Production, ...
 
 Flasik: Global Configuration
 
@@ -22,7 +22,25 @@ ie:
 
 """
 
-from . import (get_var_path, ROOT_DIR, VAR_DIR)
+import os
+
+
+# The root dir
+# /
+ROOT_DIR = os.path.dirname(__file__)
+
+# Data directory
+# /vars
+VARS_DIR = os.path.join(ROOT_DIR, "vars")
+
+
+def get_vars_path(path):
+    """
+    get the path stored in the 'app/data' directory
+    :param path: string
+    :return: string
+    """
+    return os.path.join(VARS_DIR, path)
 
 
 class BaseConfig(object):
@@ -118,7 +136,7 @@ class BaseConfig(object):
 
     #: DB_URL
     #: format: engine://USERNAME:PASSWORD@HOST:PORT/DB_NAME
-    DB_URL = "sqlite:////%s/db.db" % VAR_DIR
+    DB_URL = "sqlite:////%s/db.db" % VARS_DIR
 
     #: REDIS_URL
     #: format: USERNAME:PASSWORD@HOST:PORT
@@ -188,7 +206,7 @@ class BaseConfig(object):
     #: STORAGE_CONTAINER
     #: The Bucket name (for S3, Google storage, Azure, cloudfile)
     #: or the directory name (LOCAL) to access
-    STORAGE_CONTAINER = get_var_path("uploads")
+    STORAGE_CONTAINER = get_vars_path("uploads")
 
     #: STORAGE_SERVER
     #: Bool, to serve local file
@@ -251,7 +269,7 @@ class BaseConfig(object):
 
     #: MAIL_TEMPLATE
     #: a directory that contains the email template or a dict
-    MAIL_TEMPLATE = get_var_path("mail-templates")
+    MAIL_TEMPLATE = get_vars_path("mail-templates")
 
     #: MAIL_TEMPLATE_CONTEXT
     #: a dict of all context to pass to the email by default
@@ -311,7 +329,7 @@ class Dev(BaseConfig):
     SECRET_KEY = "PLEASE CHANGE ME"
 
 
-class Prod(BaseConfig):
+class Production(BaseConfig):
     """
     Config for Production environment
     """

@@ -1,0 +1,21 @@
+{% block subject %}Welcome to {{ site_name }}{% endblock %}
+
+{% block body %}
+Hello {{name}},
+
+Welcome to {{ site_name }}.
+
+{% if verify_email %}
+To complete your registration, please click on the link below
+
+{{ verify_url }}
+
+{% endif %}
+
+Thank you
+
+{{ site_url }}
+
+{% endblock %}
+
+

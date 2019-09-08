@@ -1,0 +1,52 @@
+################################################################################
+# Flasik assets.yml
+################################################################################
+
+# List all the css files to include, under contents
+styles.css:
+    output: "gen/styles.css"
+    contents:
+        - css/style.css
+
+# List all the js files to include, under contents
+app.js:
+    output: "gen/app.js"
+    contents:
+        - js/app.js
+
+
+#-------------------------------------------------------------------------------
+################################################################################
+# Admin assets
+
+# List all the css files to include, under contents
+admin-all-css:
+    output: "gen/admin_all_css.css"
+    contents:
+        - css/admin.css
+
+# List all the js files to include, under contents
+admin-all-js:
+    output: "gen/admin_all_js.js"
+    contents:
+        - js/admin.js
+
+
+
+#-------------------------------------------------------------------------------
+####################### COMMONS ################################################
+
+# Global styles and JS
+
+commons.css:
+    output: "gen/commons.css"
+    contents:
+        - css/commons.css
+
+commons.js:
+  output: "gen/commons.js"
+  contents:
+    - js/commons.js
+
+
+

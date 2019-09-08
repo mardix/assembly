@@ -1,0 +1,19 @@
+{% block subject %}Welcome to {{ params.site_name }}{% endblock %}
+
+{% block body %}
+Hello {{ user.name }},
+
+Welcome to {{ params.site_name }}.
+
+{% if action.require_email_verification %}
+To complete your registration, please click on the link below
+
+{{ action.url }}
+
+{% endif %}
+
+Thank you
+
+{{ params.site_url }}
+
+{% endblock %}

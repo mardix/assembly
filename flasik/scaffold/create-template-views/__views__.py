@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 """
 Flasik Views
 """
 from flasik import (Flasik,
+                    set_page_context,
                     get_config,
                     abort,
                     url_for,
@@ -15,20 +15,10 @@ from flasik import (Flasik,
 
 # ------------------------------------------------------------------------------
 
-
 @request.route("/%ROUTE%/")
 class Index(Flasik):
 
-    @response.cors()
-    @response.json 
     def index(self):
-        return {
-            "name": "API Endpoint"
-        }
+        set_page_context(title="Hello World", description="Under Construction")
+        return
 
-    @response.cors()
-    @response.json 
-    def info(self):
-        return {
-            "date": functions.utc_now()
-        }

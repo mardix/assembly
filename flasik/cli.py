@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Commander
 The Flasik CLI 
 """
 
@@ -25,11 +24,11 @@ from .core import db
 
 
 CWD = os.getcwd()
-SKELETON_DIR = "skel"
+SKELETON_DIR = "scaffold"
 ENTRY_PY = "__flasik__.py"
 
 flasik_app = None
-app_dir = "%s/application" % CWD
+app_dir = CWD
 _cmds = []
 
 __all__ = [
@@ -158,82 +157,54 @@ def init():
         print("Found '%s' in %s" % (ENTRY_PY, CWD))
         print("")
     else:
-        copy_resource_dir(SKELETON_DIR + "/create/", CWD)
+        copy_resource_dir(SKELETON_DIR + "/init/", CWD)
         print("%s is setup successfully!" % __title__)
         print("")
         print("> To do:")
-        print("- Edit application's config [ application/config.py ] ")
+        print("- Edit application's config [ /__config__.py ] ")
         print("- Run your setup command [ flasik setup ]")
         print("- Create your Models/Database tables [ flasik-admin sync-models ]")
         print("- Launch app on development mode, run [ flasik-admin run ]")
         print("")
 
+def create_views(scaffold, name):
+    dest = os.path.join(app_dir, name)
+    if os.path.isdir(dest):
+        print("ERROR: directory exists already '%s'" % dest)
+    else:
+        utils.make_dirs(dest)
+        copy_resource_dir(SKELETON_DIR + "/%s/" % scaffold, dest)
+        viewdest = os.path.join(dest, "__views__.py")
+        with open(viewdest, "r+") as f:
+            content = f.read().replace("%ROUTE%", name.lower())
+            f.seek(0)
+            f.write(content)
+            f.truncate()
 
-@cli_admin.command("add-template")
+@cli_admin.command("create-template-view")
 @click.argument("name")
 def add_view(name):
-    """ Add a new view and template page """
+    """ Create Template based views"""
 
-    app_dest = app_dir
-    viewsrc = "%s/create-view/views.py" % SKELETON_DIR
-    tplsrc = "%s/create-view/template.html" % SKELETON_DIR
-    viewdest_dir = os.path.join(app_dest, "views")
-    viewdest = os.path.join(viewdest_dir, "%s.py" % name)
-    tpldest_dir = os.path.join(viewdest_dir, "templates/%s/Index" % name)
-    tpldest = os.path.join(tpldest_dir, "index.html")
+    header("Create Template based views")
 
-    header("Adding New View")
-    print("View: %s" % viewdest.replace(CWD, ""))
-    if not no_template:
-        print("Template: %s" % tpldest.replace(CWD, ""))
-    else:
-        print("Template was not created because of the flag --no-template| -t")
-    if os.path.isfile(viewdest) or os.path.isfile(tpldest):
-        print("ERROR: View or Template file exist already")
-    else:
-        if not os.path.isdir(viewdest_dir):
-            utils.make_dirs(viewdest_dir)
-        copy_resource_file(viewsrc, viewdest)
-        with open(viewdest, "r+") as vd:
-            content = vd.read().replace("%ROUTE%", name.lower())
-            vd.seek(0)
-            vd.write(content)
-            vd.truncate()
-
-        if not no_template:
-            if not os.path.isdir(tpldest_dir):
-                utils.make_dirs(tpldest_dir)
-            copy_resource_file(tplsrc, tpldest)
+    create_views("create-template-views", name)
 
     print("")
     print("*" * 80)
 
-@cli_admin.command("add-api")
+@cli_admin.command("create-api-view")
 @click.argument("name")
-def add_view(name):
-    """ Add a new api endpoint without the templates """
+def api_view(name):
+    """ Create API based views"""
 
-    header("Adding API Endpoint")
+    header("Create API based views")
 
-    app_dest = app_dir
-    viewsrc = "%s/create-view/views-api.py" % SKELETON_DIR
-    viewdest_dir = os.path.join(app_dest, "views")
-    viewdest = os.path.join(viewdest_dir, "%s.py" % name)
-
-    if os.path.isfile(viewdest):
-        print("ERROR: View file exists already")
-    else:
-        print("View: %s" % viewdest.replace(CWD, ""))       
-        if not os.path.isdir(viewdest_dir):
-            utils.make_dirs(viewdest_dir)
-        copy_resource_file(viewsrc, viewdest)
-        with open(viewdest, "r+") as vd:
-            content = vd.read().replace("%ROUTE%", name.lower())
-            vd.seek(0)
-            vd.write(content)
-            vd.truncate()
+    create_views("create-api-views", name)
+    
     print("")
     print("*" * 80)
+
 
 
 @cli_admin.command("run")
@@ -283,10 +254,6 @@ def assets2s3():
 def version():
     print(__version__)
 
-# @cli_admin.command("babel-build")
-# def babelbuild():
-#     print("Babel Build....")
-#     #sh.pybabel()
 
 
 
@@ -309,8 +276,7 @@ def cmd():
         cwd_to_sys_path()
         entry = import_string(ENTRY_PY.replace('.py', ''))
         flasik_app = entry.app
-        #app_dir = "%s/%s" % (CWD, flasik_app.app_dir)
-        app_dir = "%s/%s" % (CWD, 'application')
+        app_dir = CWD
         cli_admin() if is_admin is True else cli()
         return 
     else:

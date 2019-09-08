@@ -1,0 +1,16 @@
+{% block subject %}Verify Account - {{ params.site_name }} {% endblock %}
+
+{% block body %}
+Hello {{ user.name }},
+
+Thank you for registering.
+
+To complete your registration, please click on the link below
+
+{{ action.url }}
+
+Thank you
+
+{{ params.site_name }}
+
+{% endblock %}

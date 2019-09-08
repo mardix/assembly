@@ -30,8 +30,8 @@ setup(
     long_description_content_type="text/markdown",
     py_modules=['flasik'],
     entry_points=dict(console_scripts=[
-        'flasik=flasik.commander:cmd',
-        'flasik-admin=flasik.commander:cmd',
+        'flasik=flasik.cli:cmd',
+        'flasik-admin=flasik.cli:cmd',
     ]),
     include_package_data=True,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),

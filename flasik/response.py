@@ -150,20 +150,11 @@ def jsonp(func):
     return decorated_view
 
 
-def template(page=None, layout=None, **kwargs):
+def template(page=None, **kwargs):
     """
-    Decorator to change the view template and layout.
+    Decorator to change the view template.
 
-    It works on both Flasik class and view methods
-
-    on class
-        only $layout is applied, everything else will be passed to the kwargs
-        Using as first argument, it will be the layout.
-
-        :first arg or $layout: The layout to use for that view
-        :param layout: The layout to use for that view
-        :param kwargs:
-            get pass to the TEMPLATE_CONTEXT
+    It works only on view methods
 
     ** on method that return a dict
         page or layout are optional
@@ -182,22 +173,7 @@ def template(page=None, layout=None, **kwargs):
 
     def decorator(f):
         if inspect.isclass(f):
-            layout_ = layout or page
-            extends = kwargs.pop("extends", None)
-            if extends and hasattr(extends, pkey):
-                items = getattr(extends, pkey).items()
-                if "layout" in items:
-                    layout_ = items.pop("layout")
-                for k, v in items:
-                    kwargs.setdefault(k, v)
-            if not layout_:
-                layout_ = "layout.html"
-            kwargs.setdefault("brand_name", "")
-            kwargs["layout"] = layout_
-
-            setattr(f, pkey, kwargs)
-            setattr(f, "base_layout", kwargs.get("layout"))
-            setattr(f, "template_markup", "html")
+            raise Error("@template can only be applied on Flasik methods")
             return f
         else:
             @functools.wraps(f)
@@ -206,9 +182,7 @@ def template(page=None, layout=None, **kwargs):
                 if isinstance(response, dict) or response is None:
                     response = response or {}
                     if page:
-                        response.setdefault("_template", page)
-                    if layout:
-                        response.setdefault("_layout", layout)
+                        response.setdefault("template", page)
                     for k, v in kwargs.items():
                         response.setdefault(k, v)
                 return response
@@ -225,11 +199,12 @@ def cors(*args, **kwargs):
     cors is applied. Dynamic return is applied after the fact, so use the
     decorators, json, xml, or return self.render() for txt/html
     ie:
-    @cors()
+
     class Index(Flasik):
         def index(self):
             return self.render()
 
+        @cors()
         @json
         def json(self):
             return {}
@@ -249,7 +224,7 @@ def cors(*args, **kwargs):
     def decorator(fn):
         cors_fn = flask_cors.cross_origin(automatic_options=True, *args, **kwargs)
         if inspect.isclass(fn):
-            apply_function_to_members(fn, cors_fn)
+            raise Error("@cors can only be applied on Flasik methods")
             return fn
         else:
             return cors_fn(fn)

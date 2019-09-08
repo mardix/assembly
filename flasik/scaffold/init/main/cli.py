@@ -26,7 +26,7 @@ run > 'flasik' to view all of your commands
 
 """
 
-from flasik.commander import (command, option, argument, click)
+from flasik.cli import (command, option, argument, click)
 from flasik import db 
 
 @command()

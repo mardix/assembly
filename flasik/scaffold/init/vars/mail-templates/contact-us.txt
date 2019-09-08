@@ -1,0 +1,15 @@
+{% block subject %}[{{ params.site_name}}] - {{ mail_subject }}  {% endblock %}
+
+{% block body %}
+From: {{mail_from}}
+
+Subject: {{mail_subject}}
+
+Message:
+
+{{mail_message}}
+
+---
+
+(This email was originally sent from the contact us page)
+{% endblock %}

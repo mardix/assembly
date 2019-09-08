@@ -2,7 +2,7 @@
 """
 core.py
 
-This is the Flasik core. it contains the classes and functions 
+This is the Flasik core. it contains the classes and functions
 
 """
 
@@ -38,20 +38,17 @@ from flask import (Flask,
 
 # ------------------------------------------------------------------------------
 
+__KEY__ = "flasik"
+
 __all__ = [
     "Flasik",
-    "Init",
     "db",
     "models",
     "views",
     "get_config",
-    "get_env",
-    "set_env",
-    "get_app_env",
-    "get_env_config",
+    "get_project_env",
     "set_page_context",
     "extends",
-    "register_models",
 
     # For convenience when importing from flasik, but can use
     # the flask one
@@ -64,17 +61,11 @@ __all__ = [
     "redirect",
     "url_for",
 
-    "ext",
-    "register_application_module",
-    "vendor_config"
+    "ext"
 ]
 
-# Hold the current environment
-__ENV__ = None
+def is_method(x): return inspect.ismethod if six.PY2 else inspect.isfunction
 
-
-
-is_method = lambda x: inspect.ismethod if six.PY2 else inspect.isfunction
 
 # Will hold all active class views
 # It can be used for redirection etc
@@ -84,7 +75,7 @@ views = type('', (), {})
 # Will hold models from apps, or to be shared
 # ie, set new model property -> models.MyNewModel = MyModel
 # ie: use property -> models.MyNewModel.all()
-# For convenience, use `register_models(**kw)` to register the models
+# For convenience, use `_register_models(**kw)` to register the models
 # By default flasik will load all the application/models.py models
 models = type('', (), {})
 
@@ -97,60 +88,23 @@ db = FlasikDB()
 # Can be used to store extension objects
 ext = type('', (), {})
 
-vendor_config = {}
+def get_project_env():
+    """
+    if the app and the envi are passed in the command line as 'FLASIK_PROJECT=$project_name:$config_env'
+    If the string doesn't have the colon, it will use the value as config_env
+    :return: tuple (project_name, config_env)
+    """
+    project_name, config_env = "default", "Dev"
+    if "FLASIK_PROJECT" in os.environ:
+        project = os.environ["FLASIK_PROJECT"].lower()
+        if project:
+            if ":" in project:
+                project_name, config_env = os.environ["FLASIK_PROJECT"].split(":", 2)
+            # If not $project_name:$config, we assume they only pass $config_env
+            else:
+                config_env = project
+    return project_name, config_env.lower().capitalize()
 
-def register_models(**kwargs):
-    """
-    Alias to register model
-    :param kwargs:
-    :return:
-    """
-    [setattr(models, k, v) for k, v in kwargs.items()]
-
-
-def set_env(env):
-    """
-    Set the envrionment manually
-    :param env:
-    :return:
-    """
-    global __ENV__
-    __ENV__ = env.lower().capitalize()
-
-
-def get_env():
-    """
-    Return the Capitalize environment name
-    It can be used to retrieve class base config
-    Default: Development
-    :returns: str Capitalized
-    """
-    if not __ENV__:
-        env = os.environ["env"] if "env" in os.environ else "Dev"
-        set_env(env)
-    return __ENV__
-
-
-def get_app_env():
-    """
-    if the app and the envi are passed in the command line as 'flasik=$app:$env'
-    :return: tuple app, env
-    """
-    app, env = None, get_env()
-    if "flasik" in os.environ:
-        app = os.environ["flasik"].lower()
-        if ":" in app:
-            app, env = os.environ["flasik"].split(":", 2)
-            set_env(env)
-    return app, env
-
-
-def get_env_config(config):
-    """
-    Return config class based based on the config
-    :param config : Object - The configuration module containing the environment object
-    """
-    return getattr(config, get_env())
 
 
 def extends(kls):
@@ -159,7 +113,7 @@ def extends(kls):
     Bound middlewares will be assigned on cls.init()
     Usage:
 
-    # As a function 
+    # As a function
     def myfn(app):
         pass
 
@@ -175,54 +129,6 @@ def extends(kls):
         raise FlasikError("extends: '%s' is not callable" % kls)
     Flasik._init_apps.add(kls)
     return kls
-
-
-def register_application_module(pkg, prefix=None):
-    """
-    Allow to register an app modules by loading and exposing: templates, static,
-    and exceptions for abort()
-
-    Structure of package
-        root
-            | $package_name
-                | __init__.py
-                |
-                | /templates
-                    |
-                    |
-                |
-                | /static
-                    |
-                    | assets.yml
-
-    :param pkg: str - __package__
-                    or __name__
-                    or The root dir
-                    or the dotted resource package (package.path.path,
-                    usually __name__ of templates and static
-    :param prefix: str - to prefix the template path
-    """
-
-    root_pkg_dir = pkg
-    if not os.path.isdir(pkg) and "." in pkg:
-        root_pkg_dir = pkg_resources.resource_filename(pkg, "")
-
-    template_path = os.path.join(root_pkg_dir, "templates")
-    static_path = os.path.join(root_pkg_dir, "static")
-
-    logging.info("Registering Module Package: " + pkg)
-    if os.path.isdir(template_path):
-        loader = jinja2.FileSystemLoader(template_path)
-        if prefix:
-            ploader = jinja2.PrefixLoader({
-                prefix: loader
-            })
-            loader = ploader
-        Flasik._template_paths.add(loader)
-
-    if os.path.isdir(static_path):
-        Flasik._static_paths.add(static_path)
-        Flasik._add_asset_bundle(static_path)
 
 
 def get_config(key, default=None):
@@ -261,7 +167,7 @@ def set_page_context(**kwargs):
         locale=None
     )
     key = "PAGE_CONTEXT"
-    context = getattr(g, key , default)
+    context = getattr(g, key, default)
     context.update(**kwargs)
     setattr(g, key, context)
 
@@ -354,46 +260,6 @@ def redirect(endpoint, **kw):
         raise FlasikError("Invalid endpoint")
 
 
-def _get_action_endpoint(action):
-    """
-    Return the endpoint base on the view's action
-    :param action:
-    :return:
-    """
-    _endpoint = None
-    if is_method(action):
-        if hasattr(action, "_rule_cache"):
-            rc = action._rule_cache
-            if rc:
-                k = list(rc.keys())[0]
-                rules = rc[k]
-                len_rules = len(rules)
-                if len_rules == 1:
-                    rc_kw = rules[0][1]
-                    _endpoint = rc_kw.get("endpoint", None)
-                    if not _endpoint:
-                        _endpoint = _build_endpoint_route_name(action)
-                elif len_rules > 1:
-                    _prefix = _build_endpoint_route_name(action)
-                    for r in Flasik._app.url_map.iter_rules():
-                        if ('GET' in r.methods or 'POST' in r.methods) \
-                                and _prefix in r.endpoint:
-                            _endpoint = r.endpoint
-                            break
-    return _endpoint
-
-
-def _build_endpoint_route_name(endpoint):
-    is_class = inspect.isclass(endpoint)
-    class_name = endpoint.im_class.__name__ if not is_class else endpoint.__name__
-    method_name = endpoint.__name__
-
-    cls = endpoint.im_class() \
-        if (not hasattr(endpoint, "__self__") or endpoint.__self__ is None) \
-        else endpoint.__self__
-
-    return build_endpoint_route_name(cls, method_name, class_name)
-
 # ------------------------------------------------------------------------------
 
 
@@ -402,8 +268,6 @@ class Flasik(object):
     base_route = None
     route_prefix = None
     trailing_slash = True
-    base_layout = "layouts/base.html"
-    template_markup = "html"
     assets = None
     _ext = set()
     __special_methods = ["get", "put", "patch", "post", "delete", "index"]
@@ -412,52 +276,43 @@ class Flasik(object):
     _template_paths = set()
     _static_paths = set()
     _asset_bundles = set()
-    app_dir = "application"
-    
-    @classmethod
-    def __call__(cls,
-                 flask_or_import_name,
-                 projects=None,
-                 project_name=None,
-                 app_dir=None
-                 ):
-        """
 
+    @classmethod
+    def Initialize(cls,
+                   flask_or_import_name,
+                   projects,
+                   project_name=None
+                   ):
+        """
+        Initialize Flasik
         :param flask_or_import_name: Flask instance or import name -> __name__
-        :param projects: dict of app and views to load. ie:
+        :param projects: dict of applications/views to load. ie:
             {
-                "main": [
-                    "main",
-                    "api"
+                "default": [
+                    "application",
+                    "another.app.path"
                 ]
             }
         :param project_name: name of the project. If empty, it will try to get
-                             it from the app_env(). By default it is "main"
-                             The app main is set as environment variable
-                             ie: app=PROJECT_NAME:CONFIG -> app=main:production
-        :param app_dir: the directory name relative to the current execution path
+                             it from the get_project_env(). By default it is "default"
+                             The app default is set as environment variable
+                             ie: app=PROJECT_NAME:CONFIG -> app=default:production
         :return:
         """
-        
-        if app_dir:
-            cls.app_dir = app_dir
 
         if not project_name:
-            project_name = get_app_env()[0] or "main"
+            project_name = get_project_env()[0]
 
-        app_env = get_env()
+        config_env = get_project_env()[1]
 
         app = flask_or_import_name \
             if isinstance(flask_or_import_name, Flask) \
             else Flask(flask_or_import_name)
 
         app.url_map.converters['regex'] = RegexConverter
-        app.template_folder = "%s/views/templates" % cls.app_dir
-        app.static_folder = "%s/static" % cls.app_dir
 
-        # Load configs
-        c = "%s.config.%s" % (cls.app_dir, app_env)
-        app.config.from_object(c)
+        # Main Config
+        app.config.from_object("__config__.%s" % config_env)
 
         # Proxyfix
         # By default it will use PROXY FIX
@@ -465,69 +320,57 @@ class Flasik(object):
         # USE_PROXY_FIX = False
         if app.config.get("USE_PROXY_FIX", True):
             app.wsgi_app = werkzeug.contrib.fixers.ProxyFix(app.wsgi_app)
-        
+
         cls._app = app
         cls.assets = Environment(cls._app)
         cls._setup_db()
-        cls._expose_models()
-        
-        vendor_packages = None
-        try:
-            # import models
-            m = "%s.models" % cls.app_dir
-            werkzeug.import_string(m)
-            cls._expose_models()
 
-            # import projects views
-            if not projects:
-                projects = {"main": "main"}
+        try:
 
             if project_name not in projects:
-                raise ValueError("Missing project: %s" % project_name)
+                raise FlasikError("Missing project: %s" % project_name)
 
-            
-            _projects = projects.get(project_name)
-            if isinstance(_projects, six.string_types):
-                _projects = [_projects]
-
-            """    
+            """
                 {
-                    "main": {
-                        "views": [...views,],
-                        "vendors": [
-                            ('module.name', {}),
-                            ...
-                        ]
-                    }
+                    "main": [
+                        "application",
+                        "another_app",
+                        "another.app.path"
+                    ]
                 }
             """
-            if isinstance(_projects, dict) and "views" in _projects:
-                if "vendors" in _projects: 
-                    vendor_packages = _projects["vendors"]
-                if "views" in _projects:
-                    _projects = _projects["views"] 
 
-            for _ in _projects:
-                werkzeug.import_string("%s.views.%s" % (cls.app_dir, _))
+            for view in projects[project_name]:
+
+                # import models
+                werkzeug.import_string("%s.__models__" % view)
+                cls._expose_models()
+
+                # import views
+                werkzeug.import_string("%s.__views__" % view)
+
+                # Registes templates an statics
+                _register_application_template(view, view)
+
         except ImportError as ie1:
             logging.critical(ie1)
 
-        cls._expose_models()
+        # Extensions
+        # instanciate all functions that may need the flask.app object
+        # Usually for flask extension to be setup
+        [_app(cls._app) for _app in cls._init_apps]
 
-        # Add bundles
-        cls._add_asset_bundle(cls._app.static_folder)
-
-        # Register templates
+        # register templates
         if cls._template_paths:
             loader = [cls._app.jinja_loader] + list(cls._template_paths)
             cls._app.jinja_loader = jinja2.ChoiceLoader(loader)
 
-        # Static
+        # register static
         if cls._static_paths:
             cls.assets.load_path = [cls._app.static_folder] + list(cls._static_paths)
             [cls.assets.from_yaml(a) for a in cls._asset_bundles]
 
-        # Register views
+        # register views
         for subcls in cls.__subclasses__():
             base_route = subcls.base_route
             if not base_route:
@@ -536,57 +379,14 @@ class Flasik(object):
                     base_route = "/"
             subcls._register(cls._app, base_route=base_route)
 
-        # Extensions
-        # instanciate all functions that may need the flask.app object
-        # Usually for flask extension to be setup
-        [_app(cls._app) for _app in cls._init_apps]
-
-        # Application modules
-        if vendor_packages:
-            cls.load_vendor_packages(vendor_packages)
-
         return cls._app
 
     @classmethod
-    def load_vendor_packages(cls, vendor_packages):
-        """
-        To import 3rd party applications along with associated properties
-        It is a list of dict or string.
-        When a dict, it contains the `app` key and the configuration,
-        if it's a string, it is just the app name
-        If you require dependencies from other packages, dependencies
-        must be placed before the calling package.
-        It is required that __init__ in the package app has an entry point method
-        -> 'main(**kw)' which will be used to setup the default app.
-        As a dict
-            [
-                ("multi.app.list.in.a.list.of.tuple", {options}),
-                ("multi.app.list.in.a.list.of.tuple2", {options})
-            ]
-        :return:
-        """
-        for mp in vendor_packages:
-            module, props = mp
-
-            # set the props in the config 
-            name = module.replace(".", "_")
-            vendor_config.update({ name: props })
-
-            # Models
-            werkzeug.import_string(module + ".models", False)
-            cls._expose_models()
-
-            # Views
-            werkzeug.import_string(module)
-            cls._expose_models()
-
-    @classmethod
-    def render(cls, data={}, _template=None, _layout=None, **kwargs):
+    def render(cls, data={}, template=None, **kwargs):
         """
         Render the view template based on the class and the method being invoked
         :param data: The context data to pass to the template
-        :param _template: The file template to use. By default it will map the module/classname/action.html
-        :param _layout: The body layout, must contain {% include __template__ %}
+        :param template: The file template to use. By default it will map the module/classname/action.html
         """
 
         # Invoke the page meta so it can always be set
@@ -602,18 +402,15 @@ class Flasik(object):
             setattr(g, k, v)
 
         # Build the template using the method name being called
-        if not _template:
+        if not template:
             stack = inspect.stack()[1]
             action_name = stack[3]
-            _template = build_endpoint_route_name(cls, action_name)
-            _template = utils.list_replace([".", ":"], "/", _template)
-            _template = "%s.%s" % (_template, cls.template_markup)
+            template = make_template_path(cls, action_name)
 
         data = data or {}
         data.update(kwargs)
-        data["__template__"] = _template
 
-        return render_template(_layout or cls.base_layout, **data)
+        return render_template(template, **data)
 
     @classmethod
     def _add_asset_bundle(cls, path):
@@ -627,7 +424,7 @@ class Flasik(object):
     @classmethod
     def _setup_db(cls):
         """
-        Setup the DB connection if DB_URL is set 
+        Setup the DB connection if DB_URL is set
         """
         uri = cls._app.config.get("DB_URL")
         if uri:
@@ -637,10 +434,10 @@ class Flasik(object):
     def _expose_models(cls):
         """
         Register the models and assign them to `models`
-        :return: 
+        :return:
         """
         if db._IS_OK_:
-            register_models(**{m.__name__: m
+            _register_models(**{m.__name__: m
                                for m in db.Model.__subclasses__()
                                if not hasattr(models, m.__name__)})
 
@@ -675,7 +472,7 @@ class Flasik(object):
 
         # Create a unique namespaced key to access view.
         # $module.$class_name.$Method
-        module = cls.__module__.split(".")[-1]
+        module = cls.__module__
 
         if not hasattr(views, module):
             setattr(views, module, type('', (), {}))
@@ -819,16 +616,8 @@ class Flasik(object):
                 if hasattr(i, "_renderer"):
                     response = i._renderer(response)
                 else:
-                    _template = build_endpoint_route_name(cls, view.__name__)
-                    _template = utils.list_replace([".", ":"], "/", _template)
-                    _template = "%s.%s" % (_template, cls.template_markup)
-
-                    # Set the title from the nav title, if not set
-                    _meta_title = getattr(g, "__META__", {}).get("title")
-                    if (not _meta_title or _meta_title == "") and get_view_attr(view, "title"):
-                        page_attr(title=get_view_attr(view, "title"))
-
-                    response.setdefault("_template", _template)
+                    template = make_template_path(cls, view.__name__)
+                    response.setdefault("template", template)
                     response = i.render(**response)
 
             if not isinstance(response, Response):
@@ -895,15 +684,11 @@ class Flasik(object):
             cls.base_args = [r[2] for r in base_rule]
         return base_route.strip("/")
 
-# Init, initialize Flasik as a single instance that will be served
-Init = Flasik()
-
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
 
 def _bind_route_rule_cache(f, rule, append_method=False, **kwargs):
-
     """
     Put the rule cache on the method itself instead of globally
     :param f:
@@ -942,9 +727,17 @@ def build_endpoint_route_name(cls, method_name, class_name=None):
     :return: string
     """
 
-    module = cls.__module__.split("views.")[1] if ".views." in cls.__module__ \
-        else cls.__module__.split(".")[-1]
-    return "%s.%s:%s" % (module, class_name or cls.__name__, method_name)
+    return "%s.%s:%s" % (cls.__module__, class_name or cls.__name__, method_name)
+
+
+def make_template_path(cls, method_name):
+    _template = build_endpoint_route_name(cls, method_name)
+    m = _template.split(".")
+    if "__views__" in m[1]:
+        m.remove("__views__")
+    _template = ".".join(list(m))    
+    _template = utils.list_replace([".", ":"], "/", _template)
+    return "%s.html" % _template
 
 
 def get_interesting_members(base_class, cls):
@@ -1010,6 +803,7 @@ class RegexConverter(BaseConverter):
         self.regex = items[0]
 
 # ------------------------------------------------------------------------------
+
 
 """
 Views attributes store data that was set for the views
@@ -1078,3 +872,102 @@ def view_namespace(view, cls_name=None):
     return ns
 
 # ------------------------------------------------------------------------------
+
+
+def _register_models(**kwargs):
+    """
+    Alias to register model
+    :param kwargs:
+    :return:
+    """
+    [setattr(models, k, v) for k, v in kwargs.items()]
+
+
+def _get_action_endpoint(action):
+    """
+    Return the endpoint base on the view's action
+    :param action:
+    :return:
+    """
+    _endpoint = None
+    if is_method(action):
+        if hasattr(action, "_rule_cache"):
+            rc = action._rule_cache
+            if rc:
+                k = list(rc.keys())[0]
+                rules = rc[k]
+                len_rules = len(rules)
+                if len_rules == 1:
+                    rc_kw = rules[0][1]
+                    _endpoint = rc_kw.get("endpoint", None)
+                    if not _endpoint:
+                        _endpoint = _build_endpoint_route_name(action)
+                elif len_rules > 1:
+                    _prefix = _build_endpoint_route_name(action)
+                    for r in Flasik._app.url_map.iter_rules():
+                        if ('GET' in r.methods or 'POST' in r.methods) \
+                                and _prefix in r.endpoint:
+                            _endpoint = r.endpoint
+                            break
+    return _endpoint
+
+
+def _build_endpoint_route_name(endpoint):
+    is_class = inspect.isclass(endpoint)
+    class_name = endpoint.im_class.__name__ if not is_class else endpoint.__name__
+    method_name = endpoint.__name__
+
+    cls = endpoint.im_class() \
+        if (not hasattr(endpoint, "__self__") or endpoint.__self__ is None) \
+        else endpoint.__self__
+
+    return build_endpoint_route_name(cls, method_name, class_name)
+
+
+def _register_application_template(pkg, prefix):
+    """
+    Allow to register an app templates by loading and exposing: templates, static,
+    and exceptions for abort()
+
+    Structure of package
+        root
+            | $package_name
+                | __init__.py
+                |
+                | /templates
+                    |
+                    |
+                |
+                | /static
+                    |
+                    | assets.yml
+
+    :param pkg: str - __package__
+                    or __name__
+                    or The root dir
+                    or the dotted resource package (package.path.path,
+                    usually __name__ of templates and static
+    :param prefix: str - to prefix the template path
+    """
+
+    root_pkg_dir = pkg
+    if not os.path.isdir(pkg):
+        root_pkg_dir = pkg_resources.resource_filename(pkg, "")
+
+    template_path = os.path.join(root_pkg_dir, "templates")
+    static_path = os.path.join(root_pkg_dir, "static")
+
+    logging.info("Registering Module Package: " + pkg)
+    if os.path.isdir(template_path):
+        loader = jinja2.FileSystemLoader(template_path)
+        if prefix:
+            ploader = jinja2.PrefixLoader({
+                prefix: loader
+            })
+            loader = ploader
+            print("ROOT", root_pkg_dir, template_path)  
+        Flasik._template_paths.add(loader)
+
+    if os.path.isdir(static_path):
+        Flasik._static_paths.add(static_path)
+        Flasik._add_asset_bundle(static_path)

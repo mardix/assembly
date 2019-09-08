@@ -19,9 +19,10 @@ from flasik import (Flasik,
 @request.route("/%ROUTE%/")
 class Index(Flasik):
 
+    @response.cors()
+    @response.json 
     def index(self):
-        set_page_context(title="Hello World", description="Under Construction")
-        return
+        return {}
 
     @response.cors()
     @response.json 

@@ -471,7 +471,6 @@ class Flasik(object):
             raise TypeError("cls must be a subclass of Flasik, not Flasik itself")
 
         # Create a unique namespaced key to access view.
-        # $module.$class_name.$Method
         module = cls.__module__
 
         if not hasattr(views, module):
@@ -957,15 +956,10 @@ def _register_application_template(pkg, prefix):
     template_path = os.path.join(root_pkg_dir, "templates")
     static_path = os.path.join(root_pkg_dir, "static")
 
-    logging.info("Registering Module Package: " + pkg)
     if os.path.isdir(template_path):
         loader = jinja2.FileSystemLoader(template_path)
-        if prefix:
-            ploader = jinja2.PrefixLoader({
-                prefix: loader
-            })
-            loader = ploader
-            print("ROOT", root_pkg_dir, template_path)  
+        ploader = jinja2.PrefixLoader({prefix: loader})
+        loader = ploader
         Flasik._template_paths.add(loader)
 
     if os.path.isdir(static_path):

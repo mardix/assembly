@@ -1,7 +1,10 @@
+{% extends 'main/layouts/base.html' %}
 
-<div>
+{% block title %}Welcome to {{ g.__NAME__ }} {{ g.__VERSION__ }} {% endblock %}
+
+{% block content %}
     <div>
         <h1>It's {{ g.__NAME__ }} </h1>
         <h4>v. {{ g.__VERSION__ }}</h4>
     </div>
-</div>
+{% endblock %}

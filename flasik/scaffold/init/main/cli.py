@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Commander.py
+cli.py
 Place all your command line functionalities in here.
 Execute your commands in as `flasik $command-name`
 

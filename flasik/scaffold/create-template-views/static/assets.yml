@@ -2,51 +2,28 @@
 # Flasik assets.yml
 ################################################################################
 
+###**** NOTE: Replace $application_name with the name of the directory
+
+# Include assets manually
+#{% assets output="gen/styles.css", "application_name/css/style.css" %}
+#    <link rel="stylesheet" href="{{ ASSET_URL }}">
+#{% endassets %}
+
+# Include using the settings below
+#{% assets "application_name/styles.css" %}
+#    <link rel="stylesheet" href="{{ ASSET_URL }}">
+#{% endassets %}
+
+
 # List all the css files to include, under contents
-styles.css:
+application_name/styles.css:
     output: "gen/styles.css"
     contents:
-        - css/style.css
+        - application_name/css/style.css
 
 # List all the js files to include, under contents
-app.js:
+application_name/app.js:
     output: "gen/app.js"
     contents:
-        - js/app.js
-
-
-#-------------------------------------------------------------------------------
-################################################################################
-# Admin assets
-
-# List all the css files to include, under contents
-admin-all-css:
-    output: "gen/admin_all_css.css"
-    contents:
-        - css/admin.css
-
-# List all the js files to include, under contents
-admin-all-js:
-    output: "gen/admin_all_js.js"
-    contents:
-        - js/admin.js
-
-
-
-#-------------------------------------------------------------------------------
-####################### COMMONS ################################################
-
-# Global styles and JS
-
-commons.css:
-    output: "gen/commons.css"
-    contents:
-        - css/commons.css
-
-commons.js:
-  output: "gen/commons.js"
-  contents:
-    - js/commons.js
-
-
+        - application_name/js/app.js
 

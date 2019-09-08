@@ -283,7 +283,7 @@ def cmd():
         header()
         if len(sys.argv) == 1 or (len(sys.argv) > 1 and sys.argv[1] != 'setup'):
             print("Error: %s is  not setup yet" % __title__)
-            print("Run %s in the directory you want to create it" % bold("flasik-admin setup"))
+            print("Run %s in the directory you want to create it" % bold("flasik-admin init"))
             print("Missing file '%s' in %s" % (ENTRY_PY, CWD))
             print('_' * 80)
             print("")

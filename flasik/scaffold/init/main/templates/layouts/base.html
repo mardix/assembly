@@ -1,17 +1,26 @@
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{{ g.PAGE_CONTEXT.title }}</title>
-    <meta name="description" content="{{ g.PAGE_CONTEXT.description }}" />
+    <title>{% block title %}{% endblock %}</title>
+
+    {% assets "main/styles.css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+
   </head>
 
   <body>
     <header></header>
     <div class="container">
-      {% include __template__ %}
+      {% block content %}{% endblock %}
     </div>
     <footer>
       <div>&copy; {{ g.__YEAR__ }} {{ config.APPLICATION_NAME }} {{ config.APPLICATION_VERSION }}</div>
     </footer>
+
+    {% assets "main/app.js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
   </body>
 </html>

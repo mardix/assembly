@@ -144,10 +144,10 @@ argument = click.argument
 option = click.option
 
 
-@cli_admin.command("setup")
+@cli_admin.command("init")
 @catch_exception
 def init():
-    """  Setup application in the current directory """
+    """Init Flasik in the current directory """
 
     flasikpyfile = os.path.join(os.path.join(CWD, ENTRY_PY))
 

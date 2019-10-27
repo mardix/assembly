@@ -9,7 +9,6 @@ import active_alchemy
 from sqlalchemy.engine.url import make_url as sa_make_url
 import sqlalchemy_utils as sa_utils
 import flask_cloudy
-import redis
 
 class FlasikDB(active_alchemy.ActiveAlchemy):
     """
@@ -46,21 +45,6 @@ class FlasikDB(active_alchemy.ActiveAlchemy):
         active_alchemy._include_sqlalchemy(self)
         self.StorageObjectType = StorageObjectType
 
-
-    def connect_redis(self, name, url=None, decode_responses=True, **kwargs):
-        """
-        To connect to a Redis instance and attach it to db.redis 
-        Example: 
-
-            # Establish the connection
-            db.connect_redis('cache', 'https://u:p@url/db')
-            
-            # Access it
-            db.redis.cache.set('key', 'value')
-        """
-        connect = redis.from_url(url, decode_responses=decode_responses, **kwargs)
-        setattr(self.redis, name, connect)
-        return connect
 
 # ------------------------------------------------------------------------------
 # StorageObjectType

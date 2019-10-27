@@ -1,0 +1,22 @@
+{
+  "name": "domain.com",
+  "version": "0.0.1",
+  "description": "domain.com",
+  "gokku": {
+    "domain_name": "domain.com",
+    "runtime": "python",
+    "auto_restart": true,
+    "env": {
+      "FLASIK_PROJECT": "default:production"
+    },
+    "scripts": {
+      "release": [
+        "flasik-admin sync-models",
+        "flasik setup"
+      ]
+    },    
+    "run": {
+      "web": "__flasik__:app"
+    }
+  }
+}

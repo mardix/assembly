@@ -14,13 +14,13 @@ __all__ = [
     "__copyright__",
 ]
 
-__title__ = "Flasik"
-__version__ = "0.5.1"
+__title__ = "flask-assembly"
+__version__ = "0.0.0"
 __summary__ = "A mid stack Flask based framework that put structure in the " \
               "file system. Features: Caching, Mailing, Storage, CSRF, recaptcha, Cors. " \
               "Supports HTML and Markdown " \
               "and more"
-__uri__ = "https://github.com/mardix/flasik"
+__uri__ = "https://github.com/mardix/flask-assembly"
 __author__ = "Mardix"
 __email__ = "mcx2082@gmail.com"
 __license__ = "MIT"

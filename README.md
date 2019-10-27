@@ -1,14 +1,14 @@
-# Flasik
+# Flask-Assembly
 
 [
 
 [Documentation](https://mardix.github.io/flasik)
 
-**Flasik** is A mid stack, batteries framework based on Flask. It adds structure 
+**Flask-Assembly** is A mid stack, batteries framework based on Flask. It adds structure 
 to your Flask application, and group the endpoints by classes instead of just 
 loose functions. 
 
-Technically Flasik is my attempt of making a simple framework based on Flask Great Again!
+Technically Flask-Assembly is my attempt of making a simple framework based on Flask Great Again!
 
  
 ## Decisions made for you + Features
@@ -54,34 +54,35 @@ Technically Flasik is my attempt of making a simple framework based on Flask Gre
 
 - Caching
 
-- Propel for deployment
-
 - Decorators, lots of decorators
 
 
 
 ## Quickstart
 
-#### Install Flasik
+#### Install Flask-Assembly
 
-To install Flasik, it is highly recommended to use a virtualenv, in this case I 
+To install Flask-Assembly, it is highly recommended to use a virtualenv, in this case I 
 use virtualenvwrapper 
 
     mkvirtualenv my-flasik-site
 
-Install Flasik
+Install Flask-Assembly
 
-    pip install flasik
+    pip install flask-assembly
     
 #### Initialize your application
 
-Now Flasik has been installed, let's create our first application
+Now Flask-Assembly has been installed, let's create our first application
 
+```
     cd your-dir
     
-    flasik-admin setup
-    
-`flasik-admin setup` setup the structure along with the necessary files to get started
+    asmbl-admin setup
+```
+
+
+`asmbl-admin setup` setup the structure along with the necessary files to get started
  
  You will see a structure similar to this
  
@@ -89,11 +90,11 @@ Now Flasik has been installed, let's create our first application
         |
         |__ .gitignore
         |
-        |__ propel.yml
+        |__ app.json
         |
         |__ requirements.txt
         |
-        |__ brew.py
+        |__ assembly.py
         |
         |__ application/
             |
@@ -157,7 +158,7 @@ Go to http://127.0.0.1:5000/
 
 ---
 
-I hope this wasn't too hard. Now Read The Docs at [http://mardix.github.io/Flasik/](http://mardix.github.io/Flasik/)
+I hope this wasn't too hard. Now Read The Docs at [http://mardix.github.io/flask-assembly/](http://mardix.github.io/Flask-Assembly/)
 for more 
 
 Thanks, 
@@ -168,11 +169,11 @@ Mardix :)
 
 ## Read The Docs
 
-To dive into the documentation, Read the docs @ [http://mardix.github.io/Flasik/](http://mardix.github.io/Flasik/)
+To dive into the documentation, Read the docs @ [http://mardix.github.io/flask-assembly/](http://mardix.github.io/flask-assembly/)
 
 ---
 
 License MIT
 
-Copyright: 2017 Mardix
+Copyright: 2019 - Forever Mardix
 

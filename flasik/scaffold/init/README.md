@@ -58,3 +58,8 @@ flasik-admin run
 **$application/templates**
 
 **$application/static**
+
+
+## app.json
+
+

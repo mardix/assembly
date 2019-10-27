@@ -32,6 +32,8 @@ setup(
     entry_points=dict(console_scripts=[
         'flasik=flasik.cli:cmd',
         'flasik-admin=flasik.cli:cmd',
+        'asmbl-admin=flasik.cli:cmd',
+        'asmbl=flasik.cli:cmd',
     ]),
     include_package_data=True,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),

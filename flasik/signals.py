@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from functions import emit_signal
+from .functions import emit_signal
 
 @emit_signal()
 def upload_file(change):

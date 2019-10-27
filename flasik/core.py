@@ -64,6 +64,7 @@ __all__ = [
     "ext"
 ]
 
+
 def is_method(x): return inspect.ismethod if six.PY2 else inspect.isfunction
 
 
@@ -88,6 +89,7 @@ db = FlasikDB()
 # Can be used to store extension objects
 ext = type('', (), {})
 
+
 def get_project_env():
     """
     if the app and the envi are passed in the command line as 'FLASIK_PROJECT=$project_name:$config_env'
@@ -104,7 +106,6 @@ def get_project_env():
             else:
                 config_env = project
     return project_name, config_env.lower().capitalize()
-
 
 
 def extends(kls):
@@ -278,11 +279,11 @@ class Flasik(object):
     _asset_bundles = set()
 
     @classmethod
-    def Initialize(cls,
-                   flask_or_import_name,
-                   projects,
-                   project_name=None
-                   ):
+    def init(cls,
+             flask_or_import_name,
+             projects,
+             project_name=None
+             ):
         """
         Initialize Flasik
         :param flask_or_import_name: Flask instance or import name -> __name__
@@ -438,8 +439,8 @@ class Flasik(object):
         """
         if db._IS_OK_:
             _register_models(**{m.__name__: m
-                               for m in db.Model.__subclasses__()
-                               if not hasattr(models, m.__name__)})
+                                for m in db.Model.__subclasses__()
+                                if not hasattr(models, m.__name__)})
 
     @classmethod
     def _register(cls,
@@ -551,6 +552,14 @@ class Flasik(object):
             except DecoratorCompatibilityError:
                 raise DecoratorCompatibilityError(
                     "Incompatible decorator detected on %s in class %s" % (name, cls.__name__))
+
+        # Register error handler
+        for name, mtd in get_interesting_members_http_error(Flasik, cls):
+            match = match_http_error(name)
+            if match:
+                code = match.groups()[0]
+                print('*****TODO WORKING ON THE ERROR HANDLER MTD', name, mtd)
+                #cls._app.register_error_handler(code, mtd)
 
         if hasattr(cls, "orig_base_route"):
             cls.base_route = cls.orig_base_route
@@ -734,7 +743,7 @@ def make_template_path(cls, method_name):
     m = _template.split(".")
     if "__views__" in m[1]:
         m.remove("__views__")
-    _template = ".".join(list(m))    
+    _template = ".".join(list(m))
     _template = utils.list_replace([".", ":"], "/", _template)
     return "%s.html" % _template
 
@@ -752,6 +761,25 @@ def get_interesting_members(base_class, cls):
             and not member[0].startswith("_")
             and not member[0].startswith("before_")
             and not member[0].startswith("after_"))
+
+
+def get_interesting_members_http_error(base_class, cls):
+    """Returns a generator of methods that can be routed to"""
+
+    base_members = dir(base_class)
+    predicate = inspect.ismethod if six.PY2 else inspect.isfunction
+    all_members = inspect.getmembers(cls, predicate=predicate)
+    return (member for member in all_members
+            if not member[0] in base_members
+            and ((hasattr(member[1], "__self__") and not member[1].__self__ in inspect.getmro(cls)) if six.PY2 else True)
+            and member[0].startswith("_")
+            and match_http_error(member[0])
+            and not member[0].startswith("before_")
+            and not member[0].startswith("after_"))
+
+
+def match_http_error(val):
+    return re.match(r"^_(\d+)$", val)
 
 
 def apply_function_to_members(cls, fn):

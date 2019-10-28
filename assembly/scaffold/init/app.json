@@ -1,0 +1,23 @@
+{
+  "name": "domain.com",
+  "version": "0.0.1",
+  "description": "domain.com",
+  "gokku": {
+    "domain_name": "domain.com",
+    "runtime": "python",
+    "auto_restart": true,
+    "env": {
+      "ASSEMBLY_ENV": "Production",
+      "ASSEMBLY_PROJECT": "default"
+    },
+    "scripts": {
+      "release": [
+        "asm-admin sync-models",
+        "asm setup"
+      ]
+    },    
+    "run": {
+      "web": "wsgi:app"
+    }
+  }
+}

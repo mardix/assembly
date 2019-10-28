@@ -1,5 +1,5 @@
 """
-Flasik
+Assembly
 """
 
 import os
@@ -9,7 +9,7 @@ base_dir = os.path.dirname(__file__)
 
 
 __about__ = {}
-with open(os.path.join(base_dir, "flasik", "__about__.py")) as f:
+with open(os.path.join(base_dir, "assembly", "__about__.py")) as f:
     exec(f.read(), __about__)
 
 with open('requirements.txt') as f:
@@ -28,18 +28,15 @@ setup(
     url=__about__["__uri__"],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    py_modules=['flasik'],
+    py_modules=['assembly'],
     entry_points=dict(console_scripts=[
-        'flasik=flasik.cli:cmd',
-        'flasik-admin=flasik.cli:cmd',
-        'asmbl-admin=flasik.cli:cmd',
-        'asmbl=flasik.cli:cmd',
+        'asm-admin=assembly.cli:cmd',
+        'asm=assembly.cli:cmd',
     ]),
     include_package_data=True,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     install_requires=install_requires,
     keywords=['flask',
-              'flasik',
               'templates',
               'views',
               'classy',

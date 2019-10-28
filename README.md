@@ -1,14 +1,12 @@
-# Flask-Assembly
+# Assembly
 
-[
 
-[Documentation](https://mardix.github.io/flasik)
+[Documentation](https://mardix.github.io/assembly)
 
-**Flask-Assembly** is A mid stack, batteries framework based on Flask. It adds structure 
-to your Flask application, and group the endpoints by classes instead of just 
-loose functions. 
+**Assembly** is A mid stack, batteries included Flask  framework, that adds structure 
+to your Flask application, and groups the endpoints by classes instead of loose functions. 
 
-Technically Flask-Assembly is my attempt of making a simple framework based on Flask Great Again!
+Technically **Assembly** is an attempt of making a simple framework based on Flask Great Again!
 
  
 ## Decisions made for you + Features
@@ -60,25 +58,25 @@ Technically Flask-Assembly is my attempt of making a simple framework based on F
 
 ## Quickstart
 
-#### Install Flask-Assembly
+#### Install Assembly
 
-To install Flask-Assembly, it is highly recommended to use a virtualenv, in this case I 
+To install Assembly, it is highly recommended to use a virtualenv, in this case I 
 use virtualenvwrapper 
 
-    mkvirtualenv my-flasik-site
+    mkvirtualenv my-assembly-site
 
-Install Flask-Assembly
+Install Assembly
 
-    pip install flask-assembly
+    pip install assembly
     
 #### Initialize your application
 
-Now Flask-Assembly has been installed, let's create our first application
+Now Assembly has been installed, let's create our first application
 
 ```
     cd your-dir
     
-    asmbl-admin setup
+    asm-admin setup
 ```
 
 
@@ -150,7 +148,7 @@ Now Flask-Assembly has been installed, let's create our first application
 
 If everything is all set, all you need to do now is run your site:
 
-    flasik serve
+    assembly serve
     
 It will start serving your application by default at `127.0.0.1:5000`
 
@@ -158,7 +156,7 @@ Go to http://127.0.0.1:5000/
 
 ---
 
-I hope this wasn't too hard. Now Read The Docs at [http://mardix.github.io/flask-assembly/](http://mardix.github.io/Flask-Assembly/)
+I hope this wasn't too hard. Now Read The Docs at [http://mardix.github.io/assembly/](http://mardix.github.io/Assembly/)
 for more 
 
 Thanks, 
@@ -169,7 +167,7 @@ Mardix :)
 
 ## Read The Docs
 
-To dive into the documentation, Read the docs @ [http://mardix.github.io/flask-assembly/](http://mardix.github.io/flask-assembly/)
+To dive into the documentation, Read the docs @ [http://mardix.github.io/assembly/](http://mardix.github.io/assembly/)
 
 ---
 

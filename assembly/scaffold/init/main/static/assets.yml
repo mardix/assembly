@@ -1,0 +1,27 @@
+################################################################################
+# Assembly assets.yml
+################################################################################
+
+# Include assets manually
+#{% assets output="gen/styles.css", "main/css/style.css" %}
+#    <link rel="stylesheet" href="{{ ASSET_URL }}">
+#{% endassets %}
+
+# Include using the settings below
+#{% assets "main/styles.css" %}
+#    <link rel="stylesheet" href="{{ ASSET_URL }}">
+#{% endassets %}
+
+
+# List all the css files to include, under contents
+main/styles.css:
+    output: "gen/styles.css"
+    contents:
+        - main/css/style.css
+
+# List all the js files to include, under contents
+main/app.js:
+    output: "gen/app.js"
+    contents:
+        - main/js/app.js
+

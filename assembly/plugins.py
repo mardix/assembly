@@ -1,11 +1,6 @@
-
+# -*- coding: utf-8 -*-
 """
-A utils for Markdown
-
-convert : render markdown to html
-get_toc : Get the Table of Content
-get_images: Return a list of images, can be used to extract the top image
-
+Assembly: plugins
 """
 
 import os

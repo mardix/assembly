@@ -1,7 +1,7 @@
 {
   "name": "domain.com",
   "version": "0.0.1",
-  "description": "domain.com",
+  "description": "my application domain.com",
   "gokku": {
     "domain_name": "domain.com",
     "runtime": "python",
@@ -12,7 +12,7 @@
     },
     "scripts": {
       "release": [
-        "asm-admin sync-models",
+        "asm-admin db:sync",
         "asm setup"
       ]
     },    

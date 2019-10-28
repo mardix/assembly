@@ -76,11 +76,11 @@ Now Assembly has been installed, let's create our first application
 ```
     cd your-dir
     
-    asm-admin setup
+    asm-admin init
 ```
 
 
-`asmbl-admin setup` setup the structure along with the necessary files to get started
+`asm-admin ini` setup the structure along with the necessary files to get started
  
  You will see a structure similar to this
  
@@ -148,7 +148,7 @@ Now Assembly has been installed, let's create our first application
 
 If everything is all set, all you need to do now is run your site:
 
-    assembly serve
+    asm-admin server
     
 It will start serving your application by default at `127.0.0.1:5000`
 
@@ -156,7 +156,7 @@ Go to http://127.0.0.1:5000/
 
 ---
 
-I hope this wasn't too hard. Now Read The Docs at [http://mardix.github.io/assembly/](http://mardix.github.io/Assembly/)
+I hope this wasn't too hard. Now Read The Docs at [http://mardix.github.io/assembly/](http://mardix.github.io/assembly/)
 for more 
 
 Thanks, 

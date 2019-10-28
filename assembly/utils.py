@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-utils.py
+Assembly: utils.py
 
 This module contains some common functions, and also exposes under the `utils`
 namespace some 3rd party functions. ie: 

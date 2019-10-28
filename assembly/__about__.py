@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Assembly
-This the about file
 """
 
 __all__ = [
@@ -16,7 +15,7 @@ __all__ = [
 ]
 
 __title__ = "Assembly"
-__version__ = "0.0.0"
+__version__ = "0.1.0"
 __summary__ = "A mid stack Flask based framework that put structure in the " \
               "file system. Features: Caching, Mailing, Storage, CSRF, recaptcha, Cors. " \
               "Supports HTML and Markdown " \

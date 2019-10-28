@@ -1,6 +1,18 @@
 # Assembly
 
 
+### 1. Set environment variables
+
+```
+export ASSEMBLY_ENV=Development # for development
+export ASSEMBLY_PROJECT=default  # for prod
+```
+
+### 2. Run the wsgi
+```
+wsgi:app
+```
+
 ---
 
 ## Directory Structure

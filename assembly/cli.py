@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
 """
-The Assembly CLI 
+Assembly: cli 
 """
 
 import os
 import re
+import sh
 import sys
-import traceback
-import logging
-import importlib
-import pkg_resources
-import click
-import yaml
-import functools
 import json
-from werkzeug import import_string
+import yaml
+import click
+import flask
+import logging
+import traceback
+import importlib
+import functools
+import subprocess
+import pkg_resources
+from .core import db
 from .__about__ import *
 from assembly import utils
-import flask
-import sh
-import subprocess
-from .core import db
-
+from werkzeug import import_string
 
 CWD = os.getcwd()
 SKELETON_DIR = "scaffold"
@@ -36,9 +35,6 @@ __all__ = [
     "argument",
     "options"
 ]
-
-def get_project_dir_path(project_name):
-    return "%s/%s" % (app_dir, project_name)
 
 
 def copy_resource_dir(src, dest):
@@ -80,10 +76,6 @@ def catch_exception(func):
 
 def cwd_to_sys_path():
     sys.path.append(CWD)
-
-
-def project_name(name):
-    return re.compile('[^a-zA-Z0-9_]').sub("", name)
 
 def bold(str):
     return '\033[1m%s\033[0m' % str
@@ -132,6 +124,8 @@ argument = click.argument
 option = click.option
 
 
+#-------------------------------------
+
 @cli_admin.command("init")
 @catch_exception
 def init():
@@ -150,9 +144,9 @@ def init():
         print("")
         print("> To do:")
         print("- Edit application's config [ ./config.py ] ")
-        print("- Create your Models/Database tables, then run [ asm-admin sync-models ]")        
+        print("- Create your Models/Database tables, then run [ asm-admin db:sync ]")        
         print("- Create your commands in [ cli.py ] and run your setup command [ asm setup ]")
-        print("- Launch app on development mode, run [ asm-admin run ]")
+        print("- Launch app on development mode, run [ asm-admin server ]")
         print("")
 
 def create_views(scaffold, name):
@@ -169,26 +163,24 @@ def create_views(scaffold, name):
             f.write(content)
             f.truncate()
 
-@cli_admin.command("create-template-view")
+@cli_admin.command("gen:template")
 @click.argument("name")
 def add_view(name):
-    """ Create Template based views"""
+    """ Generate Template based views"""
 
     header("Create Template based views")
     create_views("create-template-views", name)
     print("")
     print("*" * 80)
 
-@cli_admin.command("create-api-view")
+@cli_admin.command("gen:api")
 @click.argument("name")
 def api_view(name):
-    """ Create API based views"""
-
+    """ Generate API based views"""
     header("Create API based views")
     create_views("create-api-views", name)
     print("")
     print("*" * 80)
-
 
 
 @cli_admin.command("server")
@@ -203,7 +195,7 @@ def run(port):
     asm_app.run(debug=True, host='0.0.0.0', port=port)
 
 
-@cli_admin.command("sync-models")
+@cli_admin.command("db:sync")
 def sync_models():
     """ Sync database models to create new tables """
 
@@ -217,8 +209,7 @@ def sync_models():
                 getattr(m, "initialize__")()
 
 
-
-@cli_admin.command("assets2s3")
+@cli_admin.command("upload:s3assets")
 @catch_exception
 def assets2s3():
     """ Upload assets files to S3 """
@@ -235,6 +226,7 @@ def assets2s3():
 
 @cli_admin.command("version")
 def version():
+    """Get the version"""
     print(__version__)
 
 
@@ -264,7 +256,7 @@ def cmd():
         return 
     else:
         header()
-        if len(sys.argv) == 1 or (len(sys.argv) > 1 and sys.argv[1] != 'setup'):
+        if len(sys.argv) == 1 or (len(sys.argv) > 1 and sys.argv[1] != 'init'):
             print("Error: %s is  not setup yet" % __title__)
             print("Run %s in the directory you want to create it" % bold("asm-admin init"))
             print("Missing file '%s' in %s" % (ENTRY_PY, CWD))

@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+"""
+Assembly: request
+"""
+
 import inspect
 from flask import request as f_request
 from .core import _bind_route_rule_cache, extends

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Extensions
+Assembly: functions
 """
 
 import re

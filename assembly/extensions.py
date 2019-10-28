@@ -1,4 +1,7 @@
-
+# -*- coding: utf-8 -*-
+"""
+Assembly: extensions
+"""
 
 import re
 import six

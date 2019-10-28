@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Assembly
+Assembly: core
 
-core.py
-This is the Assembly core. it contains the classes and functions
+This is the Assembly core
 """
 
 import re

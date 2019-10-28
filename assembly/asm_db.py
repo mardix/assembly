@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 """
-Active Alchemy with some custom types
+Assembly: asm_db
 
+Active Alchemy with some custom types
 Just like sqlalchemy_utils, this module contains some custom types to
 save in the db
 """

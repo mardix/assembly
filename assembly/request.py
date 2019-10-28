@@ -4,9 +4,9 @@ Assembly: request
 """
 
 import inspect
+import flask_seasurf
 from flask import request as f_request
 from .core import _bind_route_rule_cache, extends
-import flask_seasurf
 
 
 # CSRF

@@ -5,16 +5,16 @@ Assembly: functions
 
 import re
 import six
+import copy
+import arrow
+import blinker
 import logging
 import inspect
 import functools
-import arrow
-import copy
-import blinker
-from flask import (request, current_app, send_file, session)
 import flask_cloudy
-import flask_recaptcha
 import flask_caching
+import flask_recaptcha
+from flask import (request, current_app, send_file, session)
 from . import (Assembly,
                extends,
                utils,
@@ -186,6 +186,7 @@ def delete_file(fileobj):
         raise TypeError("Invalid file type. Must be of flask_cloudy.Object")
     return signals.delete_file(lambda: fileobj.delete())
 
+
 def download_file(filename, object_name=None, content=None, as_attachment=True, timeout=60):
     """
     Alias to download a file object as attachment, or convert some text as . 
@@ -348,9 +349,11 @@ def emit_signal(sender=None, namespace=None):
 def upload_file(change):
     return change()
 
+
 @emit_signal()
 def delete_file(change):
     return change()
+
 
 @emit_signal()
 def send_mail(change, **kwargs):

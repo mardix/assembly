@@ -16,22 +16,22 @@ others:
 from __future__ import division
 import os
 import re
-import inspect
 import time
-import datetime
+import json
+import uuid
 import arrow
+import urllib
 import string
 import random
 import socket
-import itsdangerous
-import humanize
-import pkg_resources
-import urllib
+import inspect
 import hashlib
-import json
-import uuid
-from six import string_types
+import datetime
+import humanize
+import itsdangerous
+import pkg_resources
 from slugify import slugify
+from six import string_types
 from werkzeug.utils import import_string
 from distutils.dir_util import (copy_tree as copy_dir,
                                 remove_tree as remove_dir,

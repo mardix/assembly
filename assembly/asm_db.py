@@ -7,10 +7,10 @@ Just like sqlalchemy_utils, this module contains some custom types to
 save in the db
 """
 
-import active_alchemy
-from sqlalchemy.engine.url import make_url as sa_make_url
-import sqlalchemy_utils as sa_utils
 import flask_cloudy
+import active_alchemy
+import sqlalchemy_utils as sa_utils
+from sqlalchemy.engine.url import make_url as sa_make_url
 
 class AssemblyDB(active_alchemy.ActiveAlchemy):
     """

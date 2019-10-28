@@ -6,12 +6,12 @@ Assembly: plugins
 import os
 import re
 import markdown
-from jinja2.nodes import CallBlock
-from jinja2.ext import Extension
-from jinja2 import Markup
-from jinja2.lexer import Token, describe_token
-from jinja2 import TemplateSyntaxError
 from . import extends
+from jinja2 import Markup
+from jinja2.ext import Extension
+from jinja2.nodes import CallBlock
+from jinja2 import TemplateSyntaxError
+from jinja2.lexer import Token, describe_token
 
 # ------------------------------------------------------------------------------
 

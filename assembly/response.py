@@ -136,7 +136,6 @@ def xml(func):
 
 def jsonp(func):
     """Wraps JSONified output for JSONP requests.
-    http://flask.pocoo.org/snippets/79/
     """
 
     @functools.wraps(func)

@@ -13,7 +13,6 @@ import inspect
 import functools
 import flask_cloudy
 import flask_caching
-import flask_recaptcha
 from flask import (request, current_app, send_file, session)
 from . import (Assembly,
                extends,
@@ -27,7 +26,6 @@ __all__ = ["cache",
            "delete_file",
            "download_file",
            "get_file",
-           "recaptcha",
            "send_mail",
            "utc_now",
            "format_datetime",
@@ -43,9 +41,7 @@ def setup(app):
         "format_datetime": format_datetime
     })
 
-    check_config_keys = [
-        "SECRET_KEY"
-    ]
+    check_config_keys = ["SECRET_KEY"]
     for k in check_config_keys:
         if k not in app.config \
                 or not app.config.get(k):
@@ -214,10 +210,6 @@ def download_file(filename, object_name=None, content=None, as_attachment=True, 
                          as_attachment=as_attachment)
     raise TypeError("`file` object or `content` text must be provided")
 
-
-# Recaptcha
-recaptcha = flask_recaptcha.ReCaptcha()
-extends(recaptcha.init_app)
 
 # ------------------------------------------------------------------------------
 

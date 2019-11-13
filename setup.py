@@ -37,6 +37,7 @@ setup(
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     install_requires=install_requires,
     keywords=['flask',
+              'assembly',
               'templates',
               'views',
               'classy',

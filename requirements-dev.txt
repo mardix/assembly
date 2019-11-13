@@ -1,0 +1,10 @@
+# Install this requirements for dev environment
+pytest
+
+# Documentation
+mkdocs
+markdown-include
+mkdocs-material
+pygments
+pymdown-extensions
+

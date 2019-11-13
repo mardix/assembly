@@ -38,8 +38,6 @@ Technically **Assembly** is an attempt of making a simple framework based on Fla
 
 - ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
 
-- ReCaptcha: [Flask-Recaptcha](https://github.com/mardix/flask-recaptcha)
-
 - Uses Arrow for dates 
 
 - Active-Alchemy saves the datetime as arrow object, utc_now
@@ -51,8 +49,6 @@ Technically **Assembly** is an attempt of making a simple framework based on Fla
 - Mailer (SES or SMTP)
 
 - Caching
-
-- Decorators, lots of decorators
 
 
 
@@ -80,8 +76,29 @@ Now Assembly has been installed, let's create our first application
 ```
 
 
-`asm-admin ini` setup the structure along with the necessary files to get started
- 
+`asm-admin init` setup the structure along with the necessary files to get started
+
+### Hello World
+
+```
+
+from assembly import (Assembly, response)
+
+class Index(Assembly):
+    
+    index(self):
+        return "Hello World"
+
+    @response.json
+    api(self):
+        return {
+            "name": "Assembly",
+            "version": "x-to-infinity"
+        }
+
+
+```
+
  You will see a structure similar to this
  
     /your-dir

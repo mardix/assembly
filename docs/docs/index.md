@@ -1,19 +1,20 @@
 
 
-# Mocha
+# Assembly
 
----
+
+<div style="text-align:center"><img src="/img/assembly.png"></div>
 
  <div style="text-align:center">
  <h2>A batteries included, front-end loaded, web and Restful framework built on Flask.</h2>
  </div>
 
 
-![Mocha](/img/cup3.jpg)
 
-Mocha helps you build and structure your application, where your endpoints are natively created from your view names.
 
-If you already know Flask, you pretty much know 95% of Mocha.
+Assembly helps you build and structure your application, where your endpoints are natively created from your view names.
+
+If you already know Flask, you pretty much know 95% of Assembly.
 
 ---
 
@@ -21,17 +22,17 @@ If you already know Flask, you pretty much know 95% of Mocha.
 
 #### Install
 
-    pip install mocha
+    pip install assembly
 
 #### Setup
 
 
-    mocha :init
+    assembly :init
 
 
 #### Serve
 
-    mocha :serve
+    assembly :serve
 
 ---
 
@@ -39,15 +40,15 @@ If you already know Flask, you pretty much know 95% of Mocha.
 
 ### **Class based views**
 
-Mocha groups your views together by class. The class name becomes the base route of all the methods.
-Mocha expects the methods to return dict.
+Assembly groups your views together by class. The class name becomes the base route of all the methods.
+Assembly expects the methods to return dict.
 
-    from mocha import Mocha
+    from assembly import Assembly
 
-    class Index(Mocha):
+    class Index(Assembly):
         def index(self):
             return {
-                "name": "Mocha",
+                "name": "Assembly",
                 "version": "1.0"
             }
 
@@ -56,7 +57,7 @@ Mocha expects the methods to return dict.
                 "hello": "world"
             }
 
-    class Document(Mocha):
+    class Document(Assembly):
         def index(self):
             return
 
@@ -71,15 +72,15 @@ Mocha expects the methods to return dict.
 Smart routing is created by using the class name and the method name. Class or method named `Index` or `index` respectively,
 will become the root; otherwise the class name will be the base root name, and all of its methods will be prefixed with it.
 
-    from mocha import Mocha
+    from assembly import Assembly
 
-    class Index(Mocha):
+    class Index(Assembly):
 
         def index(self):
             # -> http://127.0.0.1/
 
             return {
-                "name": "Mocha",
+                "name": "Assembly",
                 "version": "1.0"
             }
 
@@ -90,13 +91,13 @@ will become the root; otherwise the class name will be the base root name, and a
                 "hello": "world"
             }
 
-    class Account(Mocha):
+    class Account(Assembly):
 
         def index(self):
             # -> http://127.0.0.1/account
 
             return {
-                "name": "Mocha",
+                "name": "Assembly",
                 "version": "1.0"
             }
 
@@ -107,7 +108,7 @@ will become the root; otherwise the class name will be the base root name, and a
                 "name": "Mardix"
             }
 
-    class Document(Mocha):
+    class Document(Assembly):
 
         def index(self):
             # -> http://127.0.0.1/document/
@@ -128,14 +129,14 @@ will become the root; otherwise the class name will be the base root name, and a
 
 ### **Custom Route**
 
-Just like Flask, you can use the `mocha.route` decorator for custom routes. If the the class is decorated, all the
+Just like Flask, you can use the `assembly.route` decorator for custom routes. If the the class is decorated, all the
 the methods will inherit the parent route.
 
 
-    from mocha import Mocha, decorators as deco
+    from assembly import Assembly, decorators as deco
 
     @deco.route("/the-great-catalog")
-    class Catalog(Mocha):
+    class Catalog(Assembly):
 
         @deco.route("/list/")
         def index(self):
@@ -155,18 +156,18 @@ the methods will inherit the parent route.
 
 ### **RESTful**
 
-Mocha has some reserved methods name: `get`, `post`, `put`, `delete`, `update`. They required the `request.method`  to be
+Assembly has some reserved methods name: `get`, `post`, `put`, `delete`, `update`. They required the `request.method`  to be
 the same as the name. By default all other methods are `GET`
 
-    from mocha import Mocha
+    from assembly import Assembly
 
-    class Index(Mocha):
+    class Index(Assembly):
 
         def index(self):
             # -> http://127.0.0.1/
 
             return {
-                "name": "Mocha",
+                "name": "Assembly",
                 "version": "1.0"
             }
 
@@ -197,14 +198,14 @@ the same as the name. By default all other methods are `GET`
 You can quickly render your views to json or xml. By default it's HTML
 
 
-    from mocha import Mocha, decorators as deco
+    from assembly import Assembly, decorators as deco
 
     @deco.render_json
-    class Index(Mocha):
+    class Index(Assembly):
 
         def index(self):
             return {
-                "name": "Mocha",
+                "name": "Assembly",
                 "version": "1.0"
             }
 
@@ -213,7 +214,7 @@ You can quickly render your views to json or xml. By default it's HTML
                 "hello": "world"
             }
 
-    class Catalog(Mocha):
+    class Catalog(Assembly):
 
         def index(self):
             return {
@@ -234,10 +235,10 @@ You can quickly render your views to json or xml. By default it's HTML
 As you are creating your views, you can also build the navigation menu, by using `@decorators.nav_title`
 
 
-    from mocha import Mocha, decorators as deco
+    from assembly import Assembly, decorators as deco
 
     @deco.nav_title("The Great Catalog")
-    class Catalog(Mocha):
+    class Catalog(Assembly):
 
         @deco.nav_title("All")
         def index(self):
@@ -256,17 +257,17 @@ As you are creating your views, you can also build the navigation menu, by using
 
 ### **Admin**
 
-Mocha allows you to quickly turn your views into restricted admin area.
+Assembly allows you to quickly turn your views into restricted admin area.
 
 Accessing `http://127.0.0.1/admin/catalog` will require you to login
 
-    from mocha import Mocha, decorators as deco
-    import mocha.contrib
+    from assembly import Assembly, decorators as deco
+    import assembly.contrib
 
     @deco.nav_title("Catalog")
     @deco.route("/admin/catalog")
-    @mocha.contrib.admin
-    class CatalogAdmin(Mocha):
+    @assembly.contrib.admin
+    class CatalogAdmin(Assembly):
 
         @deco.nav_title("All")
         def index(self):
@@ -284,11 +285,11 @@ Accessing `http://127.0.0.1/admin/catalog` will require you to login
 
 ### **Interceptors**
 
-Sometimes you may want to do something before or after request, Mocha helps you with that.
+Sometimes you may want to do something before or after request, Assembly helps you with that.
 
-    from mocha import Mocha
+    from assembly import Assembly
 
-    class Index(Mocha):
+    class Index(Assembly):
 
         def before_request(self, name, *args, **kwargs):
             pass
@@ -301,12 +302,12 @@ Sometimes you may want to do something before or after request, Mocha helps you 
 
 ### **Jade markup**
 
-For aesthetic reason, Mocha uses by default Jade (now Pug) template. This can switched if you want to use HTML file only
+For aesthetic reason, Assembly uses by default Jade (now Pug) template. This can switched if you want to use HTML file only
 
     .row
         .col-md-12
             h1.text-center
-                | Hello Mocha
+                | Hello Assembly
 
 
 Becomes
@@ -314,7 +315,7 @@ Becomes
     <div class="row">
         <div class="col-md-12">
             <h1 class="text-center">
-                Hello Mocha
+                Hello Assembly
             </h1>
         </div>
     </div>

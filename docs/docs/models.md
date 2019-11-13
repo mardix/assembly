@@ -1,6 +1,13 @@
 
 
-Location: `/application/models.py`
+Path: `$$APP_NAME/__models__.py`
+
+---
+### **CONVENTION**
+
+By convention, Assembly expects you to have one models file per application. 
+
+And the file must be named **__models__.py**, for it to be loaded automatically.
 
 ---
 

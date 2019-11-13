@@ -5,17 +5,11 @@ Assembly: cli
 
 import os
 import re
-import sh
 import sys
-import json
-import yaml
 import click
 import flask
 import logging
-import traceback
-import importlib
 import functools
-import subprocess
 import pkg_resources
 from .core import db
 from .__about__ import *
@@ -228,9 +222,6 @@ def assets2s3():
 def version():
     """Get the version"""
     print(__version__)
-
-
-
 
 
 # ------------------------------------------------------------------------------

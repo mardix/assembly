@@ -1,12 +1,12 @@
 Mocha provides a command line tool to do sim
 
-    mocha
+    asm
 
 ### :init
 
-Running init will initialize mocha in the current directory
+Running init will initialize asm in the current directory
 
-    mocha :init
+    asm :init
 
 ---
 
@@ -14,21 +14,21 @@ Running init will initialize mocha in the current directory
 
 Run the server in the development mode.
 
-    mocha :serve
+    asm :serve
 
 By default it will run the `main` application in `config.Dev` environment
 
-To change application and environment, prepend the app before mocha :serve
+To change application and environment, prepend the app before asm :serve
 
-    app=main:production mocha :serve
+    app=main:production asm :serve
 
 The code above will run the `main` application with the `config.Production`
 
-    app=admin:stage mocha :serve
+    app=admin:stage asm :serve
 
 The code above will run `admin` application with `config.Stage`
 
-    env=production mocha :serve
+    env=production asm :serve
 
 The code above will run the `main` application with `config.Production`.
 
@@ -40,7 +40,7 @@ When `app` is not provided, or only `env` is provided, it will assume the app is
 
 To create a new view
 
-    mocha :addview
+    asm :addview
 
 ---
 
@@ -50,7 +50,7 @@ To install assets from `application/assets/package.json`
 
 This command requires `npm` as it will run `npm install` to install the assets
 
-    mocha :install-assets
+    asm :install-assets
 
 ---
 
@@ -58,7 +58,7 @@ This command requires `npm` as it will run `npm install` to install the assets
 
 To create new models in your DBMS.
 
-    mocha :dbsync
+    asm :dbsync
 
 
 ---
@@ -70,19 +70,19 @@ When `config.ASSETS_DELIVERY_METHOD` is `S3`, this util will allow you to upload
 your assets to S3, and the application will automatically point all your assets
 to S3.
 
-    mocha :assets2s3
+    asm :assets2s3
 
 Since it will be in production or some other places other than local,
 you may need to add the environment variables
 
-    app=main:production mocha :assets2s3
+    app=main:production asm :assets2s3
 
 
 ---
 
 ## Develop CLI
 
-You can develop your own CLI to also attach to the `mocha` cli.
+You can develop your own CLI to also attach to the `asm` cli.
 
 This will allow you to admin your application within one command line.
 
@@ -91,8 +91,8 @@ Mocha provides a CLI interface using `click`
 
 ### Create
 
-    import mocha.cli
-    class MyCLI(mocha.cli.CLI):
+    import asm.cli
+    class MyCLI(asm.cli.CLI):
 
         def __init__(self, command, click):
 
@@ -111,7 +111,7 @@ Mocha provides a CLI interface using `click`
 
 ### Running
 
-    mocha
+    asm
 
 Running the code above will show the follow
 
@@ -129,21 +129,21 @@ Running the code above will show the follow
 
 If you run
 
-    mocha hello-world
+    asm hello-world
 
 It will print out 'Hello World!'
 
 And...
 
-    mocha add-entry Jonas
+    asm add-entry Jonas
 
 will print out 'Name: Jonas'
 
 
 ### How does it work?
 
-Mocha looks for all the subclasses of `mocha.cli.CLI` and instantiate them by
-passing the `mocha.cli command` scope, along with `click`
+Mocha looks for all the subclasses of `asm.cli.CLI` and instantiate them by
+passing the `asm.cli command` scope, along with `click`
 
 ### Importing application modules in the CLI
 
@@ -151,7 +151,7 @@ To import application modules, place them in `__init__` of the class, so Mocha
 has the time to load all the necessary modules
 
 
-    class MyCLI(mocha.cli.CLI):
+    class MyCLI(asm.cli.CLI):
 
         def __init__(self, command, click):
 

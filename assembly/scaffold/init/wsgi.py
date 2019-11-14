@@ -1,42 +1,60 @@
 # -*- coding: utf-8 -*-
 """"
-________________________________________________________________________________
-Assembly: https://github.com/mardix/assembly
-________________________________________________________________________________
+Assembly
 
-Assembly wsgi.py
+https://github.com/mardix/assembly
+--------------------------------------------------------------------------------
 
-This your application's object
+'wsgi.py' is your application's object. It's required by Assembly.
 
-----------
+It sets up and initialize all the views per application
 
-# PROJECTS
-
-# a dict with list of applications to load by name
-# You can add as many views as you want, containing as many views
-# It also allows you to use multiple config env
-#
+--------------------------------------------------------------------------------
 
 # Environment variables
-export ASSEMBLY_ENV=Development
-export ASSEMBLY_PROJECT=default
 
+export ASSEMBLY_ENV=Development
+export ASSEMBLY_APP=default
+
+## ASSEMBLY_APP
+By default, Assembly will attempt to load the 'default' app. 
+To specify a different app, set the environment variable 'ASSEMBLY_APP'
+to the name of the app to use
+ie: 'export ASSEMBLY_APP=default'
+
+## ASSEMBLY_ENV
+By default, Assembly will attempt to load the 'Development' config object from './config.py'
+To specify a different environment, set the environment variable 'ASSEMEBLY_ENV'
+to the environment class name 
+ie: 'export ASSEMBLY_ENV=Production'
 """
 
+"""
+Import the base Assembly
+"""
 from assembly import Assembly
 
-# Import your application CLI
+"""
+If you want to use your views CLI, you can import them below
+"""
 import main.cli
 
-PROJECTS = {
+"""
+APPS = {}
+a dict with list of applications to load by name
+You can add as many views as you want per application.
+Set the environment variable 'ASSEMBLY_APP' to the name of the app to use
+ie: 'export ASSEMBLY_APP=default'
+"""
+
+APPS = {
     "default": [
         "main"
     ]
 }
 
 """
------------ Init -----------------------
 Initialize the application
-the `app` variable is required
+the 'app' variable is required
 """
-app = Assembly.init(__name__, PROJECTS)
+app = Assembly.init(__name__, APPS)

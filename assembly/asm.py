@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Assembly: functions
+Assembly: asm
+Set of helpers and functions
 """
 
 import re
@@ -10,49 +11,20 @@ import arrow
 import blinker
 import logging
 import inspect
+import datetime
 import functools
+import itsdangerous
 import flask_cloudy
 import flask_caching
-from flask import (request, current_app, send_file, session)
-from . import (Assembly,
-               extends,
-               utils,
-               g,
-               get_config)
+from passlib.hash import bcrypt
+from . import (extends, g, config)
+from flask import (send_file, session)
 
-__all__ = ["cache",
-           "storage",
-           "upload_file",
-           "delete_file",
-           "download_file",
-           "get_file",
-           "send_mail",
-           "utc_now",
-           "format_datetime",
-           "emit_signal",
-           "set_flash_data",
-           "get_flashed_data",
-           ]
-
-
-@extends
-def setup(app):
-    app.jinja_env.filters.update({
-        "format_datetime": format_datetime
-    })
-
-    check_config_keys = ["SECRET_KEY"]
-    for k in check_config_keys:
-        if k not in app.config \
-                or not app.config.get(k):
-            msg = "Missing config key value: %s " % k
-            logging.warning(msg)
-            exit()
-
+# ------------------------------------------------------------------------------
 
 def set_flash_data(data):
     """
-    Set temporary data in the session. 
+    Set temporary data in the session.
     It will replace the previous one
     :param data:
     :return:
@@ -68,18 +40,13 @@ def get_flashed_data():
     return session.pop("_flash_data", None)
 
 
-def utc_now():
-    """
-    Return the utcnow arrow object
-    :return: Arrow
-    """
-    return arrow.utcnow()
-
+# ------------------------------------------------------------------------------
+# date
 
 def format_datetime(utcdatetime, format=None, timezone=None):
     """
     Return local datetime based on the timezone
-    It will automatically format the date. 
+    It will automatically format the date.
     To not format the date, set format=False
 
     :param utcdatetime: Arrow or string
@@ -90,23 +57,26 @@ def format_datetime(utcdatetime, format=None, timezone=None):
     if utcdatetime is None:
         return None
 
-    timezone = timezone or get_config("DATETIME_TIMEZONE", "US/Eastern")
+    timezone = timezone or config.get("DATETIME_TIMEZONE", "US/Eastern")
     dt = utcdatetime.to(timezone) \
         if isinstance(utcdatetime, arrow.Arrow) \
         else arrow.get(utcdatetime, timezone)
     if format is False:
         return dt
 
-    _ = get_config("DATETIME_FORMAT")
+    _ = config.get("DATETIME_FORMAT")
     format = _.get("default") or "MM/DD/YYYY" if not format else _.get(format)
     return dt.format(format)
+
+# ------------------------------------------------------------------------------
+# mail
 
 
 def send_mail(template, to, **kwargs):
     """
     Alias to mail.send(), but makes template required
     ie: send_mail("welcome-to-the-site.txt", "user@email.com")
-    :param template: 
+    :param template:
     :param to:
     :param kwargs:
     :return:
@@ -118,10 +88,12 @@ def send_mail(template, to, **kwargs):
     return signals.send_mail(cb, data={"to": to, "template": template, "kwargs": kwargs})
 
 
+# ------------------------------------------------------------------------------
 # Cache
 cache = flask_caching.Cache()
 extends(cache.init_app)
 
+# ------------------------------------------------------------------------------
 # Storage
 storage = flask_cloudy.Storage()
 extends(storage.init_app)
@@ -131,7 +103,7 @@ extends(storage.init_app)
 
 def upload_file(_props_key, file, **kw):
     """
-    Wrapper around storage.upload to upload a file conveniently by using set 
+    Wrapper around storage.upload to upload a file conveniently by using set
     properties, so no need to keep rewriting the same code.
     config file must have STORAGE_UPLOAD_FILE_PROPS where it contains k/v, ie:
 
@@ -140,19 +112,19 @@ def upload_file(_props_key, file, **kw):
             "extensions": ["jpg", "jpeg", "gif", "png"],
             "prefix": "/profile-image/",
             "public": True
-        }, 
+        },
         ...
     }
 
     upload_file("profile-image", my_file)
     :param _props_key: (str) a key available in config.STORAGE_UPLOAD_FILE_PROPS
     :param file: FileStorage object or string location
-    :param kw: extra **kw for 
+    :param kw: extra **kw for
     :return: Storage object
     """
     kwargs = {}
     if _props_key is not None:
-        conf = get_config("STORAGE_UPLOAD_FILE_PROPS")
+        conf = config.get("STORAGE_UPLOAD_FILE_PROPS")
         if not conf:
             raise ValueError("Missing STORAGE_UPLOAD_FILE_PROPS in config")
         if _props_key not in conf:
@@ -165,8 +137,8 @@ def upload_file(_props_key, file, **kw):
 
 def get_file(object_name):
     """
-    Alias to get file from storage 
-    :param object_name: 
+    Alias to get file from storage
+    :param object_name:
     :return: Storage object
     """
     return storage.get(object_name)
@@ -175,8 +147,8 @@ def get_file(object_name):
 def delete_file(fileobj):
     """
     Alias to delete a file from storage
-    :param fileobj: 
-    :return: 
+    :param fileobj:
+    :return:
     """
     if not isinstance(fileobj, (flask_cloudy.Object, assembly_db.StorageObject)):
         raise TypeError("Invalid file type. Must be of flask_cloudy.Object")
@@ -185,16 +157,16 @@ def delete_file(fileobj):
 
 def download_file(filename, object_name=None, content=None, as_attachment=True, timeout=60):
     """
-    Alias to download a file object as attachment, or convert some text as . 
+    Alias to download a file object as attachment, or convert some text as .
     :param filename: the filename with extension.
-        If the file to download is an StorageOject, filename doesn't need to have an extension. 
+        If the file to download is an StorageOject, filename doesn't need to have an extension.
             It will automatically put it
         If the file to download is a `content` text, extension is required.
     :param object_name: the file storage object name
     :param content: string/bytes of text
     :param as_attachment: to download as attachment
     :param timeout: the timeout to download file from the cloud
-    :return: 
+    :return:
     """
     if object_name:
         file = get_file(object_name)
@@ -250,7 +222,7 @@ Usage
     def my_post_login(result, **kw):
         result: the result back
         **kw
-            params: params passed 
+            params: params passed
             sender: the name of the funciton
             emitter: the function that emits this signal
             name: the name of the signal
@@ -260,7 +232,7 @@ Usage
     @login.observe
     def my_other_post_login(result, **kw):
         pass
-    
+
 3.  Send Signal
     Now sending a signal is a matter of running the function.
 
@@ -276,8 +248,8 @@ def emit_signal(sender=None, namespace=None):
     """
     @emit_signal
     A decorator to mark a method or function as a signal emitter
-    It will turn the function into a decorator that can be used to 
-    receive signal with: $fn_name.pre.connect, $fn_name.post.connect 
+    It will turn the function into a decorator that can be used to
+    receive signal with: $fn_name.pre.connect, $fn_name.post.connect
     *pre will execute before running the function
     *post will run after running the function
 
@@ -336,7 +308,6 @@ def emit_signal(sender=None, namespace=None):
 
 # ------------------------------------------------------------------------------
 
-
 @emit_signal()
 def upload_file(change):
     return change()
@@ -350,3 +321,134 @@ def delete_file(change):
 @emit_signal()
 def send_mail(change, **kwargs):
     return change()
+
+
+# ------------------------------------------------------------------------------
+
+
+__CRYPT = {}
+@extends
+def __crypt_init(app):
+    """
+    https://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html
+    CONFIG
+        BCRYPT_ROUNDS = 12  # salt string
+        BCRYPT_SALT= None #
+        BCRYPT_IDENT = '2b'
+    """
+
+    __CRYPT.update({
+        "secret_key": config.get("SECRET_KEY"),
+        "salt": config.get("BCRYPT_ROUNDS", "assembly.bcrypt.salt.0"),
+        "rounds": config.get("BCRYPT_ROUNDS", 12)
+    })
+
+
+class TimestampSigner2(itsdangerous.TimestampSigner):
+    expires_in = 0
+
+    def get_timestamp(self):
+        now = datetime.datetime.utcnow()
+        expires_in = now + datetime.timedelta(seconds=self.expires_in)
+        return int(expires_in.strftime("%s"))
+
+    @staticmethod
+    def timestamp_to_datetime(ts):
+        return datetime.datetime.fromtimestamp(ts)
+
+class URLSafeTimedSerializer2(itsdangerous.URLSafeTimedSerializer):
+    default_signer = TimestampSigner2
+
+    def __init__(self, secret_key, expires_in=3600, salt=None, **kwargs):
+        self.default_signer.expires_in = expires_in
+        super(self.__class__, self).__init__(secret_key, salt=salt, **kwargs)
+
+
+def hash_string(string):
+    """
+    To hash a non versible hashed string. Can be used to hash password
+    :returns: string
+    """
+    config = {
+        "rounds": __CRYPT.get("rounds")
+    }
+    return bcrypt.using(**config).hash(string)
+
+def verify_hashed_string(string, hash):
+    """
+    check if string match its hashed. ie: To compare password
+    :returns: bool
+    """
+    return bcrypt.verify(string, hash)
+
+def encode_jwt(data, expires_in=1, **kw):
+    """
+    To encode JWT data
+    :param data:
+    :param expires_in: in minutes
+    :param kw:
+    :return: string
+    """
+    expires_in *= 60
+    s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key=__CRYPT.get("secret_key"),
+                                                     expires_in=expires_in,
+                                                     salt=__CRYPT.get("salt"),
+                                                     **kw)
+    return s.dumps(data)
+
+def decode_jwt(token, **kw):
+    """
+    To decode a JWT token
+    :param token:
+    :param kw:
+    :return: mixed data
+    """
+    s = itsdangerous.TimedJSONWebSignatureSerializer(__CRYPT.get("secret_key"), salt=__CRYPT.get("salt"), **kw)
+    return s.loads(token)
+
+def sign_data(data, expires_in=None, **kw):
+    """
+    To sign url safe data.
+    If expires_in is provided it will Time the signature
+    :param data: (mixed) the data to sign
+    :param expires_in: (int) in minutes. Time to expire
+    :param kw: kwargs for itsdangerous.URLSafeSerializer
+    :return:
+    """
+    if expires_in:
+        expires_in *= 60
+        s = URLSafeTimedSerializer2(secret_key=__CRYPT.get("secret_key"),
+                                    expires_in=expires_in,
+                                    salt=__CRYPT.get("salt"),
+                                    **kw)
+    else:
+        s = itsdangerous.URLSafeSerializer(secret_key=__CRYPT.get("secret_key"),
+                                            salt=__CRYPT.get("salt"),
+                                            **kw)
+    return s.dumps(data)
+
+def unsign_data(token,  **kw):
+    """
+    To unsign url safe data.
+    If expires_in is provided it will Time the signature
+    :param token:
+    :param secret_key:
+    :param salt: (string) a namespace key
+    :param kw:
+    :return:
+    """
+    if len(token.split(".")) == 3:
+        s = URLSafeTimedSerializer2(secret_key=__CRYPT.get("secret_key"), salt=__CRYPT.get("salt"), **kw)
+        value, timestamp = s.loads(token, max_age=None, return_timestamp=True)
+        now = datetime.datetime.utcnow()
+        if timestamp > now:
+            return value
+        else:
+            raise itsdangerous.SignatureExpired(
+                'Signature age %s < %s ' % (timestamp, now),
+                payload=value,
+                date_signed=timestamp)
+    else:
+        s = itsdangerous.URLSafeSerializer(secret_key=__CRYPT.get("secret_key"), salt=__CRYPT.get("salt"), **kw)
+        return s.loads(token)
+

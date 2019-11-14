@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    
     <title>{% block title %}{% endblock %}</title>
 
     {% assets "main/styles.css" %}
@@ -12,9 +13,11 @@
 
   <body>
     <header></header>
+    
     <div class="container">
       {% block content %}{% endblock %}
     </div>
+
     <footer>
       <div>&copy; {{ g.__YEAR__ }} {{ config.APPLICATION_NAME }} {{ config.APPLICATION_VERSION }}</div>
     </footer>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Assembly: asm_db
+Assembly: _db
 
 Active Alchemy with some custom types
 Just like sqlalchemy_utils, this module contains some custom types to
@@ -12,7 +12,7 @@ import active_alchemy
 import sqlalchemy_utils as sa_utils
 from sqlalchemy.engine.url import make_url as sa_make_url
 
-class AssemblyDB(active_alchemy.ActiveAlchemy):
+class ActiveAlchemy(active_alchemy.ActiveAlchemy):
     """
     A custom ActiveAlchemy wrapper which defers the connection
     """

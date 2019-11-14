@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Assembly views.py
+Assembly __views__.py
 
 Place your application's class views in this file.
 
@@ -58,16 +58,11 @@ class API(Assembly):
 """
 
 from assembly import (Assembly,
-                      set_page_context,
-                      get_config,
-                      abort,
-                      url_for,
-                      redirect,
-                      models,
+                      asm,
+                      models, 
                       request,
                       response,
-                      functions,
-                      utils)
+                      HTTPError)
 
 # ------------------------------------------------------------------------------
 
@@ -75,13 +70,12 @@ from assembly import (Assembly,
 class Index(Assembly):
 
     def index(self):
-        set_page_context(title="Hello World", description="Under Construction")
         return
 
     @response.cors()
     @response.json
     def api(self):
         return {
-            "date": functions.utc_now(),
+            "date": asm.utc_now(),
             "location": "NC"
         }

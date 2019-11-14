@@ -47,14 +47,14 @@ from six.moves.urllib.parse import (urlparse,
                                     urlencode,
                                     unquote_plus as urllib_unquote_plus)
 
-__all__ = [
+__X__ = [
     "md5",
     "guid",
     "slugify",
     "to_json",
     "camelize",
     "titleize",
-    "dict_dot",
+    "DotDict",
     "urlencode",
     "urldecode",
     "dasherize",
@@ -180,12 +180,12 @@ def generate_random_hash(size=32):
     return os.urandom(size//2).encode('hex')
 
 
-class dict_dot(dict):
+class DotDict(dict):
     """
     A dict extension that allows dot notation to access the data.
     ie: dict.get('key.key2.0.keyx')
     my_dict = {...}
-    d = dict_dot(my_dict)
+    d = DotDict(my_dict)
     d.get("key1")
     d.get("key1.key2")
     d.get("key3.key4.0.keyX")

@@ -1,21 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Assembly
+
+About file
 """
 
-__all__ = [
-    "__title__",
-    "__summary__",
-    "__uri__",
-    "__version__",
-    "__author__",
-    "__email__",
-    "__license__",
-    "__copyright__",
-]
-
 __title__ = "Assembly"
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __summary__ = "A mid stack Flask based framework that put structure in the " \
               "file system. Features: Caching, Mailing, Storage, CSRF, recaptcha, Cors. " \
               "Supports HTML and Markdown " \

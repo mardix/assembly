@@ -3,8 +3,7 @@
 Assembly
 """
 
-from .core import *
-from .functions import *
+from .assembly import *
 from .request import request
-from . import (response, extensions)
+from . import (asm, response, extensions)
 

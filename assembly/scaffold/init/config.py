@@ -69,22 +69,23 @@ class BaseConfig(object):
     # Data directory
     DATA_DIR = DATA_DIR
 
-    #--------- DATETIME TIMEZONE + FORMAT ----------
-    # Assembly uses Arrow to work with date and time by default
-    # https://github.com/crsmithdev/arrow
+    #------------------- DATE FORMAT and TIMEZONE -------------
+    # Arrow is used as date parser
+    # http://crsmithdev.com/arrow
+    # To view tokens: http://crsmithdev.com/arrow/#tokens
 
+    # Timezone to use when dealing with date. 
+    # Must manually set it. ie:
+    # Example
+    # date.now().to(config.get("TIMEZONE"))
     # Timezone
-    DATETIME_TIMEZONE = "US/Eastern"
+    TIMEZONE = "US/Eastern"
 
-    # Datetime format
-    # Dict of all dates format used by your application, inn your template
-    # {{ date_var | local_datetime }}
-    # or {{ date_var | local_datetime('long_datetime') }}
-    # or {{ date_var | local_datetime('MM/DD/YYYY') }}
-    # By default it will fallback to default, or use the format provided
-    # For all the tokens: http://crsmithdev.com/arrow/#tokens
-    # You can add as many keys as you want
-    DATETIME_FORMAT = {
+    # Date format
+    # Dict of dates format
+    # Example
+    # date.now().format(config.get("DATE_FORMAT.default").get("default"))
+    DATE_FORMAT = {
         "default": "MM/DD/YYYY",
         "date": "MM/DD/YYYY",
         "datetime": "MM/DD/YYYY hh:mm a",

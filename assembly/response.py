@@ -5,17 +5,13 @@ Assembly: response
 
 import copy
 import arrow
-import blinker
 import inspect
 import functools
 import flask_cors
 from jinja2 import Markup
 from dicttoxml import dicttoxml
 from werkzeug.wrappers import BaseResponse
-from werkzeug.exceptions import HTTPException
-from .core import (Assembly,
-                   apply_function_to_members,
-                   build_endpoint_route_name)
+from .assembly import (Assembly, apply_function_to_members)
 from flask import (Response,
                    jsonify,
                    request,
@@ -150,7 +146,6 @@ def jsonp(func):
             return func(*args, **kwargs)
     return decorated_view
 
-
 def template(page=None, **kwargs):
     """
     Decorator to change the view template.
@@ -189,7 +184,6 @@ def template(page=None, **kwargs):
                 return response
             return wrap
     return decorator
-
 
 def cors(*args, **kwargs):
     """

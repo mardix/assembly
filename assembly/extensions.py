@@ -12,14 +12,12 @@ import markdown
 import flask_s3
 import flask_mail
 import ses_mailer
-import itsdangerous
 import flask_kvsession
 from jinja2 import Markup
-from passlib.hash import bcrypt
 from jinja2.ext import Extension
 from jinja2.nodes import CallBlock
 from jinja2 import TemplateSyntaxError
-from . import (get_config, ext, extends)
+from . import (ext, extends)
 from jinja2.lexer import Token, describe_token
 from flask import (request, current_app, send_file, session)
 
@@ -28,6 +26,22 @@ from flask import (request, current_app, send_file, session)
 # assets_delivery, 
 # crypt
 # markdown
+
+#------------------------------------------------------------------------------
+@extends
+def setup(app):
+    # app.jinja_env.filters.update({
+    #     "format_datetime": format_datetime
+    # })
+
+    check_config_keys = ["SECRET_KEY"]
+    for k in check_config_keys:
+        if k not in app.config \
+                or not app.config.get(k):
+            msg = "Missing config key value: %s " % k
+            logging.warning(msg)
+            exit()
+
 
 #------------------------------------------------------------------------------
 # Set CORS
@@ -256,143 +270,6 @@ class _AssetsDelivery(flask_s3.FlaskS3):
 ext.assets_delivery = _AssetsDelivery()
 extends(ext.assets_delivery.init_app)
 
-#------------------------------------------------------------------------------
-# Crypt
-
-class TimestampSigner2(itsdangerous.TimestampSigner):
-    expires_in = 0
-
-    def get_timestamp(self):
-        now = datetime.datetime.utcnow()
-        expires_in = now + datetime.timedelta(seconds=self.expires_in)
-        return int(expires_in.strftime("%s"))
-
-    @staticmethod
-    def timestamp_to_datetime(ts):
-        return datetime.datetime.fromtimestamp(ts)
-
-class URLSafeTimedSerializer2(itsdangerous.URLSafeTimedSerializer):
-    default_signer = TimestampSigner2
-
-    def __init__(self, secret_key, expires_in=3600, salt=None, **kwargs):
-        self.default_signer.expires_in = expires_in
-        super(self.__class__, self).__init__(secret_key, salt=salt, **kwargs)
-
-class Crypt(object):
-    def __init__(self, secret_key=None, salt=None, rounds=12):
-        pass
-        
-    def init_app(self, app):
-        self.secret_key = get_config("SECRET_KEY")
-        self.salt = "assembly.security.salt.0"
-        self.rounds = 12
-
-    """
-    https://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html
-    CONFIG 
-        BCRYPT_ROUNDS = 12  # salt string
-        BCRYPT_SALT= None #
-        BCRYPT_IDENT = '2b'
-    """
-    def hash_string(self, string):
-        """
-        To hash a non versible hashed string. Can be used to hash password
-        :returns: string
-        """
-        config = {
-            "rounds": self.rounds
-        }
-        return bcrypt.using(**config).hash(string)
-
-    def verify_hashed_string(self, string, hash):
-        """
-        check if string match its hashed. ie: To compare password
-        :returns: bool
-        """
-        return bcrypt.verify(string, hash)
-
-    def jwt_encode(self, data, expires_in=1, **kw):
-        """
-        To encode JWT data
-        :param data:
-        :param expires_in: in minutes
-        :param kw:
-        :return: string
-        """
-        expires_in *= 60
-        s = itsdangerous.TimedJSONWebSignatureSerializer(secret_key=self.secret_key,
-                                                         expires_in=expires_in,
-                                                         salt=self.salt,
-                                                         **kw)
-        return s.dumps(data)
-
-    def jwt_decode(self, token, **kw):
-        """
-        To decode a JWT token
-        :param token:
-        :param kw:
-        :return: mixed data
-        """
-        s = itsdangerous.TimedJSONWebSignatureSerializer(self.secret_key, salt=self.salt, **kw)
-        return s.loads(token)
-
-    def url_safe_encode(self, data, expires_in=None, **kw):
-        """
-        To sign url safe data.
-        If expires_in is provided it will Time the signature
-        :param data: (mixed) the data to sign
-        :param expires_in: (int) in minutes. Time to expire
-        :param kw: kwargs for itsdangerous.URLSafeSerializer
-        :return:
-        """
-        if expires_in:
-            expires_in *= 60
-            s = URLSafeTimedSerializer2(secret_key=self.secret_key,
-                                        expires_in=expires_in,
-                                        salt=self.salt,
-                                        **kw)
-        else:
-            s = itsdangerous.URLSafeSerializer(secret_key=self.secret_key,
-                                               salt=self.salt,
-                                               **kw)
-        return s.dumps(data)
-
-    def url_safe_decode(self, token,  **kw):
-        """
-        To sign url safe data.
-        If expires_in is provided it will Time the signature
-        :param token:
-        :param secret_key:
-        :param salt: (string) a namespace key
-        :param kw:
-        :return:
-        """
-        if len(token.split(".")) == 3:
-            s = URLSafeTimedSerializer2(secret_key=self.secret_key, salt=self.salt, **kw)
-            value, timestamp = s.loads(token, max_age=None, return_timestamp=True)
-            now = datetime.datetime.utcnow()
-            if timestamp > now:
-                return value
-            else:
-                raise itsdangerous.SignatureExpired(
-                    'Signature age %s < %s ' % (timestamp, now),
-                    payload=value,
-                    date_signed=timestamp)
-        else:
-            s = itsdangerous.URLSafeSerializer(secret_key=self.secret_key, salt=self.salt, **kw)
-            return s.loads(token)
-
-    def data_encode(self, data, **kw):
-        s = itsdangerous.Serializer(secret_key=self.secret_key, salt=self.salt, **kw)
-        return s.dumps(data)
-
-    def data_ecode(self, data, **kw):
-        s = itsdangerous.Serializer(secret_key=self.secret_key, salt=self.salt, **kw)
-        return s.loads(data)
-
-
-ext.crypto = Crypt()
-extends(ext.crypto.init_app)
 
 #------------------------------------------------------------------------------
 # Markdown

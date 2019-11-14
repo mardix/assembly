@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Assembly: models.py
+Assembly: __models__.py
 
 Contains applications models and other databases connections.
 
@@ -24,7 +24,7 @@ ie: models.MyModel
 -----
 """
 
-from assembly import db, get_config
+from assembly import db
 
 # ------------------------------------------------------------------------------
 

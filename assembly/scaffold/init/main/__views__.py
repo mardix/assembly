@@ -59,6 +59,7 @@ class API(Assembly):
 
 from assembly import (Assembly,
                       asm,
+                      date,
                       models, 
                       request,
                       response,
@@ -76,6 +77,6 @@ class Index(Assembly):
     @response.json
     def api(self):
         return {
-            "date": asm.utc_now(),
+            "date": date.utcnow(),
             "location": "NC"
         }

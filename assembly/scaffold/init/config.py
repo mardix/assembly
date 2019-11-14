@@ -71,11 +71,11 @@ class BaseConfig(object):
 
     #------------------- DATE FORMAT and TIMEZONE -------------
     # Arrow is used as date parser
+    # from assembly import date
     # http://crsmithdev.com/arrow
     # To view tokens: http://crsmithdev.com/arrow/#tokens
 
     # Timezone to use when dealing with date. 
-    # Must manually set it. ie:
     # Example
     # date.now().to(config.get("TIMEZONE"))
     # Timezone
@@ -84,7 +84,7 @@ class BaseConfig(object):
     # Date format
     # Dict of dates format
     # Example
-    # date.now().format(config.get("DATE_FORMAT.default").get("default"))
+    # date.now().format(config.get("DATE_FORMAT.default"))
     DATE_FORMAT = {
         "default": "MM/DD/YYYY",
         "date": "MM/DD/YYYY",
@@ -273,19 +273,6 @@ class BaseConfig(object):
     #: Directory to store cache if CACHE_TYPE is filesystem, it will
     CACHE_DIR = ""
 
-    #--------- RECAPTCHA ----------
-    #: Flask-Recaptcha
-    #: Register your application at https://www.google.com/recaptcha/admin
-
-    #: RECAPTCHA_ENABLED
-    RECAPTCHA_ENABLED = False
-
-    #: RECAPTCHA_SITE_KEY
-    RECAPTCHA_SITE_KEY = ""
-
-    #: RECAPTCHA_SECRET_KEY
-    RECAPTCHA_SECRET_KEY = ""
-
 
 # -------------------------- ENVIRONMENT BASED CONFIG ---------------------------
 """
@@ -294,7 +281,7 @@ By default it will load the development
 
 ## 1. Set environment variables
 export ASSEMBLY_ENV=Development # for development
-export ASSEMBLY_PROJECT=default  # for prod
+export ASSEMBLY_APP=default  
 
 ## 2. Run the wsgi
 wsgi:app

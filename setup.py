@@ -9,7 +9,7 @@ base_dir = os.path.dirname(__file__)
 
 
 __about__ = {}
-with open(os.path.join(base_dir, "assembly", "__about__.py")) as f:
+with open(os.path.join(base_dir, "assembly", "about.py")) as f:
     exec(f.read(), __about__)
 
 with open('requirements.txt') as f:

@@ -17,7 +17,7 @@ import functools
 import arrow as date
 import pkg_resources
 import logging.config
-from . import utils, _db, __about__
+from . import utils, _db, about
 from flask_assets import Environment
 import werkzeug.exceptions as HTTPError
 from werkzeug.contrib.fixers import ProxyFix
@@ -345,8 +345,8 @@ class Assembly(object):
 
         # Add some global Assembly data in g, along with APPLICATION DATA
         vars = dict(
-            __NAME__=__about__.__title__,
-            __VERSION__=__about__.__version__,
+            __NAME__=about.__title__,
+            __VERSION__=about.__version__,
             __YEAR__=date.utcnow().year
         )
         for k, v in vars.items():

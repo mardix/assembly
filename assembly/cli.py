@@ -12,7 +12,7 @@ import logging
 import functools
 from . import utils
 import pkg_resources
-from . import __about__
+from . import about
 from .assembly import db
 from werkzeug import import_string
 
@@ -40,7 +40,7 @@ def copy_resource_dir(src, dest):
     if pkg_resources.resource_isdir(package_name, src):
         if not os.path.isdir(dest):
             os.makedirs(dest)
-        for res in pkg_resources.resource_listdir(__about__.__name__, src):
+        for res in pkg_resources.resource_listdir(about.__name__, src):
             copy_resource_dir(src + "/" + res, dest)
     else:
         if not os.path.isfile(dest) and os.path.splitext(src)[1] not in [".pyc"]:
@@ -49,7 +49,7 @@ def copy_resource_dir(src, dest):
 
 def copy_resource_file(src, dest):
     with open(dest, "wb") as f:
-        f.write(pkg_resources.resource_string(__about.__.__name__, src))
+        f.write(pkg_resources.resource_string(about.__name__, src))
 
 
 # ------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ def bold(str):
 
 def header(title=None):
     print('*' * 80)
-    print("%s v. %s" % (__about__.__title__,__about__.__version__))
+    print("%s v. %s" % (about.__title__,about.__version__))
     print("")
     if title:
         print(':: %s ::' % title.upper())
@@ -127,14 +127,14 @@ def init():
 
     asmpyfile = os.path.join(os.path.join(CWD, ENTRY_PY))
 
-    header("Setup %s" % __about__.__title__)
+    header("Setup %s" % about.__title__)
     if os.path.isfile(asmpyfile):
         print("Assembly is already setup in ths directory")
         print("Found '%s' in %s" % (ENTRY_PY, CWD))
         print("")
     else:
         copy_resource_dir(SKELETON_DIR + "/init/", CWD)
-        print("%s is setup successfully!" % __about__.__title__)
+        print("%s is setup successfully!" % about.__title__)
         print("")
         print("> To do:")
         print("- Edit application's config [ ./config.py ] ")
@@ -221,7 +221,7 @@ def assets2s3():
 @cli_admin.command("version")
 def version():
     """Get the version"""
-    print(__about__.__version__)
+    print(about.__version__)
 
 
 # ------------------------------------------------------------------------------
@@ -248,7 +248,7 @@ def cmd():
     else:
         header()
         if len(sys.argv) == 1 or (len(sys.argv) > 1 and sys.argv[1] != 'init'):
-            print("Error: %s is  not setup yet" % __about__.__title__)
+            print("Error: %s is  not setup yet" % about.__title__)
             print("Run %s in the directory you want to create it" % bold("asm-admin init"))
             print("Missing file '%s' in %s" % (ENTRY_PY, CWD))
             print('_' * 80)

@@ -7,7 +7,6 @@ Set of helpers and functions
 import re
 import six
 import copy
-import arrow
 import blinker
 import logging
 import inspect
@@ -39,34 +38,6 @@ def get_flashed_data():
     """
     return session.pop("_flash_data", None)
 
-
-# ------------------------------------------------------------------------------
-# date
-
-def format_datetime(utcdatetime, format=None, timezone=None):
-    """
-    Return local datetime based on the timezone
-    It will automatically format the date.
-    To not format the date, set format=False
-
-    :param utcdatetime: Arrow or string
-    :param format: string of format or False
-    :param timezone: string, ie: US/Eastern
-    :return:
-    """
-    if utcdatetime is None:
-        return None
-
-    timezone = timezone or config.get("DATETIME_TIMEZONE", "US/Eastern")
-    dt = utcdatetime.to(timezone) \
-        if isinstance(utcdatetime, arrow.Arrow) \
-        else arrow.get(utcdatetime, timezone)
-    if format is False:
-        return dt
-
-    _ = config.get("DATETIME_FORMAT")
-    format = _.get("default") or "MM/DD/YYYY" if not format else _.get(format)
-    return dt.format(format)
 
 # ------------------------------------------------------------------------------
 # mail
@@ -339,7 +310,7 @@ def __crypt_init(app):
 
     __CRYPT.update({
         "secret_key": config.get("SECRET_KEY"),
-        "salt": config.get("BCRYPT_ROUNDS", "assembly.bcrypt.salt.0"),
+        "salt": config.get("BCRYPT_SALT", "assembly.bcrypt.salt.0"),
         "rounds": config.get("BCRYPT_ROUNDS", 12)
     })
 
@@ -369,10 +340,10 @@ def hash_string(string):
     To hash a non versible hashed string. Can be used to hash password
     :returns: string
     """
-    config = {
+    conf = {
         "rounds": __CRYPT.get("rounds")
     }
-    return bcrypt.using(**config).hash(string)
+    return bcrypt.using(**conf).hash(string)
 
 def verify_hashed_string(string, hash):
     """

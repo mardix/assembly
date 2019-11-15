@@ -1,11 +1,3 @@
+# Assembly 
+# ---------------------------
 assembly
-
-#---- ----#
-# some dependencies you may need in addition
-# -> for recaptacha
-# flask-recaptcha>=0.4.1
-#
-# -> for flask-assets/web-assets
-# cssmin>=0.2.0
-# jsmin>=2.2.2
-

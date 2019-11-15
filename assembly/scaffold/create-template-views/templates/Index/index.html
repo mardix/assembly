@@ -1,7 +1,9 @@
 
-<div>
-    <div>
-        <h1>It's {{ g.__NAME__ }} </h1>
-        <h4>v. {{ g.__VERSION__ }}</h4>
-    </div>
-</div>
+{% extends 'main/layouts/base.html' %}
+
+{% block title %}My View Template Example{% endblock %}
+
+{% block body %}
+    This is an example of a view that inherits from the main.base template
+{% endblock %}
+

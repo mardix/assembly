@@ -29,7 +29,7 @@ from assembly import db
 # --------------------------------------------------------------------------
 
 """
-ActiveAlchemy Models
+# ActiveAlchemy Models
 
 class Test(db.Model):
     name = db.Column(db.String(255), index=True)

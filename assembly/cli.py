@@ -138,9 +138,9 @@ def init():
         print("")
         print("> To do:")
         print("- Edit application's config [ ./config.py ] ")
-        print("- Create your Models/Database tables, then run [ asm-admin db:sync ]")        
+        print("- Create your Models/Database tables, then run [ asm-admin sync-db ]")        
         print("- Create your commands in [ cli.py ] and run your setup command [ asm setup ]")
-        print("- Launch app on development mode, run [ asm-admin server ]")
+        print("- Launch app on development mode, run [ asm-admin serve ]")
         print("")
 
 def create_views(scaffold, name):
@@ -150,14 +150,14 @@ def create_views(scaffold, name):
     else:
         utils.make_dirs(dest)
         copy_resource_dir(SKELETON_DIR + "/%s/" % scaffold, dest)
-        viewdest = os.path.join(dest, "__views__.py")
+        viewdest = os.path.join(dest, "__init__.py")
         with open(viewdest, "r+") as f:
             content = f.read().replace("%ROUTE%", name.lower())
             f.seek(0)
             f.write(content)
             f.truncate()
 
-@cli_admin.command("gen:template")
+@cli_admin.command("gen-template-view")
 @click.argument("name")
 def add_view(name):
     """ Generate Template based views"""
@@ -167,7 +167,7 @@ def add_view(name):
     print("")
     print("*" * 80)
 
-@cli_admin.command("gen:api")
+@cli_admin.command("gen-api-view")
 @click.argument("name")
 def api_view(name):
     """ Generate API based views"""
@@ -177,7 +177,7 @@ def api_view(name):
     print("*" * 80)
 
 
-@cli_admin.command("server")
+@cli_admin.command("serve")
 @click.option("--port", "-p", default=5000)
 @catch_exception
 def run(port):
@@ -189,7 +189,7 @@ def run(port):
     asm_app.run(debug=True, host='0.0.0.0', port=port)
 
 
-@cli_admin.command("db:sync")
+@cli_admin.command("sync-db")
 def sync_models():
     """ Sync database models to create new tables """
 
@@ -203,7 +203,7 @@ def sync_models():
                 getattr(m, "initialize__")()
 
 
-@cli_admin.command("upload:s3assets")
+@cli_admin.command("upload-assets-s3")
 @catch_exception
 def assets2s3():
     """ Upload assets files to S3 """

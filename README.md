@@ -5,7 +5,7 @@
 --- 
 
 **Assembly** is a pythonic object-oriented, mid stack, batteries included framework built on Flask, that adds structure 
-to your Flask application, and group your routes and endpoints by class.
+to your Flask application, and group your routes by class.
 
 **Assembly** allows developers to build web applications in much the same way they would build any other object-oriented Python program. 
 
@@ -17,12 +17,13 @@ Technically **Assembly** is an attempt of making a simple framework based on Fla
 
 ---
 
-## First Assembly! 
+## Assembly in action 
+
 
 ```
 # views.py
 
-from assembly import Assembly, response, request, HTTPError
+from assembly import (Assembly, response, request, HTTPError)
 
 # Extends to Assembly makes it a route automatically
 # By default, Index will be the root url
@@ -121,16 +122,13 @@ class Api(Assembly):
 
 - Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'
 
-- Smart Rendering without adding any blocks in your templates
+- Smart template: automatically map the class and method name, to folder and html file
 
 - Auto rendering by returning a dict of None
 
-
-- Templates are mapped as the model in the class the $module/$class/$method.html
-
 - Markdown ready: Along with  HTML, it can also properly parse Markdown
 
-- Auto route can be edited with @route()
+- Auto route can be edited with @request.route()
 
 - Restful: GET, POST, PUT, DELETE
 
@@ -138,60 +136,99 @@ class Api(Assembly):
 
 - bcrypt is chosen as the password hasher
 
+
 - Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL
 
 - ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
 
-- Uses Arrow for dates 
+- Dates: Uses Arrow for dates 
 
 - Active-Alchemy saves the datetime as arrow object, utc_now
 
 - CSRF on all POST
 
-- CloudStorage: Local, S3, Google Storage [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
+- Storage: Local, S3, Google Storage [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
 
-- Mailer (SES or SMTP)
+- Mailer: SMTP, SES
 
 - Caching
 
 
+---
 
 ## Quickstart
 
-#### Install Assembly
+This quickstart will allow us to go with Assembly from 0 to 100!
 
-To install Assembly, it is highly recommended to use a virtualenv, in this case I 
-use virtualenvwrapper 
+### 1. Install Assembly
 
-    mkvirtualenv my-assembly-site
+Install Assembly with `pip install assembly`
 
-Install Assembly
-
-    pip install assembly
-    
-#### Initialize your application
-
-Now Assembly has been installed, let's create our first application
+It is highly recommended to use a virtualenv, in this case let's
+use VirtualenvWrapper (you can use any that is convenient for you)
 
 ```
-    cd your-dir
-    
-    asm-admin init
+mkvirtualenv my-first-app
+
+workon my-first-app
+
+pip install assembly
+
 ```
 
 
-`asm-admin init` setup the structure along with the necessary files to get started
+### 2. Initialize your application
 
-### Hello World
+Initialize Assembly with `asm-admin init`
+
+CD into the folder you intend to create the application, then run `asm-admin init`. 
+This will setup the structure along with the necessary files to get started
 
 ```
+cd app-dir
+
+asm-admin init
+
+```
+
+Upon initialization you should have a structure similar to this:
+
+```
+-- /
+    |- wsgi.py
+    |- config.py
+    |- requirements.txt
+    |- main
+        |- __init__.py
+        |- __models__.py
+        |- templates
+            |- Index
+                |- index.html
+            |- layouts
+                |- base.html
+        |- static
+        |- cli.py
+
+    |- data/
+```
+
+
+
+### 3. Edit your first view
+
+```
+
+# main/__views__.py
 
 from assembly import (Assembly, response)
 
 class Index(Assembly):
     
     index(self):
-        return "Hello World"
+        return {
+            "title": "Assembly is awesome",
+            "content": "That is a true fact"
+        }
 
     @response.json
     api(self):
@@ -200,84 +237,67 @@ class Index(Assembly):
             "version": "x-to-infinity"
         }
 
+```
+
+### 4. Edit your template
+
+#### 4.0 Edit base layout 
+
+```
+<!-- main/templates/layouts/base.html -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+
+  <body>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
 
 ```
 
- You will see a structure similar to this
- 
-    /your-dir
-        |
-        |__ .gitignore
-        |
-        |__ app.json
-        |
-        |__ requirements.txt
-        |
-        |__ assembly.py
-        |
-        |__ application/
-            |
-            |__ __init__.py
-            |
-            |__ config.py
-            |
-            |__ /models/
-                |
-                |__ __init__.py
-                |
-                |__ models.py
-            |
-            |__ /views/
-                |
-                |__ __init__.py
-                |
-                |__ main.py
-            |
-            |__ /templates/
-                | 
-                |__ /layouts/
-                    | 
-                    |__ base.jade
-                |
-                |__ /main/
-                    |
-                    |__ /Index/
-                        |
-                        |__ index.jade
-            |
-            |__ /static/
-                |
-                |__ assets.yml
-                |
-                |__ package.json
-            |
-            |__ /data/
-                |
-                |__ babel.cfg
-                |
-                |__ /uploads/
-                |
-                |__ /babel/
-                |
-                |__ /mail-templates/
-            |
-            |__ /lib/
+#### 4.1  Edit Index/index.html
+```
+
+<!-- main/templates/Index/index.html -->
+
+{% extends 'main/layouts/base.html' %}
+
+{% block title %}Welcome to my Assembly Site {% endblock %}
+
+{% block content %}
+    <div>
+        <h1>{{ title }}</h1>
+    </div>
+    <div>
+        {{ content }}
+    </div>
+{% endblock %}
 
 
- 
+```
+
+
 #### Serve your first application
 
 If everything is all set, all you need to do now is run your site:
 
-    asm-admin server
-    
+```
+asm-admin server
+```
+
 It will start serving your application by default at `127.0.0.1:5000`
 
 Go to http://127.0.0.1:5000/ 
 
 ---
 
-I hope this wasn't too hard. Now Read The Docs at [http://mardix.github.io/assembly/](http://mardix.github.io/assembly/)
+I hope this wasn't too bad. Now Read The Docs at [http://mardix.github.io/assembly/](http://mardix.github.io/assembly/)
 for more 
 
 Thanks, 

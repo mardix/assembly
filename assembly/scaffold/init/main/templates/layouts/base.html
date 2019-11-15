@@ -12,14 +12,17 @@
   </head>
 
   <body>
-    <header></header>
+    
+    <header>
+      {% block header %}{% endblock %}
+    </header>
     
     <div class="container">
-      {% block content %}{% endblock %}
+      {% block body %}{% endblock %}
     </div>
 
     <footer>
-      <div>&copy; {{ g.__YEAR__ }} {{ config.APPLICATION_NAME }} {{ config.APPLICATION_VERSION }}</div>
+      {% block footer %}{% endblock %}
     </footer>
 
     {% assets "main/app.js" %}

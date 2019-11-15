@@ -5,7 +5,7 @@
 
 ```
 export ASSEMBLY_ENV=Development # for development
-export ASSEMBLY_PROJECT=default  # for prod
+export ASSEMBLY_APP=default  # for prod
 ```
 
 ### 2. Run the wsgi
@@ -35,8 +35,6 @@ wsgi:app
         |
         |-- __models__.py
         |
-        |-- __views__.py
-        |
         |-- cli.py
         |
         |-- templates
@@ -54,7 +52,7 @@ wsgi:app
 ## Serve your app
 
 ```
-asm-admin server
+asm-admin serve
 ```
 
 **wsgi.py**
@@ -63,7 +61,7 @@ asm-admin server
 
 **${application}**
 
-**${application}/__views__.py**
+**${application}/__init__.py**
 
 **${application}/__models__.py**
 

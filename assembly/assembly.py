@@ -300,9 +300,6 @@ class Assembly(object):
                 werkzeug.import_string("%s.__models__" % view)
                 cls._expose_models__()
 
-                # auto import views
-                werkzeug.import_string("%s.__views__" % view)
-
                 # auto register templates an static
                 _register___application_template(view, view)
 
@@ -852,8 +849,6 @@ def _bind_route_rule_cache(f, rule, append_method=False, **kwargs):
 def _make_template_path(cls, method_name):
     _template = _make_routename_from_cls(cls, method_name)
     m = _template.split(".")
-    if "__views__" in m[1]:
-        m.remove("__views__")
     _template = ".".join(list(m))
     _template = utils.list_replace([".", ":"], "/", _template)
     return "%s.html" % _template

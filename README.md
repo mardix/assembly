@@ -136,6 +136,7 @@ class Api(Assembly):
 
 - bcrypt is chosen as the password hasher
 
+- Simplified error handling
 
 - Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL
 
@@ -209,7 +210,7 @@ Upon initialization you should have a structure similar to this:
         |- static
         |- cli.py
 
-    |- data/
+    |- __data__/
 ```
 
 
@@ -218,7 +219,7 @@ Upon initialization you should have a structure similar to this:
 
 ```
 
-# main/__views__.py
+# main/__init__.py
 
 from assembly import (Assembly, response)
 
@@ -288,7 +289,7 @@ class Index(Assembly):
 If everything is all set, all you need to do now is run your site:
 
 ```
-asm-admin server
+asm-admin serve
 ```
 
 It will start serving your application by default at `127.0.0.1:5000`

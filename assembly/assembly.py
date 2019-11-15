@@ -648,22 +648,26 @@ class Assembly(object):
         return base_route.strip("/")
 
     @classmethod
-    def _error_handler__(cls, fn, e, code=None):
+    def _error_handler__(cls, fn, e):
         """
         Error handler callback.
         adding _error_handler() or _error_$code()/_error_404(), 
         will trigger this method to return the response
-        The method must accept one arg, which is the ERROR object 
+        The method must accept one arg, which is the error object 
         'self' can still be used in your class
+        :param fn: the method invoked
+        :param e: the error object
         """
         resp = fn(cls, e)
         if isinstance(resp, Response) or isinstance(resp, BaseResponse):
             return resp
         if isinstance(resp, dict) or isinstance(resp, tuple) or resp is None:
             data, status, headers = utils.prepare_view_response(resp)
-            if "__template__" not in resp:
-                tpl_name = _make_template_path(cls, fn.__name__.lstrip("_"))
-                resp.update({"__template__": tpl_name})
+            # create template from the error name, without the leading _,
+            # ie: _error_handler -> error_handler.html, _error_404 -> error_404.html
+            # template can be changed using @respone.template('app/class/action.html')
+            if "__template__" not in data:
+                data["__template__"] = _make_template_path(cls, fn.__name__.lstrip("_"))
             return cls.render(**resp), e.code, headers  
         return resp
 
@@ -856,7 +860,7 @@ def _bind_route_rule_cache(f, rule, append_method=False, **kwargs):
     elif not f.__name__ in f._rule_cache:
         f._rule_cache[f.__name__] = [(rule, kwargs)]
     else:
-        # when and endpoint accepts multiple METHODS, ie: post(), get()
+        # when an endpoint accepts multiple METHODS, ie: post(), get()
         if append_method:
             for r in f._rule_cache[f.__name__]:
                 if r[0] == rule and "methods" in r[1] and "methods" in kwargs:
@@ -899,7 +903,7 @@ def _get_interesting_members_http_error(base_class, cls):
             if not member[0] in base_members
             and ((hasattr(member[1], "__self__") and not member[1].__self__ in inspect.getmro(cls)) if six.PY2 else True)
             and member[0].startswith("_")
-            and (_match_http_error(member[0]) or member[0] == "_error_handler")
+            and _match_http_error(member[0])
             and not member[0].startswith("before_")
             and not member[0].startswith("after_"))
 
@@ -907,8 +911,10 @@ def _get_interesting_members_http_error(base_class, cls):
 def _match_http_error(val):
     """
     catches:
-    _error_$number, _error_404
+    _error_$code, _error_404
     _error_handler
+    :param val: string
+    :return: object or None
     """
     return re.match(r"^_error_(\d+|handler)$", val)
 

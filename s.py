@@ -1,8 +1,9 @@
 import re 
 
-n = "_error_handler"
+n = "_xerror_handler"
 m = re.match(r"^_error_(\d+|handler)$", n)
-print(m.groups())
+print(m)
+#print(m.groups())
 
 
 # s = "__error_handler"

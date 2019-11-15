@@ -20,6 +20,8 @@ import logging.config
 from . import utils, _db, about
 from flask_assets import Environment
 import werkzeug.exceptions as HTTPError
+from werkzeug.wrappers import BaseResponse
+from werkzeug.exceptions import HTTPException
 from werkzeug.contrib.fixers import ProxyFix
 from werkzeug.routing import (BaseConverter, parse_rule)
 from flask import (Flask,
@@ -333,11 +335,11 @@ class Assembly(object):
         return app
 
     @classmethod
-    def render(cls, data={}, template=None, **kwargs):
+    def render(cls, data={}, __template__=None, **kwargs):
         """
         Render the view template based on the class and the method being invoked
         :param data: The context data to pass to the template
-        :param template: The file template to use. By default it will map the module/classname/action.html
+        :param __template__: The file template to use. By default it will map the view/classname/action.html
         """
 
         # Add some global Assembly data in g, along with APPLICATION DATA
@@ -350,15 +352,15 @@ class Assembly(object):
             setattr(g, k, v)
 
         # Build the template using the method name being called
-        if not template:
+        if not __template__:
             stack = inspect.stack()[1]
             action_name = stack[3]
-            template = _make_template_path(cls, action_name)
+            __template__ = _make_template_path(cls, action_name)
 
         data = data or {}
         data.update(kwargs)
 
-        return render_template(template, **data)
+        return render_template(__template__, **data)
 
     @classmethod
     def _add_asset_bundle__(cls, path):
@@ -500,18 +502,19 @@ class Assembly(object):
                 raise DecoratorCompatibilityError(
                     "Incompatible decorator detected on %s in class %s" % (name, cls.__name__))
 
-        # Custom HTTP Code Error Handler
-        # it must start with _{code:int}, ie: _404, _500
-        # the code must be valid http code. Otherwise it throw error
-        for name, mtd in _get_interesting_members_http_error(Assembly, cls):
+        # Error Handler
+        # To handle error
+        # error code: _error_$code, ie: _error_400(), _error_500()
+        # or catch-all, _error_handler()
+        for name, fn in _get_interesting_members_http_error(Assembly, cls):
             match = _match_http_error(name)
             if match:
-                code = int(match.groups()[0])
                 try:
-                    app.register_error_handler(code, mtd)
+                    mname = match.groups()[0]
+                    exc = int(mname) if mname.isdigit() else HTTPException                        
+                    app.register_error_handler(exc, lambda e: cls._error_handler__(fn, e))
                 except KeyError as kE:
-                    raise AssemblyError(str(kE) + " - module: '%s'" % _get_full_method_name(mtd))
-
+                    raise AssemblyError(str(kE) + " - module: '%s'" % _get_full_method_name(fn))
 
         if hasattr(cls, "orig_base_route"):
             cls.base_route = cls.orig_base_route
@@ -577,7 +580,7 @@ class Assembly(object):
                     response = i._renderer(response)
                 else:
                     template = _make_template_path(cls, view.__name__)
-                    response.setdefault("template", template)
+                    response.setdefault("__template__", template)
                     response = i.render(**response)
 
             if not isinstance(response, Response):
@@ -644,8 +647,25 @@ class Assembly(object):
             cls.base_args = [r[2] for r in base_rule]
         return base_route.strip("/")
 
-
-
+    @classmethod
+    def _error_handler__(cls, fn, e, code=None):
+        """
+        Error handler callback.
+        adding _error_handler() or _error_$code()/_error_404(), 
+        will trigger this method to return the response
+        The method must accept one arg, which is the ERROR object 
+        'self' can still be used in your class
+        """
+        resp = fn(cls, e)
+        if isinstance(resp, Response) or isinstance(resp, BaseResponse):
+            return resp
+        if isinstance(resp, dict) or isinstance(resp, tuple) or resp is None:
+            data, status, headers = utils.prepare_view_response(resp)
+            if "__template__" not in resp:
+                tpl_name = _make_template_path(cls, fn.__name__.lstrip("_"))
+                resp.update({"__template__": tpl_name})
+            return cls.render(**resp), e.code, headers  
+        return resp
 
 # ------------------------------------------------------------------------------
 
@@ -879,13 +899,18 @@ def _get_interesting_members_http_error(base_class, cls):
             if not member[0] in base_members
             and ((hasattr(member[1], "__self__") and not member[1].__self__ in inspect.getmro(cls)) if six.PY2 else True)
             and member[0].startswith("_")
-            and _match_http_error(member[0])
+            and (_match_http_error(member[0]) or member[0] == "_error_handler")
             and not member[0].startswith("before_")
             and not member[0].startswith("after_"))
 
 
 def _match_http_error(val):
-    return re.match(r"^_(\d+)$", val)
+    """
+    catches:
+    _error_$number, _error_404
+    _error_handler
+    """
+    return re.match(r"^_error_(\d+|handler)$", val)
 
 
 def _get_true_argspec(method):

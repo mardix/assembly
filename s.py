@@ -1,5 +1,9 @@
 import re 
 
-n = "_404_so"
-m = re.match(r"^_(\d+)$", n)
+n = "_error_handler"
+m = re.match(r"^_error_(\d+|handler)$", n)
 print(m.groups())
+
+
+# s = "__error_handler"
+# print(s.lstrip("_"))

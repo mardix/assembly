@@ -1,2 +1,3 @@
 
 0.2.0-alpha
+  - Added _error_handler(), _error_$code()

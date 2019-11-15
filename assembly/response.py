@@ -8,6 +8,7 @@ import arrow
 import inspect
 import functools
 import flask_cors
+from . import utils
 from jinja2 import Markup
 from dicttoxml import dicttoxml
 from werkzeug.wrappers import BaseResponse
@@ -42,22 +43,6 @@ flask.json.dumps = dumps
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-def _normalize_response_tuple(tuple_):
-    """
-    Helper function to normalize view return values .
-    It always returns (dict, status, headers). Missing values will be None.
-    For example in such cases when tuple_ is
-      (dict, status), (dict, headers), (dict, status, headers),
-      (dict, headers, status)
-
-    It assumes what status is int, so this construction will not work:
-    (dict, None, headers) - it doesn't make sense because you just use
-    (dict, headers) if you want to skip status.
-    """
-    v = tuple_ + (None,) * (3 - len(tuple_))
-    return v if isinstance(v[1], int) else (v[0], v[2], v[1])
-
-
 __view_parsers = set()
 
 
@@ -70,7 +55,6 @@ def view_parser(f):
     __view_parsers.add(f)
     return f
 
-
 def _build_response(data, renderer=None):
     """
     Build a response using the renderer from the data
@@ -80,17 +64,11 @@ def _build_response(data, renderer=None):
         return data
     if not renderer:
         raise AttributeError(" Renderer is required")
-    if isinstance(data, dict) or data is None:
-        data = {} if data is None else data
-        for _ in __view_parsers:
-            data = _(data)
-        return make_response(renderer(data), 200, None)
-    elif isinstance(data, tuple):
-        data, status, headers = _normalize_response_tuple(data)
-        for _ in __view_parsers:
-            data = _(data)
-        return make_response(renderer(data or {}), status, headers)
-    return data
+
+    data, status, headers = utils.prepare_view_response(data)
+    for _ in __view_parsers:
+        data = _(data) 
+    return make_response(renderer(data), status, headers)
 
 json_renderer = lambda i, data: _build_response(data, jsonify)
 xml_renderer = lambda i, data: _build_response(data, dicttoxml)
@@ -178,7 +156,7 @@ def template(page=None, **kwargs):
                 if isinstance(response, dict) or response is None:
                     response = response or {}
                     if page:
-                        response.setdefault("template", page)
+                        response.setdefault("__template__", page)
                     for k, v in kwargs.items():
                         response.setdefault(k, v)
                 return response

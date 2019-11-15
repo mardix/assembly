@@ -317,3 +317,33 @@ def get_decorators_list(method):
     """
     kls = _InspectMethodsDecorators(method)
     return kls.parse()
+
+
+def prepare_view_response(data):
+    """
+    Prepare a view response from a data returned
+    params data (dict, tuple): the data from the view response
+    return tuple: data:dict, status:int|None, headers:dict|None
+    """
+    if isinstance(data, dict) or data is None:
+        data = {} if data is None else data
+        return data, 200, None
+    elif isinstance(data, tuple):
+        data, status, headers = prepare_view_response_set_from_tuple(data)
+        return data or {}, status, headers
+    return data, None, None
+
+def prepare_view_response_set_from_tuple(tuple_):
+    """
+    Helper function to normalize view return values .
+    It always returns (dict, status, headers). Missing values will be None.
+    For example in such cases when tuple_ is
+      (dict, status), (dict, headers), (dict, status, headers),
+      (dict, headers, status)
+
+    It assumes what status is int, so this construction will not work:
+    (dict, None, headers) - it doesn't make sense because you just use
+    (dict, headers) if you want to skip status.
+    """
+    v = tuple_ + (None,) * (3 - len(tuple_))
+    return v if isinstance(v[1], int) else (v[0], v[2], v[1])

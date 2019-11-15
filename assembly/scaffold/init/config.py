@@ -28,7 +28,7 @@ import os
 ROOT_DIR = os.path.dirname(__file__)
 
 # Data directory
-__DIR__ = os.path.join(ROOT_DIR, "__dir__")
+DATA_DIR = os.path.join(ROOT_DIR, "__data__")
 
 
 class BaseConfig(object):
@@ -67,7 +67,7 @@ class BaseConfig(object):
     COMPRESS_HTML = False
 
     # Data directory
-    __DIR__ = __DIR__
+    DATA_DIR = DATA_DIR
 
     #------------------- DATE FORMAT and TIMEZONE -------------
     # Arrow is used as date parser
@@ -116,7 +116,7 @@ class BaseConfig(object):
     #: DB_URL
     #: Assembly uses Active-Alchemy to work with DB 
     #: format: engine://USERNAME:PASSWORD@HOST:PORT/DB_NAME
-    DB_URL = "sqlite:////%s/db.db" % __DIR__
+    DB_URL = "sqlite:////%s/db.db" % DATA_DIR
 
     #: DB_REDIS_URL
     #: format: USERNAME:PASSWORD@HOST:PORT
@@ -180,7 +180,7 @@ class BaseConfig(object):
     #: STORAGE_CONTAINER
     #: The Bucket name (for S3, Google storage, Azure, cloudfile)
     #: or the directory name (LOCAL) to access
-    STORAGE_CONTAINER = os.path.join(__DIR__, "uploads")
+    STORAGE_CONTAINER = os.path.join(DATA_DIR, "uploads")
 
     #: STORAGE_SERVER
     #: Bool, to serve local file
@@ -244,7 +244,7 @@ class BaseConfig(object):
 
     #: MAIL_TEMPLATE
     #: a directory that contains the email template or a dict
-    MAIL_TEMPLATE = os.path.join(__DIR__, 'mail-templates')
+    MAIL_TEMPLATE = os.path.join(DATA_DIR, 'mail-templates')
 
     #: MAIL_TEMPLATE_CONTEXT
     #: a dict of all context to pass to the email by default

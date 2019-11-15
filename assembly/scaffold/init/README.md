@@ -46,6 +46,7 @@ wsgi:app
             |-- css
             |-- js
             |-- assets.yml
+    |- __dir__
 
 ```
 

@@ -7,12 +7,12 @@ import copy
 import arrow
 import inspect
 import functools
-import flask_cors
 from . import utils
+import flask_caching
 from jinja2 import Markup
 from dicttoxml import dicttoxml
 from werkzeug.wrappers import BaseResponse
-from .assembly import (Assembly, apply_function_to_members)
+from .assembly import (Assembly, app_context, apply_function_to_members)
 from flask import (Response,
                    jsonify,
                    request,
@@ -73,7 +73,6 @@ def _build_response(data, renderer=None):
 json_renderer = lambda i, data: _build_response(data, jsonify)
 xml_renderer = lambda i, data: _build_response(data, dicttoxml)
 
-
 def json(func):
     """
     Decorator to render as JSON
@@ -90,7 +89,6 @@ def json(func):
             return _build_response(data, jsonify)
         return decorated_view
 
-
 def xml(func):
     """
     Decorator to render as XML
@@ -106,7 +104,6 @@ def xml(func):
             data = func(*args, **kwargs)
             return _build_response(data, dicttoxml)
         return decorated_view
-
 
 def jsonp(func):
     """Wraps JSONified output for JSONP requests.
@@ -163,49 +160,8 @@ def template(page=None, **kwargs):
             return wrap
     return decorator
 
-def cors(*args, **kwargs):
-    """
-    Decorator
-    A wrapper around flask-cors cross_origin, to also act on classes
-
-    **An extra note about cors, a response must be available before the
-    cors is applied. Dynamic return is applied after the fact, so use the
-    decorators, json, xml, or return self.render() for txt/html
-    ie:
-
-    class Index(Assembly):
-        def index(self):
-            return self.render()
-
-        @cors()
-        @json
-        def json(self):
-            return {}
-
-    class Index2(Assembly):
-        def index(self):
-            return self.render()
-
-        @cors()
-        @json
-        def json(self):
-            return {}
-
-
-    :return:
-    """
-    def decorator(fn):
-        cors_fn = flask_cors.cross_origin(automatic_options=True, *args, **kwargs)
-        if inspect.isclass(fn):
-            raise Error("@cors can only be applied on Assembly methods")
-            return fn
-        else:
-            return cors_fn(fn)
-    return decorator
-
 def headers(params={}):
     """This decorator adds the headers passed in to the response
-    http://flask.pocoo.org/snippets/100/
     """
     def decorator(f):
 
@@ -225,8 +181,21 @@ def headers(params={}):
     return decorator
 
 def noindex(f):
-    """This decorator passes X-Robots-Tag: noindex
-    http://flask.pocoo.org/snippets/100/
-    """
+    """This decorator passes X-Robots-Tag: noindex"""
     return headers({'X-Robots-Tag': 'noindex'})(f)
+
+# ------------------------------------------------------------------------------
+"""
+Caching
+Allow caching in the response
+@cache
+
+@reponse.cache(timeout=10)
+def cached(self):
+    ...
+
+"""
+caching = flask_caching.Cache()
+app_context(caching.init_app)
+cache = caching.cached
 

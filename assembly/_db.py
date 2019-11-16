@@ -12,9 +12,9 @@ import active_alchemy
 import sqlalchemy_utils as sa_utils
 from sqlalchemy.engine.url import make_url as sa_make_url
 
-class ActiveAlchemy(active_alchemy.ActiveAlchemy):
+class ActiveAlchemyProxy(active_alchemy.ActiveAlchemy):
     """
-    A custom ActiveAlchemy wrapper which defers the connection
+    A custom ActiveAlchemyProxy which defers the connection
     """
     def __init__(self):
         self.Model = active_alchemy.declarative_base(cls=active_alchemy.Model, name='Model')
@@ -122,7 +122,7 @@ class StorageObjectType(sa_utils.JSONType):
 class StorageObject(dict):
     """
     This object will be loaded when querying the table
-    It also extends dict so it can json serialized when being copied
+    It also app_context dict so it can json serialized when being copied
     """
 
     def __init__(self, data):

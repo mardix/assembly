@@ -11,6 +11,7 @@ others:
     utils.is_email_valid
     utils.md5(string)
 
+functions in here are independents from configs and setup
 """
 
 from __future__ import division
@@ -37,7 +38,7 @@ from inflection import (dasherize,
                         ordinal)
 
 """
---- Docs ---
+--- Reference ---
 gen_md5
 gen_uuid
 gen_uuid_hex
@@ -232,36 +233,6 @@ class _JSONEncoder(json.JSONEncoder):
         # Let the base class default method raise the TypeError
         return json.JSONEncoder.default(self, obj)
 
-
-def prepare_view_response(data):
-    """
-    Prepare a view response from a data returned
-    params data (dict, tuple): the data from the view response
-    return tuple: data:dict, status:int|None, headers:dict|None
-    """
-    if isinstance(data, dict) or data is None:
-        data = {} if data is None else data
-        return data, 200, None
-    elif isinstance(data, tuple):
-        data, status, headers = prepare_view_response_set_from_tuple(data)
-        return data or {}, status, headers
-    return data, None, None
-
-def prepare_view_response_set_from_tuple(tuple_):
-    """
-    Helper function to normalize view return values .
-    It always returns (dict, status, headers). Missing values will be None.
-    For example in such cases when tuple_ is
-      (dict, status), (dict, headers), (dict, status, headers),
-      (dict, headers, status)
-
-    It assumes what status is int, so this construction will not work:
-    (dict, None, headers) - it doesn't make sense because you just use
-    (dict, headers) if you want to skip status.
-    """
-    v = tuple_ + (None,) * (3 - len(tuple_))
-    return v if isinstance(v[1], int) else (v[0], v[2], v[1])
-
 class DotDict(dict):
     """
     A dict extension that allows dot notation to access the data.
@@ -294,3 +265,66 @@ class DotDict(dict):
         except (TypeError, KeyError, IndexError) as e:
             return default
 
+
+def flatten_config_property(key, config):
+    """
+    To flatten a config property
+    This method is mutable
+    Having a flask config or an object:
+    class Conf(object):
+      AWS = {
+        "ACCESS_KEY_ID": "",
+        "SECRET_ACCESS_KEY": ""
+      }
+
+    app = Flask(__name__)
+    app.config.from_object(Conf())
+
+    flatten_config_property("AWS", app.config)
+
+    it will flatten the config to be:
+      AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY
+
+    If the key exists already, it will not modify it
+
+    :param key: string - the key to flatten
+    :param dict: app.config - the flask app.config or dict
+    """
+    if key in config:
+        for k, v in config[key].items():
+            _ = "%s_%s" % (key, k.upper())
+            if _ not in config:
+                config[_] = v
+
+# ------------
+# internal usage
+
+def prepare_view_response(data):
+    """
+    Prepare a view response from a data returned
+    params data (dict, tuple): the data from the view response
+    return tuple: data:dict, status:int|None, headers:dict|None
+    """
+    if isinstance(data, dict) or data is None:
+        data = {} if data is None else data
+        return data, 200, None
+    elif isinstance(data, tuple):
+        data, status, headers = prepare_view_response_set_from_tuple(data)
+        return data or {}, status, headers
+    return data, None, None
+
+def prepare_view_response_set_from_tuple(tuple_):
+    """
+    Helper function to normalize view return values .
+    It always returns (dict, status, headers). Missing values will be None.
+    For example in such cases when tuple_ is
+      (dict, status), (dict, headers), (dict, status, headers),
+      (dict, headers, status)
+
+    It assumes what status is int, so this construction will not work:
+    (dict, None, headers) - it doesn't make sense because you just use
+    (dict, headers) if you want to skip status.
+    """
+    v = tuple_ + (None,) * (3 - len(tuple_))
+    return v if isinstance(v[1], int) else (v[0], v[2], v[1])

@@ -17,7 +17,7 @@ from jinja2 import Markup
 from jinja2.ext import Extension
 from jinja2.nodes import CallBlock
 from jinja2 import TemplateSyntaxError
-from . import (ext, extends)
+from . import (ext, app_context, utils)
 from jinja2.lexer import Token, describe_token
 from flask import (request, current_app, send_file, session)
 
@@ -28,7 +28,7 @@ from flask import (request, current_app, send_file, session)
 # markdown
 
 #------------------------------------------------------------------------------
-@extends
+@app_context
 def setup(app):
     # app.jinja_env.filters.update({
     #     "format_datetime": format_datetime
@@ -46,25 +46,20 @@ def setup(app):
 #------------------------------------------------------------------------------
 # Set CORS
 
-@extends
-def set_cors_config(app):
+@app_context
+def setup(app):
     """
-    Flask-Cors (3.x.x) extension set the config as CORS_*,
-     But we'll hold the config in CORS key.
-     This function will convert them to CORS_* values
-    :param app:
-    :return:
+    setup
     """
-    if "CORS" in app.config:
-        for k, v in app.config["CORS"].items():
-            _ = "CORS_" + k.upper()
-            if _ not in app.config:
-                app.config[_] = v
+
+    # flatten CORS = {...} -> CORS_*
+    utils.flatten_config_property("CORS", app.config)
+
 
 #------------------------------------------------------------------------------
 # Session
 
-@extends
+@app_context
 def session(app):
     """
     Sessions
@@ -237,7 +232,7 @@ class _Mailer(object):
             raise Error("Invalid mail provider. Must be 'SES' or 'SMTP'")
 
 ext.mail = _Mailer()
-extends(ext.mail.init_app)
+app_context(ext.mail.init_app)
 
 #------------------------------------------------------------------------------
 # Assets Delivery
@@ -268,7 +263,7 @@ class _AssetsDelivery(flask_s3.FlaskS3):
             super(self.__class__, self).init_app(app)
 
 ext.assets_delivery = _AssetsDelivery()
-extends(ext.assets_delivery.init_app)
+app_context(ext.assets_delivery.init_app)
 
 
 #------------------------------------------------------------------------------
@@ -361,7 +356,7 @@ def md_to_html(text):
     return mkd.convert(text)
 
 
-@extends
+@app_context
 def setup_markdown(app):
     """
     Load markdown extension
@@ -536,7 +531,7 @@ class SelectiveHTMLCompress(HTMLCompress):
                 yield stream.current
             next(stream)
 
-@extends 
+@app_context 
 def setup_compress_html(app):
     if app.config.get("COMPRESS_HTML"):
         app.jinja_env.add_extension(HTMLCompress)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Assembly: asm
-Set of helpers and functions
+Set of helpers and functions. These functions are dependents of some config and setup
 """
 
 import re
@@ -14,9 +14,8 @@ import datetime
 import functools
 import itsdangerous
 import flask_cloudy
-import flask_caching
 from passlib.hash import bcrypt
-from . import (extends, ext, g, config)
+from . import (app_context, ext, g, config)
 from flask import (send_file, session)
 
 
@@ -154,16 +153,10 @@ def send_mail(template, to, **kwargs):
     """
     return ext.mail.send(to=to, template=template, **kwargs)
 
-
-# ------------------------------------------------------------------------------
-# Cache
-cache = flask_caching.Cache()
-extends(cache.init_app)
-
 # ------------------------------------------------------------------------------
 # Storage
 storage = flask_cloudy.Storage()
-extends(storage.init_app)
+app_context(storage.init_app)
 
 def get_file(object_name):
     """
@@ -173,8 +166,6 @@ def get_file(object_name):
     """
     return storage.get(object_name)
 
-
-# Upload file
 
 @signal
 def upload_file(file, props=None,  **kw):
@@ -285,7 +276,7 @@ def download_file(filename, object_name=None, content=None, as_attachment=True, 
 
 
 __CRYPT = {}
-@extends
+@app_context
 def __crypt_init(app):
     """
     https://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html

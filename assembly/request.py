@@ -4,9 +4,10 @@ Assembly: request
 """
 
 import inspect
+import flask_cors
 import flask_seasurf
 from flask import request as f_request
-from .assembly import extends
+from .assembly import app_context
 from . import utils
 
 
@@ -16,7 +17,7 @@ from . import utils
 # @request.csrf_exempt
 # https://flask-seasurf.readthedocs.io/en/latest/
 csrf = flask_seasurf.SeaSurf()
-extends(csrf.init_app)
+app_context(csrf.init_app)
 
 
 class RequestProxy(object):
@@ -28,6 +29,8 @@ class RequestProxy(object):
     #   - csrf.exempt
     # @request.csrf_exempt
     csrf_exempt = csrf.exempt
+
+
 
     @property
     def IS_GET(self):
@@ -53,6 +56,32 @@ class RequestProxy(object):
         }
         _bind_route_rule_cache(f, rule=None, **kw)
         return f
+
+    @classmethod
+    def cors(cls, fn):
+        """
+        CORS decorator, to make the endpoint available for CORS
+
+        Make sure @cors decorator is placed at the top position.
+        All response decorators must be placed below. 
+        It's because it requires a response to be available
+
+        class Index(Assembly):
+            def index(self):
+                return self.render()
+
+            @request.cors
+            @response.json
+            def json(self):
+                return {}
+
+        :return:
+        """
+        if inspect.isclass(fn):
+            raise Error("@cors can only be applied on Assembly methods")
+        else:
+            cors_fn = flask_cors.cross_origin(automatic_options=True)
+            return cors_fn(fn)
 
     @classmethod
     def get(cls, f):

@@ -1,4 +1,5 @@
 
+from flask import Flask
 import functools
 import assembly.utils as utils
 
@@ -36,9 +37,6 @@ def test_is_valid_password():
     assert utils.is_valid_password("!password1") is False
     assert utils.is_valid_password("PPassword1") is False
     
-
-
-
 
 def test_gen_md5():
     assert len(utils.gen_md5("Hello")) == 32
@@ -122,3 +120,64 @@ def test_DotDict():
     assert dd.get("family.kids.1.name") == "Son#2"
 
 
+def test_flatten_config_property():
+
+    class Conf(object):
+
+        CORS = {
+            "NAME": "A",
+            "B": "C",
+            "D": "E"
+        }
+
+        AWS_ACCESS_KEY_ID = "NOT-CHANGED"
+        AWS = {
+            "ACCESS_KEY_ID": "SHOULD-NOT-CHANGE",
+            "LOCATION": "ADDED"
+        }
+
+    app = Flask(__name__)
+    app.testing = True
+    app.config.from_object(Conf())
+
+    utils.flatten_config_property("AWS", app.config)
+    utils.flatten_config_property("CORS", app.config)
+
+    assert app.config.get("AWS_ACCESS_KEY_ID") == "NOT-CHANGED"
+    assert app.config.get("AWS_LOCATION") == "ADDED"
+    assert app.config.get("CORS_NAME") == "A"
+
+
+def test_prepare_view_response():
+
+    data = {"A": "B"}
+    result = utils.prepare_view_response(data)
+    assert isinstance(result, tuple)
+    assert len(result) == 3
+    assert isinstance(result[0], dict)
+    assert result[1] is 200
+    assert result[2] is None
+
+    data = {"A": "B"}, 201
+    result = utils.prepare_view_response(data)
+    assert isinstance(result, tuple)
+    assert len(result) == 3
+    assert isinstance(result[0], dict)
+    assert result[1] is 201
+    assert result[2] is None    
+
+    data = {"A": "B"}, {"HEADERS": True}
+    result = utils.prepare_view_response(data)
+    assert isinstance(result, tuple)
+    assert len(result) == 3
+    assert isinstance(result[0], dict)
+    assert result[1] is None
+    assert result[2] is not None     
+
+    data = {"A": "B"}, 202, {"HEADERS": True}
+    result = utils.prepare_view_response(data)
+    assert isinstance(result, tuple)
+    assert len(result) == 3
+    assert isinstance(result[0], dict)
+    assert result[1] is 202
+    assert result[2] is not None     

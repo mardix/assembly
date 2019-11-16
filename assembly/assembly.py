@@ -50,7 +50,7 @@ __all__ = [
     "config",
     "models",
     "session",
-    "extends",
+    "app_context",
     "url_for",
     "redirect",
     "HTTPError"
@@ -103,11 +103,11 @@ Setup the DB
 upon initialization will use the right URL for it
 also, it exposes the db object to all modules
 """
-db = _db.ActiveAlchemy()
+db = _db.ActiveAlchemyProxy()
 
 
 
-def extends(kls):
+def app_context(kls):
     """
     To bind middlewares, plugins that needs the 'app' context to initialize
     Bound middlewares will be assigned on cls.init()
@@ -117,16 +117,16 @@ def extends(kls):
     def myfn(app):
         pass
 
-    extends(myfn)
+    app_context(myfn)
 
     # As a decorator
-    @extends
+    @app_context
     def myfn(app):
         pass
 
     """
     if not hasattr(kls, "__call__"):
-        raise AssemblyError("extends: '%s' is not callable" % kls)
+        raise AssemblyError("app_context: '%s' is not callable" % kls)
     Assembly._init_apps.add(kls)
     return kls
 
@@ -188,12 +188,11 @@ def redirect(endpoint, **kw):
             return f_redirect(endpoint)
         else:
             for r in Assembly._app.url_map.iter_rules():
-                _endpoint = endpoint
+                # Can't redirect to POST
                 if 'GET' in r.methods and endpoint in r.endpoint:
-                    _endpoint = r.endpoint
-                    return f_redirect(url_for(_endpoint, **kw))
-    else:
-        return f_redirect(url_for(endpoint, **kw))
+                    endpoint = r.endpoint
+
+    return f_redirect(url_for(endpoint, **kw))
 
 # ------------------------------------------------------------------------------
 # Assembly core class

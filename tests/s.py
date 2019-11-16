@@ -1,10 +1,11 @@
-
+from flask import Flask
 import blinker
 import inspect
 import functools
 
 
 __signals_namespace = blinker.Namespace()
+
 
 def signal(fn):
     """
@@ -80,7 +81,7 @@ def signal(fn):
         if action == 'post':
             ns.signal(sig_name).send(result, **resp)
         else:
-          ns.signal(sig_name).send(**resp)
+            ns.signal(sig_name).send(**resp)
 
     @functools.wraps(fn)
     def wrapper(*args, **kwargs):
@@ -89,31 +90,101 @@ def signal(fn):
         kwargs["result"] = result
         send('post', *args, **kwargs)
         return result
-    
+
     return wrapper
+
 
 @signal
 def do_something(data, **kw):
     print("MY OWN KW", kw)
     return data
 
+
 @do_something.post
 def my_thing(result, **kw):
     print("LISTENER", result, kw)
+
 
 @do_something.post
 def my_thing2(result, **kw):
     print("I just pull up to this party-----", result, kw)
 
+
 @do_something.pre
 def before_thing(*a, **kw):
-  
-  print("BEFORE THING", kw["kwargs"])
-  kw["kwargs"]["genre"] = "Rap"
-  print("BEFORE THING", kw["kwargs"])
+
+    print("BEFORE THING", kw["kwargs"])
+    kw["kwargs"]["genre"] = "Rap"
+    print("BEFORE THING", kw["kwargs"])
 
 
-do_something("hello MM", location="CLT", music="TUPAC", genre="Hip-Hop")
+#do_something("hello MM", location="CLT", music="TUPAC", genre="Hip-Hop")
 # do_something("Gettho Gospel!")
 # do_something("Costa Rica!")
 
+class Conf(object):
+
+    CORS = {
+        "NAME": "A",
+        "B": "C",
+        "D": "E"
+    }
+
+    # The AWS Access KEY
+    AWS_ACCESS_KEY_ID = ""
+
+    # Secret Key
+    AWS_SECRET_ACCESS_KEY = ""
+
+    # The bucket name for S3
+    AWS_S3_BUCKET_NAME = ""
+
+    # The default region name
+    AWS_REGION_NAME = "us-east-1"
+
+    AWS = {
+        "ACCESS_KEY_ID": "",
+        "SECRET_ACCESS_KEY": "",
+        "S3_BUCKET_NAME": "",
+        "REGION_NAME": "",
+        "LOCATION": "TOU_WOUJ"
+    }
+
+
+def config_flatten_property(key, config):
+    """
+    To flatten a config property
+    This method is mutable
+    Having a config:
+    class Conf(object):
+      AWS = {
+        "ACCESS_KEY_ID": "",
+        "SECRET_ACCESS_KEY": ""
+      }
+
+    config_flatten_property("AWS", app.config)
+
+    it will flatten the config to be:
+      AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY
+
+    If the key exists already, it will not modify it
+
+    :param key: string - the key to flatten
+    :param dict: app.config - the flask app.config or dict
+    """
+    if key in config:
+        for k, v in config[key].items():
+            _ = "%s_%s" % (key, k.upper())
+            if _ not in config:
+                config[_] = v
+
+
+app = Flask(__name__)
+app.testing = True
+app.config.from_object(Conf())
+
+config_flatten_property("AWS", app.config)
+config_flatten_property("CORS", app.config)
+
+print(app.config)

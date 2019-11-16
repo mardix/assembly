@@ -71,19 +71,28 @@ class Index(Assembly):
     def index(self):
         return
 
-    @response.cors()
+    @request.cors
     @response.json
     def api(self):
         return {
             "date": date.utcnow(),
-            "location": "NC"
+            "description": "API Endpoint with CORS and JSON response"
         }
 
+    @response.json
+    @response.cache(timeout=10)
+    def cached(self):
+        return {
+            "description": "This is a cached endpoint",
+            "date": date.utcnow(),
+        }
+
+
     def error(self):
-      """
-      Accessing /error should trigger the error handlers below
-      """
-      raise HTTPError.NotFound()
+        """
+        Accessing /error should trigger the error handlers below
+        """
+        raise HTTPError.NotFound()
 
 # ------------------------------------------------------------------------------
 

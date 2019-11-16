@@ -68,16 +68,22 @@ from assembly import (Assembly,
 @request.route("/%ROUTE%/")
 class Index(Assembly):
 
-    @response.cors()
+    @request.cors
     @response.json
     def index(self):
         return {}
 
-    @response.cors()
+    @request.cors
     @response.json
     def api(self):
-        
         return {
-            "date": date.utcnow(),
-            "location": "NC"
+            "date": date.utcnow()
+        }
+
+    @request.cors
+    @response.json
+    @response.cache(timeout=10)
+    def cached(self):
+        return {
+            "date": date.utcnow()
         }

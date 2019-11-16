@@ -150,9 +150,11 @@ class Api(Assembly):
 
 - Storage: Local, S3, Google Storage [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
 
-- Mailer: SMTP, SES
+- Email: SMTP, SES
 
 - Caching
+
+- CORS
 
 
 ---

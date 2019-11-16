@@ -6,7 +6,8 @@ Assembly: request
 import inspect
 import flask_seasurf
 from flask import request as f_request
-from .assembly import _bind_route_rule_cache, extends
+from .assembly import extends
+from . import utils
 
 
 # CSRF
@@ -146,3 +147,28 @@ class RequestProxy(object):
         return str.replace(str(data), 'Bearer ', '').strip()
 
 request = RequestProxy()
+
+
+def _bind_route_rule_cache(f, rule, append_method=False, **kwargs):
+    """
+    Put the rule cache on the method itself instead of globally
+    :param f:
+    :param rule:
+    :param append_method:
+
+    """
+    if rule is None:
+        rule = utils.dasherize(f.__name__) + "/"
+    if not hasattr(f, '_rule_cache') or f._rule_cache is None:
+        f._rule_cache = {f.__name__: [(rule, kwargs)]}
+    elif not f.__name__ in f._rule_cache:
+        f._rule_cache[f.__name__] = [(rule, kwargs)]
+    else:
+        # when an endpoint accepts multiple METHODS, ie: post(), get()
+        if append_method:
+            for r in f._rule_cache[f.__name__]:
+                if r[0] == rule and "methods" in r[1] and "methods" in kwargs:
+                    r[1]["methods"] = list(set(r[1]["methods"] + kwargs["methods"]))
+        else:
+            f._rule_cache[f.__name__].append((rule, kwargs))
+    return f

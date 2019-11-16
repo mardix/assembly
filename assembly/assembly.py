@@ -691,28 +691,6 @@ class AssemblyError(Exception):
 # ------------------------------------------------------------------------------
 # Private functions
 
-def _view_namespace(view, cls_name=None):
-    """
-    Create the namespace from the view
-    :param view: object (class or instance method)
-    :param cls_name: str - To pass the class name associated to the view
-            in the case of decorators that may not give the real class name
-    :return: string or None
-    """
-    ns = view.__module__
-    if inspect.isclass(view):
-        ns += ".%s" % view.__name__
-    else:
-        if hasattr(view, "im_class") or hasattr(view, "im_self"):
-            if view.im_class is not None:
-                cls_name = view.im_class.__name__
-            elif view.im_self is not None:
-                cls_name = view.im_self.__name__
-        if cls_name is None:
-            return None
-        ns += ".%s.%s" % (cls_name, view.__name__)
-    return ns
-
 
 def _get_full_method_name(mtd):
     return "%s.%s" % (mtd.__module__, mtd.__name__)
@@ -818,31 +796,6 @@ def _register___application_template(pkg, prefix):
     if os.path.isdir(static_path):
         Assembly._static_paths.add(static_path)
         Assembly._add_asset_bundle__(static_path)
-
-
-def _bind_route_rule_cache(f, rule, append_method=False, **kwargs):
-    """
-    Put the rule cache on the method itself instead of globally
-    :param f:
-    :param rule:
-    :param append_method:
-
-    """
-    if rule is None:
-        rule = utils.dasherize(f.__name__) + "/"
-    if not hasattr(f, '_rule_cache') or f._rule_cache is None:
-        f._rule_cache = {f.__name__: [(rule, kwargs)]}
-    elif not f.__name__ in f._rule_cache:
-        f._rule_cache[f.__name__] = [(rule, kwargs)]
-    else:
-        # when an endpoint accepts multiple METHODS, ie: post(), get()
-        if append_method:
-            for r in f._rule_cache[f.__name__]:
-                if r[0] == rule and "methods" in r[1] and "methods" in kwargs:
-                    r[1]["methods"] = list(set(r[1]["methods"] + kwargs["methods"]))
-        else:
-            f._rule_cache[f.__name__].append((rule, kwargs))
-    return f
 
 
 def _make_template_path(cls, method_name):

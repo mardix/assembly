@@ -1,0 +1,929 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+        <link rel="canonical" href="https://mardix.github.com/assembly/first-app/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>First app - Assembly</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700|Ubuntu+Mono&display=fallback">
+        <style>body,input{font-family:"Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="deep-purple">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#your-first-app" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://mardix.github.com/assembly" title="Assembly" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">local_florist</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Assembly
+            </span>
+            <span class="md-header-nav__topic">
+              
+                First app
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/mardix/assembly/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    assembly
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://mardix.github.com/assembly" title="Assembly" class="md-nav__button md-logo">
+      
+        <i class="md-icon">local_florist</i>
+      
+    </a>
+    Assembly
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/mardix/assembly/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    assembly
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../install/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../tutorial/" title="Tutorial" class="md-nav__link">
+      Tutorial
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Application
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Application
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../application/config/" title="Config" class="md-nav__link">
+      Config
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../application/views/" title="Views" class="md-nav__link">
+      Views
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../application/models/" title="Models" class="md-nav__link">
+      Models
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../application/templates/" title="Templates" class="md-nav__link">
+      Templates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../application/static/" title="Static" class="md-nav__link">
+      Static
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../application/httperror/" title="HTTPError" class="md-nav__link">
+      HTTPError
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../application/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../application/deploy/" title="Deployment" class="md-nav__link">
+      Deployment
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Advanced
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/utils/" title="Utils" class="md-nav__link">
+      Utils
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/pagination.md" title="Pagination" class="md-nav__link">
+      Pagination
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/signals/" title="Signals" class="md-nav__link">
+      Signals
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#your-first-app" class="md-nav__link">
+    Your first app
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    Views
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    Template
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout" class="md-nav__link">
+    Layout
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static" class="md-nav__link">
+    Static
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serve" class="md-nav__link">
+    Serve
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/mardix/assembly/edit/master/docs/first-app.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>First app</h1>
+                
+                <p>If you haven't done so yet, you need to <code>mocha :init</code> in the directory that you want to install</p>
+<div class="codehilite"><pre><span></span><span class="n">mocha</span> <span class="o">:</span><span class="n">init</span>
+</pre></div>
+
+
+<p>Once created, you should see a file structure similar to this</p>
+<div class="codehilite"><pre><span></span><span class="o">/</span><span class="n">____</span>
+    <span class="o">|</span>
+    <span class="o">|-</span> <span class="n">brew</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|</span>
+    <span class="o">|-</span> <span class="n">propel</span><span class="p">.</span><span class="n">yml</span>
+    <span class="o">|</span>
+    <span class="o">|</span><span class="c1">-- requirements.txt</span>
+    <span class="o">|</span>
+    <span class="o">|</span><span class="c1">-- /application</span>
+        <span class="o">|</span>
+        <span class="o">|</span><span class="c1">-- config.py</span>
+        <span class="o">|</span>
+        <span class="o">|</span><span class="c1">-- models.py</span>
+        <span class="o">|</span>
+        <span class="o">|</span><span class="c1">-- helpers.py</span>
+        <span class="o">|</span>
+        <span class="o">|</span><span class="c1">-- manage.py</span>
+        <span class="o">|</span>
+        <span class="o">|</span><span class="c1">-- views/</span>
+            <span class="o">|</span>
+            <span class="o">|</span><span class="c1">-- main.py</span>
+        <span class="o">|</span>
+        <span class="o">|</span><span class="c1">-- templates/</span>
+            <span class="o">|</span>
+            <span class="o">|</span><span class="c1">-- layouts/</span>
+                <span class="o">|</span>
+                <span class="o">|</span><span class="c1">-- base.jade</span>
+                <span class="o">|</span>
+            <span class="o">|</span><span class="c1">-- main/</span>
+                <span class="o">|</span>
+                <span class="o">|</span><span class="c1">-- Index/</span>
+                    <span class="o">|</span>
+                    <span class="o">|</span><span class="c1">-- index.jade</span>
+        <span class="o">|</span>
+        <span class="o">|</span><span class="c1">-- /static/</span>
+            <span class="o">|</span>
+            <span class="o">|</span><span class="c1">-- assets.yml</span>
+            <span class="o">|</span>
+            <span class="o">|</span><span class="c1">-- package.json</span>
+            <span class="o">|</span>
+            <span class="o">|</span><span class="c1">-- css/</span>
+            <span class="o">|</span>
+            <span class="o">|</span><span class="c1">-- js/</span>
+            <span class="o">|</span>
+            <span class="o">|</span><span class="c1">-- imgs/</span>
+        <span class="o">|</span>
+        <span class="o">|</span><span class="c1">-- /var/</span>
+</pre></div>
+
+
+<p>Description:</p>
+<ul>
+<li><code>brew.py</code> is the application entry point</li>
+<li><code>propel.yml</code> (optional) A deploy based config file</li>
+<li><code>requirements.txt</code> contains your requirements + mocha</li>
+<li><code>application/</code> contains the application's  models, config, helpers and manage</li>
+<li><code>application/views/</code>: contains your views modules</li>
+<li><code>application/templates/</code>: contains all templates relative to the views name</li>
+<li><code>application/static/</code>: contains all the app's assets: js, css, imgs, etc...</li>
+<li><code>application/var/</code>: contains var files: database, mail-template, uploads, etc...</li>
+</ul>
+<hr />
+<h2 id="your-first-app">Your first app</h2>
+<p>Here's what Mocha will do, and expecting:</p>
+<ul>
+<li>that your views are structured in class</li>
+<li>the class inherits <code>mocha.Mocha</code></li>
+<li>if the class name is <code>Index(Mocha)</code>, it will be the base route as <code>/</code></li>
+<li>the methods are the views actions</li>
+<li>the methods name will become the endpoint url</li>
+<li>if the method name is <code>index(self)</code>, it will be the entry point of that view</li>
+<li>methods name with underscore will be dasherized, <code>about_us(self)</code> -&gt; <code>/about-us/</code></li>
+<li>the methods return data as dict type</li>
+<li>the data returned is passed to your template</li>
+<li>the template is named after the method name</li>
+<li>the template is magically included in your layout</li>
+<li>Mocha brews everything together, and renders the page</li>
+</ul>
+<hr />
+<h2 id="views">Views</h2>
+<p>All your view module should be placed in <code>application/views</code>. By default , <code>main.py</code> view is created</p>
+<p><code>main.py</code> must contain at a least one class that inherits <code>Mocha</code>. A view module may have multiple classes</p>
+<p><code>application/views/main.py</code></p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">mocha</span> <span class="kn">import</span> <span class="n">Mocha</span><span class="p">,</span> <span class="n">page_attr</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Mocha</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">page_attr</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
+        <span class="k">return</span>  <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Mocha&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">page_attr</span><span class="p">(</span><span class="s2">&quot;About Us&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+
+<span class="k">class</span> <span class="nc">Document</span><span class="p">(</span><span class="n">Mocha</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">page_attr</span><span class="p">(</span><span class="s1">&#39;All documents&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;This is a doc title&quot;</span>
+                <span class="p">},</span>
+                <span class="o">...</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="n">page_attr</span><span class="p">(</span><span class="s2">&quot;This is a doc title&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;This is a doc title&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;My content&quot;</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<p>The <code>main.py</code> module contains two view classes: Index and Document that inherit <code>Mocha</code>.
+Also imported <code>page_attr</code>, a utility function to set the page title and other page attributes</p>
+<p>The methods return <code>dict</code> or <code>None</code></p>
+<p>The route will be created from the class and method name.</p>
+<p>If the class name is <code>Index</code>, it will be the root of the domain, in this example <code>/</code>, and other will stay as is,
+in this instance the <code>Document</code> will have as route <code>/document/</code>.</p>
+<p>The following url will be created:</p>
+<ul>
+<li><code>Index:index()</code> -&gt; <code>http://localhost:5000/</code></li>
+<li><code>Index:about_us()</code> -&gt; <code>http://localhost:5000/about-us</code></li>
+<li><code>Document:index()</code> -&gt; <code>http://localhost:5000/document</code></li>
+<li><code>Document:get(id)</code> -&gt; <code>http://localhost:5000/document/1234</code></li>
+</ul>
+<hr />
+<h2 id="template">Template</h2>
+<p>All your templates should be placed in <code>application/templates</code>. And must follow the same directory
+structure relative to the view modules. The returned data from the view will be passed to the template.</p>
+<p>So for <code>application/views/main.py</code>, it is expecting the following template structure</p>
+<div class="codehilite"><pre><span></span><span class="o">/</span><span class="n">application</span>
+    <span class="o">|</span>
+    <span class="o">|</span><span class="c1">-- templates</span>
+        <span class="o">|</span>
+        <span class="o">|</span>
+        <span class="o">|</span><span class="c1">-- main/</span>
+            <span class="o">|</span>
+            <span class="o">|</span><span class="c1">-- Index/</span>
+                <span class="o">|</span>
+                <span class="o">|</span><span class="c1">-- index.jade</span>
+                <span class="o">|</span>
+                <span class="o">|</span><span class="c1">-- about_us.jade</span>
+            <span class="o">|</span>
+            <span class="o">|</span><span class="n">__</span> <span class="n">Document</span><span class="o">/</span>
+                <span class="o">|</span>
+                <span class="o">|</span><span class="c1">-- index.jade</span>
+                <span class="o">|</span>
+                <span class="o">|</span><span class="c1">-- get.jade</span>
+</pre></div>
+
+
+<p>As you can see, the template structure follows the view structure, where in the view:</p>
+<ul>
+<li>
+<p><code>main.py</code> -&gt; /templates/main</p>
+</li>
+<li>
+<p><code>main.py:Index()</code> -&gt; templates/main/Index</p>
+</li>
+<li>
+<p><code>main.py:Index(Mocha):index(self)</code> -&gt; templates/main/Index/index.jade</p>
+</li>
+<li>
+<p><code>main.py:Index(Mocha):about_us(self)</code> -&gt; templates/main/Index/about_us.jade</p>
+</li>
+<li>
+<p><code>main.py:Document()</code> -&gt; templates/main/Document</p>
+</li>
+<li>
+<p><code>main.py:Document(Mocha):index(self)</code> -&gt; templates/main/Document/index.jade</p>
+</li>
+<li>
+<p><code>main.py:Document(Mocha):get(self)</code> -&gt; templates/main/Document/get.jade</p>
+</li>
+</ul>
+<p>Also, you may have noticed that we use <code>.jade</code> template instead of HTML, just for aesthetic, as it looks like python
+on the templates side. But HTML can also be used.</p>
+<p><code>templates/main/Index/index.jade</code></p>
+<div class="codehilite"><pre><span></span><span class="na">.row</span>
+    <span class="na">.col-md-12.text-center</span>
+        <span class="nf">h2</span><span class="err">=</span> <span class="no">name</span>
+            <span class="nf">small</span><span class="err">=</span> <span class="no">version</span>
+</pre></div>
+
+
+<p>Which will be translated into html</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-12 text-center&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Mocha <span class="nt">&lt;small&gt;</span>1.0<span class="nt">&lt;/small&gt;&lt;/h2&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+
+<p><code>templates/main/Document/index.jade</code></p>
+<div class="codehilite"><pre><span></span>.<span class="nv">row</span>
+    .<span class="nv">col</span><span class="o">-</span><span class="nv">md</span><span class="o">-</span><span class="mi">12</span>
+        <span class="nv">ul</span>
+        <span class="k">for</span> <span class="nv">doc</span> <span class="nv">in</span> <span class="nv">docs</span>
+            <span class="nv">li</span>: <span class="nv">a</span><span class="ss">(</span><span class="nv">href</span><span class="o">=</span><span class="nv">url_for</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">views.main.Document:get</span><span class="s1">&#39;</span>, <span class="nv">id</span><span class="o">=</span><span class="nv">doc</span>.<span class="nv">id</span><span class="ss">))</span><span class="o">=</span> <span class="nv">doc</span>.<span class="nv">title</span>
+</pre></div>
+
+
+<p>Will be translated into html</p>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-12&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&#39;/document/1&#39;</span><span class="nt">&gt;</span>This is a doc title<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+
+<hr />
+<h2 id="layout">Layout</h2>
+<p>By default, layouts are placed in <code>application/templates/layouts</code>, and upon rendering Mocha will glue your view in the
+layout.</p>
+<p>The default layout is at: <code>application/templates/layouts/base.jade</code></p>
+<p>While you can have <code>extends</code> in your templates, Mocha makes it easy to bypass the repetitive tasks, so you can fully
+focus on that one page you are working on.</p>
+<div class="codehilite"><pre><span></span><span class="o">-</span> <span class="kn">import</span> <span class="s2">&quot;contrib/components/html.html&quot;</span> <span class="k">as</span> <span class="n">html</span> <span class="k">with</span> <span class="n">context</span>
+<span class="o">-</span> <span class="kn">import</span> <span class="s2">&quot;contrib/components/nav.jade&quot;</span> <span class="k">as</span> <span class="n">nav</span> <span class="k">with</span> <span class="n">context</span>
+<span class="o">-</span> <span class="kn">import</span> <span class="s2">&quot;contrib/components/forms.html&quot;</span> <span class="k">as</span> <span class="n">forms</span> <span class="k">with</span> <span class="n">context</span>
+<span class="o">-</span> <span class="kn">import</span> <span class="s2">&quot;contrib/components/widget.html&quot;</span> <span class="k">as</span> <span class="n">widget</span> <span class="k">with</span> <span class="n">context</span>
+
+<span class="err">!!!</span> <span class="mi">5</span>
+<span class="n">html</span><span class="p">(</span><span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+    <span class="n">head</span>
+        <span class="n">meta</span><span class="p">(</span><span class="n">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="n">meta</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;viewport&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">page_title</span><span class="p">()</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">page_description</span><span class="p">()</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">opengraph</span><span class="p">()</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">favicon</span><span class="p">(</span><span class="s2">&quot;favicon.ico&quot;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">include_jquery</span><span class="p">()</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">include_bootstrap</span><span class="p">()</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">include_fontawesome</span><span class="p">()</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">include_bootswatch_theme</span><span class="p">(</span><span class="s1">&#39;yeti&#39;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">include_css_file</span><span class="p">(</span><span class="s2">&quot;commons.css&quot;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">include_css_file</span><span class="p">(</span><span class="s2">&quot;styles.css&quot;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">include_js_file</span><span class="p">(</span><span class="s2">&quot;app.js&quot;</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">html</span><span class="o">.</span><span class="n">google_analytics</span><span class="p">()</span>
+
+    <span class="n">body</span>
+
+        <span class="o">.</span><span class="n">container</span>
+            <span class="o">-</span> <span class="n">include</span> <span class="n">__template__</span>
+
+        <span class="n">footer</span>
+            <span class="o">.</span><span class="n">container</span><span class="o">-</span><span class="n">fluid</span>
+                <span class="o">.</span><span class="n">row</span>
+                    <span class="o">.</span><span class="n">col</span><span class="o">-</span><span class="n">md</span><span class="o">-</span><span class="mi">12</span>
+                        <span class="o">.</span><span class="n">text</span><span class="o">-</span><span class="n">center</span><span class="o">.</span>
+                            <span class="o">&amp;</span><span class="n">copy</span><span class="p">;</span> <span class="p">{{</span> <span class="n">g</span><span class="o">.</span><span class="n">__YEAR__</span><span class="p">}}</span> <span class="p">{{</span> <span class="n">config</span><span class="o">.</span><span class="n">APPLICATION_NAME</span> <span class="p">}}</span> <span class="p">{{</span> <span class="n">config</span><span class="o">.</span><span class="n">APPLICATION_VERSION</span> <span class="p">}}</span>
+</pre></div>
+
+
+<p>The most important part of the layout is <code>include __template__</code>. This where the view template will be injected.</p>
+<p>There are much more stuff going on it the template, we can tackle them later.</p>
+<hr />
+<h2 id="static">Static</h2>
+<p>Static hold your assets: js, css, images. They must be placed in <code>/application/static/</code></p>
+<p>Mocha uses <code>Flask-Assets</code> to manage your assets. Therefor <code>assets.yml</code> is a bundle collection, that allows you to
+bundle css or js together.</p>
+<p><code>assets.yml</code></p>
+<div class="codehilite"><pre><span></span><span class="n">styles</span><span class="p">.</span><span class="n">css</span><span class="p">:</span>
+    <span class="k">output</span><span class="p">:</span> <span class="ss">&quot;gen/styles.css&quot;</span>
+    <span class="n">contents</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">css</span><span class="o">/</span><span class="n">style</span><span class="p">.</span><span class="n">css</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">js</span><span class="p">:</span>
+    <span class="k">output</span><span class="p">:</span> <span class="ss">&quot;gen/app.js&quot;</span>
+    <span class="n">contents</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">js</span><span class="o">/</span><span class="n">app</span><span class="p">.</span><span class="n">js</span>
+</pre></div>
+
+
+<p>And in your template you can call it</p>
+<div class="codehilite"><pre><span></span><span class="o">+</span> <span class="n">html</span><span class="p">.</span><span class="n">include_css_file</span><span class="p">(</span><span class="ss">&quot;style.css&quot;</span><span class="p">)</span>
+<span class="o">+</span> <span class="n">html</span><span class="p">.</span><span class="n">include_js_file</span><span class="p">(</span><span class="ss">&quot;app.js&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>As a convenience, we include a  <code>package.json</code> if you want to download 3rd party scripts (js, css). You can either run
+<code>npm install</code> in static directory, or run <code>mocha :install-assets</code>, which will install your assets in the <code>node_modules</code></p>
+<hr />
+<h2 id="serve">Serve</h2>
+<p>Now we are done with our application, all we need to do is serve it.</p>
+<div class="codehilite"><pre><span></span><span class="n">mocha</span> <span class="o">:</span><span class="n">serve</span>
+</pre></div>
+
+
+<p>The command above will run <code>brew.py</code></p>
+<p><code>brew.py</code> is the entry point of the application.</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">mocha</span> <span class="kn">import</span> <span class="n">Brew</span>
+
+<span class="n">projects</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;main&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;main&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Brew</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">projects</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>projects</code> is a dict containing all the views to be used.</p>
+<p>Let's say if we had the views: <code>main.py</code>, <code>account.py</code>, <code>music.py</code>, <code>books.py</code></p>
+<p>We could put them into one</p>
+<div class="codehilite"><pre><span></span><span class="n">projects</span> <span class="o">=</span> <span class="err">{</span>
+    <span class="ss">&quot;main&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="ss">&quot;main&quot;</span><span class="p">,</span>
+        <span class="ss">&quot;account&quot;</span><span class="p">,</span>
+        <span class="ss">&quot;music&quot;</span><span class="p">,</span>
+        <span class="ss">&quot;books&quot;</span>
+    <span class="p">]</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>Upon serving the app, it would make all the endpoints available.</p>
+<p>Let's say we want to run multiple application</p>
+<div class="codehilite"><pre><span></span><span class="n">projects</span> <span class="o">=</span> <span class="err">{</span>
+    <span class="ss">&quot;main&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="ss">&quot;main&quot;</span><span class="p">,</span>
+        <span class="ss">&quot;account&quot;</span>
+    <span class="p">],</span>
+    <span class="ss">&quot;library&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="ss">&quot;music&quot;</span><span class="p">,</span>
+        <span class="ss">&quot;books&quot;</span>
+    <span class="p">]</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>Now we have 2 applications: <code>main</code> and <code>library</code></p>
+<p>By default, Mocha will default to <code>main</code></p>
+<div class="codehilite"><pre><span></span><span class="n">mocha</span> <span class="o">:</span><span class="n">serve</span>
+</pre></div>
+
+
+<p>But to run <code>library</code></p>
+<div class="codehilite"><pre><span></span><span class="n">app</span><span class="o">=</span><span class="n">library</span> <span class="n">mocha</span> <span class="p">:</span><span class="n">serve</span>
+</pre></div>
+
+
+<p>If two apps are running at the same time, you may need to specify a different port</p>
+<div class="codehilite"><pre><span></span><span class="n">app</span><span class="o">=</span><span class="n">library</span> <span class="n">mocha</span> <span class="p">:</span><span class="n">serve</span> <span class="c1">--port 5001</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 - Forever Mardix
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>

@@ -1,351 +1,178 @@
 
 
-# Assembly
+
+<div style="text-align:center; margin-bottom: 60px;">
+<h1 style="font-size: 3.5em; font-weight: bold;  color: #7c4dff">
+    <i class="md-icon">local_florist</i>
+    Assembly
+    <i class="md-icon">local_florist</i>
+</h1>
+<p></p>
+<h2 style="">A Pythonic Object-Oriented Web Framework built on Flask</h2>
+</div>
 
 
 <div style="text-align:center"><img src="/img/assembly.png"></div>
 
- <div style="text-align:center">
- <h2>A batteries included, front-end loaded, web and Restful framework built on Flask.</h2>
- </div>
+---
+
+## <div style="text-align:center">About</div>
+
+**Assembly** is a pythonic object-oriented, mid stack, batteries included framework built on Flask, that adds structure 
+to your Flask application, and group your routes by class.
+
+**Assembly** allows developers to build web applications in much the same way they would build any other object-oriented Python program. 
+
+Technically **Assembly** is an attempt of making a simple framework based on Flask Great Again!
 
 
-
-
-Assembly helps you build and structure your application, where your endpoints are natively created from your view names.
-
-If you already know Flask, you pretty much know 95% of Assembly.
+**[Installation Guide](install.md) **
 
 ---
 
 ## <div style="text-align:center">Quick Start</div>
 
-#### Install
+This quickstart will allow us to go with Assembly from 0 to 100!
 
-    pip install assembly
+### 1. Install Assembly
 
-#### Setup
+Install Assembly with `pip install assembly`
 
+It is highly recommended to use a virtualenv, in this case let's
+use VirtualenvWrapper (you can use any that is convenient for you)
 
-    assembly :init
+```
+mkvirtualenv my-first-app
 
+workon my-first-app
 
-#### Serve
+pip install assembly
 
-    assembly :serve
+```
 
----
 
-## <div style="text-align:center">Features</div>
+### 2. Initialize your application
 
-### **Class based views**
+Initialize Assembly with `asm-admin init`
 
-Assembly groups your views together by class. The class name becomes the base route of all the methods.
-Assembly expects the methods to return dict.
+CD into the folder you intend to create the application, then run `asm-admin init`. 
+This will setup the structure along with the necessary files to get started
 
-    from assembly import Assembly
+```
 
-    class Index(Assembly):
-        def index(self):
-            return {
-                "name": "Assembly",
-                "version": "1.0"
-            }
+cd app-dir
 
-        def hello_world(self):
-            return {
-                "hello": "world"
-            }
+asm-admin init
 
-    class Document(Assembly):
-        def index(self):
-            return
+```
 
-        def about(self):
-            return
+Upon initialization you should have a structure similar to this:
 
+```
+-- /
+    |- wsgi.py
+    |- config.py
+    |- requirements.txt
+    |- main
+        |- __init__.py
+        |- __models__.py
+        |- templates
+            |- Index
+                |- index.html
+            |- layouts
+                |- base.html
+        |- static
+        |- cli.py
 
----
+    |- __data__/
+```
 
-### **Smart Routing**
 
-Smart routing is created by using the class name and the method name. Class or method named `Index` or `index` respectively,
-will become the root; otherwise the class name will be the base root name, and all of its methods will be prefixed with it.
 
-    from assembly import Assembly
+### 3. Edit your first view
 
-    class Index(Assembly):
+```
 
-        def index(self):
-            # -> http://127.0.0.1/
+# main/__init__.py
 
-            return {
-                "name": "Assembly",
-                "version": "1.0"
-            }
+from assembly import (Assembly, response)
 
-        def hello_world(self):
-            # -> http://127.0.0.1/hello-world
+class Index(Assembly):
+    
+    index(self):
+        return {
+            "title": "Assembly is awesome",
+            "content": "That is a true fact"
+        }
 
-            return {
-                "hello": "world"
-            }
+    @response.json
+    api(self):
+        return {
+            "name": "Assembly",
+            "version": "x-to-infinity"
+        }
 
-    class Account(Assembly):
+```
 
-        def index(self):
-            # -> http://127.0.0.1/account
+### 4. Edit your template
 
-            return {
-                "name": "Assembly",
-                "version": "1.0"
-            }
+#### 4.0 Edit base layout 
 
-        def info(self):
-            # -> http://127.0.0.1/account/info
+```
+<!-- main/templates/layouts/base.html -->
 
-            return {
-                "name": "Mardix"
-            }
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+  </head>
 
-    class Document(Assembly):
-
-        def index(self):
-            # -> http://127.0.0.1/document/
-
-            return {
-                "docs": [
-
-                ]
-            }
-
-        def get(self, id):
-            # -> http://127.0.0.1/document/1234
-            return {
-                "title": "Doc title"
-            }
-
----
-
-### **Custom Route**
-
-Just like Flask, you can use the `assembly.route` decorator for custom routes. If the the class is decorated, all the
-the methods will inherit the parent route.
-
-
-    from assembly import Assembly, decorators as deco
-
-    @deco.route("/the-great-catalog")
-    class Catalog(Assembly):
-
-        @deco.route("/list/")
-        def index(self):
-            # -> http://127.0.0.1/the-great-catalog/lists
-
-            return {
-                "my_collections": [
-                    {
-                        "id": 123,
-                        ...
-                    },
-                    ...
-                ]
-            }
-
----
-
-### **RESTful**
-
-Assembly has some reserved methods name: `get`, `post`, `put`, `delete`, `update`. They required the `request.method`  to be
-the same as the name. By default all other methods are `GET`
-
-    from assembly import Assembly
-
-    class Index(Assembly):
-
-        def index(self):
-            # -> http://127.0.0.1/
-
-            return {
-                "name": "Assembly",
-                "version": "1.0"
-            }
-
-        def get(self, id):
-            # Accepts only GET method
-            # GET http://127.0.0.1/894
-
-            return {
-            }
-
-        def post(self, id):
-            # Accept only POST method
-            # POST http://127.0.0.1/894
-            # do something in post
-
-        def delete(self, id):
-            # Accept only DELETE method
-            # DELETE http://127.0.0.1/894
-            # do something in delete
-
-        def put(self, id):
-            # Accept only PUT
----
-
-
-### **Multiple renders: JSON, XML**
-
-You can quickly render your views to json or xml. By default it's HTML
-
-
-    from assembly import Assembly, decorators as deco
-
-    @deco.render_json
-    class Index(Assembly):
-
-        def index(self):
-            return {
-                "name": "Assembly",
-                "version": "1.0"
-            }
-
-        def hello_world(self):
-            return {
-                "hello": "world"
-            }
-
-    class Catalog(Assembly):
-
-        def index(self):
-            return {
-                "my_collections": [
-                    {
-                        "id": 123,
-                        ...
-                    },
-                    ...
-                ]
-            }
-
----
-
-### **Built-in Nav Title**
-
-
-As you are creating your views, you can also build the navigation menu, by using `@decorators.nav_title`
-
-
-    from assembly import Assembly, decorators as deco
-
-    @deco.nav_title("The Great Catalog")
-    class Catalog(Assembly):
-
-        @deco.nav_title("All")
-        def index(self):
-            return {
-                "my_collections": [
-                    {
-                        "id": 123,
-                        ...
-                    },
-                    ...
-                ]
-            }
-
-
----
-
-### **Admin**
-
-Assembly allows you to quickly turn your views into restricted admin area.
-
-Accessing `http://127.0.0.1/admin/catalog` will require you to login
-
-    from assembly import Assembly, decorators as deco
-    import assembly.contrib
-
-    @deco.nav_title("Catalog")
-    @deco.route("/admin/catalog")
-    @assembly.contrib.admin
-    class CatalogAdmin(Assembly):
-
-        @deco.nav_title("All")
-        def index(self):
-            return {
-                "my_collections": [
-                    {
-                        "id": 123,
-                        ...
-                    },
-                    ...
-                ]
-            }
-
----
-
-### **Interceptors**
-
-Sometimes you may want to do something before or after request, Assembly helps you with that.
-
-    from assembly import Assembly
-
-    class Index(Assembly):
-
-        def before_request(self, name, *args, **kwargs):
-            pass
-
-        def after_request(self, name, response):
-
-            return response
-
----
-
-### **Jade markup**
-
-For aesthetic reason, Assembly uses by default Jade (now Pug) template. This can switched if you want to use HTML file only
-
-    .row
-        .col-md-12
-            h1.text-center
-                | Hello Assembly
-
-
-Becomes
-
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="text-center">
-                Hello Assembly
-            </h1>
-        </div>
+  <body>
+    <div class="container">
+      {% block body %}{% endblock %}
     </div>
+  </body>
+</html>
+
+```
+
+#### 4.1  Edit Index/index.html
+```
+
+<!-- main/templates/Index/index.html -->
+
+{% extends 'main/layouts/base.html' %}
+
+{% block title %}Welcome to my Assembly Site {% endblock %}
+
+{% block body %}
+    <div>
+        <h1>{{ title }}</h1>
+    </div>
+    <div>
+        {{ content }}
+    </div>
+{% endblock %}
 
 
----
-
-### **Markdown friendly**
+```
 
 
+### 5. Serve your first application
 
+If everything is all set, all you need to do now is run your site:
 
----
+```
+asm-admin serve
+```
 
-### **Built-in contrib**
+It will start serving your application by default at `127.0.0.1:5000`
 
-- User Auth : It allows to authenticate users into the application. Contains the following pages:
-    - login
-    - signup
-    - lost-password
-    - account-settings
-    - admin interface
+Two endpoints will be available:
 
-- Contact Us
+- `http://127.0.0.1:5000/` which will show an HTML
+- `http://127.0.0.1:5000/api/` which will a json response
 
-- Error: Error pages
-
-- Admin Interface: Create authenticated admin area
-
-- Maintenance page: To turn the site on and off
 
 ---
 
@@ -366,17 +193,13 @@ Becomes
 
 - REST API Ready
 
-- Jade as default template language
-
 - Markdown friendly. Inclusion of a markdown file will turn into HTML
 
-- `bcrypt` is chosen as the password hasher
+- BCRYPT is chosen as the password hasher
 
 - Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL
 
 - Database/ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
-
-- ReCaptcha: [Flask-Recaptcha](https://github.com/mardix/flask-recaptcha)
 
 - CSRF on all POST
 
@@ -388,130 +211,23 @@ Becomes
 
 - Caching
 
-
-
 - JWT
 
 - Pagination
 
-- Signals
-
-- Fontawesome
-
-- Bootstrap 3
-
-- Bootswatch
+- Signals: to dispatch messages and data to other part of the application
 
 - Markdown
 
-
-
-- Propel for deployment
-
-
-
-- Smart routing: automatically generates routes based on the classes and methods in your views
-
-- Class name as the base url, ie: class UserAccount will be accessed at '/user-account'
-
-- Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'
-
-- Smart Rendering without adding any blocks in your templates
-
-- Auto rendering by returning a dict or None
-
-- Use Jade (Pug) template by default, but you can also use HTML.
-
-- Templates are mapped as the model in the class the $module/$class/$method.jade
-
-- Markdown ready: Along with Jade and HTML, it can also properly parse Markdown
-
-- Auto route can be edited with @route()
-
-- Restful: GET, POST, PUT, DELETE
-
-- REST API Ready
-
-- `bcrypt` is chosen as the password hasher
-
-- Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL
-
-- ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
-
-- ReCaptcha: [Flask-Recaptcha](https://github.com/mardix/flask-recaptcha)
-
-- Arrow for dates
-
-- Active-Alchemy for database and dates are saved as Arrow object
-
-- All dates are by default UTC
-
-- Date can be presented in specific timezone
-
-- CSRF on all POST
-
-- Storage: Local, S3, Google Storage [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
-
-- Mailer (SES or SMTP)
-
-- Caching
-
-- Signals to dispatch messages and data to other part of the application
-
-- JWT
-
-- Default Layout
-
-- Admin interface
+- Jinja2 for templating language
 
 - Multi application
 
 - Web Assets
 
-- Propel for deployment
+- CLI
 
-- Decorators, lots of decorators
-
----
-
-## Packages and utilities depencies:
-
-- Flask
-- Flask-Assets
-- cssmin
-- jsmin
-- flask-recaptcha
-- flask-login
-- flask-kvsession
-- flask-s3
-- flask-mail
-- flask-caching
-- flask-cloudy
-- flask-seasurf
-- flask-babel
-- flask-cors
-- Flask-OAuthlib
-- Active-Alchemy
-- Paginator
-- six
-- passlib
-- bcrypt
-- python-slugify
-- humanize
-- redis
-- ses-mailer
-- markdown
-- inflection
-- pyyaml
-- click
-- sh
-- dicttoxml
-- arrow
-- blinker
-- itsdangerous
-- pyjade
-- requests
-
+- Local server
 
 ---
 

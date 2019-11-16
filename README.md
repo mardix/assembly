@@ -188,6 +188,7 @@ CD into the folder you intend to create the application, then run `asm-admin ini
 This will setup the structure along with the necessary files to get started
 
 ```
+
 cd app-dir
 
 asm-admin init
@@ -257,7 +258,7 @@ class Index(Assembly):
 
   <body>
     <div class="container">
-      {% block content %}{% endblock %}
+      {% block body %}{% endblock %}
     </div>
   </body>
 </html>
@@ -273,7 +274,7 @@ class Index(Assembly):
 
 {% block title %}Welcome to my Assembly Site {% endblock %}
 
-{% block content %}
+{% block body %}
     <div>
         <h1>{{ title }}</h1>
     </div>
@@ -286,7 +287,7 @@ class Index(Assembly):
 ```
 
 
-#### Serve your first application
+### 5. Serve your first application
 
 If everything is all set, all you need to do now is run your site:
 
@@ -296,7 +297,11 @@ asm-admin serve
 
 It will start serving your application by default at `127.0.0.1:5000`
 
-Go to http://127.0.0.1:5000/ 
+Two endpoints will be available:
+
+- `http://127.0.0.1:5000/` which will show an HTML
+- `http://127.0.0.1:5000/api/` which will a json response
+
 
 ---
 

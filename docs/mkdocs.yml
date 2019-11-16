@@ -6,23 +6,34 @@ copyright: 'Copyright &copy; 2019 - Forever Mardix'
 
 repo_url: https://github.com/mardix/assembly
 repo_name: "assembly"
-theme: "material" # readthedocs
 
+theme:
+  name: 'material'
+  palette:
+    primary: 'pink'
+    accent: 'deep purple'
+  font:
+    text: 'Ubuntu'
+    code: 'Ubuntu Mono'
+  logo:
+    icon: 'local_florist'
+  feature:
+      tabs: false
+
+ 
 markdown_extensions:
   - admonition
   - codehilite
   - markdown_include.include:
       base_path: docs
 
-extra:
-  palette:
-    primary: 'Brown'
-    accent: 'Amber'
+
+
 
 pages:
-
-  - Home: index.md
-  - Tutorial: tutorial.md
+  - Overview: index.md
+  - Installation: install.md
+  - Tutorial: tutorial.md  
   - Application:
     - Config: application/config.md
     - Views: application/views.md

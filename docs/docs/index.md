@@ -12,7 +12,7 @@
 </div>
 
 
-<div style="text-align:center"><img src="/img/assembly.png"></div>
+<div style="text-align:center"><img src="./img/assembly.png"></div>
 
 ---
 

@@ -2,7 +2,7 @@
 site_name: Assembly
 site_description: ""
 site_url: "https://mardix.github.com/assembly"
-copyright: 'Copyright &copy; 2019++ Mardix'
+copyright: 'Copyright &copy; 2019 - Forever Mardix'
 
 repo_url: https://github.com/mardix/assembly
 repo_name: "assembly"
@@ -22,21 +22,20 @@ extra:
 pages:
 
   - Home: index.md
-  - Tutorial: setup.md
+  - Tutorial: tutorial.md
   - Application:
-    - Config: config.md
-    - Views: views.md
-    - Models: models.md
-    - Templates: templates.md
-    - Static: static.md
-    - CLI: cli.md
-    - Deployment: deploy.md
-  
-  - Utils: utils.md
-  - Pagination: pagination.md
-  - Signals: signals.md
-  - Logging: logging.md
-  - Exceptions: exceptions.md
+    - Config: application/config.md
+    - Views: application/views.md
+    - Models: application/models.md
+    - Templates: application/templates.md
+    - Static: application/static.md
+    - HTTPError: application/httperror.md
+    - CLI: application/cli.md
+    - Deployment: application/deploy.md
+  - Advanced:
+    - Utils: advanced/utils.md
+    - Pagination: advanced/pagination.md
+    - Signals: advanced/signals.md
   
   
 #  - Snippets:

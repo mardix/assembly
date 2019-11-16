@@ -1,6 +1,10 @@
 
 Path: `./__config__.py`.
 
+```
+from assembly import config 
+```
+
 ---
 
 Assembly uses class-based configuration, and the config will be loaded upon startup.

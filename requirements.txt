@@ -12,7 +12,6 @@ six>=1.9.0
 passlib>=1.7.0,<1.8.0
 bcrypt>=3.1.7
 python-slugify>=4.0.0
-humanize>=0.5.1
 ses-mailer>=0.13.0
 markdown>=2.6.2
 inflection==0.3.1

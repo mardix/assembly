@@ -148,7 +148,7 @@ def create_views(scaffold, name):
     if os.path.isdir(dest):
         print("ERROR: directory exists already '%s'" % dest)
     else:
-        utils.make_dirs(dest)
+        utils.mkpath(dest)
         copy_resource_dir(SKELETON_DIR + "/%s/" % scaffold, dest)
         viewdest = os.path.join(dest, "__init__.py")
         with open(viewdest, "r+") as f:

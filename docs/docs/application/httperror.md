@@ -1,9 +1,11 @@
 
 
-Mocha exposes some ex
+HTTPError
 
 
-    from mocha import exceptions
+```
+from assembly import HTTPError
+```
 
 ---
 

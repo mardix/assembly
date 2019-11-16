@@ -150,7 +150,7 @@ def url_for(endpoint, **kw):
             fn = sys._getframe().f_back.f_code.co_name
             endpoint = getattr(endpoint, fn)
 
-        if inspect.isfunction(endpoint):
+        if inspect.ismethod(endpoint) or inspect.isfunction(endpoint):
             _endpoint = _get_action_endpoint(endpoint)
             if not _endpoint:
                 _endpoint = _make_routename_from_endpoint(endpoint)
@@ -176,15 +176,12 @@ def redirect(endpoint, **kw):
         redirect(self.hello_world)
         redirect(self.other_page, name="x", value="v")
         redirect("https://google.com")
-        redirect(views.ContactPage.index)
+        redirect(views.main.ContactPage.index)
     :param endpoint:
     :return: redirect url
     """
 
-    _endpoint = None
-
     if isinstance(endpoint, six.string_types):
-        _endpoint = endpoint
         # valid for https:// or /path/
         # Endpoint should not have slashes. Use : (colon) to build endpoint
         if "/" in endpoint:
@@ -194,22 +191,9 @@ def redirect(endpoint, **kw):
                 _endpoint = endpoint
                 if 'GET' in r.methods and endpoint in r.endpoint:
                     _endpoint = r.endpoint
-                    break
+                    return f_redirect(url_for(_endpoint, **kw))
     else:
-        # self, will refer the caller method, by getting the method name
-        if isinstance(endpoint, Assembly):
-            fn = sys._getframe().f_back.f_code.co_name
-            endpoint = getattr(endpoint, fn)
-
-        if inspect.isfunction(endpoint):
-            _endpoint = _get_action_endpoint(endpoint)
-            if not _endpoint:
-                _endpoint = _make_routename_from_endpoint(endpoint)
-    if _endpoint:
-        return f_redirect(url_for(_endpoint, **kw))
-    else:
-        raise AssemblyError("Invalid endpoint")
-
+        return f_redirect(url_for(endpoint, **kw))
 
 # ------------------------------------------------------------------------------
 # Assembly core class
@@ -750,25 +734,23 @@ def _get_action_endpoint(action):
     :return:
     """
     _endpoint = None
-    if inspect.isfunction(action):
-        if hasattr(action, "_rule_cache"):
-            rc = action._rule_cache
-            if rc:
-                k = list(rc.keys())[0]
-                rules = rc[k]
-                len_rules = len(rules)
-                if len_rules == 1:
-                    rc_kw = rules[0][1]
-                    _endpoint = rc_kw.get("endpoint", None)
-                    if not _endpoint:
-                        _endpoint = _make_routename_from_endpoint(action)
-                elif len_rules > 1:
-                    _prefix = _make_routename_from_endpoint(action)
-                    for r in Assembly._app.url_map.iter_rules():
-                        if ('GET' in r.methods or 'POST' in r.methods) \
-                                and _prefix in r.endpoint:
-                            _endpoint = r.endpoint
-                            break
+    if inspect.ismethod(action) and hasattr(action, "_rule_cache"):
+        rc = action._rule_cache
+        if rc:
+            k = list(rc.keys())[0]
+            rules = rc[k]
+            len_rules = len(rules)
+            if len_rules == 1:
+                rc_kw = rules[0][1]
+                _endpoint = rc_kw.get("endpoint", None)
+                if not _endpoint:
+                    _endpoint = _make_routename_from_endpoint(action)
+            elif len_rules > 1:
+                _prefix = _make_routename_from_endpoint(action)
+                for r in Assembly._app.url_map.iter_rules():
+                    if ('GET' in r.methods or 'POST' in r.methods) and _prefix in r.endpoint:
+                        _endpoint = r.endpoint
+                        break
     return _endpoint
 
 
@@ -790,15 +772,8 @@ def _make_routename_from_cls(cls, method_name, class_name=None):
 
 
 def _make_routename_from_endpoint(endpoint):
-    is_class = inspect.isclass(endpoint)
-    class_name = endpoint.im_class.__name__ if not is_class else endpoint.__name__
-    method_name = endpoint.__name__
-
-    cls = endpoint.im_class() \
-        if (not hasattr(endpoint, "__self__") or endpoint.__self__ is None) \
-        else endpoint.__self__
-
-    return _make_routename_from_cls(cls, method_name, class_name)
+    class_name, method_name = endpoint.__qualname__.split(".", 2)
+    return _make_routename_from_cls(endpoint, method_name, class_name)
 
 
 def _register___application_template(pkg, prefix):

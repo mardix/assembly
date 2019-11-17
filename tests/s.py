@@ -188,3 +188,7 @@ config_flatten_property("AWS", app.config)
 config_flatten_property("CORS", app.config)
 
 print(app.config)
+
+
+send_mail(to="", subject="", body="")
+send_mail(to="", template="", )

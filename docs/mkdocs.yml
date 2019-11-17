@@ -33,14 +33,14 @@ markdown_extensions:
 pages:
   - Overview: index.md
   - Installation: install.md 
-  - WSGI.py: wsgipy.md
-  - Configuration: config.md  
-  - Application:
-    - Views: application/views.md
-    - Models: application/models.md
-    - Templates: application/templates.md
-    - Static: application/static.md
-    - HTTPError: application/httperror.md
+  - Architecture: architecture.md
+  - Tutorials: tutorials.md  
+  - Configuration: config.md 
+  - Views: application/views.md
+  - Models: application/models.md
+  - Templates: application/templates.md
+  - Static: application/static.md
+  - wsgi.py: wsgipy.md  
   - Advanced:
     - Signals: advanced/signals.md
     - Date: advanced/date.md
@@ -51,9 +51,10 @@ pages:
     - Sessions: advanced/sessions.md
     - Pagination: advanced/pagination.md    
     - Utils: advanced/utils.md    
+    - Error Handling: advanced/error-handling.md    
   - CLI: cli.md
   - Deployment: deploy.md
-  - Tutorials: tutorials.md   
+  
   
 
 

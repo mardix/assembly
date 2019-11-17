@@ -17,6 +17,37 @@ This includes POST from FORMS or AJAX calls.
 
 ---
 
+### HTML Forms
+
+In HTML, `csrf_token()` needs to be added for any POST forms.
+
+
+```
+<input type='hidden' name="_csrf_token" value='{{ csrf_token() }}'>
+```
+
+Example:
+
+```
+<h1>Upload</h1>
+<form id="uploadbanner" action="/upload/" enctype="multipart/form-data" method="post">
+    <input type='hidden' name="_csrf_token" value='{{ csrf_token() }}'>
+    <input id="fileupload" name="file" type="file" />
+    <input type="submit" value="Upload" id="submit" />
+</form> 
+```
+
+
+---
+
+### Validation
+
+Implicitely CSRF gets validated if `_csrf_token` was part of the POST call.
+
+If CSRF fails to validate, it will throw a **Forbidden/403** error.
+
+---
+
 ### Validate CSRF
 
 To validate CSRF, use `request.csrf`.

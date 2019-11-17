@@ -15,6 +15,7 @@ import ses_mailer
 import flask_kvsession
 from jinja2 import Markup
 from jinja2.ext import Extension
+from urllib.parse import urlparse
 from jinja2.nodes import CallBlock
 from jinja2 import TemplateSyntaxError
 from . import (ext, app_context, utils)
@@ -68,7 +69,7 @@ def session(app):
     store = None
     uri = app.config.get("SESSION_URL")
     if uri:
-        parse_uri = utils.urlparse(uri)
+        parse_uri = urlparse(uri)
         scheme = parse_uri.scheme
         username = parse_uri.username
         password = parse_uri.password
@@ -130,16 +131,20 @@ class _Mailer(object):
         self.config = app.config
         scheme = None
 
+
         mailer_uri = self.config.get("MAIL_URL")
         if mailer_uri:
-            mailer_uri = utils.urlparse(mailer_uri)
+            templates_sources = app.config.get("MAIL_TEMPLATE")
+            if not templates_sources:
+                templates_sources = app.config.get("MAIL_TEMPLATES_DIR") or app.config.get("MAIL_TEMPLATES_DICT")
+            
+            mailer_uri = urlparse(mailer_uri)
             scheme = mailer_uri.scheme
             hostname = mailer_uri.hostname
 
             # Using ses-mailer
             if "ses" in scheme.lower():
                 self.provider = "SES"
-
                 access_key = mailer_uri.username or app.config.get("AWS_ACCESS_KEY_ID")
                 secret_key = mailer_uri.password or app.config.get("AWS_SECRET_ACCESS_KEY")
                 region = hostname or self.config.get("AWS_REGION", "us-east-1")
@@ -149,7 +154,7 @@ class _Mailer(object):
                                             region=region,
                                             sender=self.config.get("MAIL_SENDER"),
                                             reply_to=self.config.get("MAIL_REPLY_TO"),
-                                            template=self.config.get("MAIL_TEMPLATE"),
+                                            template=templates_sources,
                                             template_context=self.config.get("MAIL_TEMPLATE_CONTEXT"))
 
             # SMTP will use flask-mail
@@ -174,7 +179,7 @@ class _Mailer(object):
                 _app = _App()
                 self.mail = flask_mail.Mail(app=_app)
 
-                _ses_mailer = ses_mailer.Mail(template=self.config.get("MAIL_TEMPLATE"),
+                _ses_mailer = ses_mailer.Mail(template=templates_sources,
                                               template_context=self.config.get("MAIL_TEMPLATE_CONTEXT"))
                 self._template = _ses_mailer.parse_template
             else:
@@ -247,7 +252,7 @@ class _AssetsDelivery(flask_s3.FlaskS3):
             if delivery_method.upper() == "CDN":
                 domain = app.config.get("ASSETS_DELIVERY_DOMAIN")
                 if "://" in domain:
-                    domain_parsed = utils.urlparse(domain)
+                    domain_parsed = urlparse(domain)
                     is_secure = domain_parsed.scheme == "https"
                     domain = domain_parsed.netloc
                 app.config.setdefault("S3_CDN_DOMAIN", domain)

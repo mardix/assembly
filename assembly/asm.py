@@ -24,6 +24,7 @@ from flask import (send_file, session)
 
 __signals_namespace = blinker.Namespace()
 
+
 def signal(fn):
     """
     @signal
@@ -98,7 +99,7 @@ def signal(fn):
         if action == 'post':
             ns.signal(sig_name).send(result, **resp)
         else:
-          ns.signal(sig_name).send(**resp)
+            ns.signal(sig_name).send(**resp)
 
     @functools.wraps(fn)
     def wrapper(*args, **kwargs):
@@ -107,7 +108,7 @@ def signal(fn):
         kwargs["result"] = result
         send('post', *args, **kwargs)
         return result
-    
+
     return wrapper
 
 
@@ -135,13 +136,15 @@ def get_flashed_data():
 # mail
 
 @signal
-def send_mail(template, to, **kwargs):
+def send_mail(to, **kwargs):
     """
-    Alias to mail.send(), but makes template required
-    ie: send_mail("welcome-to-the-site.txt", "user@email.com")
+    Alias to mail.send()
+    ie: 
+    - send_mail("user@email.com", subject="", body="")
+    - send_mail("user@email.com", template="welcome.mail.tpl")
 
     # This function emits a signal
-    @asm.sent_email.post
+    @asm.send_email.post
     def email_sent(result, **kw):
         if result:
             print("Email sent")
@@ -151,20 +154,22 @@ def send_mail(template, to, **kwargs):
     :param kwargs:
     :return:
     """
-    return ext.mail.send(to=to, template=template, **kwargs)
+    return ext.mail.send(to=to, **kwargs)
+
 
 # ------------------------------------------------------------------------------
 # Storage
 storage = flask_cloudy.Storage()
 app_context(storage.init_app)
 
-def get_file(object_name):
+
+def get_file(filename):
     """
     Get file from storage
-    :param object_name:
+    :param filename:
     :return: Storage object
     """
-    return storage.get(object_name)
+    return storage.get(filename)
 
 
 @signal
@@ -226,7 +231,7 @@ def upload_file(file, props=None,  **kw):
 
 
 @signal
-def delete_file(fileobj):
+def delete_file(fileobj, **kw):
     """
     Alias to delete a file from storage
 
@@ -236,15 +241,34 @@ def delete_file(fileobj):
         if result:
             print("File deleted")
 
-    :param fileobj: StorageObject type
+    :param fileobj: string or StorageObject type
     :return:
     """
+    if isinstance(fileobj, str):
+        fileobj = get_file(fileobj)
+
     if not isinstance(fileobj, (flask_cloudy.Object, assembly_db.StorageObject)):
-        raise TypeError("Invalid file type. Must be of flask_cloudy.Object")
+        raise TypeError("Invalid file type. Must be of flask_cloudy.Object or file doesn't exist")
     return fileobj.delete()
 
+@signal
+def download_file(object_name, name=None, timeout=60, **kw):
+    """
+    Alias to download a file object as attachment, or convert some text as .
+    :param object_name: the file storage object name
+    :param filename: the filename with extension.
+        If the file to download is an StorageOject, filename doesn't need to have an extension. 
+        It will automatically put it
+    :param timeout: the timeout to download file from the cloud
+    :return: string. Use it to redirect for download
+    """
+    file = get_file(object_name)
+    if not isinstance(file, (flask_cloudy.Object, assembly_db.StorageObject)):
+        raise TypeError("Can't download file. It must be of StorageObject type or file doesn't exist")
+    return file.download_url(timeout=timeout, name=name)
 
-def download_file(filename, object_name=None, content=None, as_attachment=True, timeout=60):
+
+def send_file(filename, content, as_attachment=True):
     """
     Alias to download a file object as attachment, or convert some text as .
     :param filename: the filename with extension.
@@ -257,20 +281,12 @@ def download_file(filename, object_name=None, content=None, as_attachment=True, 
     :param timeout: the timeout to download file from the cloud
     :return:
     """
-    if object_name:
-        file = get_file(object_name)
-        if not isinstance(file, (flask_cloudy.Object, assembly_db.StorageObject)):
-            raise TypeError("Can't download file. It must be of StorageObject type")
-        return file.download_url(timeout=timeout, name=filename)
-    elif content:
-        buff = six.BytesIO()
-        buff.write(content)
-        buff.seek(0)
-        return send_file(buff,
-                         attachment_filename=filename,
-                         as_attachment=as_attachment)
-    raise TypeError("`file` object or `content` text must be provided")
-
+    buff = six.BytesIO()
+    buff.write(content)
+    buff.seek(0)
+    return send_file(buff,
+                     attachment_filename=filename,
+                     as_attachment=as_attachment)
 
 # ------------------------------------------------------------------------------
 
@@ -305,6 +321,7 @@ class TimestampSigner2(itsdangerous.TimestampSigner):
     def timestamp_to_datetime(ts):
         return datetime.datetime.fromtimestamp(ts)
 
+
 class URLSafeTimedSerializer2(itsdangerous.URLSafeTimedSerializer):
     default_signer = TimestampSigner2
 
@@ -323,12 +340,14 @@ def hash_string(string):
     }
     return bcrypt.using(**conf).hash(string)
 
+
 def verify_hashed_string(string, hash):
     """
     check if string match its hashed. ie: To compare password
     :returns: bool
     """
     return bcrypt.verify(string, hash)
+
 
 def encode_jwt(data, expires_in=1, **kw):
     """
@@ -345,6 +364,7 @@ def encode_jwt(data, expires_in=1, **kw):
                                                      **kw)
     return s.dumps(data)
 
+
 def decode_jwt(token, **kw):
     """
     To decode a JWT token
@@ -354,6 +374,7 @@ def decode_jwt(token, **kw):
     """
     s = itsdangerous.TimedJSONWebSignatureSerializer(__CRYPT.get("secret_key"), salt=__CRYPT.get("salt"), **kw)
     return s.loads(token)
+
 
 def sign_data(data, expires_in=None, **kw):
     """
@@ -372,9 +393,10 @@ def sign_data(data, expires_in=None, **kw):
                                     **kw)
     else:
         s = itsdangerous.URLSafeSerializer(secret_key=__CRYPT.get("secret_key"),
-                                            salt=__CRYPT.get("salt"),
-                                            **kw)
+                                           salt=__CRYPT.get("salt"),
+                                           **kw)
     return s.dumps(data)
+
 
 def unsign_data(token,  **kw):
     """
@@ -400,4 +422,3 @@ def unsign_data(token,  **kw):
     else:
         s = itsdangerous.URLSafeSerializer(secret_key=__CRYPT.get("secret_key"), salt=__CRYPT.get("salt"), **kw)
         return s.loads(token)
-

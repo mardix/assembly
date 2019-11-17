@@ -211,7 +211,12 @@ class BaseConfig(object):
 
     #--------- MAIL ----------
     # To send emails
-
+    #
+    # from assembly import asm
+    # asm.send_mail(to="user@email.com", subject="Hi", body="How are you?")
+    #
+    # OPTIONS
+    #
     # AWS SES
     # To use AWS SES to send email
     #:
@@ -230,7 +235,7 @@ class BaseConfig(object):
     #: with sll -> smtp+ssl://USERNAME:PASSWORD@HOST:PORT
     #: with ssl and tls -> smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT
     #:
-    #: *** comment out if you are using SES instead
+    #: *** comment out if you are using SMTP instead
     # MAIL_URL = "smtp+ssl://{username}:{password}@{host}:{port}"\
     #    .format(username="", password="", host="smtp.gmail.com", port=465)
 
@@ -242,9 +247,18 @@ class BaseConfig(object):
     #: The email to reply to by default
     MAIL_REPLY_TO = ADMIN_EMAIL
 
-    #: MAIL_TEMPLATE
-    #: a directory that contains the email template or a dict
-    MAIL_TEMPLATE = os.path.join(DATA_DIR, 'mail-templates')
+    #: MAIL_TEMPLATES_DIR
+    #: files based templates
+    MAIL_TEMPLATES_DIR = os.path.join(DATA_DIR, 'mail-templates')
+
+    #: MAIL_TEMPLATES_DICT
+    #: dict based templates 
+    # MAIL_TEMPLATES_DICT = {
+    #     "welcome.txt": """
+    #     {% block subject %}Welcome{% endblock %}
+    #     {% block body %}Welcome to the site {{name}}?{% endblock %}        
+    #     """
+    # }
 
     #: MAIL_TEMPLATE_CONTEXT
     #: a dict of all context to pass to the email by default
@@ -287,8 +301,8 @@ export ASSEMBLY_APP=default
 wsgi:app
 
 
-### **for local server
-asm-admin server
+### **for development server
+asm-admin serve
 
 """
 

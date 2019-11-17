@@ -22,7 +22,7 @@ from flask_assets import Environment
 import werkzeug.exceptions as HTTPError
 from werkzeug.wrappers import BaseResponse
 from werkzeug.exceptions import HTTPException
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.routing import (BaseConverter, parse_rule)
 from flask import (Flask,
                    g,
@@ -257,7 +257,7 @@ class Assembly(object):
         # To by pass it, or to use your own, set config
         # USE_PROXY_FIX = False
         if app.config.get("USE_PROXY_FIX", True):
-            app.wsgi_app = werkzeug.contrib.fixers.ProxyFix(app.wsgi_app)
+            app.wsgi_app = ProxyFix(app.wsgi_app)
 
         app.url_map.converters['regex'] = RegexConverter
 

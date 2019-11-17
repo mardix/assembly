@@ -1,0 +1,1138 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+        <link rel="canonical" href="https://mardix.github.com/assembly/config/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>Configuration - Assembly</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700|Ubuntu+Mono&display=fallback">
+        <style>body,input{font-family:"Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="deep-purple">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#overview" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://mardix.github.com/assembly" title="Assembly" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">local_florist</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Assembly
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Configuration
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/mardix/assembly/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    assembly
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://mardix.github.com/assembly" title="Assembly" class="md-nav__button md-logo">
+      
+        <i class="md-icon">local_florist</i>
+      
+    </a>
+    Assembly
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/mardix/assembly/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    assembly
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../install/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../architecture/" title="Architecture" class="md-nav__link">
+      Architecture
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../tutorials/" title="Tutorials" class="md-nav__link">
+      Tutorials
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Configuration
+      </label>
+    
+    <a href="./" title="Configuration" class="md-nav__link md-nav__link--active">
+      Configuration
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-accessor" class="md-nav__link">
+    Config Accessor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-based-configuration" class="md-nav__link">
+    Class Based Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#select-environment" class="md-nav__link">
+    Select Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-configurations" class="md-nav__link">
+    Default Configurations
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../application/views/" title="Views" class="md-nav__link">
+      Views
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../application/models/" title="Models" class="md-nav__link">
+      Models
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../application/templates/" title="Templates" class="md-nav__link">
+      Templates
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../application/static/" title="Static" class="md-nav__link">
+      Static
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../wsgipy/" title="wsgi.py" class="md-nav__link">
+      wsgi.py
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Advanced
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/signals/" title="Signals" class="md-nav__link">
+      Signals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/date/" title="Date" class="md-nav__link">
+      Date
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/caching/" title="Caching" class="md-nav__link">
+      Caching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/csrf/" title="CSFR" class="md-nav__link">
+      CSFR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/mail/" title="Mail" class="md-nav__link">
+      Mail
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/storage/" title="Storage" class="md-nav__link">
+      Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/sessions/" title="Sessions" class="md-nav__link">
+      Sessions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/pagination/" title="Pagination" class="md-nav__link">
+      Pagination
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/utils/" title="Utils" class="md-nav__link">
+      Utils
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/error-handling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../deploy/" title="Deployment" class="md-nav__link">
+      Deployment
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-accessor" class="md-nav__link">
+    Config Accessor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-based-configuration" class="md-nav__link">
+    Class Based Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#select-environment" class="md-nav__link">
+    Select Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-configurations" class="md-nav__link">
+    Default Configurations
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/mardix/assembly/edit/master/docs/config.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Configuration</h1>
+                
+                <h2 id="overview">Overview</h2>
+<p><code>./config.py</code> contains class-based configurations. 
+This file must exist at the root of the application 
+where <code>wsgi.py</code> exists.</p>
+<p>It is recommended to have a base class, <code>BaseConfig</code>, and your environment classes <code>Development</code>, <code>Production</code> which are subclasses
+of the <code>BaseConfig</code>, this way they can share some common config.</p>
+<p>The environment classes will be loaded on Assembly startup. By default, and in development, Assembly will attempt to load the <code>Development</code> if one isn't provided.</p>
+<p>To switch to a different config, you have to set the environment variable, or in production</p>
+<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span>
+<span class="n">export</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span>
+</pre></div>
+
+
+<p>or to set the application along with the environment</p>
+<div class="codehilite"><pre><span></span><span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span> <span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">serve</span>
+</pre></div>
+
+
+<p>The code above will load the <code>Production</code> config.</p>
+<p>One main advantage of having your config like that, is that you have the ability of using different config for different
+environment, could be for testing, prod, dev, etc.</p>
+<hr />
+<h2 id="config-accessor">Config Accessor</h2>
+<p>Assembly exposes <code>config</code> to access variable from your config environment. </p>
+<p><code>config</code> is a subset of dict, and also has dot notation accessor, where can access variable 
+using the dot notation, ie: <code>config.get('key.val1.val2.val3')</code></p>
+<h4 id="import">Import</h4>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">config</span> 
+</pre></div>
+
+
+<h4 id="usage">Usage</h4>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;APPLICATION_VERSION&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;version2&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;APPLICATION_VERSION&quot;</span><span class="p">],</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<p>As DotNotation</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;default_date_format&quot;</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;DATE_FORMAT.default&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<hr />
+<h2 id="class-based-configuration">Class Based Configuration</h2>
+<p>Each class corresponds to an environment that you will be able to use for either 'Development', 'Production', 'Testing', 'Staging' etc.</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="n">BaseConf</span>(<span class="n">object</span>):
+    <span class="s">&quot;&quot;&quot; That will be default class base, which other classes will extends from &quot;&quot;&quot;</span>
+    <span class="n">APPLICATION_NAME</span> = <span class="s">&quot;Assembly&quot;</span>   
+
+<span class="k">class</span> <span class="n">Development</span>(<span class="n">BaseConf</span>):
+    <span class="n">DEBUG</span> = <span class="nb">True</span>
+
+<span class="k">class</span> <span class="n">Production</span>(<span class="n">BaseConf</span>):
+    <span class="n">DEBUG</span> = <span class="nb">False</span>
+
+<span class="k">class</span> <span class="n">Testing</span>(<span class="n">BaseConf</span>):
+    <span class="n">DEBUG</span> = <span class="nb">True</span>
+</pre></div>
+
+
+<hr />
+<h2 id="select-environment">Select Environment</h2>
+<p>When you are ready to serve your application, set the environment variable <code>ASSEMBLY_ENV</code> to the class name you want to use. </p>
+<p>Example:</p>
+<p><code>export ASSEMBLY_ENV=Production</code> -&gt; for Production
+<code>export ASSEMBLY_ENV=Staging</code> -&gt; for Staging</p>
+<p>By default Assembly will load the <code>Development</code> class during development.</p>
+<hr />
+<h2 id="default-configurations">Default Configurations</h2>
+<p>Assembly uses class-based configuration, and the config will be loaded implicitely.</p>
+<p><code>./config.py</code> is required at the root of the application.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># config.py</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># The root dir</span>
+<span class="n">ROOT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+
+<span class="c1"># Data directory</span>
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT_DIR</span><span class="p">,</span> <span class="s2">&quot;__data__&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">BaseConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base configuration</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: Site&#39;s name or Name of the application</span>
+    <span class="n">APPLICATION_NAME</span> <span class="o">=</span> <span class="s2">&quot;Assembly&quot;</span>
+
+    <span class="c1">#: The application url</span>
+    <span class="n">APPLICATION_URL</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1">#: Version of application</span>
+    <span class="n">APPLICATION_VERSION</span> <span class="o">=</span> <span class="s2">&quot;0.0.1&quot;</span>
+
+    <span class="c1">#: Google Analytics ID</span>
+    <span class="n">GOOGLE_ANALYTICS_ID</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1">#: Required to setup. This email will have SUPER USER role</span>
+    <span class="n">ADMIN_EMAIL</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c1">#: The address to receive email when using the contact page</span>
+    <span class="n">CONTACT_EMAIL</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c1">#: PAGINATION_PER_PAGE : Total entries to display per page</span>
+    <span class="n">PAGINATION_PER_PAGE</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="c1"># MAX_CONTENT_LENGTH</span>
+    <span class="c1"># If set to a value in bytes, Flask will reject incoming requests with a</span>
+    <span class="c1"># content length greater than this by returning a 413 status code</span>
+    <span class="n">MAX_CONTENT_LENGTH</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
+
+    <span class="c1"># To remove whitespace off the HTML result</span>
+    <span class="n">COMPRESS_HTML</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="c1"># Data directory</span>
+    <span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">DATA_DIR</span>
+
+    <span class="c1">#------------------- DATE FORMAT and TIMEZONE -------------</span>
+    <span class="c1"># Arrow is used as date parser</span>
+    <span class="c1"># from assembly import date</span>
+    <span class="c1"># http://crsmithdev.com/arrow</span>
+    <span class="c1"># To view tokens: http://crsmithdev.com/arrow/#tokens</span>
+
+    <span class="c1"># Timezone to use when dealing with date. </span>
+    <span class="c1"># Example</span>
+    <span class="c1"># date.now().to(config.get(&quot;TIMEZONE&quot;))</span>
+    <span class="c1"># Timezone</span>
+    <span class="n">TIMEZONE</span> <span class="o">=</span> <span class="s2">&quot;US/Eastern&quot;</span>
+
+    <span class="c1"># Date format</span>
+    <span class="c1"># Dict of dates format</span>
+    <span class="c1"># Example</span>
+    <span class="c1"># date.now().format(config.get(&quot;DATE_FORMAT.default&quot;))</span>
+    <span class="n">DATE_FORMAT</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;MM/DD/YYYY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;MM/DD/YYYY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;MM/DD/YYYY hh:mm a&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;hh:mm a&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;long_datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;dddd, MMMM D, YYYY hh:mm a&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1">#--------- AWS Credentials ----------</span>
+    <span class="c1">#: AWS Credentials</span>
+    <span class="c1"># AWS is used by lots of extensions</span>
+    <span class="c1"># For: S3, SES Mailer, flask S3.</span>
+
+    <span class="c1"># The AWS Access KEY</span>
+    <span class="n">AWS_ACCESS_KEY_ID</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1"># Secret Key</span>
+    <span class="n">AWS_SECRET_ACCESS_KEY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1"># The bucket name for S3</span>
+    <span class="n">AWS_S3_BUCKET_NAME</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1"># The default region name</span>
+    <span class="n">AWS_REGION_NAME</span> <span class="o">=</span> <span class="s2">&quot;us-east-1&quot;</span>
+
+
+    <span class="c1">#--------- DATABASES URL ----------</span>
+
+    <span class="c1">#: DB_URL</span>
+    <span class="c1">#: Assembly uses Active-Alchemy to work with DB </span>
+    <span class="c1">#: format: engine://USERNAME:PASSWORD@HOST:PORT/DB_NAME</span>
+    <span class="n">DB_URL</span> <span class="o">=</span> <span class="s2">&quot;sqlite:////</span><span class="si">%s</span><span class="s2">/db.db&quot;</span> <span class="o">%</span> <span class="n">DATA_DIR</span>
+
+    <span class="c1">#: DB_REDIS_URL</span>
+    <span class="c1">#: format: USERNAME:PASSWORD@HOST:PORT</span>
+    <span class="n">DB_REDIS_URL</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+    <span class="c1">#--------- ASSETS DELIVERY ----------</span>
+    <span class="c1"># ASSETS DELIVERY allows to serve static files from S3, Cloudfront or other CDN</span>
+    <span class="c1"># The delivery method:</span>
+    <span class="c1">#   - None: will use the local static files</span>
+    <span class="c1">#   - S3: Will use AWS S3. By default it will use the bucket name set in AWS_S3_BUCKET_NAME</span>
+    <span class="c1">#       When S3, AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are required to upload files</span>
+    <span class="c1">#   - CDN: To use a CDN. ASSETS_DELIVERY_DOMAIN need to have the CDN domain</span>
+    <span class="n">ASSETS_DELIVERY_METHOD</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c1"># Set the base domain of the CDN</span>
+    <span class="n">ASSETS_DELIVERY_DOMAIN</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c1">#--------- SESSION ----------</span>
+    <span class="c1">#: SESSION</span>
+    <span class="c1">#: Flask-KVSession is used to save the user&#39;s session</span>
+    <span class="c1">#: Set the SESSION_URL by using these examples below to set KVSession</span>
+    <span class="c1">#: To use local session, just set SESSION_URL to None</span>
+    <span class="c1">#:</span>
+    <span class="c1">#: Redis: redis://username:password@host:6379/db</span>
+    <span class="c1">#: S3: s3://username:password@s3.aws.amazon.com/bucket</span>
+    <span class="c1">#: Google Storage: google_storage://username:password@cloud.google.com/bucket</span>
+    <span class="c1">#: SQL: postgresql://username:password@host:3306/db</span>
+    <span class="c1">#:      mysql+pysql://username:password@host:3306/db</span>
+    <span class="c1">#:      sqlite://</span>
+    <span class="c1">#: Memcached: memcache://host:port</span>
+    <span class="c1">#:</span>
+    <span class="n">SESSION_URL</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+    <span class="c1">#--------- STORAGE ----------</span>
+    <span class="c1">#: STORAGE</span>
+    <span class="c1">#: Flask-Cloudy is used to save upload on S3, Google Storage,</span>
+    <span class="c1">#: Cloudfiles, Azure Blobs, and Local storage</span>
+    <span class="c1">#: When using local storage, they can be accessed via http://yoursite/files</span>
+    <span class="c1">#:</span>
+
+    <span class="c1">#: STORAGE_PROVIDER:</span>
+    <span class="c1"># The provider to use. By default it&#39;s &#39;LOCAL&#39;.</span>
+    <span class="c1"># You can use:</span>
+    <span class="c1"># LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES</span>
+    <span class="n">STORAGE_PROVIDER</span> <span class="o">=</span> <span class="s2">&quot;LOCAL&quot;</span>
+
+    <span class="c1">#: STORAGE_KEY</span>
+    <span class="c1"># The storage key. Leave it blank if PROVIDER is LOCAL</span>
+    <span class="n">STORAGE_KEY</span> <span class="o">=</span> <span class="n">AWS_ACCESS_KEY_ID</span>
+
+    <span class="c1">#: STORAGE_SECRET</span>
+    <span class="c1">#: The storage secret key. Leave it blank if PROVIDER is LOCAL</span>
+    <span class="n">STORAGE_SECRET</span> <span class="o">=</span> <span class="n">AWS_SECRET_ACCESS_KEY</span>
+
+    <span class="c1">#: STORAGE_REGION_NAME</span>
+    <span class="c1">#: The region for the storage. Leave it blank if PROVIDER is LOCAL</span>
+    <span class="n">STORAGE_REGION_NAME</span> <span class="o">=</span> <span class="n">AWS_REGION_NAME</span>
+
+    <span class="c1">#: STORAGE_CONTAINER</span>
+    <span class="c1">#: The Bucket name (for S3, Google storage, Azure, cloudfile)</span>
+    <span class="c1">#: or the directory name (LOCAL) to access</span>
+    <span class="n">STORAGE_CONTAINER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;uploads&quot;</span><span class="p">)</span>
+
+    <span class="c1">#: STORAGE_SERVER</span>
+    <span class="c1">#: Bool, to serve local file</span>
+    <span class="n">STORAGE_SERVER</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="c1">#: STORAGE_SERVER_URL</span>
+    <span class="c1">#: The url suffix for local storage</span>
+    <span class="n">STORAGE_SERVER_URL</span> <span class="o">=</span> <span class="s2">&quot;files&quot;</span>
+
+    <span class="c1">#:STORAGE_UPLOAD_FILE_PROPS</span>
+    <span class="c1">#: A convenient K/V properties for storage.upload to use when using `upload_file()`</span>
+    <span class="c1">#: It contains common properties that can passed into the upload function</span>
+    <span class="c1">#: ie: upload_file(&quot;profile-image&quot;, file)</span>
+    <span class="n">STORAGE_UPLOAD_FILE_PROPS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># To upload regular images</span>
+        <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;public&quot;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">},</span>
+
+        <span class="c1"># To upload profile image</span>
+        <span class="s2">&quot;profile-image&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;profile-image/&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;public&quot;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">#--------- MAIL ----------</span>
+    <span class="c1"># To send emails</span>
+
+    <span class="c1"># AWS SES</span>
+    <span class="c1"># To use AWS SES to send email</span>
+    <span class="c1">#:</span>
+    <span class="c1">#: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)</span>
+    <span class="c1">#: set MAIL_URL = &quot;ses://&quot;</span>
+    <span class="c1">#: * To use a different credential:</span>
+    <span class="c1">#: set MAIL_URL = &quot;ses://{access_key}:{secret_key}@{region}&quot;</span>
+    <span class="c1">#:</span>
+    <span class="c1">#: *** uncomment if you are using SMTP instead</span>
+    <span class="c1"># MAIL_URL = &quot;ses://&quot;</span>
+
+    <span class="c1"># SMTP</span>
+    <span class="c1">#: If you are using SMTP, it will use Flask-Mail</span>
+    <span class="c1">#: The uri for the smtp connection. It will use Flask-Mail</span>
+    <span class="c1">#: format: smtp://USERNAME:PASSWORD@HOST:PORT</span>
+    <span class="c1">#: with sll -&gt; smtp+ssl://USERNAME:PASSWORD@HOST:PORT</span>
+    <span class="c1">#: with ssl and tls -&gt; smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT</span>
+    <span class="c1">#:</span>
+    <span class="c1">#: *** comment out if you are using SES instead</span>
+    <span class="c1"># MAIL_URL = &quot;smtp+ssl://{username}:{password}@{host}:{port}&quot;\</span>
+    <span class="c1">#    .format(username=&quot;&quot;, password=&quot;&quot;, host=&quot;smtp.gmail.com&quot;, port=465)</span>
+
+    <span class="c1">#: MAIL_SENDER - The sender of the email by default</span>
+    <span class="c1">#: For SES, this email must be authorized</span>
+    <span class="n">MAIL_SENDER</span> <span class="o">=</span> <span class="n">ADMIN_EMAIL</span>
+
+    <span class="c1">#: MAIL_REPLY_TO</span>
+    <span class="c1">#: The email to reply to by default</span>
+    <span class="n">MAIL_REPLY_TO</span> <span class="o">=</span> <span class="n">ADMIN_EMAIL</span>
+
+    <span class="c1">#: MAIL_TEMPLATE</span>
+    <span class="c1">#: a directory that contains the email template or a dict</span>
+    <span class="n">MAIL_TEMPLATE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s1">&#39;mail-templates&#39;</span><span class="p">)</span>
+
+    <span class="c1">#: MAIL_TEMPLATE_CONTEXT</span>
+    <span class="c1">#: a dict of all context to pass to the email by default</span>
+    <span class="n">MAIL_TEMPLATE_CONTEXT</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;site_name&quot;</span><span class="p">:</span> <span class="n">APPLICATION_NAME</span><span class="p">,</span>
+            <span class="s2">&quot;site_url&quot;</span><span class="p">:</span> <span class="n">APPLICATION_URL</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+
+    <span class="c1">#--------- CACHING ----------</span>
+    <span class="c1">#: Flask-Cache is used to caching</span>
+
+    <span class="c1">#: CACHE_TYPE</span>
+    <span class="c1">#: The type of cache to use</span>
+    <span class="c1">#: null, simple, redis, filesystem,</span>
+    <span class="n">CACHE_TYPE</span> <span class="o">=</span> <span class="s2">&quot;simple&quot;</span>
+
+    <span class="c1">#: CACHE_REDIS_URL</span>
+    <span class="c1">#: If CHACHE_TYPE is &#39;redis&#39;, set the redis uri</span>
+    <span class="c1">#: redis://username:password@host:port/db</span>
+    <span class="n">CACHE_REDIS_URL</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="c1">#: CACHE_DIR</span>
+    <span class="c1">#: Directory to store cache if CACHE_TYPE is filesystem, it will</span>
+    <span class="n">CACHE_DIR</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+
+<span class="c1"># -------------------------- ENVIRONMENT BASED CONFIG ---------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The environment based config is what will be loaded.</span>
+<span class="sd">By default it will load the development</span>
+
+<span class="sd">## 1. Set environment variables</span>
+<span class="sd">export ASSEMBLY_ENV=Development # for development</span>
+<span class="sd">export ASSEMBLY_APP=default  </span>
+
+<span class="sd">## 2. Run the wsgi</span>
+<span class="sd">wsgi:app</span>
+
+
+<span class="sd">### **for local server</span>
+<span class="sd">asm-admin server</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">Development</span><span class="p">(</span><span class="n">BaseConfig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Config for development environment &quot;&quot;&quot;</span>
+    <span class="n">SERVER_NAME</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s2">&quot;PLEASE CHANGE ME&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">Production</span><span class="p">(</span><span class="n">BaseConfig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Config for Production environment &quot;&quot;&quot;</span>
+    <span class="n">SERVER_NAME</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">COMPRESS_HTML</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+
+
+<hr />
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../tutorials/" title="Tutorials" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Tutorials
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../application/views/" title="Views" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Views
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 - Forever Mardix
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>

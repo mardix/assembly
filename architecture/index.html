@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://mardix.github.com/assembly/install/">
+        <link rel="canonical" href="https://mardix.github.com/assembly/architecture/">
       
       
       
@@ -38,7 +38,7 @@
     
     
       
-        <title>Installation - Assembly</title>
+        <title>Architecture - Assembly</title>
       
     
     
@@ -87,7 +87,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#requirements" tabindex="1" class="md-skip">
+      <a href="#overview" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -113,7 +113,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Installation
+                Architecture
               
             </span>
           
@@ -234,6 +234,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../install/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -243,11 +255,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Installation
+        Architecture
       </label>
     
-    <a href="./" title="Installation" class="md-nav__link md-nav__link--active">
-      Installation
+    <a href="./" title="Architecture" class="md-nav__link md-nav__link--active">
+      Architecture
     </a>
     
       
@@ -259,29 +271,76 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
-    Requirements
+  <a href="#overview" class="md-nav__link">
+    Overview
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
-    Install
+  <a href="#structure" class="md-nav__link">
+    Structure
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-files" class="md-nav__link">
+    Base files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-package-structure" class="md-nav__link">
+    View Package Structure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-class-structure" class="md-nav__link">
+    View Class structure
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiple-classes" class="md-nav__link">
+    Multiple Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace" class="md-nav__link">
+    Namespace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-templates" class="md-nav__link">
+    View Templates
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#initialize" class="md-nav__link">
-    Initialize
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#launch-first-app" class="md-nav__link">
-    Launch first app
+  <a href="#view-static" class="md-nav__link">
+    View Static
   </a>
   
 </li>
@@ -294,18 +353,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../architecture/" title="Architecture" class="md-nav__link">
-      Architecture
-    </a>
   </li>
 
     
@@ -580,29 +627,76 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
-    Requirements
+  <a href="#overview" class="md-nav__link">
+    Overview
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
-    Install
+  <a href="#structure" class="md-nav__link">
+    Structure
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-files" class="md-nav__link">
+    Base files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-package-structure" class="md-nav__link">
+    View Package Structure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-class-structure" class="md-nav__link">
+    View Class structure
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiple-classes" class="md-nav__link">
+    Multiple Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace" class="md-nav__link">
+    Namespace
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-templates" class="md-nav__link">
+    View Templates
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#initialize" class="md-nav__link">
-    Initialize
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#launch-first-app" class="md-nav__link">
-    Launch first app
+  <a href="#view-static" class="md-nav__link">
+    View Static
   </a>
   
 </li>
@@ -623,45 +717,202 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mardix/assembly/edit/master/docs/install.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/mardix/assembly/edit/master/docs/architecture.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Installation</h1>
+                  <h1>Architecture</h1>
                 
-                <p>Assembly is a Pythonic Object-Oriented Web Framework built on Flask</p>
+                <h2 id="overview">Overview</h2>
+<p>Assembly tries to keep it simple by providing a flat structure for your application and gives you 
+the freedom to do whatever else. </p>
+<p>It lays out a basic layout, so the application can be consistent. </p>
 <hr />
-<h3 id="requirements">Requirements</h3>
+<h2 id="structure">Structure</h2>
+<p>A basic application structure looks like this</p>
+<div class="codehilite"><pre><span></span><span class="c1">-- /</span>
+    <span class="o">|-</span> <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+    <span class="o">|-</span> <span class="n">app</span><span class="p">.</span><span class="n">json</span>
+    <span class="o">|-</span> <span class="n">__data__</span>  
+    <span class="o">|-</span> <span class="n">main</span>
+        <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+        <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
+        <span class="o">|-</span> <span class="n">templates</span>
+            <span class="o">|-</span> <span class="k">Index</span>
+                <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+            <span class="o">|-</span> <span class="n">layouts</span>
+                <span class="o">|-</span> <span class="n">base</span><span class="p">.</span><span class="n">html</span>
+        <span class="o">|-</span> <span class="k">static</span>
+        <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+
+
+<hr />
+<h3 id="base-files">Base files</h3>
+<p>Base files are at the root of the application. And <code>wsgi.py</code>, <code>config.py</code> are required by Assembly.</p>
+<div class="codehilite"><pre><span></span><span class="c1">-- /</span>
+    <span class="o">|-</span> <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+    <span class="o">|-</span> <span class="n">app</span><span class="p">.</span><span class="n">json</span>
+    <span class="o">|-</span> <span class="n">__data__</span>  
+</pre></div>
+
+
 <ul>
-<li>Python 3.6+</li>
-<li>Virtualenv</li>
+<li>
+<p><code>wsgi.py</code> is the application object. (required)</p>
+</li>
+<li>
+<p><code>config.py</code>: contains class based configurations (required)</p>
+</li>
+<li>
+<p><code>requirements.txt</code>: contains application dependencies including <code>assembly</code></p>
+</li>
+<li>
+<p><code>app.json</code>: Application manifest to deploy using Gokku</p>
+</li>
+<li>
+<p><code>__data__</code>: A variable directory, to put misc files, uploads, etc.</p>
+</li>
 </ul>
 <hr />
-<h3 id="install">Install</h3>
-<p>Install Assembly with <code>pip install assembly</code></p>
-<p>It is highly recommended to use a virtualenv, in this case let's
-use VirtualenvWrapper (you can use any that is convenient for you)</p>
-<div class="codehilite"><pre><span></span><span class="n">mkvirtualenv</span> <span class="n">my</span><span class="o">-</span><span class="k">first</span><span class="o">-</span><span class="n">app</span>
+<h3 id="view-package-structure">View Package Structure</h3>
+<p>View Package are simply a package/directory that contains at least <code>__init__.py</code> and can be imported into the <code>APPS</code> list in the <code>wsgi.py</code> file. </p>
+<p>Additionally, you can find <code>__models__.py</code>, <code>templates/</code>, <code>static/</code></p>
+<p>The view name is the folder. The example below show the <code>main</code> view.</p>
+<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="n">main</span>
+    <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">templates</span>
+        <span class="o">|-</span> <span class="k">Index</span>
+            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+        <span class="o">|-</span> <span class="n">layouts</span>
+            <span class="o">|-</span> <span class="n">base</span><span class="p">.</span><span class="n">html</span>
+    <span class="o">|-</span> <span class="k">static</span>
+    <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
 
-<span class="n">workon</span> <span class="n">my</span><span class="o">-</span><span class="k">first</span><span class="o">-</span><span class="n">app</span>
 
-<span class="n">pip</span> <span class="n">install</span> <span class="n">assembly</span>
+<ul>
+<li><code>main</code> view directory</li>
+<li><code>__init__.py</code> contains all the View classes</li>
+<li><code>__models__.py</code> contains all the Models for that View</li>
+<li><code>templates</code> contains templates for the each endpoint in the View classes</li>
+<li><code>static</code> contain the static files, images, css, js, etc.</li>
+<li><code>cli.py</code> Custom CLI for that view.</li>
+</ul>
+<p><code>__init__.py</code>, <code>__models__.py</code>, <code>templates/</code>, <code>static/</code> will be loaded implicitely by Assemby. Only <code>__init__.py</code> is required.</p>
+<p><code>__init__.py</code> is also served as files containing all the view classes.</p>
+<hr />
+<h2 id="view-class-structure">View Class structure</h2>
+<p>You can place your view classes in <code>__init__.py</code>. Assembly will automatically load them when they are added in the APPS list.</p>
+<p>Aside from importing the <code>assembly</code> package, nothing special needs to be done in the View. Just work on your application like you would in your normal Python file. As a matter of fact this is a normal Python file.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># main/__init__</span>
+
+<span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
 </pre></div>
 
 
 <hr />
-<h3 id="initialize">Initialize</h3>
-<p>Initialize Assembly with <code>asm-admin init</code></p>
-<p>CD into the folder you intend to create the application, then run <code>asm-admin init</code>. 
-This will setup the structure along with the necessary files to get started</p>
-<div class="codehilite"><pre><span></span><span class="n">cd</span> <span class="n">app</span><span class="o">-</span><span class="n">dir</span>
+<h3 id="multiple-classes">Multiple Classes</h3>
+<p>It's ok to have multiple classes in your View. They will be treated properly with the proper endpoint.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># main/__init__</span>
 
-<span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">init</span>
+<span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">request</span>
+
+<span class="c1"># responds to /</span>
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
+
+<span class="c1"># responds to /api/</span>
+<span class="k">class</span> <span class="nc">Api</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
+
+
+<span class="c1"># responds to /admin/</span>
+<span class="k">class</span> <span class="nc">Admin</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
 </pre></div>
 
 
-<h3 id="launch-first-app">Launch first app</h3>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">serve</span>
+<hr />
+<h3 id="namespace">Namespace</h3>
+<p>Everything is properly namespaced, however the only time you may have some clashes is when more than one class has the same class name. To fix that, just use a different route name for the class base.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># main/__init__</span>
+
+<span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
+
+<span class="c1"># responds to /</span>
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
+
+<span class="o">---</span>
+
+<span class="c1"># admin/__init__</span>
+
+<span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">request</span>
+
+<span class="c1"># responds to /admin/</span>
+<span class="nd">@request.route</span><span class="p">(</span><span class="s2">&quot;/admin/&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
 </pre></div>
+
+
+<h2 id="view-templates">View Templates</h2>
+<p>Assembly uses Jinja as templating language. </p>
+<p>Templates are mapped by their class and method name</p>
+<p>Having a sctructure like this...</p>
+<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="k">admin</span>
+    <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">templates</span>
+        <span class="o">|-</span> <span class="k">Index</span>
+            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+            <span class="o">|-</span> <span class="n">login</span><span class="p">.</span><span class="n">html</span>
+        <span class="o">|-</span> <span class="n">Articles</span>
+            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+            <span class="o">|-</span> <span class="k">all</span><span class="p">.</span><span class="n">html</span>
+    <span class="o">|-</span> <span class="k">static</span>
+    <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+
+
+<p>our View class will have </p>
+<div class="codehilite"><pre><span></span><span class="c1"># admin/__init__.py</span>
+
+<span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
+
+  <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
+
+<span class="k">class</span> <span class="nc">Articles</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
+
+  <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
+</pre></div>
+
+
+<p>--</p>
+<h2 id="view-static">View Static</h2>
+<p>Assembly uses Flask-Assets to help manage static assets, ie: images, js, css in your application</p>
                 
                   
                 
@@ -682,7 +933,7 @@ This will setup the structure along with the necessary files to get started</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="Overview" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../install/" title="Installation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -691,19 +942,19 @@ This will setup the structure along with the necessary files to get started</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Overview
+                Installation
               </span>
             </div>
           </a>
         
         
-          <a href="../architecture/" title="Architecture" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../tutorials/" title="Tutorials" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Architecture
+                Tutorials
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

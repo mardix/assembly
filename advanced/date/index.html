@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://mardix.github.com/assembly/advanced/signals/">
+        <link rel="canonical" href="https://mardix.github.com/assembly/advanced/date/">
       
       
       
@@ -38,7 +38,7 @@
     
     
       
-        <title>Signals - Assembly</title>
+        <title>Date - Assembly</title>
       
     
     
@@ -113,7 +113,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Signals
+                Date
               
             </span>
           
@@ -363,6 +363,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../signals/" title="Signals" class="md-nav__link">
+      Signals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -372,11 +384,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Signals
+        Date
       </label>
     
-    <a href="./" title="Signals" class="md-nav__link md-nav__link--active">
-      Signals
+    <a href="./" title="Date" class="md-nav__link md-nav__link--active">
+      Date
     </a>
     
       
@@ -410,22 +422,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-a-signal" class="md-nav__link">
-    Create a signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#listens-to-a-signal" class="md-nav__link">
-    Listens to a signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-example" class="md-nav__link">
-    Full Example
+  <a href="#usage_1" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -436,43 +434,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
-    API
+  <a href="#supported-tokens" class="md-nav__link">
+    Supported Tokens
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#signal" class="md-nav__link">
-    @signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pre" class="md-nav__link">
-    @pre
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post" class="md-nav__link">
-    @post
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pre_-and-post_" class="md-nav__link">
-    @pre_ and @post_
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -484,18 +448,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../date/" title="Date" class="md-nav__link">
-      Date
-    </a>
   </li>
 
         
@@ -665,22 +617,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-a-signal" class="md-nav__link">
-    Create a signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#listens-to-a-signal" class="md-nav__link">
-    Listens to a signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-example" class="md-nav__link">
-    Full Example
+  <a href="#usage_1" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -691,43 +629,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
-    API
+  <a href="#supported-tokens" class="md-nav__link">
+    Supported Tokens
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#signal" class="md-nav__link">
-    @signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pre" class="md-nav__link">
-    @pre
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post" class="md-nav__link">
-    @post
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pre_-and-post_" class="md-nav__link">
-    @pre_ and @post_
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -747,134 +651,111 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mardix/assembly/edit/master/docs/advanced/signals.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/mardix/assembly/edit/master/docs/advanced/date.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Signals</h1>
+                  <h1>Date</h1>
                 
                 <h2 id="overview">Overview</h2>
-<p>Signals help you decouple applications by sending notifications when actions occur elsewhere in the appliation. In short, signals allow certain senders to notify subscribers that something happened.</p>
-<p>Assembly uses <strong>Blinker</strong> to provide a fast dispatching system that allows any number of
-interested parties to subscribe to events, or “signals”.</p>
-<p>Extension: <a href="https://pythonhosted.org/blinker/" target="_blank">Blinker</a></p>
+<p><strong>Arrow</strong> is used as the date library in Assembly,  an <code>date</code> is the alias available. Arrow helps you work with dates and times with fewer imports and a lot less code.</p>
+<p>Extension: <a href="https://arrow.readthedocs.io/en/latest/" target="_blank">Arrow</a></p>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="import">Import</h3>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">signal</span>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">date</span>
 </pre></div>
 
 
-<h3 id="create-a-signal">Create a signal</h3>
-<p>Import and use the <code>@signal</code> decorator on the function to send signal from. It will add a <code>@pre</code> and <code>@post</code> decorators on that function to be used by other function that will listens it.</p>
-<p>Whenever the function with the <code>@signal</code> get executed, all functions with <code>@pre</code> and <code>@post</code> will be executed before and after the <code>@signal</code> function is executed repectively.</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">signal</span>
+<h3 id="usage_1">Usage</h3>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">date</span>
 
-<span class="nd">@signal</span>
-<span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s2">&quot;Hello World </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">s</span>
+<span class="n">date</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;2013-05-11T21:23:58.970460+07:00&#39;</span><span class="p">)</span>
+<span class="c1">#-&gt; &lt;Arrow [2013-05-11T21:23:58.970460+07:00]&gt;</span>
+
+<span class="n">utc</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+<span class="c1">#-&gt; &lt;Arrow [2013-05-11T21:23:58.970460+00:00]&gt;</span>
+
+<span class="n">utc</span> <span class="o">=</span> <span class="n">utc</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">hours</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#-&gt; &lt;Arrow [2013-05-11T20:23:58.970460+00:00]&gt;</span>
+
+<span class="n">local</span> <span class="o">=</span> <span class="n">utc</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;US/Pacific&#39;</span><span class="p">)</span>
+<span class="c1">#-&gt; &lt;Arrow [2013-05-11T13:23:58.970460-07:00]&gt;</span>
+
+<span class="n">local</span><span class="o">.</span><span class="n">timestamp</span>
+<span class="c1">#-&gt; 1368303838</span>
+
+<span class="n">local</span><span class="o">.</span><span class="n">format</span><span class="p">()</span>
+<span class="c1">#-&gt; &#39;2013-05-11 13:23:58 -07:00&#39;</span>
+
+<span class="n">local</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;YYYY-MM-DD HH:mm:ss ZZ&#39;</span><span class="p">)</span>
+<span class="c1">#-&gt; &#39;2013-05-11 13:23:58 -07:00&#39;</span>
+
+<span class="n">local</span><span class="o">.</span><span class="n">humanize</span><span class="p">()</span>
+<span class="c1"># &#39;an hour ago&#39;</span>
 </pre></div>
 
 
-<h3 id="listens-to-a-signal">Listens to a signal</h3>
-<p>Now <code>hello_world</code> has <code>@hello_world.pre</code> and <code>@hello_world.post</code>. These decorators can attached to functions.</p>
-<div class="codehilite"><pre><span></span>@<span class="nv">hello_world</span>.<span class="nv">pre</span>
-<span class="nv">def</span> <span class="nv">before_hello_world</span><span class="ss">(</span><span class="o">*</span><span class="nv">a</span>, <span class="o">**</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">This will be executed before</span><span class="s2">&quot;&quot;&quot;</span>
+<p>or along with config</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">config</span>
 
-@<span class="nv">hello_world</span>.<span class="nv">post</span>
-<span class="nv">def</span> <span class="nv">after_hello_world</span><span class="ss">(</span><span class="nb">result</span>, <span class="o">*</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">This will be executed after</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">result</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nb">result</span><span class="ss">)</span>
+<span class="n">local</span> <span class="o">=</span> <span class="n">utc</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;TIMEZONE&#39;</span><span class="p">))</span>
 
-@<span class="nv">hello_world</span>.<span class="nv">post</span>
-<span class="nv">def</span> <span class="nv">after_another_hello_world</span><span class="ss">(</span><span class="nb">result</span>, <span class="o">*</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">This will be executed after</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">result</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nb">result</span><span class="ss">)</span>
-</pre></div>
-
-
-<h3 id="full-example">Full Example</h3>
-<p>Now we can run the functions and our signals will be executed</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">signal</span>
-
-<span class="c1"># Emit the signal</span>
-
-<span class="nd">@signal</span>
-<span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s2">&quot;Hello World </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">s</span>
-
-<span class="c1"># Listeners</span>
-
-<span class="nd">@hello_world.pre</span>
-<span class="k">def</span> <span class="nf">before_hello_world</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This will be executed before&quot;&quot;&quot;</span>
-
-<span class="nd">@hello_world.post</span>
-<span class="k">def</span> <span class="nf">after_hello_world</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">*</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This will be executed after&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="nd">@hello_world.post</span>
-<span class="k">def</span> <span class="nf">after_another_hello_world</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">*</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This will be executed after&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-
-<span class="n">hello_world</span><span class="p">(</span><span class="s1">&#39;Assembly&#39;</span><span class="p">)</span>
-<span class="n">hello_world</span><span class="p">(</span><span class="s1">&#39;Mardix&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<h2 id="api">API</h2>
-<h3 id="signal">@signal</h3>
-<hr />
-<h3 id="pre">@pre</h3>
-<p>Functions with <code>@pre</code> will be executed before the signaled functions is executed.</p>
-<p>The function receiving the signal, must have 1 args:</p>
-<div class="codehilite"><pre><span></span><span class="o">-</span> <span class="o">*</span><span class="n">a</span>
-<span class="o">-</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> 
-    <span class="n">args</span><span class="p">:</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span>
-    <span class="n">kwargs</span><span class="p">:</span> <span class="o">**</span><span class="n">kw</span><span class="p">,</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">the</span> <span class="n">name</span> <span class="k">of</span> <span class="n">the</span> <span class="n">signal</span><span class="p">,</span>
-    <span class="n">signal</span><span class="p">:</span> <span class="n">the</span> <span class="n">signal</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">instance</span>
-</pre></div>
-
-
-<p>Example</p>
-<div class="codehilite"><pre><span></span><span class="nv">@myfn</span><span class="p">.</span><span class="n">pre</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">post_action</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kw</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">pass</span><span class="w"></span>
+<span class="n">local</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;DATE_FORMAT.default&#39;</span><span class="p">))</span>
 </pre></div>
 
 
 <hr />
-<h3 id="post">@post</h3>
-<p>Functions with <code>@post</code> will be executed after the signaled functions is finished.</p>
-<p>The function receiving the signal, must have 2 args:</p>
-<div class="codehilite"><pre><span></span><span class="o">-</span> <span class="k">result</span><span class="p">:</span> <span class="n">that</span><span class="s1">&#39;s the result sent from the signal</span>
-<span class="s1">- **kwargs: </span>
-<span class="s1">    args: *a,</span>
-<span class="s1">    kwargs: **kw,</span>
-<span class="s1">    name: the name of the signal,</span>
-<span class="s1">    signal: the signal&#39;</span><span class="n">s</span> <span class="n">instance</span>
+<h2 id="supported-tokens">Supported Tokens</h2>
+<p>Use the following tokens in parsing and formatting. Note that they’re not the same as the tokens for strptime. <a href="https://arrow.readthedocs.io/en/latest/#supported-tokens" target="_blank">View all supported tokens</a></p>
+<div class="codehilite"><pre><span></span><span class="nv">ie</span>:
+<span class="nv">local</span> <span class="o">=</span> <span class="nv">utc</span>.<span class="nv">to</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">US/Pacific</span><span class="s1">&#39;</span><span class="ss">)</span>
+<span class="nv">local</span>.<span class="nv">format</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">YYYY-MM-DD HH:mm:ss</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+<span class="o">**</span><span class="nv">Year</span><span class="o">**</span>
+<span class="o">--</span> <span class="nv">YYYY</span> <span class="ss">(</span><span class="mi">2019</span>, <span class="mi">2020</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">YY</span> <span class="ss">(</span><span class="mi">19</span>, <span class="mi">20</span><span class="ss">)</span>
+
+<span class="o">**</span><span class="nv">Month</span><span class="o">**</span>
+<span class="o">--</span> <span class="nv">MMMM</span> <span class="ss">(</span><span class="nv">January</span>, <span class="nv">February</span>,...<span class="ss">)</span>
+<span class="o">--</span> <span class="nv">MMM</span> <span class="ss">(</span><span class="nv">Jan</span>, <span class="nv">Feb</span>, ...<span class="ss">)</span>
+<span class="o">--</span> <span class="nv">MM</span> <span class="ss">(</span><span class="mi">01</span>, <span class="mi">02</span>, ...<span class="ss">)</span>
+<span class="o">--</span> <span class="nv">M</span> <span class="ss">(</span><span class="mi">1</span>, <span class="mi">2</span>, ...<span class="ss">)</span>
+
+<span class="o">**</span><span class="nv">Dat</span> <span class="nv">of</span> <span class="nv">Year</span><span class="o">**</span>
+<span class="o">--</span> <span class="nv">DDDD</span> <span class="ss">(</span><span class="mi">001</span>, <span class="mi">002</span>, ..., <span class="mi">364</span>, <span class="mi">365</span><span class="ss">)</span>
+<span class="o">---</span> <span class="nv">DDD</span> <span class="ss">(</span><span class="mi">01</span>, <span class="mi">02</span>, <span class="mi">364</span>, <span class="mi">365</span><span class="ss">)</span>
+
+<span class="o">**</span><span class="nv">Day</span> <span class="nv">of</span> <span class="nv">Month</span><span class="o">**</span>
+<span class="o">--</span> <span class="nv">DD</span> <span class="ss">(</span><span class="mi">01</span>, <span class="mi">02</span>, ..., <span class="mi">30</span>, <span class="mi">31</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">D</span> <span class="ss">(</span><span class="mi">1</span>, <span class="mi">2</span>,..., <span class="mi">30</span>, <span class="mi">31</span><span class="ss">)</span>
+<span class="o">--</span> <span class="k">Do</span> <span class="ss">(</span><span class="mi">1</span><span class="nv">st</span>, <span class="mi">2</span><span class="nv">nd</span>, ..., <span class="mi">30</span><span class="nv">th</span>, <span class="mi">31</span><span class="nv">st</span><span class="ss">)</span>
+
+<span class="o">**</span><span class="nv">Day</span> <span class="nv">of</span> <span class="nv">Week</span><span class="o">**</span>
+<span class="o">--</span> <span class="nv">dddd</span> <span class="ss">(</span><span class="nv">Monday</span>, <span class="nv">Tuesday</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">dd</span> <span class="ss">(</span><span class="nv">Mon</span>, <span class="nv">Tues</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">d</span> <span class="ss">(</span><span class="mi">1</span>,<span class="mi">2</span>, ..., <span class="mi">6</span>,<span class="mi">7</span><span class="ss">)</span>
+
+<span class="o">**</span><span class="nv">Hour</span><span class="o">**</span>
+<span class="o">--</span> <span class="nv">HH</span> <span class="ss">(</span><span class="mi">00</span>, <span class="mi">01</span>, ... <span class="mi">23</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">H</span> <span class="ss">(</span><span class="mi">1</span>, <span class="mi">23</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">hh</span> <span class="ss">(</span><span class="mi">01</span>, <span class="mi">02</span>, ..., <span class="mi">11</span>, <span class="mi">12</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">h</span> <span class="ss">(</span><span class="mi">1</span>, <span class="mi">2</span>, ..., <span class="mi">11</span>, <span class="mi">12</span><span class="ss">)</span>
+
+<span class="o">**</span><span class="nv">AM</span><span class="o">/</span><span class="nv">PM</span><span class="o">**</span>
+<span class="o">--</span> <span class="nv">A</span> <span class="ss">(</span><span class="nv">AM</span>, <span class="nv">PM</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">a</span> <span class="ss">(</span><span class="nv">am</span>, <span class="nv">pm</span><span class="ss">)</span>
+
+<span class="o">**</span><span class="nv">Minute</span><span class="o">**</span>
+<span class="o">--</span> <span class="nv">mm</span> <span class="ss">(</span><span class="mi">00</span>, <span class="mi">01</span>, ..., <span class="mi">59</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">m</span> <span class="ss">(</span><span class="mi">0</span>, <span class="mi">1</span>, ..., <span class="mi">59</span><span class="ss">)</span>
+
+<span class="o">**</span><span class="nv">Second</span><span class="o">**</span>
+<span class="o">--</span> <span class="nv">ss</span> <span class="ss">(</span><span class="mi">00</span>, <span class="mi">01</span>, ..., <span class="mi">59</span><span class="ss">)</span>
+<span class="o">--</span> <span class="nv">s</span> <span class="ss">(</span><span class="mi">0</span>, <span class="mi">1</span>, ..., <span class="mi">59</span><span class="ss">)</span>
 </pre></div>
 
 
-<p>Example</p>
-<div class="codehilite"><pre><span></span>@<span class="nv">myfn</span>.<span class="nv">post</span>
-<span class="nv">def</span> <span class="nv">post_action</span><span class="ss">(</span><span class="nb">result</span>, <span class="o">**</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="k">if</span> <span class="nb">result</span>: 
-        <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Done!</span><span class="s2">&quot;</span><span class="ss">)</span>
-</pre></div>
-
-
-<h3 id="pre_-and-post_">@pre_ and @post_</h3>
-<p>To fully utilize Blinker functionalities, use <code>post_</code> and <code>pre_</code>, for example
-<code>@do_something.post_.connect</code>, <code>@do_something.pre_.connect</code></p>
+<hr />
                 
                   
                 
@@ -895,7 +776,7 @@ interested parties to subscribe to events, or “signals”.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../wsgipy/" title="wsgi.py" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../signals/" title="Signals" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -904,19 +785,19 @@ interested parties to subscribe to events, or “signals”.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                wsgi.py
+                Signals
               </span>
             </div>
           </a>
         
         
-          <a href="../date/" title="Date" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../caching/" title="Caching" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Date
+                Caching
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

@@ -1,0 +1,1147 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+        <link rel="canonical" href="https://mardix.github.com/assembly/advanced/mail/">
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>Mail - Assembly</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700|Ubuntu+Mono&display=fallback">
+        <style>body,input{font-family:"Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="deep-purple">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#overview" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://mardix.github.com/assembly" title="Assembly" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">local_florist</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Assembly
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Mail
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/mardix/assembly/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    assembly
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://mardix.github.com/assembly" title="Assembly" class="md-nav__button md-logo">
+      
+        <i class="md-icon">local_florist</i>
+      
+    </a>
+    Assembly
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/mardix/assembly/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    assembly
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../install/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../architecture/" title="Architecture" class="md-nav__link">
+      Architecture
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorials/" title="Tutorials" class="md-nav__link">
+      Tutorials
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../config/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../application/views/" title="Views" class="md-nav__link">
+      Views
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../application/models/" title="Models" class="md-nav__link">
+      Models
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../application/templates/" title="Templates" class="md-nav__link">
+      Templates
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../application/static/" title="Static" class="md-nav__link">
+      Static
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../wsgipy/" title="wsgi.py" class="md-nav__link">
+      wsgi.py
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11" checked>
+    
+    <label class="md-nav__link" for="nav-11">
+      Advanced
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Advanced
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../signals/" title="Signals" class="md-nav__link">
+      Signals
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../date/" title="Date" class="md-nav__link">
+      Date
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../caching/" title="Caching" class="md-nav__link">
+      Caching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../csrf/" title="CSFR" class="md-nav__link">
+      CSFR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Mail
+      </label>
+    
+    <a href="./" title="Mail" class="md-nav__link md-nav__link--active">
+      Mail
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-sender" class="md-nav__link">
+    Set Sender
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send-simple-email" class="md-nav__link">
+    Send Simple Email
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send-template-email" class="md-nav__link">
+    Send Template Email
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signal" class="md-nav__link">
+    Signal
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    Templates
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-of-a-template" class="md-nav__link">
+    Example of a template
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-templates" class="md-nav__link">
+    File Templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dictionary-based-templates" class="md-nav__link">
+    Dictionary based templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send-email" class="md-nav__link">
+    Send Email
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-ses-mailer" class="md-nav__link">
+    For SES-Mailer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-flask-mail" class="md-nav__link">
+    For Flask-Mail
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../storage/" title="Storage" class="md-nav__link">
+      Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sessions/" title="Sessions" class="md-nav__link">
+      Sessions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../pagination/" title="Pagination" class="md-nav__link">
+      Pagination
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../utils/" title="Utils" class="md-nav__link">
+      Utils
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../error-handling/" title="Error Handling" class="md-nav__link">
+      Error Handling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../deploy/" title="Deployment" class="md-nav__link">
+      Deployment
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-sender" class="md-nav__link">
+    Set Sender
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send-simple-email" class="md-nav__link">
+    Send Simple Email
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send-template-email" class="md-nav__link">
+    Send Template Email
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signal" class="md-nav__link">
+    Signal
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    Templates
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-of-a-template" class="md-nav__link">
+    Example of a template
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-templates" class="md-nav__link">
+    File Templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dictionary-based-templates" class="md-nav__link">
+    Dictionary based templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send-email" class="md-nav__link">
+    Send Email
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-ses-mailer" class="md-nav__link">
+    For SES-Mailer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-flask-mail" class="md-nav__link">
+    For Flask-Mail
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/mardix/assembly/edit/master/docs/advanced/mail.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Mail</h1>
+                
+                <h2 id="overview">Overview</h2>
+<p>Assembly allows you to send email from your application using SMTP or AWS SES.</p>
+<p>Extension: </p>
+<ul>
+<li><a href="https://pythonhosted.org/Flask-Mail/" target="_blank">Flask-Mail</a></li>
+<li><a href="https://github.com/mardix/ses-mailer" target="_blank">SES-Mailer</a></li>
+</ul>
+<hr />
+<h2 id="usage">Usage</h2>
+<h3 id="set-sender">Set Sender</h3>
+<p>In the config file, set the MAIL_SENDER and MAIL_REPLY_TO.</p>
+<div class="codehilite"><pre><span></span># <span class="nv">config</span>.<span class="nv">py</span>
+
+#: <span class="nv">MAIL_SENDER</span> <span class="o">-</span> <span class="nv">The</span> <span class="nv">sender</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">email</span> <span class="nv">by</span> <span class="nv">default</span>
+#: <span class="k">For</span> <span class="nv">SES</span>, <span class="nv">this</span> <span class="nv">email</span> <span class="nv">must</span> <span class="nv">be</span> <span class="nv">authorized</span>
+<span class="nv">MAIL_SENDER</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">me@myemail.com</span><span class="s2">&quot;</span>
+
+#: <span class="nv">MAIL_REPLY_TO</span>
+#: <span class="nv">The</span> <span class="nv">email</span> <span class="nv">to</span> <span class="nv">reply</span> <span class="nv">to</span> <span class="nv">by</span> <span class="nv">default</span>
+<span class="nv">MAIL_REPLY_TO</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">me@myemail.com</span><span class="s2">&quot;</span>
+</pre></div>
+
+
+<hr />
+<h3 id="import">Import</h3>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+</pre></div>
+
+
+<p><strong>send_mail</strong> is a function in the <strong>asm</strong> module. <code>asm.send_mail</code> will be used to send the email</p>
+<hr />
+<h3 id="send-simple-email">Send Simple Email</h3>
+<p>To send basic email</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+
+<span class="n">to</span> <span class="o">=</span> <span class="s2">&quot;user@email.com&quot;</span>
+<span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;Welcome&quot;</span>
+<span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;Welcome to our site&quot;</span>
+
+<span class="n">asm</span><span class="o">.</span><span class="n">send_mail</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">to</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span>
+</pre></div>
+
+
+<hr />
+<h3 id="send-template-email">Send Template Email</h3>
+<p>Having a template like this...</p>
+<div class="codehilite"><pre><span></span># <span class="nv">welcome</span>.<span class="nv">txt</span>
+
+{<span class="o">%</span> <span class="nv">block</span> <span class="nv">subject</span> <span class="o">%</span>}
+    <span class="nv">Welcome</span> {{<span class="nv">name</span>}} <span class="nv">to</span> <span class="nv">our</span> <span class="nv">site</span> 
+{<span class="o">%</span> <span class="nv">endblock</span> <span class="o">%</span>}
+
+{<span class="o">%</span> <span class="nv">block</span> <span class="nv">body</span> <span class="o">%</span>}
+    <span class="nv">Dear</span> {{<span class="nv">name</span>}} <span class="nv">this</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">content</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">message</span> 
+
+    <span class="nv">Thank</span> <span class="nv">you</span> <span class="nv">very</span> <span class="nv">much</span> <span class="k">for</span> <span class="nv">your</span> <span class="nv">visiting</span> <span class="nv">us</span>
+{<span class="o">%</span> <span class="nv">endblock</span> <span class="o">%</span>}
+</pre></div>
+
+
+<p>Send email with vars</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+
+<span class="n">asm</span><span class="o">.</span><span class="n">send_mail</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="s2">&quot;x@y.com&quot;</span><span class="p">,</span> 
+            <span class="n">template</span><span class="o">=</span><span class="s2">&quot;welcome.txt&quot;</span><span class="p">,</span> 
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mardix&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<hr />
+<h3 id="signal">Signal</h3>
+<p>The mail also emit a signal, which can be used to pre and post process information</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+
+<span class="nd">@asm.send_mail.post</span>
+<span class="k">def</span> <span class="nf">process_email_sent</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Email sent successfully!&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<hr />
+<h2 id="templates">Templates</h2>
+<p>You can have pre-made templates to send email. It's easier to customize, 
+and instead of having messages all over the place, you can now have a central place
+to put the messages that will be sent.</p>
+<p>The template must be a Jinja template, containing at least the following blocks:</p>
+<ul>
+<li>subject</li>
+<li>body</li>
+</ul>
+<h3 id="example-of-a-template">Example of a template</h3>
+<p>Having a template file called <code>welcome.txt</code>, we will create two Jinja blocks: 'subject', 'body'.</p>
+<p>We can also use <code>{{...}}</code> to assign variables.</p>
+<div class="codehilite"><pre><span></span># <span class="nv">welcome</span>.<span class="nv">txt</span>
+
+{<span class="o">%</span> <span class="nv">block</span> <span class="nv">subject</span> <span class="o">%</span>}
+    <span class="nv">Welcome</span> {{<span class="nv">name</span>}} <span class="nv">to</span> <span class="nv">our</span> <span class="nv">site</span> 
+{<span class="o">%</span> <span class="nv">endblock</span> <span class="o">%</span>}
+
+{<span class="o">%</span> <span class="nv">block</span> <span class="nv">body</span> <span class="o">%</span>}
+    <span class="nv">Dear</span> {{<span class="nv">name</span>}} <span class="nv">this</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">content</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">message</span> 
+
+    <span class="nv">Thank</span> <span class="nv">you</span> <span class="nv">very</span> <span class="nv">much</span> <span class="k">for</span> <span class="nv">your</span> <span class="nv">visiting</span> <span class="nv">us</span>
+{<span class="o">%</span> <span class="nv">endblock</span> <span class="o">%</span>}
+</pre></div>
+
+
+<h3 id="file-templates">File Templates</h3>
+<p>File base templates is supported. Place the templates in a directory. </p>
+<p>By default, Assembly places them in <code>./__data__/emails-templates/</code> </p>
+<p>Place your templates files in there. The files name will be used to retrieve the template.</p>
+<p>inside of the config.py, </p>
+<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span>
+
+<span class="n">MAIL_TEMPLATES_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="ss">&quot;mail-templates&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Structure of the templates directory</p>
+<div class="codehilite"><pre><span></span><span class="o">/</span><span class="n">__data__</span><span class="o">/</span><span class="n">email</span><span class="o">-</span><span class="n">templates</span>
+    <span class="o">|</span>
+    <span class="o">|</span><span class="n">_</span> <span class="n">welcome</span><span class="p">.</span><span class="n">txt</span>
+    <span class="o">|</span>
+    <span class="o">|</span><span class="n">_</span> <span class="n">lost</span><span class="o">-</span><span class="n">password</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+
+
+<h3 id="dictionary-based-templates">Dictionary based templates</h3>
+<p>If you don't want to create files, you can dictionary based templates</p>
+<div class="codehilite"><pre><span></span><span class="x"># config.py</span>
+
+<span class="x">MAIL_TEMPLATES_DICT = {</span>
+<span class="x">    &quot;welcome.txt&quot;: &quot;&quot;&quot;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">subject</span> <span class="cp">%}</span><span class="x">I&#39;m subject</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span><span class="x">How are you </span><span class="cp">{{</span><span class="nv">name</span><span class="cp">}}</span><span class="x">?</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &quot;&quot;&quot;,</span>
+<span class="x">    &quot;lost-password.txt&quot;: &quot;&quot;&quot;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">subject</span> <span class="cp">%}</span><span class="x">Lost Password</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span><span class="x">Hello </span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">. </span>
+<span class="x">        Here&#39;s your new password: </span><span class="cp">{{</span> <span class="nv">new_password</span> <span class="cp">}}</span><span class="x"> </span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &quot;&quot;&quot;,    </span>
+<span class="x">}</span>
+</pre></div>
+
+
+<h3 id="send-email">Send Email</h3>
+<p>For either files or dictionary based templates:</p>
+<div class="codehilite"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="n">welcome</span><span class="w"></span>
+
+<span class="n">asm</span><span class="p">.</span><span class="n">send_mail</span><span class="p">(</span><span class="k">to</span><span class="o">=</span><span class="ss">&quot;x@y.com&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="n">template</span><span class="o">=</span><span class="ss">&quot;welcome.txt&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="n">name</span><span class="o">=</span><span class="ss">&quot;Mardix&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">lost</span><span class="o">-</span><span class="n">password</span><span class="w"></span>
+<span class="n">asm</span><span class="p">.</span><span class="n">send_mail</span><span class="p">(</span><span class="k">to</span><span class="o">=</span><span class="ss">&quot;x@y.com&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="n">template</span><span class="o">=</span><span class="ss">&quot;lost-password.txt&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="n">name</span><span class="o">=</span><span class="ss">&quot;Mardix&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="n">new_password</span><span class="o">=</span><span class="ss">&quot;mynewpassword&quot;</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+
+
+<hr />
+<h2 id="configuration">Configuration</h2>
+<div class="codehilite"><pre><span></span># <span class="nv">AWS</span> <span class="nv">SES</span>
+# <span class="nv">To</span> <span class="nv">use</span> <span class="nv">AWS</span> <span class="nv">SES</span> <span class="nv">to</span> <span class="k">send</span> <span class="nv">email</span>
+#:
+#: <span class="o">-</span> <span class="nv">To</span> <span class="nv">use</span> <span class="nv">the</span> <span class="nv">default</span> <span class="nv">AWS</span> <span class="nv">credentials</span> <span class="ss">(</span><span class="nv">AWS_ACCESS_KEY_ID</span>, <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="ss">)</span>
+#: <span class="nv">set</span> <span class="nv">MAIL_URI</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">ses://</span><span class="s2">&quot;</span>
+#: <span class="o">*</span> <span class="nv">To</span> <span class="nv">use</span> <span class="nv">a</span> <span class="nv">different</span> <span class="nv">credential</span>:
+#: <span class="nv">set</span> <span class="nv">MAIL_URI</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">ses://{access_key}:{secret_key}@{region}</span><span class="s2">&quot;</span>
+#:
+#: <span class="o">***</span> <span class="nv">comment</span> <span class="nv">out</span> <span class="k">if</span> <span class="nv">you</span> <span class="nv">are</span> <span class="nv">using</span> <span class="nv">SMTP</span> <span class="nv">instead</span>
+<span class="nv">MAIL_URI</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">ses://</span><span class="s2">&quot;</span>
+
+# <span class="nv">SMTP</span>
+#: <span class="k">If</span> <span class="nv">you</span> <span class="nv">are</span> <span class="nv">using</span> <span class="nv">SMTP</span>, <span class="nv">it</span> <span class="nv">will</span> <span class="nv">use</span> <span class="nv">Flask</span><span class="o">-</span><span class="nv">Mail</span>
+#: <span class="nv">The</span> <span class="nv">uri</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">smtp</span> <span class="nv">connection</span>. <span class="nv">It</span> <span class="nv">will</span> <span class="nv">use</span> <span class="nv">Flask</span><span class="o">-</span><span class="nv">Mail</span>
+#: <span class="nv">format</span>: <span class="nv">smtp</span>:<span class="o">//</span><span class="nv">USERNAME</span>:<span class="nv">PASSWORD</span>@<span class="nv">HOST</span>:<span class="nv">PORT</span>
+#: <span class="nv">with</span> <span class="nv">sll</span> <span class="o">-&gt;</span> <span class="nv">smtp</span><span class="o">+</span><span class="nv">ssl</span>:<span class="o">//</span><span class="nv">USERNAME</span>:<span class="nv">PASSWORD</span>@<span class="nv">HOST</span>:<span class="nv">PORT</span>
+#: <span class="nv">with</span> <span class="nv">ssl</span> <span class="nv">and</span> <span class="nv">tls</span> <span class="o">-&gt;</span> <span class="nv">smtp</span><span class="o">+</span><span class="nv">ssl</span><span class="o">+</span><span class="nv">tls</span>:<span class="o">//</span><span class="nv">USERNAME</span>:<span class="nv">PASSWORD</span>@<span class="nv">HOST</span>:<span class="nv">PORT</span>
+#:
+#: <span class="o">***</span> <span class="nv">comment</span> <span class="nv">out</span> <span class="k">if</span> <span class="nv">you</span> <span class="nv">are</span> <span class="nv">using</span> <span class="nv">SES</span> <span class="nv">instead</span>
+# <span class="nv">MAIL_URI</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">smtp+ssl://{username}:{password}@{host}:{port}</span><span class="s2">&quot;</span>\
+#    .<span class="nv">format</span><span class="ss">(</span><span class="nv">username</span><span class="o">=</span><span class="s2">&quot;&quot;</span>, <span class="nv">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span>, <span class="nv">host</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">smtp.gmail.com</span><span class="s2">&quot;</span>, <span class="nv">port</span><span class="o">=</span><span class="mi">465</span><span class="ss">)</span>
+
+#: <span class="nv">MAIL_SENDER</span> <span class="o">-</span> <span class="nv">The</span> <span class="nv">sender</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">email</span> <span class="nv">by</span> <span class="nv">default</span>
+#: <span class="k">For</span> <span class="nv">SES</span>, <span class="nv">this</span> <span class="nv">email</span> <span class="nv">must</span> <span class="nv">be</span> <span class="nv">authorized</span>
+<span class="nv">MAIL_SENDER</span> <span class="o">=</span> <span class="nv">APPLICATION_ADMIN_EMAIL</span>
+
+#: <span class="nv">MAIL_REPLY_TO</span>
+#: <span class="nv">The</span> <span class="nv">email</span> <span class="nv">to</span> <span class="nv">reply</span> <span class="nv">to</span> <span class="nv">by</span> <span class="nv">default</span>
+<span class="nv">MAIL_REPLY_TO</span> <span class="o">=</span> <span class="nv">APPLICATION_ADMIN_EMAIL</span>
+
+#: <span class="nv">MAIL_TEMPLATE</span>
+#: <span class="nv">a</span> <span class="nv">directory</span> <span class="nv">that</span> <span class="nv">contains</span> <span class="nv">the</span> <span class="nv">email</span> <span class="nv">template</span> <span class="nv">or</span> <span class="nv">a</span> <span class="nv">dict</span>
+<span class="nv">MAIL_TEMPLATE</span> <span class="o">=</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">DATA_DIR</span>, <span class="s2">&quot;</span><span class="s">mail-templates</span><span class="s2">&quot;</span><span class="ss">)</span>
+
+#: <span class="nv">MAIL_TEMPLATE_CONTEXT</span>
+#: <span class="nv">a</span> <span class="nv">dict</span> <span class="nv">of</span> <span class="nv">all</span> <span class="nv">context</span> <span class="nv">to</span> <span class="nv">pass</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">email</span> <span class="nv">by</span> <span class="nv">default</span>
+<span class="nv">MAIL_TEMPLATE_CONTEXT</span> <span class="o">=</span> {
+    <span class="s2">&quot;</span><span class="s">site_name</span><span class="s2">&quot;</span>: <span class="nv">APPLICATION_NAME</span>,
+    <span class="s2">&quot;</span><span class="s">site_url</span><span class="s2">&quot;</span>: <span class="nv">APPLICATION_URL</span>
+}
+</pre></div>
+
+
+<hr />
+<h2 id="api">API</h2>
+<p>For the core functionalities of Flask-Mail or SES-Mailer, import 
+the extension that was set</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">ext</span>
+</pre></div>
+
+
+<p><strong>mail.mail</strong> is the object in the <strong>ext</strong> to use.</p>
+<h3 id="for-ses-mailer">For SES-Mailer</h3>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">ext</span>
+
+<span class="n">ext</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+<span class="n">ext</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">send_template</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="for-flask-mail">For Flask-Mail</h3>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">ext</span>
+
+<span class="n">ext</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">mail</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../csrf/" title="CSFR" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                CSFR
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../storage/" title="Storage" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Storage
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 - Forever Mardix
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+    
+  </body>
+</html>

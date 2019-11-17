@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://mardix.github.com/assembly/application/config/">
+        <link rel="canonical" href="https://mardix.github.com/assembly/deploy/">
       
       
       
@@ -33,18 +33,18 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
-        <title>Config - Assembly</title>
+        <title>Deployment - Assembly</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.30686662.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.a8b3c06d.css">
       
       
         
@@ -53,7 +53,7 @@
       
     
     
-      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
     
     
       
@@ -62,7 +62,7 @@
         <style>body,input{font-family:"Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
     
     
     
@@ -87,6 +87,10 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
+      <a href="#deploy-options" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
@@ -109,7 +113,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Config
+                Deployment
               
             </span>
           
@@ -220,7 +224,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../.." title="Overview" class="md-nav__link">
+    <a href=".." title="Overview" class="md-nav__link">
       Overview
     </a>
   </li>
@@ -232,7 +236,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../install/" title="Installation" class="md-nav__link">
+    <a href="../install/" title="Installation" class="md-nav__link">
       Installation
     </a>
   </li>
@@ -244,8 +248,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../tutorial/" title="Tutorial" class="md-nav__link">
-      Tutorial
+    <a href="../architecture/" title="Architecture" class="md-nav__link">
+      Architecture
     </a>
   </li>
 
@@ -253,129 +257,84 @@
       
       
       
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
-    
-    <label class="md-nav__link" for="nav-4">
-      Application
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        Application
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-    <a href="./" title="Config" class="md-nav__link md-nav__link--active">
-      Config
-    </a>
-    
-  </li>
-
-        
-          
-          
-          
 
 
   <li class="md-nav__item">
-    <a href="../views/" title="Views" class="md-nav__link">
+    <a href="../tutorials/" title="Tutorials" class="md-nav__link">
+      Tutorials
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../config/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../application/views/" title="Views" class="md-nav__link">
       Views
     </a>
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../models/" title="Models" class="md-nav__link">
+    <a href="../application/models/" title="Models" class="md-nav__link">
       Models
     </a>
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../templates/" title="Templates" class="md-nav__link">
+    <a href="../application/templates/" title="Templates" class="md-nav__link">
       Templates
     </a>
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../static/" title="Static" class="md-nav__link">
+    <a href="../application/static/" title="Static" class="md-nav__link">
       Static
     </a>
   </li>
 
-        
-          
-          
-          
+    
+      
+      
+      
 
 
   <li class="md-nav__item">
-    <a href="../httperror/" title="HTTPError" class="md-nav__link">
-      HTTPError
+    <a href="../wsgipy/" title="wsgi.py" class="md-nav__link">
+      wsgi.py
     </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../cli/" title="CLI" class="md-nav__link">
-      CLI
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../deploy/" title="Deployment" class="md-nav__link">
-      Deployment
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
   </li>
 
     
@@ -386,13 +345,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
     
-    <label class="md-nav__link" for="nav-5">
+    <label class="md-nav__link" for="nav-11">
       Advanced
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
+      <label class="md-nav__title" for="nav-11">
         Advanced
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -404,8 +363,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../advanced/utils/" title="Utils" class="md-nav__link">
-      Utils
+    <a href="../advanced/signals/" title="Signals" class="md-nav__link">
+      Signals
     </a>
   </li>
 
@@ -416,7 +375,79 @@
 
 
   <li class="md-nav__item">
-    <a href="../../advanced/pagination.md" title="Pagination" class="md-nav__link">
+    <a href="../advanced/date/" title="Date" class="md-nav__link">
+      Date
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/caching/" title="Caching" class="md-nav__link">
+      Caching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/csrf/" title="CSFR" class="md-nav__link">
+      CSFR
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/mail/" title="Mail" class="md-nav__link">
+      Mail
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/storage/" title="Storage" class="md-nav__link">
+      Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/sessions/" title="Sessions" class="md-nav__link">
+      Sessions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/pagination/" title="Pagination" class="md-nav__link">
       Pagination
     </a>
   </li>
@@ -428,14 +459,111 @@
 
 
   <li class="md-nav__item">
-    <a href="../../advanced/signals/" title="Signals" class="md-nav__link">
-      Signals
+    <a href="../advanced/utils/" title="Utils" class="md-nav__link">
+      Utils
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/error-handling/" title="Error Handling" class="md-nav__link">
+      Error Handling
     </a>
   </li>
 
         
       </ul>
     </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Deployment
+      </label>
+    
+    <a href="./" title="Deployment" class="md-nav__link md-nav__link--active">
+      Deployment
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-options" class="md-nav__link">
+    Deploy Options
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gunicorn" class="md-nav__link">
+    Gunicorn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uwsgi" class="md-nav__link">
+    uWSGI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gokku" class="md-nav__link">
+    Gokku
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -446,80 +574,119 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-options" class="md-nav__link">
+    Deploy Options
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gunicorn" class="md-nav__link">
+    Gunicorn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uwsgi" class="md-nav__link">
+    uWSGI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gokku" class="md-nav__link">
+    Gokku
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mardix/assembly/edit/master/docs/application/config.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/mardix/assembly/edit/master/docs/deploy.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Config</h1>
+                  <h1>Deployment</h1>
                 
-                <p>Path: <code>./__config__.py</code>.</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">config</span> 
+                <h2 id="deploy-options">Deploy Options</h2>
+<p>To get a comprehensive deploy options with Assembly, please follow <a href="https://flask.palletsprojects.com/en/1.1.x/deploying/" target="_blank"><strong>Deploying Options</strong></a> with Flask. Assembly is actually Flask, so everything on the link is valid for Assembly.</p>
+<p>Below are some of the options, you would be interested in</p>
+<hr />
+<h3 id="gunicorn">Gunicorn</h3>
+<p>Gunicorn ‘Green Unicorn’ is a WSGI HTTP Server for UNIX. It’s a pre-fork worker model ported from Ruby’s Unicorn project. It supports both eventlet and greenlet.</p>
+<div class="codehilite"><pre><span></span>gunicorn -w 4 wsgi:app
 </pre></div>
 
 
 <hr />
-<p>Assembly uses class-based configuration, and the config will be loaded upon startup.</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">BaseConfig</span><span class="ss">(</span><span class="nv">object</span><span class="ss">)</span>:
-
-    <span class="nv">APPLICATION_NAME</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Assembly</span><span class="s2">&quot;</span>
-
-    <span class="nv">APPLICATION_URL</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="nv">APPLICATION_VERSION</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">0.0.1</span><span class="s2">&quot;</span>
-
-    <span class="nv">GOOGLE_ANALYTICS_ID</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="nv">ADMIN_EMAIL</span> <span class="o">=</span> <span class="nv">None</span>
-
-    <span class="nv">CONTACT_EMAIL</span> <span class="o">=</span> <span class="nv">None</span>
-
-    <span class="nv">PAGINATION_PER_PAGE</span> <span class="o">=</span> <span class="mi">20</span>
-
-    ...
-
-
-<span class="nv">class</span> <span class="nv">Development</span><span class="ss">(</span><span class="nv">BaseConfig</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">Config</span> <span class="k">for</span> <span class="nv">development</span> <span class="nv">environment</span>
-    <span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">SERVER_NAME</span> <span class="o">=</span> <span class="nv">None</span>
-    <span class="nv">DEBUG</span> <span class="o">=</span> <span class="nv">True</span>
-    <span class="nv">SECRET_KEY</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">PLEASE CHANGE ME</span><span class="s2">&quot;</span>
-
-
-<span class="nv">class</span> <span class="nv">Production</span><span class="ss">(</span><span class="nv">BaseConfig</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">Config</span> <span class="k">for</span> <span class="nv">Production</span> <span class="nv">environment</span>
-    <span class="s2">&quot;&quot;&quot;</span>
-    <span class="nv">SERVER_NAME</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">abc.com</span><span class="s2">&quot;</span>
-    <span class="nv">DEBUG</span> <span class="o">=</span> <span class="nv">False</span>
-    <span class="nv">SECRET_KEY</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">My Prod Secret</span><span class="s2">&quot;</span>
-    <span class="nv">COMPRESS_HTML</span> <span class="o">=</span> <span class="nv">True</span>
+<h3 id="uwsgi">uWSGI</h3>
+<p>uWSGI is a fast application server written in C. It is very configurable which makes it more complicated to setup than gunicorn.</p>
+<div class="codehilite"><pre><span></span>uwsgi --http 127.0.0.1:5000 --module wsgi:app
 </pre></div>
 
 
-<p>It is recommended to have a base class, <code>BaseConfig</code>, and your environment classes <code>Development</code>, <code>Production</code> which are subclasses
-of the <code>BaseConfig</code>, this way they can share some common config.</p>
-<p>The environment classes will be loaded on Assembly startup. By default, and in development, Assembly will attempt to load the <code>Development</code> if one isn't provided.</p>
-<p>To switch to a different config, you have to set the environment variable, or in production</p>
-<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span>
-<span class="n">export</span> <span class="n">ASSEMBLY_PROJECT</span><span class="o">=</span><span class="k">default</span>
-</pre></div>
-
-
-<p>or to set the application along with the environment</p>
-<div class="codehilite"><pre><span></span><span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span> <span class="n">ASSEMBLY_PROJECT</span><span class="o">=</span><span class="k">default</span> <span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">serve</span>
-</pre></div>
-
-
-<p>The code above will load the <code>Production</code> config.</p>
-<p>One main advantage of having your config like that, is that you have the ability of using different config for different
-environment, could be for testing, prod, dev, etc.</p>
 <hr />
+<h3 id="gokku">Gokku</h3>
+<p><strong>Gokku</strong> is a very small PaaS to do git push deployments to your own servers (Digital Ocean, Linode) similar to Heroku.</p>
+<p>Learn more about <a href="https://github.com/mardix/gokku" target="_blank"><strong>Gokku</strong></a></p>
+<p>Gokku configuration is already shipped with Assembly, with <code>app.json</code>. The <code>app.json</code> will launch your website from 0 to 100 just like it would on Heroku. </p>
+<p>At the root  of the application, <strong>app.json</strong> is a manifest format for describing web apps. It declares environment variables, scripts, and other information required to run an app on your server.</p>
+<div class="codehilite"><pre><span></span><span class="err">{</span>
+  <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;domain.com&quot;</span><span class="p">,</span>
+  <span class="ss">&quot;version&quot;</span><span class="p">:</span> <span class="ss">&quot;0.0.1&quot;</span><span class="p">,</span>
+  <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;my application domain.com&quot;</span><span class="p">,</span>
+  <span class="ss">&quot;gokku&quot;</span><span class="p">:</span> <span class="err">{</span>
+    <span class="ss">&quot;domain_name&quot;</span><span class="p">:</span> <span class="ss">&quot;domain.com&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;runtime&quot;</span><span class="p">:</span> <span class="ss">&quot;python&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;auto_restart&quot;</span><span class="p">:</span> <span class="k">true</span><span class="p">,</span>
+    <span class="ss">&quot;env&quot;</span><span class="p">:</span> <span class="err">{</span>
+      <span class="ss">&quot;ASSEMBLY_ENV&quot;</span><span class="p">:</span> <span class="ss">&quot;Production&quot;</span><span class="p">,</span>
+      <span class="ss">&quot;ASSEMBLY_APP&quot;</span><span class="p">:</span> <span class="ss">&quot;default&quot;</span>
+    <span class="err">}</span><span class="p">,</span>
+    <span class="ss">&quot;scripts&quot;</span><span class="p">:</span> <span class="err">{</span>
+      <span class="ss">&quot;release&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="ss">&quot;asm-admin sync-models&quot;</span><span class="p">,</span>
+        <span class="ss">&quot;asm setup&quot;</span>
+      <span class="p">]</span>
+    <span class="err">}</span><span class="p">,</span>    
+    <span class="ss">&quot;run&quot;</span><span class="p">:</span> <span class="err">{</span>
+      <span class="ss">&quot;web&quot;</span><span class="p">:</span> <span class="ss">&quot;wsgi:app&quot;</span>
+    <span class="err">}</span>
+  <span class="err">}</span>
+<span class="err">}</span>
+</pre></div>
                 
                   
                 
@@ -540,7 +707,7 @@ environment, could be for testing, prod, dev, etc.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../tutorial/" title="Tutorial" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../cli/" title="CLI" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -549,25 +716,11 @@ environment, could be for testing, prod, dev, etc.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Tutorial
+                CLI
               </span>
             </div>
           </a>
         
-        
-          <a href="../views/" title="Views" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Views
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
         
       </nav>
     </div>
@@ -593,9 +746,9 @@ environment, could be for testing, prod, dev, etc.</p>
       
     </div>
     
-      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
     
   </body>

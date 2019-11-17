@@ -5,7 +5,7 @@ Assembly
 https://github.com/mardix/assembly
 --------------------------------------------------------------------------------
 
-'wsgi.py' is your application's object. It's required by Assembly.
+'asm_wsgi.py' is your application's object. It's required by Assembly.
 
 It sets up and initialize all the views per application
 

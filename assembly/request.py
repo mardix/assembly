@@ -25,12 +25,8 @@ class RequestProxy(object):
     A request proxy, that attaches some special attributes to the Flask request object
     """
 
-    # :decorator
-    #   - csrf.exempt
-    # @request.csrf_exempt
-    csrf_exempt = csrf.exempt
-
-
+    # CSRF
+    csrf = csrf
 
     @property
     def IS_GET(self):

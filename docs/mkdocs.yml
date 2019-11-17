@@ -32,24 +32,28 @@ markdown_extensions:
 
 pages:
   - Overview: index.md
-  - Installation: install.md
-  - Tutorial: tutorial.md  
+  - Installation: install.md 
+  - WSGI.py: wsgipy.md
+  - Configuration: config.md  
   - Application:
-    - Config: application/config.md
     - Views: application/views.md
     - Models: application/models.md
     - Templates: application/templates.md
     - Static: application/static.md
     - HTTPError: application/httperror.md
-    - CLI: application/cli.md
-    - Deployment: application/deploy.md
   - Advanced:
-    - Utils: advanced/utils.md
-    - Pagination: advanced/pagination.md
     - Signals: advanced/signals.md
+    - Date: advanced/date.md
+    - Caching: advanced/caching.md    
+    - CSFR: advanced/csrf.md
+    - Mail: advanced/mail.md
+    - Storage: advanced/storage.md
+    - Sessions: advanced/sessions.md
+    - Pagination: advanced/pagination.md    
+    - Utils: advanced/utils.md    
+  - CLI: cli.md
+  - Deployment: deploy.md
+  - Tutorials: tutorials.md   
   
-  
-#  - Snippets:
-#    - Home: snippets/index.md
 
 

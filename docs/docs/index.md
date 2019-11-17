@@ -185,13 +185,11 @@ Two endpoints will be available:
 
 - Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'
 
-- Easy rending and render decorator
+- RESTful API
+
+- Automatic view rendering
 
 - Auto route can be edited with @route()
-
-- Restful: GET, POST, PUT, DELETE
-
-- REST API Ready
 
 - Markdown friendly. Inclusion of a markdown file will turn into HTML
 
@@ -202,6 +200,8 @@ Two endpoints will be available:
 - Database/ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
 
 - CSRF on all POST
+
+- Idiomatic HTTP error responses
 
 - Storage: Local, S3, Google Storage [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
 
@@ -227,7 +227,7 @@ Two endpoints will be available:
 
 - CLI
 
-- Local server
+- Inbuilt development server
 
 ---
 

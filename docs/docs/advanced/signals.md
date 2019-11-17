@@ -1,98 +1,165 @@
 
 
-Mocha uses [Blinker](https://pythonhosted.org/blinker/)
-to provide a fast dispatching system that allows any number of
+## Overview
+
+Signals help you decouple applications by sending notifications when actions occur elsewhere in the appliation. In short, signals allow certain senders to notify subscribers that something happened.
+
+
+
+Assembly uses **Blinker** to provide a fast dispatching system that allows any number of
 interested parties to subscribe to events, or “signals”.
 
-As it will be described below, a best way to use signal is to dispatch data/message
-between modules.
+Extension: <a href="https://pythonhosted.org/blinker/" target="_blank">Blinker</a>
 
-For example, when a user register using the built-in AUTH, you may want to do
-something with that new user. So the create_user emit a signal containing
-the new user data, and each function observing the create_user, will be executed
+---
 
+## Usage
 
-** Import **
+### Import
 
-    from mocha.decorators import emit_signal
-
-
-## Emit Signal
+```
+from assembly import signal
+```
 
 
+### Create a signal
 
-### @emit_signal
+Import and use the `@signal` decorator on the function to send signal from. It will add a `@pre` and `@post` decorators on that function to be used by other function that will listens it.
 
-A decorator that will turn a function into a signal emitter, which will contain
-a `pre` and `post` signal.
+Whenever the function with the `@signal` get executed, all functions with `@pre` and `@post` will be executed before and after the `@signal` function is executed repectively.
 
+```
 
-    # signals.py
-    from mocha import decorators as deco
+from assembly import signal
 
-    @deco.emit_signal
-    def do_something(data):
-        return data
+@signal
+def hello_world(name):
+    return "Hello World %s" %s
 
-The example above creates a signal `do_something`, each time this function
-is invoked it will emit two signals `do_something.pre`
-and `do_something.post`. These objects (pre, post) were created when `@emit_signal`
-decorated the `do_something` function.
+```
 
-`pre` will be invoked before running accepting the signal, and `post` after the
-signal is executed.
-
-For every `@emit_signal` use, the function will have two blinker signal objects:
-`pre` and `post`
-
-    @emit_signal
-    def hello():
-        pass
-
-will now have the following decorators:
-
-    @hello.post
-    @hello.pre
+### Listens to a signal
 
 
-## Receive Signal
+Now `hello_world` has `@hello_world.pre` and `@hello_world.post`. These decorators can attached to functions.
 
-### @observe
+```
 
-`@observe` allows you to connect a function to an emitter. `@observe` is a shortcut
-for `@post.connect`.
+@hello_world.pre
+def before_hello_world(*a, **kw):
+    """This will be executed before"""
 
+@hello_world.post
+def after_hello_world(result, *kw):
+    """This will be executed after"""
+    if result:
+        print(result)
 
-    import my_signals
+@hello_world.post
+def after_another_hello_world(result, *kw):
+    """This will be executed after"""
+    if result:
+        print(result)
 
-    @signals.do_something.observe
-    def my_thing(result, **kw):
-        if result:
-            pass
+```
+
+### Full Example
+
+Now we can run the functions and our signals will be executed
 
 
 
+```
+from assembly import signal
 
-To fully utilize Blinker functionalities, use `post` and `pre`, for example
-`@do_something.post.connect`, `@do_something.pre.connect`
+# Emit the signal
 
-### @post.connect
+@signal
+def hello_world(name):
+    return "Hello World %s" %s
 
-    @signals.do_something.post.connect
-    def receive_create_user(user, **kw):
-        if user:
-            # do something with user
+# Listeners
+
+@hello_world.pre
+def before_hello_world(*a, **kw):
+    """This will be executed before"""
+
+@hello_world.post
+def after_hello_world(result, *kw):
+    """This will be executed after"""
+    if result:
+        print(result)
+
+@hello_world.post
+def after_another_hello_world(result, *kw):
+    """This will be executed after"""
+    if result:
+        print(result)
+
+
+hello_world('Assembly')
+hello_world('Mardix')
+
+```
+
+
+## API
+
+### @signal
+
+---
+
+### @pre
+
+Functions with `@pre` will be executed before the signaled functions is executed.
+
+The function receiving the signal, must have 1 args:
+```
+- *a
+- **kwargs: 
+    args: *a,
+    kwargs: **kw,
+    name: the name of the signal,
+    signal: the signal's instance
+```
+
+Example
+
+```
+@myfn.pre
+def post_action(*a, **kw):
+    pass
+
+```
+
+---
+
+### @post
+
+Functions with `@post` will be executed after the signaled functions is finished.
 
 The function receiving the signal, must have 2 args:
-
+```
 - result: that's the result sent from the signal
-- **kwargs: some
-    - kwargs: kwargs that were passed in the signal function
-    - sender: The name of the function
-    - emitter: The instance of the
+- **kwargs: 
+    args: *a,
+    kwargs: **kw,
+    name: the name of the signal,
+    signal: the signal's instance
+```
 
-### @pre.connect
+Example
 
-    @signals.do_something.pre.connect
-    def receive_create_user_pre(**kw):
-        # do something
+```
+@myfn.post
+def post_action(result, **kw):
+    if result: 
+        print("Done!")
+
+```
+
+### @pre_ and @post_
+
+To fully utilize Blinker functionalities, use `post_` and `pre_`, for example
+`@do_something.post_.connect`, `@do_something.pre_.connect`
+

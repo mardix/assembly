@@ -112,7 +112,9 @@ def cli_admin():
     
     """
     
-# Object to expose
+"""
+For custom CLI
+"""
 command = cli.command 
 argument = click.argument
 option = click.option
@@ -138,7 +140,7 @@ def init():
         print("")
         print("> To do:")
         print("- Edit application's config [ ./config.py ] ")
-        print("- Create your Models/Database tables, then run [ asm-admin sync-db ]")        
+        print("- Create your Models/Database tables, then run [ asm-admin sync-models ]")        
         print("- Create your commands in [ cli.py ] and run your setup command [ asm setup ]")
         print("- Launch app on development mode, run [ asm-admin serve ]")
         print("")
@@ -189,7 +191,7 @@ def run(port):
     asm_app.run(debug=True, host='0.0.0.0', port=port)
 
 
-@cli_admin.command("sync-db")
+@cli_admin.command("sync-models")
 def sync_models():
     """ Sync database models to create new tables """
 

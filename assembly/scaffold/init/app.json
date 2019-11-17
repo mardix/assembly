@@ -8,11 +8,11 @@
     "auto_restart": true,
     "env": {
       "ASSEMBLY_ENV": "Production",
-      "ASSEMBLY_PROJECT": "default"
+      "ASSEMBLY_APP": "default"
     },
     "scripts": {
       "release": [
-        "asm-admin db:sync",
+        "asm-admin sync-models",
         "asm setup"
       ]
     },    

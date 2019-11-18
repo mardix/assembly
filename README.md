@@ -9,7 +9,7 @@ to your Flask application, and group your routes by class.
 
 **Assembly** allows developers to build web applications in much the same way they would build any other object-oriented Python program. 
 
-Technically **Assembly** is an attempt of making a simple framework based on Flask Great Again!
+Technically **Assembly** Makes Flask Great Again!
 
 ---
 
@@ -122,39 +122,49 @@ class Api(Assembly):
 
 - Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'
 
-- Smart template: automatically map the class and method name, to folder and html file
+- RESTful API
 
-- Auto rendering by returning a dict of None
+- Automatic view rendering
 
-- Markdown ready: Along with  HTML, it can also properly parse Markdown
+- Auto route can be edited with @route()
 
-- Auto route can be edited with @request.route()
+- Markdown friendly. Inclusion of a markdown file will turn into HTML
 
-- Restful: GET, POST, PUT, DELETE
-
-- REST API Ready
-
-- bcrypt is chosen as the password hasher
-
-- Simplified error handling
+- BCRYPT is chosen as the password hasher
 
 - Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL
 
-- ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
-
-- Dates: Uses Arrow for dates 
-
-- Active-Alchemy saves the datetime as arrow object, utc_now
+- Database/ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
 
 - CSRF on all POST
 
+- Idiomatic HTTP error responses
+
 - Storage: Local, S3, Google Storage [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
 
-- Email: SMTP, SES
+- Mailer (SES or SMTP)
+
+- Arrow for date and time
 
 - Caching
 
-- CORS
+- JWT
+
+- Pagination
+
+- Signals: to dispatch messages and data to other part of the application
+
+- Markdown
+
+- Jinja2 for templating language
+
+- Multi application
+
+- Web Assets
+
+- CLI
+
+- Inbuilt development server
 
 
 ---

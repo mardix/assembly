@@ -1,5 +1,7 @@
 
-**wsgi.py** is the application's entry point 
+## Overview 
+
+**wsgi.py** is the application's entry point which contains the application object called `app`
 
 
 

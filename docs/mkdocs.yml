@@ -2,7 +2,7 @@
 site_name: Assembly
 site_description: ""
 site_url: "https://mardix.github.com/assembly"
-copyright: 'Copyright &copy; 2019 - Forever Mardix'
+copyright: 'Copyright &copy; 2020 - Forever Mardix'
 
 repo_url: https://github.com/mardix/assembly
 repo_name: "assembly"
@@ -42,16 +42,19 @@ pages:
   - Static: application/static.md
   - wsgi.py: wsgipy.md  
   - Advanced:
+    - Request: advanced/request.md
+    - Response: advanced/response.md
+    - Redirect: advanced/redirect.md
     - Signals: advanced/signals.md
     - Date: advanced/date.md
     - Caching: advanced/caching.md    
     - CSFR: advanced/csrf.md
     - Mail: advanced/mail.md
     - Storage: advanced/storage.md
-    - Sessions: advanced/sessions.md
     - Pagination: advanced/pagination.md    
     - Utils: advanced/utils.md    
-    - Error Handling: advanced/error-handling.md    
+    - Error Handling: advanced/error-handling.md  
+    - Sessions: advanced/sessions.md      
   - CLI: cli.md
   - Deployment: deploy.md
   

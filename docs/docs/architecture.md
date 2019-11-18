@@ -117,7 +117,7 @@ class Index(Assembly):
 
 ### Multiple Classes
 
-It's ok to have multiple classes in your View. They will be treated properly with the proper endpoint.
+It's ok to have multiple classes in a single view file, `__init__.py`. They will be treated properly with the proper endpoint.
 
 ```
 
@@ -147,7 +147,7 @@ class Admin(Assembly):
 
 ### Namespace
 
-Everything is properly namespaced, however the only time you may have some clashes is when more than one class has the same class name. To fix that, just use a different route name for the class base.
+Everything is properly namespaced, however the only time you may have some clashes is when more than one class has the same class name. To fix that, just use a different **route endpoint** for the class.
 
 ```
 # main/__init__
@@ -172,33 +172,15 @@ class Index(Assembly):
     return 
 ```
 
+---
 
 ## View Templates
 
 Assembly uses Jinja as templating language. 
 
-Templates are mapped by their class and method name
+Templates are mapped by their class and method name in the view.
 
-Having a sctructure like this...
-
-```
-|- admin
-    |- __init__.py
-    |- __models__.py
-    |- templates
-        |- Index
-            |- index.html
-            |- login.html
-        |- Articles
-            |- index.html
-            |- all.html
-    |- static
-    |- cli.py
-
-```
-
-our View class will have 
-
+Having a View like this...
 
 ```
 # admin/__init__.py
@@ -219,9 +201,45 @@ class Articles(Assembly):
   def all(self):
     return
 
+
+class Movies(Assembly):
+  def index(self):
+    return 
+
+  def guide(self):
+    return
+
+  def channels(self):
+    return
+
+
+
 ```
 
---
+will map to templates below
+
+```
+|- admin
+    |- __init__.py
+    |- __models__.py
+    |- templates
+        |- Index
+            |- index.html
+            |- login.html
+        |- Articles
+            |- index.html
+            |- all.html
+        |- Movies
+            |- index.html
+            |- guide.html            
+            |- channels.html            
+    |- static
+    |- cli.py
+
+```
+
+
+---
 
 ## View Static
 

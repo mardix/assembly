@@ -16,21 +16,37 @@
 
 ---
 
-## <div style="text-align:center">About</div>
+## About
 
 **Assembly** is a pythonic object-oriented, mid stack, batteries included framework built on Flask, that adds structure 
 to your Flask application, and group your routes by class.
 
 **Assembly** allows developers to build web applications in much the same way they would build any other object-oriented Python program. 
 
-Technically **Assembly** is an attempt of making a simple framework based on Flask Great Again!
+Technically **Assembly** Makes Flask Great Again!
 
 
 **[Installation Guide](install.md) **
 
 ---
 
-## <div style="text-align:center">Quick Start</div>
+## Why Assembly ?
+
+Flask is very easy and simple. It's fun to put a few endpoints in a single file. However when your application starts growing into an endless of endpoints, tons of models and views, or your team is having more people, it is very necessary to have some sort of structure in your application. 
+
+And that's what Assembly does. Assembly adds structure to Flask application. Assembly removes a lot of Flask boilerplate. Assembly makes your Flask application scalable and easy to work with.
+
+Instead of having loose endpoints per functions, Assembly organizes all groups of endpoints per class. Instead of each time rendering the template for each endpoint manually, Assembly matches the name of the method of the class, to the name of the template file, making it a one-one match. 
+
+Assembly automatically loads your models and configuration. 
+
+Assembly is very extensible, as every View is it's own package. Making it easy to add and remove.
+
+**Assembly** Makes Flask Great Again!
+
+---
+
+## Quick Start
 
 This quickstart will allow us to go with Assembly from 0 to 100!
 
@@ -229,6 +245,3 @@ Two endpoints will be available:
 
 - Inbuilt development server
 
----
-
-Credits: Flask, Flask-Classy

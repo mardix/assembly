@@ -322,5 +322,5 @@ To dive into the documentation, Read the docs @ [http://mardix.github.io/assembl
 
 License MIT
 
-Copyright: 2019 - Forever Mardix
+Copyright: 2020 - Forever Mardix
 

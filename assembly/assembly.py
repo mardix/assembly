@@ -542,12 +542,12 @@ class Assembly(object):
             # wrapper gets called. This matches Flask's behavior.
             del forgettable_view_args
 
-            if hasattr(i, "before_request"):
-                response = i.before_request(name, **request.view_args)
+            if hasattr(i, "_before_request"):
+                response = i._before_request(name, **request.view_args)
                 if response is not None:
                     return response
 
-            before_view_name = "before_" + name
+            before_view_name = "_before_" + name
             if hasattr(i, before_view_name):
                 before_view = getattr(i, before_view_name)
                 response = before_view(**request.view_args)
@@ -572,13 +572,13 @@ class Assembly(object):
             for ext in cls._ext:
                 response = ext(response)
 
-            after_view_name = "after_" + name
+            after_view_name = "_after_" + name
             if hasattr(i, after_view_name):
                 after_view = getattr(i, after_view_name)
                 response = after_view(response)
 
-            if hasattr(i, "after_request"):
-                response = i.after_request(name, response)
+            if hasattr(i, "_after_request"):
+                response = i._after_request(name, response)
 
             return response
 

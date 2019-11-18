@@ -15,5 +15,5 @@ __uri__ = "https://github.com/mardix/assembly"
 __author__ = "Mardix"
 __email__ = "mcx2082@gmail.com"
 __license__ = "MIT"
-__copyright__ = "(c) 2019 %s" % __author__
+__copyright__ = "(c) 2020 %s" % __author__
 

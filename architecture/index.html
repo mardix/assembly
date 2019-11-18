@@ -465,6 +465,42 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced/request/" title="Request" class="md-nav__link">
+      Request
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/response/" title="Response" class="md-nav__link">
+      Response
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/redirect/" title="Redirect" class="md-nav__link">
+      Redirect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../advanced/signals/" title="Signals" class="md-nav__link">
       Signals
     </a>
@@ -537,18 +573,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../advanced/sessions/" title="Sessions" class="md-nav__link">
-      Sessions
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../advanced/pagination/" title="Pagination" class="md-nav__link">
       Pagination
     </a>
@@ -575,6 +599,18 @@
   <li class="md-nav__item">
     <a href="../advanced/error-handling/" title="Error Handling" class="md-nav__link">
       Error Handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/sessions/" title="Sessions" class="md-nav__link">
+      Sessions
     </a>
   </li>
 
@@ -821,7 +857,7 @@ the freedom to do whatever else. </p>
 
 <hr />
 <h3 id="multiple-classes">Multiple Classes</h3>
-<p>It's ok to have multiple classes in your View. They will be treated properly with the proper endpoint.</p>
+<p>It's ok to have multiple classes in a single view file, <code>__init__.py</code>. They will be treated properly with the proper endpoint.</p>
 <div class="codehilite"><pre><span></span><span class="c1"># main/__init__</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">request</span>
@@ -846,7 +882,7 @@ the freedom to do whatever else. </p>
 
 <hr />
 <h3 id="namespace">Namespace</h3>
-<p>Everything is properly namespaced, however the only time you may have some clashes is when more than one class has the same class name. To fix that, just use a different route name for the class base.</p>
+<p>Everything is properly namespaced, however the only time you may have some clashes is when more than one class has the same class name. To fix that, just use a different <strong>route endpoint</strong> for the class.</p>
 <div class="codehilite"><pre><span></span><span class="c1"># main/__init__</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
@@ -870,26 +906,11 @@ the freedom to do whatever else. </p>
 </pre></div>
 
 
+<hr />
 <h2 id="view-templates">View Templates</h2>
 <p>Assembly uses Jinja as templating language. </p>
-<p>Templates are mapped by their class and method name</p>
-<p>Having a sctructure like this...</p>
-<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="k">admin</span>
-    <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">templates</span>
-        <span class="o">|-</span> <span class="k">Index</span>
-            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="n">login</span><span class="p">.</span><span class="n">html</span>
-        <span class="o">|-</span> <span class="n">Articles</span>
-            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="k">all</span><span class="p">.</span><span class="n">html</span>
-    <span class="o">|-</span> <span class="k">static</span>
-    <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
-</pre></div>
-
-
-<p>our View class will have </p>
+<p>Templates are mapped by their class and method name in the view.</p>
+<p>Having a View like this...</p>
 <div class="codehilite"><pre><span></span><span class="c1"># admin/__init__.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
@@ -907,10 +928,41 @@ the freedom to do whatever else. </p>
 
   <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span>
+
+
+<span class="k">class</span> <span class="nc">Movies</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
+
+  <span class="k">def</span> <span class="nf">guide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
+
+  <span class="k">def</span> <span class="nf">channels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
 </pre></div>
 
 
-<p>--</p>
+<p>will map to templates below</p>
+<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="k">admin</span>
+    <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">templates</span>
+        <span class="o">|-</span> <span class="k">Index</span>
+            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+            <span class="o">|-</span> <span class="n">login</span><span class="p">.</span><span class="n">html</span>
+        <span class="o">|-</span> <span class="n">Articles</span>
+            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+            <span class="o">|-</span> <span class="k">all</span><span class="p">.</span><span class="n">html</span>
+        <span class="o">|-</span> <span class="n">Movies</span>
+            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+            <span class="o">|-</span> <span class="n">guide</span><span class="p">.</span><span class="n">html</span>            
+            <span class="o">|-</span> <span class="n">channels</span><span class="p">.</span><span class="n">html</span>            
+    <span class="o">|-</span> <span class="k">static</span>
+    <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+
+
+<hr />
 <h2 id="view-static">View Static</h2>
 <p>Assembly uses Flask-Assets to help manage static assets, ie: images, js, css in your application</p>
                 
@@ -970,7 +1022,7 @@ the freedom to do whatever else. </p>
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2019 - Forever Mardix
+            Copyright &copy; 2020 - Forever Mardix
           </div>
         
         powered by

@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="https://mardix.github.com/assembly/advanced/signals/">
+        <link rel="canonical" href="https://mardix.github.com/assembly/advanced/request/">
       
       
       
@@ -38,7 +38,7 @@
     
     
       
-        <title>Signals - Assembly</title>
+        <title>Request - Assembly</title>
       
     
     
@@ -113,7 +113,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Signals
+                Request
               
             </span>
           
@@ -363,11 +363,191 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../request/" title="Request" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Request
+      </label>
+    
+    <a href="./" title="Request" class="md-nav__link md-nav__link--active">
       Request
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#route" class="md-nav__link">
+    @route
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post" class="md-nav__link">
+    @post
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    @get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post_get" class="md-nav__link">
+    @post_get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all" class="md-nav__link">
+    @all
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put" class="md-nav__link">
+    @put
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    @delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cors" class="md-nav__link">
+    @cors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csrfexempt" class="md-nav__link">
+    @csrf.exempt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_auth_bearer" class="md-nav__link">
+    get_auth_bearer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_get" class="md-nav__link">
+    IS_GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_post" class="md-nav__link">
+    IS_POST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_put" class="md-nav__link">
+    IS_PUT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_delete" class="md-nav__link">
+    IS_DELETE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#args" class="md-nav__link">
+    args
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#form" class="md-nav__link">
+    form
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlist" class="md-nav__link">
+    getlist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filesget" class="md-nav__link">
+    files.get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filesgetlist" class="md-nav__link">
+    files.getlist
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -399,127 +579,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Signals
-      </label>
-    
-    <a href="./" title="Signals" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../signals/" title="Signals" class="md-nav__link">
       Signals
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#import" class="md-nav__link">
-    Import
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-a-signal" class="md-nav__link">
-    Create a signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#listens-to-a-signal" class="md-nav__link">
-    Listens to a signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-example" class="md-nav__link">
-    Full Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
-    API
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#signal" class="md-nav__link">
-    @signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pre" class="md-nav__link">
-    @pre
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post" class="md-nav__link">
-    @post
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pre_-and-post_" class="md-nav__link">
-    @pre_ and @post_
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -694,56 +758,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#import" class="md-nav__link">
-    Import
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-a-signal" class="md-nav__link">
-    Create a signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#listens-to-a-signal" class="md-nav__link">
-    Listens to a signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-example" class="md-nav__link">
-    Full Example
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
-    API
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#signal" class="md-nav__link">
-    @signal
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pre" class="md-nav__link">
-    @pre
+  <a href="#route" class="md-nav__link">
+    @route
   </a>
   
 </li>
@@ -756,8 +772,120 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pre_-and-post_" class="md-nav__link">
-    @pre_ and @post_
+  <a href="#get" class="md-nav__link">
+    @get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post_get" class="md-nav__link">
+    @post_get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all" class="md-nav__link">
+    @all
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put" class="md-nav__link">
+    @put
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    @delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cors" class="md-nav__link">
+    @cors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csrfexempt" class="md-nav__link">
+    @csrf.exempt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_auth_bearer" class="md-nav__link">
+    get_auth_bearer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_get" class="md-nav__link">
+    IS_GET
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_post" class="md-nav__link">
+    IS_POST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_put" class="md-nav__link">
+    IS_PUT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_delete" class="md-nav__link">
+    IS_DELETE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#args" class="md-nav__link">
+    args
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#form" class="md-nav__link">
+    form
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlist" class="md-nav__link">
+    getlist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filesget" class="md-nav__link">
+    files.get
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filesgetlist" class="md-nav__link">
+    files.getlist
   </a>
   
 </li>
@@ -783,134 +911,176 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mardix/assembly/edit/master/docs/advanced/signals.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/mardix/assembly/edit/master/docs/advanced/request.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Signals</h1>
+                  <h1>Request</h1>
                 
                 <h2 id="overview">Overview</h2>
-<p>Signals help you decouple applications by sending notifications when actions occur elsewhere in the appliation. In short, signals allow certain senders to notify subscribers that something happened.</p>
-<p>Assembly uses <strong>Blinker</strong> to provide a fast dispatching system that allows any number of
-interested parties to subscribe to events, or “signals”.</p>
-<p>Extension: <a href="https://pythonhosted.org/blinker/" target="_blank">Blinker</a></p>
-<hr />
+<p>Request is a Proxy to Flask request with extra functionalities. For example it adds route decorator, cors decorator, etc.</p>
 <h2 id="usage">Usage</h2>
-<h3 id="import">Import</h3>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">signal</span>
+<p><strong>Import</strong></p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">request</span>
 </pre></div>
 
 
-<h3 id="create-a-signal">Create a signal</h3>
-<p>Import and use the <code>@signal</code> decorator on the function to send signal from. It will add a <code>@pre</code> and <code>@post</code> decorators on that function to be used by other function that will listens it.</p>
-<p>Whenever the function with the <code>@signal</code> get executed, all functions with <code>@pre</code> and <code>@post</code> will be executed before and after the <code>@signal</code> function is executed repectively.</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">signal</span>
+<h3 id="route">@route</h3>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
 
-<span class="nd">@signal</span>
-<span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s2">&quot;Hello World </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">s</span>
+    # <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="nv">hello</span><span class="o">-</span><span class="nv">world</span><span class="o">/</span>
+    @<span class="nv">request</span>.<span class="nv">route</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">hello-world</span><span class="s2">&quot;</span><span class="ss">)</span>
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span>
 </pre></div>
 
 
-<h3 id="listens-to-a-signal">Listens to a signal</h3>
-<p>Now <code>hello_world</code> has <code>@hello_world.pre</code> and <code>@hello_world.post</code>. These decorators can attached to functions.</p>
-<div class="codehilite"><pre><span></span>@<span class="nv">hello_world</span>.<span class="nv">pre</span>
-<span class="nv">def</span> <span class="nv">before_hello_world</span><span class="ss">(</span><span class="o">*</span><span class="nv">a</span>, <span class="o">**</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">This will be executed before</span><span class="s2">&quot;&quot;&quot;</span>
-
-@<span class="nv">hello_world</span>.<span class="nv">post</span>
-<span class="nv">def</span> <span class="nv">after_hello_world</span><span class="ss">(</span><span class="nb">result</span>, <span class="o">*</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">This will be executed after</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">result</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nb">result</span><span class="ss">)</span>
-
-@<span class="nv">hello_world</span>.<span class="nv">post</span>
-<span class="nv">def</span> <span class="nv">after_another_hello_world</span><span class="ss">(</span><span class="nb">result</span>, <span class="o">*</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">This will be executed after</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">result</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nb">result</span><span class="ss">)</span>
-</pre></div>
-
-
-<h3 id="full-example">Full Example</h3>
-<p>Now we can run the functions and our signals will be executed</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">signal</span>
-
-<span class="c1"># Emit the signal</span>
-
-<span class="nd">@signal</span>
-<span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s2">&quot;Hello World </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">s</span>
-
-<span class="c1"># Listeners</span>
-
-<span class="nd">@hello_world.pre</span>
-<span class="k">def</span> <span class="nf">before_hello_world</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This will be executed before&quot;&quot;&quot;</span>
-
-<span class="nd">@hello_world.post</span>
-<span class="k">def</span> <span class="nf">after_hello_world</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">*</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This will be executed after&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-<span class="nd">@hello_world.post</span>
-<span class="k">def</span> <span class="nf">after_another_hello_world</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">*</span><span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This will be executed after&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-
-<span class="n">hello_world</span><span class="p">(</span><span class="s1">&#39;Assembly&#39;</span><span class="p">)</span>
-<span class="n">hello_world</span><span class="p">(</span><span class="s1">&#39;Mardix&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<h2 id="api">API</h2>
-<h3 id="signal">@signal</h3>
-<hr />
-<h3 id="pre">@pre</h3>
-<p>Functions with <code>@pre</code> will be executed before the signaled functions is executed.</p>
-<p>The function receiving the signal, must have 1 args:</p>
-<div class="codehilite"><pre><span></span><span class="o">-</span> <span class="o">*</span><span class="n">a</span>
-<span class="o">-</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> 
-    <span class="n">args</span><span class="p">:</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span>
-    <span class="n">kwargs</span><span class="p">:</span> <span class="o">**</span><span class="n">kw</span><span class="p">,</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">the</span> <span class="n">name</span> <span class="k">of</span> <span class="n">the</span> <span class="n">signal</span><span class="p">,</span>
-    <span class="n">signal</span><span class="p">:</span> <span class="n">the</span> <span class="n">signal</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">instance</span>
-</pre></div>
-
-
-<p>Example</p>
-<div class="codehilite"><pre><span></span><span class="nv">@myfn</span><span class="p">.</span><span class="n">pre</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">post_action</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kw</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">pass</span><span class="w"></span>
-</pre></div>
-
-
-<hr />
 <h3 id="post">@post</h3>
-<p>Functions with <code>@post</code> will be executed after the signaled functions is finished.</p>
-<p>The function receiving the signal, must have 2 args:</p>
-<div class="codehilite"><pre><span></span><span class="o">-</span> <span class="k">result</span><span class="p">:</span> <span class="n">that</span><span class="s1">&#39;s the result sent from the signal</span>
-<span class="s1">- **kwargs: </span>
-<span class="s1">    args: *a,</span>
-<span class="s1">    kwargs: **kw,</span>
-<span class="s1">    name: the name of the signal,</span>
-<span class="s1">    signal: the signal&#39;</span><span class="n">s</span> <span class="n">instance</span>
+<p>Restrict a method to only accepts POST request.</p>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+
+    @<span class="nv">request</span>.<span class="nv">post</span>
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span>
 </pre></div>
 
 
-<p>Example</p>
-<div class="codehilite"><pre><span></span>@<span class="nv">myfn</span>.<span class="nv">post</span>
-<span class="nv">def</span> <span class="nv">post_action</span><span class="ss">(</span><span class="nb">result</span>, <span class="o">**</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="k">if</span> <span class="nb">result</span>: 
-        <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Done!</span><span class="s2">&quot;</span><span class="ss">)</span>
+<h3 id="get">@get</h3>
+<p>Restrict a method to only accepts GET request.</p>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+
+    @<span class="nv">request</span>.<span class="nv">get</span>
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span>
 </pre></div>
 
 
-<h3 id="pre_-and-post_">@pre_ and @post_</h3>
-<p>To fully utilize Blinker functionalities, use <code>post_</code> and <code>pre_</code>, for example
-<code>@do_something.post_.connect</code>, <code>@do_something.pre_.connect</code></p>
+<h3 id="post_get">@post_get</h3>
+<p>Restrict a method to only accepts POST and GET request.</p>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+
+    @<span class="nv">request</span>.<span class="nv">post_get</span>
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span>
+</pre></div>
+
+
+<h3 id="all">@all</h3>
+<p>Restrict a method to only accepts all requests (POST, GET, PUT, DELETE, UPDATE, OPTIONS).</p>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+
+    @<span class="nv">request</span>.<span class="nv">all</span>
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span>
+</pre></div>
+
+
+<h3 id="put">@put</h3>
+<p>Restrict a method to only accepts PUT request.</p>
+<h3 id="delete">@delete</h3>
+<p>Restrict a method to only accepts DELETE request.</p>
+<h3 id="cors">@cors</h3>
+<p>Make an endpoint CORS.  </p>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+
+    @<span class="nv">request</span>.<span class="nv">cors</span>
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span>
+</pre></div>
+
+
+<h3 id="csrfexempt">@csrf.exempt</h3>
+<p>To exempt CSRF on this endpoint.</p>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+
+    @<span class="nv">request</span>.<span class="nv">post</span>
+    @<span class="nv">request</span>.<span class="nv">csrf</span>.<span class="nv">exempt</span>
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">return</span>
+</pre></div>
+
+
+<h3 id="get_auth_bearer">get_auth_bearer</h3>
+<p>Get the authorization bearer, ie: JWT.</p>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="nv">auth_bearer</span> <span class="o">=</span> <span class="nv">request</span>.<span class="nv">get_auth_bearer</span><span class="ss">()</span>
+        <span class="k">return</span>
+</pre></div>
+
+
+<h3 id="is_get">IS_GET</h3>
+<p>Test if a request is GET. Usually if one endpoint accepts multiple method</p>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+
+    @<span class="nv">request</span>.<span class="nv">post</span>
+    @<span class="nv">request</span>.<span class="nv">get</span>
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">if</span> <span class="nv">request</span>.<span class="nv">IS_GET</span>:
+            # <span class="k">do</span> <span class="nv">something</span>
+        <span class="k">return</span>
+</pre></div>
+
+
+<h3 id="is_post">IS_POST</h3>
+<p>Test if a request is POST. Usually if one endpoint accepts multiple method</p>
+<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+
+    @<span class="nv">request</span>.<span class="nv">post</span>
+    @<span class="nv">request</span>.<span class="nv">get</span>
+    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+        <span class="k">if</span> <span class="nv">request</span>.<span class="nv">IS_POST</span>:
+            # <span class="k">do</span> <span class="nv">something</span>
+        <span class="k">return</span>
+</pre></div>
+
+
+<h3 id="is_put">IS_PUT</h3>
+<p>Test if a request is PUT. Usually if one endpoint accepts multiple method</p>
+<h3 id="is_delete">IS_DELETE</h3>
+<p>Test if a request is DELETE. Usually if one endpoint accepts multiple method</p>
+<h3 id="args">args</h3>
+<p><code>request.args.get</code> lets you get the query vars</p>
+<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="o">/?</span><span class="n">name</span><span class="o">=</span><span class="n">Assembly</span>
+
+<span class="n">request</span><span class="p">.</span><span class="n">args</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="form">form</h3>
+<p><code>request.form.get</code> lets you get the data that was sent in a post form</p>
+<h3 id="getlist">getlist</h3>
+<p><code>request.form.getlist</code> returns a list of all the items with the same name that was posted in a form.</p>
+<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">HTML</span>
+<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="s1">&#39;checkbox&#39;</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;options&#39;</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;apple&#39;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="s1">&#39;checkbox&#39;</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;options&#39;</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="s1">&#39;checkbox&#39;</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;options&#39;</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;grapes&#39;</span><span class="o">&gt;</span>
+
+<span class="o">#</span> 
+<span class="k">options</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">.</span><span class="n">getlist</span><span class="p">(</span><span class="ss">&quot;options&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="filesget">files.get</h3>
+<p><code>request.files.get</code> allow you to retrieve a file that was uploaded</p>
+<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">HTML</span>
+<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="n">file</span> <span class="n">name</span><span class="o">=</span><span class="ss">&quot;file&quot;</span><span class="o">&gt;</span>
+
+<span class="o">#</span><span class="n">py</span>
+<span class="n">file</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">files</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;file&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="filesgetlist">files.getlist</h3>
+<p><code>request.files.getlist</code> allow you to retrieve multiple files uploaded with the same name</p>
+<div class="codehilite"><pre><span></span><span class="o">#</span><span class="n">HTML</span>
+<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="n">file</span> <span class="n">name</span><span class="o">=</span><span class="ss">&quot;file&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="n">file</span> <span class="n">name</span><span class="o">=</span><span class="ss">&quot;file&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="n">file</span> <span class="n">name</span><span class="o">=</span><span class="ss">&quot;file&quot;</span><span class="o">&gt;</span>
+
+<span class="o">#</span><span class="n">py</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">files</span><span class="p">.</span><span class="n">getlist</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">)</span>
+</pre></div>
                 
                   
                 
@@ -931,7 +1101,7 @@ interested parties to subscribe to events, or “signals”.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../redirect/" title="Redirect" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../wsgipy/" title="wsgi.py" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -940,19 +1110,19 @@ interested parties to subscribe to events, or “signals”.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Redirect
+                wsgi.py
               </span>
             </div>
           </a>
         
         
-          <a href="../date/" title="Date" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../response/" title="Response" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Date
+                Response
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

@@ -116,6 +116,11 @@ class BaseConfig(object):
     #: DB_URL
     #: Assembly uses Active-Alchemy to work with DB 
     #: format: engine://USERNAME:PASSWORD@HOST:PORT/DB_NAME
+    #: format: dialect+driver://USERNAME:PASSWORD@HOST:PORT/DB_NAME
+    #: SQLite: sqlite:////foo.db
+    #: SQLite in memory: sqlite://
+    #: Postgresql: postgresql+pg8000://user:password@host:port/dbname
+    #: MySQL: mysql+pymysql://user:password@host:port/dbname
     DB_URL = "sqlite:////%s/db.db" % DATA_DIR
 
     #: DB_REDIS_URL

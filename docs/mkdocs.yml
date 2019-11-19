@@ -57,6 +57,7 @@ pages:
     - Sessions: advanced/sessions.md      
   - CLI: cli.md
   - Deployment: deploy.md
+  - Contribute: contribute.md
   
   
 

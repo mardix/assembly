@@ -127,7 +127,7 @@ class Index(Assembly):
         filename = "hello.txt"
         name = "new-name-hello"
         url = asm.download_file(filename, name=name, timeout=60)
-        redirect(url)
+        return redirect(url)
 
 ```
 

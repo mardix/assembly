@@ -12,9 +12,9 @@
 
 **Assembly** Makes Flask Great Again!
 
----
+--- 
 
-[Documentation](https://mardix.github.io/assembly)
+### [Assembly Documentation](http://mardix.github.io/assembly/)
 
 ---
 
@@ -314,20 +314,9 @@ Two endpoints will be available:
 - `http://127.0.0.1:5000/api/` which will a json response
 
 
----
-
-I hope this wasn't too bad. Now Read The Docs at [http://mardix.github.io/assembly/](http://mardix.github.io/assembly/)
-for more 
-
-Thanks, 
-
-Mardix :) 
-
 --- 
 
-## Read The Docs
-
-To dive into the documentation, Read the docs @ [http://mardix.github.io/assembly/](http://mardix.github.io/assembly/)
+### Learn More: [Assembly Documentation](http://mardix.github.io/assembly/)
 
 ---
 

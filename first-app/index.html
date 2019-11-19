@@ -542,6 +542,18 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../contribute/" title="Contribute" class="md-nav__link">
+      Contribute
+    </a>
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -629,67 +641,6 @@
 
 
 <p>Once created, you should see a file structure similar to this</p>
-<div class="codehilite"><pre><span></span><span class="o">/</span><span class="n">____</span>
-    <span class="o">|</span>
-    <span class="o">|-</span> <span class="n">brew</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|</span>
-    <span class="o">|-</span> <span class="n">propel</span><span class="p">.</span><span class="n">yml</span>
-    <span class="o">|</span>
-    <span class="o">|</span><span class="c1">-- requirements.txt</span>
-    <span class="o">|</span>
-    <span class="o">|</span><span class="c1">-- /application</span>
-        <span class="o">|</span>
-        <span class="o">|</span><span class="c1">-- config.py</span>
-        <span class="o">|</span>
-        <span class="o">|</span><span class="c1">-- models.py</span>
-        <span class="o">|</span>
-        <span class="o">|</span><span class="c1">-- helpers.py</span>
-        <span class="o">|</span>
-        <span class="o">|</span><span class="c1">-- manage.py</span>
-        <span class="o">|</span>
-        <span class="o">|</span><span class="c1">-- views/</span>
-            <span class="o">|</span>
-            <span class="o">|</span><span class="c1">-- main.py</span>
-        <span class="o">|</span>
-        <span class="o">|</span><span class="c1">-- templates/</span>
-            <span class="o">|</span>
-            <span class="o">|</span><span class="c1">-- layouts/</span>
-                <span class="o">|</span>
-                <span class="o">|</span><span class="c1">-- base.jade</span>
-                <span class="o">|</span>
-            <span class="o">|</span><span class="c1">-- main/</span>
-                <span class="o">|</span>
-                <span class="o">|</span><span class="c1">-- Index/</span>
-                    <span class="o">|</span>
-                    <span class="o">|</span><span class="c1">-- index.jade</span>
-        <span class="o">|</span>
-        <span class="o">|</span><span class="c1">-- /static/</span>
-            <span class="o">|</span>
-            <span class="o">|</span><span class="c1">-- assets.yml</span>
-            <span class="o">|</span>
-            <span class="o">|</span><span class="c1">-- package.json</span>
-            <span class="o">|</span>
-            <span class="o">|</span><span class="c1">-- css/</span>
-            <span class="o">|</span>
-            <span class="o">|</span><span class="c1">-- js/</span>
-            <span class="o">|</span>
-            <span class="o">|</span><span class="c1">-- imgs/</span>
-        <span class="o">|</span>
-        <span class="o">|</span><span class="c1">-- /var/</span>
-</pre></div>
-
-
-<p>Description:</p>
-<ul>
-<li><code>brew.py</code> is the application entry point</li>
-<li><code>propel.yml</code> (optional) A deploy based config file</li>
-<li><code>requirements.txt</code> contains your requirements + mocha</li>
-<li><code>application/</code> contains the application's  models, config, helpers and manage</li>
-<li><code>application/views/</code>: contains your views modules</li>
-<li><code>application/templates/</code>: contains all templates relative to the views name</li>
-<li><code>application/static/</code>: contains all the app's assets: js, css, imgs, etc...</li>
-<li><code>application/var/</code>: contains var files: database, mail-template, uploads, etc...</li>
-</ul>
 <hr />
 <h2 id="your-first-app">Your first app</h2>
 <p>Here's what Mocha will do, and expecting:</p>

@@ -567,6 +567,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#environment-variable" class="md-nav__link">
+    Environment Variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gunicorn" class="md-nav__link">
     Gunicorn
   </a>
@@ -603,6 +610,18 @@
   </li>
 
     
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../contribute/" title="Contribute" class="md-nav__link">
+      Contribute
+    </a>
+  </li>
+
+    
   </ul>
 </nav>
                   </div>
@@ -628,6 +647,13 @@
   
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment-variable" class="md-nav__link">
+    Environment Variable
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#gunicorn" class="md-nav__link">
@@ -678,18 +704,30 @@
                 
                 <h2 id="deploy-options">Deploy Options</h2>
 <p>To get a comprehensive deploy options with Assembly, please follow <a href="https://flask.palletsprojects.com/en/1.1.x/deploying/" target="_blank"><strong>Deploying Options</strong></a> with Flask. Assembly is actually Flask, so everything on the link is valid for Assembly.</p>
-<p>Below are some of the options, you would be interested in</p>
+<p>Below are some of the options, you would be interested in.</p>
+<hr />
+<h3 id="environment-variable">Environment Variable</h3>
+<p><strong>Note</strong>: When deploying, make sure you set the right environment </p>
+<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span>
+<span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Development</span>
+</pre></div>
+
+
 <hr />
 <h3 id="gunicorn">Gunicorn</h3>
 <p>Gunicorn ‘Green Unicorn’ is a WSGI HTTP Server for UNIX. It’s a pre-fork worker model ported from Ruby’s Unicorn project. It supports both eventlet and greenlet.</p>
-<div class="codehilite"><pre><span></span>gunicorn -w 4 wsgi:app
+<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span>
+<span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span>
+<span class="n">gunicorn</span> <span class="o">-</span><span class="n">w</span> <span class="mi">4</span> <span class="n">wsgi</span><span class="p">:</span><span class="n">app</span>
 </pre></div>
 
 
 <hr />
 <h3 id="uwsgi">uWSGI</h3>
 <p>uWSGI is a fast application server written in C. It is very configurable which makes it more complicated to setup than gunicorn.</p>
-<div class="codehilite"><pre><span></span>uwsgi --http 127.0.0.1:5000 --module wsgi:app
+<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span>
+<span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span>
+<span class="n">uwsgi</span> <span class="c1">--http 127.0.0.1:5000 --module wsgi:app</span>
 </pre></div>
 
 
@@ -700,13 +738,8 @@
 <p>Gokku configuration is already shipped with Assembly, with <code>app.json</code>. The <code>app.json</code> will launch your website from 0 to 100 just like it would on Heroku. </p>
 <p>At the root  of the application, <strong>app.json</strong> is a manifest format for describing web apps. It declares environment variables, scripts, and other information required to run an app on your server.</p>
 <div class="codehilite"><pre><span></span><span class="err">{</span>
-  <span class="ss">&quot;name&quot;</span><span class="p">:</span> <span class="ss">&quot;domain.com&quot;</span><span class="p">,</span>
-  <span class="ss">&quot;version&quot;</span><span class="p">:</span> <span class="ss">&quot;0.0.1&quot;</span><span class="p">,</span>
-  <span class="ss">&quot;description&quot;</span><span class="p">:</span> <span class="ss">&quot;my application domain.com&quot;</span><span class="p">,</span>
   <span class="ss">&quot;gokku&quot;</span><span class="p">:</span> <span class="err">{</span>
-    <span class="ss">&quot;domain_name&quot;</span><span class="p">:</span> <span class="ss">&quot;domain.com&quot;</span><span class="p">,</span>
-    <span class="ss">&quot;runtime&quot;</span><span class="p">:</span> <span class="ss">&quot;python&quot;</span><span class="p">,</span>
-    <span class="ss">&quot;auto_restart&quot;</span><span class="p">:</span> <span class="k">true</span><span class="p">,</span>
+    <span class="ss">&quot;domain_name&quot;</span><span class="p">:</span> <span class="ss">&quot;myapp.domain.com&quot;</span><span class="p">,</span>
     <span class="ss">&quot;env&quot;</span><span class="p">:</span> <span class="err">{</span>
       <span class="ss">&quot;ASSEMBLY_ENV&quot;</span><span class="p">:</span> <span class="ss">&quot;Production&quot;</span><span class="p">,</span>
       <span class="ss">&quot;ASSEMBLY_APP&quot;</span><span class="p">:</span> <span class="ss">&quot;default&quot;</span>
@@ -757,6 +790,20 @@
             </div>
           </a>
         
+        
+          <a href="../contribute/" title="Contribute" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Contribute
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>

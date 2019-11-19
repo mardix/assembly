@@ -2,127 +2,132 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://mardix.github.com/assembly/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/install/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/architecture/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/tutorials/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/config/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/application/views/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/application/models/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/application/templates/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/application/static/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/wsgipy/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/request/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/response/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/redirect/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/signals/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/date/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/caching/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/csrf/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/mail/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/storage/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/pagination/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/utils/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/error-handling/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/advanced/sessions/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/cli/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://mardix.github.com/assembly/deploy/</loc>
-     <lastmod>2019-11-18</lastmod>
+     <lastmod>2019-11-19</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://mardix.github.com/assembly/contribute/</loc>
+     <lastmod>2019-11-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

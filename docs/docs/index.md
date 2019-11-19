@@ -18,12 +18,13 @@
 
 ## About
 
-**Assembly** is a pythonic object-oriented, mid stack, batteries included framework built on Flask, that adds structure 
-to your Flask application, and group your routes by class.
+**Assembly** is a pythonic object-oriented, mid stack, batteries included framework built on Flask, that adds structure to your Flask application, and group your routes by class.
 
-**Assembly** allows developers to build web applications in much the same way they would build any other object-oriented Python program. 
+**Assembly** allows you to build web applications in much the same way you would build any other object-oriented Python program. 
 
-Technically **Assembly** Makes Flask Great Again!
+**Assembly** helps you create small to enterprise level applications easily.
+
+**Assembly** Makes Flask Great Again!
 
 
 **[Installation Guide](install.md) **
@@ -100,7 +101,7 @@ Upon initialization you should have a structure similar to this:
         |- static
         |- cli.py
 
-    |- __data__/
+    |- _data/
 ```
 
 

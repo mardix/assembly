@@ -18,7 +18,7 @@ A basic application structure looks like this
     |- config.py
     |- requirements.txt
     |- app.json
-    |- __data__  
+    |- _data  
     |- main
         |- __init__.py
         |- __models__.py
@@ -45,7 +45,7 @@ Base files are at the root of the application. And `wsgi.py`, `config.py` are re
     |- config.py
     |- requirements.txt
     |- app.json
-    |- __data__  
+    |- _data  
 ```
 
 - `wsgi.py` is the application object. (required)
@@ -56,7 +56,7 @@ Base files are at the root of the application. And `wsgi.py`, `config.py` are re
 
 - `app.json`: Application manifest to deploy using Gokku
 
-- `__data__`: A variable directory, to put misc files, uploads, etc.
+- `_data`: A variable directory, to put misc files, uploads, etc.
 
 
 ---

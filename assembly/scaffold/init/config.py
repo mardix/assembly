@@ -28,7 +28,7 @@ import os
 ROOT_DIR = os.path.dirname(__file__)
 
 # Data directory
-DATA_DIR = os.path.join(ROOT_DIR, "__data__")
+DATA_DIR = os.path.join(ROOT_DIR, "_data")
 
 
 class BaseConfig(object):

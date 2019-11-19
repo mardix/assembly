@@ -145,7 +145,7 @@ We can also use `{{...}}` to assign variables.
 
 File base templates is supported. Place the templates in a directory. 
 
-By default, Assembly places them in `./__data__/emails-templates/` 
+By default, Assembly places them in `./_data/emails-templates/` 
 
 Place your templates files in there. The files name will be used to retrieve the template.
 
@@ -160,7 +160,7 @@ MAIL_TEMPLATES_DIR = os.path.join(DATA_DIR, "mail-templates")
 Structure of the templates directory
 
 ```
-/__data__/email-templates
+/_data/email-templates
     |
     |_ welcome.txt
     |

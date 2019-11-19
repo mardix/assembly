@@ -16,6 +16,8 @@
 
 ### [Assembly Documentation](http://mardix.github.io/assembly/)
 
+Assembly Version: 1.x.x
+
 ---
 
 ## Assembly in action 

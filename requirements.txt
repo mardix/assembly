@@ -22,6 +22,9 @@ blinker>=1.4
 itsdangerous>=1.1.0
 requests>=2.13.0
 paginator
+pyyaml
 
 # To remove when botocore is upgraded
 python-dateutil<2.8.1
+
+

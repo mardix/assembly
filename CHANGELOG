@@ -1,4 +1,11 @@
 
+## 1.0.2
+(Nov 20 2019)
+
+- rename module 'extensions' to '_extensions' to indicate not to import
+
+---
+
 ## 1.0.1
 (Nov 20 2019)
 

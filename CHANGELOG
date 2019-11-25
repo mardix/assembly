@@ -1,7 +1,8 @@
 
-## 1.0.2
-(Nov 20 2019)
+## 1.1.0
+(Nov 24 2019)
 
+- added set_cookie(), get_cookie(), delete_cookie()
 - rename module 'extensions' to '_extensions' to indicate not to import
 
 ---

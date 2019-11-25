@@ -55,6 +55,7 @@ pages:
     - Utils: advanced/utils.md    
     - Error Handling: advanced/error-handling.md  
     - Sessions: advanced/sessions.md      
+    - Cookies: advanced/cookies.md      
   - CLI: cli.md
   - Deployment: deploy.md
   - Contribute: contribute.md

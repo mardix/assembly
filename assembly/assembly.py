@@ -50,6 +50,9 @@ __all__ = [
     "config",
     "models",
     "session",
+    "get_cookie",
+    "set_cookie",
+    "delete_cookie",
     "app_context",
     "url_for",
     "redirect",
@@ -193,6 +196,39 @@ def redirect(endpoint, **kw):
                     endpoint = r.endpoint
 
     return f_redirect(url_for(endpoint, **kw))
+
+
+
+"""
+Cookies
+set_cookie, caches set_cookie *args **kwargs in the g object
+because response is not available at the time of invoke
+When we receive the response for rendering, we actually set_cookie
+set_cookie is a method of the response object.
+"""
+__ASM_SET_COOKIES__ = "__ASM_SET_COOKIES__"
+def set_cookie(*a, **kw):
+    """
+    Proxy to response.set_cookie()
+    It caches the cookies to be set in the g object
+    """   
+    cookies = [] 
+    if __ASM_SET_COOKIES__ in g:
+        cookies = getattr(g, __ASM_SET_COOKIES__)
+    cookies.append((a, kw))
+    setattr(g, __ASM_SET_COOKIES__, cookies)
+    
+def delete_cookie(key, path="/", domain=None):
+    """
+    To delete a cookie
+    """
+    set_cookie(key, expires=0, max_age=0, path=path, domain=domain)
+
+def get_cookie(key):
+    """
+    Get a cookie. Alias to request.cookies
+    """
+    return request.cookies.get(key)
 
 # ------------------------------------------------------------------------------
 # Assembly core class
@@ -580,6 +616,11 @@ class Assembly(object):
             if hasattr(i, "_after_request"):
                 response = i._after_request(name, response)
 
+            #  set_cookie on the response, which was cached in the g object
+            if __ASM_SET_COOKIES__ in g:
+                cookies = g.pop(__ASM_SET_COOKIES__)
+                for cookie in cookies:
+                    response.set_cookie(*cookie[0], **cookie[1])
             return response
 
         return proxy

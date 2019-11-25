@@ -555,15 +555,15 @@
     Usage
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
-    API
-  </a>
-  
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#set_cookie" class="md-nav__link">
@@ -673,15 +673,15 @@
     Usage
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
-    API
-  </a>
-  
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#set_cookie" class="md-nav__link">
@@ -731,29 +731,107 @@
                   <h1>Cookies</h1>
                 
                 <h2 id="overview">Overview</h2>
-<p>Assembly allows you to easily, set, get and delete cookie. It exposes some function
-that will help you.</p>
+<p>Assembly allows you to easily, set, get and delete cookie. It exposes some functions
+to help you with that.</p>
+<hr />
 <h2 id="usage">Usage</h2>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">set_cookie</span><span class="p">,</span> <span class="n">get_cookie</span><span class="p">,</span> <span class="n">delete_cookie</span>
+<h3 id="import">Import</h3>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span>  <span class="n">set_cookie</span><span class="p">,</span> <span class="n">get_cookie</span><span class="p">,</span> <span class="n">delete_cookie</span>
+</pre></div>
+
+
+<hr />
+<h3 id="set_cookie">set_cookie</h3>
+<p>To set a cookie</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">set_cookie</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
   <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-    <span class="c1"># set a cookie</span>
-
     <span class="n">set_cookie</span><span class="p">(</span><span class="s2">&quot;my_key&quot;</span><span class="p">,</span> <span class="s2">&quot;my_value&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> 
-
-  <span class="k">def</span> <span class="nf">show_cookie</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </pre></div>
 
 
-<h2 id="api">API</h2>
-<h3 id="set_cookie">set_cookie</h3>
+<div class="codehilite"><pre><span></span><span class="nv">set_cookie</span><span class="ss">(</span>
+          <span class="nv">key</span>,
+          <span class="nv">value</span><span class="o">=</span><span class="s2">&quot;&quot;</span>,
+          <span class="nv">max_age</span><span class="o">=</span><span class="nv">None</span>,
+          <span class="nv">expires</span><span class="o">=</span><span class="nv">None</span>,
+          <span class="nv">path</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">/</span><span class="s2">&quot;</span>,
+          <span class="nv">domain</span><span class="o">=</span><span class="nv">None</span>,
+          <span class="nv">secure</span><span class="o">=</span><span class="nv">False</span>,
+          <span class="nv">httponly</span><span class="o">=</span><span class="nv">False</span>,
+          <span class="nv">samesite</span><span class="o">=</span><span class="nv">None</span><span class="ss">)</span>
+
+<span class="nv">Sets</span> <span class="nv">a</span> <span class="nv">cookie</span>. <span class="nv">The</span> <span class="nv">parameters</span> <span class="nv">are</span> <span class="nv">the</span> <span class="nv">same</span> <span class="nv">as</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">cookie</span> `<span class="nv">Morsel</span>`
+<span class="nv">object</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">Python</span> <span class="nv">standard</span> <span class="nv">library</span> <span class="nv">but</span> <span class="nv">it</span> <span class="nv">accepts</span> <span class="nv">unicode</span> <span class="nv">data</span>, <span class="nv">too</span>.
+
+<span class="nl">:param</span> <span class="nv">key</span>: <span class="nv">the</span> <span class="nv">key</span> <span class="ss">(</span><span class="nv">name</span><span class="ss">)</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">cookie</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">set</span>.
+<span class="nl">:param</span> <span class="nv">value</span>: <span class="nv">the</span> <span class="nv">value</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">cookie</span>.
+<span class="nl">:param</span> <span class="nv">max_age</span>: <span class="nv">should</span> <span class="nv">be</span> <span class="nv">a</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">seconds</span>, <span class="nv">or</span> `<span class="nv">None</span>` <span class="ss">(</span><span class="nv">default</span><span class="ss">)</span> <span class="k">if</span>
+                <span class="nv">the</span> <span class="nv">cookie</span> <span class="nv">should</span> <span class="nv">last</span> <span class="nv">only</span> <span class="nv">as</span> <span class="nv">long</span> <span class="nv">as</span> <span class="nv">the</span> <span class="nv">client</span><span class="s1">&#39;</span><span class="s">s</span>
+                <span class="nv">browser</span> <span class="nv">session</span>.
+<span class="nl">:param</span> <span class="nv">expires</span>: <span class="nv">should</span> <span class="nv">be</span> <span class="nv">a</span> `<span class="nv">datetime</span>` <span class="nv">object</span> <span class="nv">or</span> <span class="nv">UNIX</span> <span class="nv">timestamp</span>.
+<span class="nl">:param</span> <span class="nv">path</span>: <span class="nv">limits</span> <span class="nv">the</span> <span class="nv">cookie</span> <span class="nv">to</span> <span class="nv">a</span> <span class="nv">given</span> <span class="nv">path</span>, <span class="nv">per</span> <span class="nv">default</span> <span class="nv">it</span> <span class="nv">will</span>
+              <span class="nv">span</span> <span class="nv">the</span> <span class="nv">whole</span> <span class="nv">domain</span>.
+<span class="nl">:param</span> <span class="nv">domain</span>: <span class="k">if</span> <span class="nv">you</span> <span class="nv">want</span> <span class="nv">to</span> <span class="nv">set</span> <span class="nv">a</span> <span class="nv">cross</span><span class="o">-</span><span class="nv">domain</span> <span class="nv">cookie</span>.  <span class="k">For</span> <span class="nv">example</span>,
+                ``<span class="nv">domain</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">.example.com</span><span class="s2">&quot;</span>`` <span class="nv">will</span> <span class="nv">set</span> <span class="nv">a</span> <span class="nv">cookie</span> <span class="nv">that</span> <span class="nv">is</span>
+                <span class="nv">readable</span> <span class="nv">by</span> <span class="nv">the</span> <span class="nv">domain</span> ``<span class="nv">www</span>.<span class="nv">example</span>.<span class="nv">com</span>``,
+                ``<span class="nv">foo</span>.<span class="nv">example</span>.<span class="nv">com</span>`` <span class="nv">etc</span>.  <span class="nv">Otherwise</span>, <span class="nv">a</span> <span class="nv">cookie</span> <span class="nv">will</span> <span class="nv">only</span>
+                <span class="nv">be</span> <span class="nv">readable</span> <span class="nv">by</span> <span class="nv">the</span> <span class="nv">domain</span> <span class="nv">that</span> <span class="nv">set</span> <span class="nv">it</span>.
+<span class="nl">:param</span> <span class="nv">secure</span>: <span class="k">If</span> `<span class="nv">True</span>`, <span class="nv">the</span> <span class="nv">cookie</span> <span class="nv">will</span> <span class="nv">only</span> <span class="nv">be</span> <span class="nv">available</span> <span class="nv">via</span> <span class="nv">HTTPS</span>
+<span class="nl">:param</span> <span class="nv">httponly</span>: <span class="nv">disallow</span> <span class="nv">JavaScript</span> <span class="nv">to</span> <span class="nv">access</span> <span class="nv">the</span> <span class="nv">cookie</span>.  <span class="nv">This</span> <span class="nv">is</span> <span class="nv">an</span>
+                  <span class="nv">extension</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">cookie</span> <span class="nv">standard</span> <span class="nv">and</span> <span class="nv">probably</span> <span class="nv">not</span>
+                  <span class="nv">supported</span> <span class="nv">by</span> <span class="nv">all</span> <span class="nv">browsers</span>.
+<span class="nl">:param</span> <span class="nv">samesite</span>: <span class="nv">Limits</span> <span class="nv">the</span> <span class="nv">scope</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">cookie</span> <span class="nv">such</span> <span class="nv">that</span> <span class="nv">it</span> <span class="nv">will</span> <span class="nv">only</span>
+                  <span class="nv">be</span> <span class="nv">attached</span> <span class="nv">to</span> <span class="nv">requests</span> <span class="k">if</span> <span class="nv">those</span> <span class="nv">requests</span> <span class="nv">are</span>
+                  <span class="s2">&quot;</span><span class="s">same-site</span><span class="s2">&quot;</span>.
+</pre></div>
+
+
+<hr />
 <h3 id="get_cookie">get_cookie</h3>
+<p>To retrieve a cookie. It will return <code>None</code> if the key doesn't exist.</p>
+<p>You can also retrieve the cookie with <code>request.cookies</code></p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">get_cookie</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="n">get_cookie</span><span class="p">(</span><span class="s2">&quot;my_key&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> 
+</pre></div>
+
+
+<hr />
 <h3 id="delete_cookie">delete_cookie</h3>
+<p>To delete a cookie that was set. It will silently fail if it doesn't exist</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">delete_cookie</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+    <span class="n">delete_cookie</span><span class="p">(</span><span class="s2">&quot;my_key&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> 
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="nv">delete_cookie</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">key</span>, <span class="nv">path</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">/</span><span class="s2">&quot;</span>, <span class="nv">domain</span><span class="o">=</span><span class="nv">None</span><span class="ss">)</span>
+
+<span class="nv">Delete</span> <span class="nv">a</span> <span class="nv">cookie</span>.  <span class="nv">Fails</span> <span class="nv">silently</span> <span class="k">if</span> <span class="nv">key</span> <span class="nv">doesn</span><span class="s1">&#39;</span><span class="s">t exist.</span>
+<span class="nl">:param</span> <span class="nv">key</span>: <span class="nv">the</span> <span class="nv">key</span> <span class="ss">(</span><span class="nv">name</span><span class="ss">)</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">cookie</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">deleted</span>.
+<span class="nl">:param</span> <span class="nv">path</span>: <span class="k">if</span> <span class="nv">the</span> <span class="nv">cookie</span> <span class="nv">that</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">deleted</span> <span class="nv">was</span> <span class="nv">limited</span> <span class="nv">to</span> <span class="nv">a</span>
+              <span class="nv">path</span>, <span class="nv">the</span> <span class="nv">path</span> <span class="nv">has</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">defined</span> <span class="nv">here</span>.
+<span class="nl">:param</span> <span class="nv">domain</span>: <span class="k">if</span> <span class="nv">the</span> <span class="nv">cookie</span> <span class="nv">that</span> <span class="nv">should</span> <span class="nv">be</span> <span class="nv">deleted</span> <span class="nv">was</span> <span class="nv">limited</span> <span class="nv">to</span> <span class="nv">a</span>
+                <span class="nv">domain</span>, <span class="nv">that</span> <span class="nv">domain</span> <span class="nv">has</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">defined</span> <span class="nv">here</span>.
+</pre></div>
                 
                   
                 

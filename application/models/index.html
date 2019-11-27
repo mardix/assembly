@@ -348,15 +348,62 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dbmodel" class="md-nav__link">
-    db.Model
+  <a href="#create-models" class="md-nav__link">
+    Create Models
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-columns" class="md-nav__link">
+    Default Columns
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-tables" class="md-nav__link">
-    Create tables
+  <a href="#table-name" class="md-nav__link">
+    Table name
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#define-table-name" class="md-nav__link">
+    Define table name
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-command" class="md-nav__link">
+    CLI Command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model9595sync__" class="md-nav__link">
+    Model.__sync__
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dbmodel" class="md-nav__link">
+    db.Model
   </a>
   
 </li>
@@ -833,15 +880,62 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dbmodel" class="md-nav__link">
-    db.Model
+  <a href="#create-models" class="md-nav__link">
+    Create Models
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-columns" class="md-nav__link">
+    Default Columns
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-tables" class="md-nav__link">
-    Create tables
+  <a href="#table-name" class="md-nav__link">
+    Table name
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#define-table-name" class="md-nav__link">
+    Define table name
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-command" class="md-nav__link">
+    CLI Command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model9595sync__" class="md-nav__link">
+    Model.__sync__
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dbmodel" class="md-nav__link">
+    db.Model
   </a>
   
 </li>
@@ -1117,7 +1211,9 @@ other drivers for better performance. <code>SQLite</code> is already built in Py
 </pre></div>
 
 
-<p>To start, create a model class and extends it with <code>db.Model</code></p>
+<hr />
+<h3 id="create-models">Create Models</h3>
+<p>Create model classes by extending your class to <code>db.Model</code>. By default Assembly will look for <code>__models__.py</code> to exist to automatically load your models.</p>
 <div class="codehilite"><pre><span></span><span class="c1"># main/__models__.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">db</span>
@@ -1130,16 +1226,64 @@ other drivers for better performance. <code>SQLite</code> is already built in Py
 </pre></div>
 
 
+<h4 id="default-columns">Default Columns</h4>
+<p>Upon creation of the table, db.Model will add the following columns: </p>
+<div class="codehilite"><pre><span></span><span class="n">id</span>
+<span class="n">created_at</span>
+<span class="n">upated_at</span>
+<span class="n">is_deleted</span> 
+<span class="n">deleted_at</span>
+</pre></div>
+
+
+<h4 id="table-name">Table name</h4>
+<p>ActiveAlchemy does an automatic table naming by using the class name.</p>
+<p>The class name should be in PascalCase (UpperCamelCase) when combining multiple words, ie: <code>TodoList</code>.</p>
+<p>PascalCase name will be converted into <strong>lower_underscore_case</strong> to be used as the table name in the DB. ie: <code>TodoList</code> -&gt; <code>todo_list</code>.</p>
+<p>The table names will be not be plurialized.</p>
+<p>The <strong>underscore_case</strong> of the Model name will be used as the table name.</p>
+<p>Examples</p>
 <ul>
-<li>
-<p>Upon creation of the table, db.Model will add the following columns: <code>id</code>, <code>created_at</code>, <code>upated_at</code>, <code>is_deleted</code>, <code>deleted_at</code></p>
-</li>
-<li>
-<p>It does an automatic table naming (if no table name is already defined using the <code>__tablename__</code> property)
-by using the class name. So, for example, a <code>Article</code> model gets a table named <code>article</code>,  <code>User</code> becomes <code>user</code>, <code>TodoList</code> becomes <code>todo_list</code>
-The name will not be plurialized.</p>
-</li>
+<li><code>Article</code> model gets a table named <code>article</code>,  </li>
+<li><code>User</code> becomes <code>user</code>, </li>
+<li><code>TodoList</code> becomes <code>todo_list</code></li>
 </ul>
+<h5 id="define-table-name">Define table name</h5>
+<p>To define your own table name, or to create a model from an existing table name, assign <code>__tablename__</code> property to the value of the table name.</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="n">TodoList</span>(<span class="n">db</span>.<span class="n">Model</span>):
+    <span class="n">__tablename__</span> = <span class="s">&quot;my_existing_table_name&quot;</span>
+</pre></div>
+
+
+<hr />
+<h4 id="cli-command">CLI Command</h4>
+<p>Having created all your models in <code>__models__.py</code>, to create the tables, you need to use the CLI command.</p>
+<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">sync</span><span class="o">-</span><span class="n">models</span>
+</pre></div>
+
+
+<p>This command automatically connects to the DB and only creates the tables that don't exist in the DB.</p>
+<p><strong>Note</strong> You must run the CLI command to create tables.</p>
+<p><strong>Note</strong> In your deploy tool, make sure you have this command to be executed.</p>
+<hr />
+<h4 id="model9595sync__">Model.__sync__</h4>
+<p><em>Version: 1.2.0</em></p>
+<p><code>Model.__sync__()</code> is a class method to add in your Model class that will be executed, when <code>asm-admin sync-models</code> is run. It will allow you to run some routines to setup some data once it's created, or if you want to do some other updates or housekeeping</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">db</span>
+
+<span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">__sync__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Assembly&quot;</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Total: </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="bp">cls</span><span class="o">.</span><span class="n">query</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+</pre></div>
+
+
+<p>Upon running <code>asm-admin sync-models</code>, <code>__sync__()</code> will also be executed.</p>
+<hr />
 <h3 id="dbmodel">db.Model</h3>
 <p><strong>db.Model</strong> extends your model with helpers that turn your model into an active record like model. But underneath, it still uses the <code>db.session</code> </p>
 <p><strong>db.Model</strong> also adds a few preset columns on the table: </p>
@@ -1149,15 +1293,6 @@ The name will not be plurialized.</p>
 <p><code>deleted_at</code>: Datetime. Contains the datetime the record was soft-deleted. </p>
 <p><code>is_deleted</code>: Boolean. A flag to set if record is soft-deleted or not</p>
 <p><strong>Soft delete</strong> marks a record as deleted so it doesn't get queried, but it still exists in the database. This allows you to undo a delete. If you want to completely delete an entry, you can set <code>$entry.delete(hard_delete=True)</code> to do so. </p>
-<hr />
-<h3 id="create-tables">Create tables</h3>
-<p>Having created all your models in <code>__models__.py</code>, to create the tables, you need to use the CLI command.</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">sync</span><span class="o">-</span><span class="n">models</span>
-</pre></div>
-
-
-<p>It will automatically create all the models if they don't exist.</p>
-<p><strong>Note</strong> Whenever you are launching your application, make sure this command gets executed. Otherwise the tables will not exist.</p>
 <hr />
 <h3 id="crud">CRUD</h3>
 <p>Below are example of some CRUD operations you can do with your models.</p>

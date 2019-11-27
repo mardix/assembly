@@ -3,6 +3,8 @@
 Assembly allows you to easily, set, get and delete cookie. It exposes some functions
 to help you with that.
 
+*version: 1.1.0*
+
 ---
 
 ## Usage

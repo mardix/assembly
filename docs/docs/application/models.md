@@ -129,7 +129,13 @@ Assembly, when **DB_URL** is set, will attempt to automatically connect to the d
 from assembly import db
 ```
 
-To start, create a model class and extends it with `db.Model`
+
+---
+
+### Create Models
+
+Create model classes by extending your class to `db.Model`. By default Assembly will look for `__models__.py` to exist to automatically load your models.
+
 
 ```
 # main/__models__.py
@@ -144,11 +150,90 @@ class Article(db.Model):
     
 ```
 
-- Upon creation of the table, db.Model will add the following columns: `id`, `created_at`, `upated_at`, `is_deleted`, `deleted_at`
+#### Default Columns
 
-- It does an automatic table naming (if no table name is already defined using the `__tablename__` property)
-by using the class name. So, for example, a `Article` model gets a table named `article`,  `User` becomes `user`, `TodoList` becomes `todo_list`
-The name will not be plurialized.
+Upon creation of the table, db.Model will add the following columns: 
+
+```
+id
+created_at
+upated_at
+is_deleted 
+deleted_at
+```
+
+#### Table name
+
+ActiveAlchemy does an automatic table naming by using the class name.
+
+The class name should be in PascalCase (UpperCamelCase) when combining multiple words, ie: `TodoList`.
+
+PascalCase name will be converted into **lower_underscore_case** to be used as the table name in the DB. ie: `TodoList` -> `todo_list`.
+
+The table names will be not be plurialized.
+
+The **underscore_case** of the Model name will be used as the table name.
+
+
+Examples
+
+- `Article` model gets a table named `article`,  
+- `User` becomes `user`, 
+- `TodoList` becomes `todo_list`
+
+
+##### Define table name
+
+To define your own table name, or to create a model from an existing table name, assign `__tablename__` property to the value of the table name.
+
+```
+class TodoList(db.Model):
+    __tablename__ = "my_existing_table_name"
+
+```
+
+---
+
+#### CLI Command
+
+Having created all your models in `__models__.py`, to create the tables, you need to use the CLI command.
+
+```
+asm-admin sync-models
+```
+
+This command automatically connects to the DB and only creates the tables that don't exist in the DB.
+
+**Note** You must run the CLI command to create tables.
+
+**Note** In your deploy tool, make sure you have this command to be executed.
+
+---
+
+#### Model.\_\_sync__
+
+*Version: 1.2.0*
+
+`Model.__sync__()` is a class method to add in your Model class that will be executed, when `asm-admin sync-models` is run. It will allow you to run some routines to setup some data once it's created, or if you want to do some other updates or housekeeping
+
+```
+from assembly import db
+
+class Test(db.Model):
+    name = db.Column(db.String(20))
+
+    @classmethod
+    def __sync__(cls):
+        cls.create(name="Assembly")
+
+        print("Total: %s " % cls.query().count())
+
+```
+
+Upon running `asm-admin sync-models`, `__sync__()` will also be executed.
+
+
+---
 
 ### db.Model
 
@@ -168,19 +253,7 @@ The name will not be plurialized.
 
 **Soft delete** marks a record as deleted so it doesn't get queried, but it still exists in the database. This allows you to undo a delete. If you want to completely delete an entry, you can set `$entry.delete(hard_delete=True)` to do so. 
 
----
 
-### Create tables
-
-Having created all your models in `__models__.py`, to create the tables, you need to use the CLI command.
-
-```
-asm-admin sync-models
-```
-
-It will automatically create all the models if they don't exist.
-
-**Note** Whenever you are launching your application, make sure this command gets executed. Otherwise the tables will not exist.
 
 ---
 

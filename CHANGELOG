@@ -1,3 +1,9 @@
+## 1.2.0
+(Nov 27 2019)
+
+- Update CLI `asm-admin sync-models` to execute `Model.__sync__()` to run routines on a table 
+  upon creating or updating a table.
+
 
 ## 1.1.0
 (Nov 24 2019)

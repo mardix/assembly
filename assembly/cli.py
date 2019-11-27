@@ -200,10 +200,10 @@ def sync_models():
     if db and hasattr(db, "Model"):
         db.create_all()
         for m in db.Model.__subclasses__():
-            if hasattr(m, "initialize__"):
-                print("Sync up model: %s ..." % m.__name__)
-                getattr(m, "initialize__")()
-
+            if hasattr(m, "__sync__"):
+                print("- {name}: {module}.{name}".format(module=m.__module__, name=m.__name__))
+                getattr(m, "__sync__")()
+        print("")
 
 @cli_admin.command("upload-assets-s3")
 @catch_exception

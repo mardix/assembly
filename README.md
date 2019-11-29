@@ -23,7 +23,7 @@ Assembly Version: 1.x.x
 ## Assembly in action 
 
 
-```
+```python
 # views.py
 
 from assembly import (Assembly, response, request, HTTPError)
@@ -183,7 +183,7 @@ Install Assembly with `pip install assembly`
 It is highly recommended to use a virtualenv, in this case let's
 use VirtualenvWrapper (you can use any that is convenient for you)
 
-```
+```sh
 mkvirtualenv my-first-app
 
 workon my-first-app
@@ -200,7 +200,7 @@ Initialize Assembly with `asm-admin init`
 CD into the folder you intend to create the application, then run `asm-admin init`. 
 This will setup the structure along with the necessary files to get started
 
-```
+```sh
 
 cd app-dir
 
@@ -210,7 +210,7 @@ asm-admin init
 
 Upon initialization you should have a structure similar to this:
 
-```
+```sh
 -- /
     |- wsgi.py
     |- config.py
@@ -233,7 +233,7 @@ Upon initialization you should have a structure similar to this:
 
 ### 3. Edit your first view
 
-```
+```python
 
 # main/__init__.py
 
@@ -260,7 +260,7 @@ class Index(Assembly):
 
 #### 4.0 Edit base layout 
 
-```
+```html
 <!-- main/templates/layouts/base.html -->
 
 <!doctype html>
@@ -279,7 +279,7 @@ class Index(Assembly):
 ```
 
 #### 4.1  Edit Index/index.html
-```
+```html
 
 <!-- main/templates/Index/index.html -->
 
@@ -304,7 +304,7 @@ class Index(Assembly):
 
 If everything is all set, all you need to do now is run your site:
 
-```
+```sh
 asm-admin serve
 ```
 

@@ -887,14 +887,14 @@ This will setup the structure along with the necessary files to get started</p>
 
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly is awesome&quot;</span><span class="p">,</span>
             <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;That is a true fact&quot;</span>
         <span class="p">}</span>
 
     <span class="nd">@response.json</span>
-    <span class="n">api</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">api</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly&quot;</span><span class="p">,</span>
             <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;x-to-infinity&quot;</span>

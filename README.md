@@ -34,17 +34,17 @@ class Index(Assembly):
 
     # index is the entry route
     # -> /
-    index(self):
+    def index(self):
         return "welcome to my site"
 
     # method name becomes the route
     # -> /hello/
-    hello(self):
+    def hello(self):
         return "I am a string"
 
     # undescore method name will be dasherize
     # -> /about-us/
-    about_us(self):
+    def about_us(self):
         return "I am a string"
 
 
@@ -54,7 +54,7 @@ class Blog(Assembly):
     
     # index will be the root 
     # -> /blog/
-    index(self):
+    def index(self):
         return [
             {
                 "title": "title 1",
@@ -66,7 +66,7 @@ class Blog(Assembly):
     # with params. The order will be respected
     # -> /comments/1234/
     # 1234 will be passed to the id
-    comments(self, id):
+    def comments(self, id):
         return [
             {
                 comments...
@@ -79,14 +79,14 @@ class Api(Assembly):
 
     # method named get, automatically accepts get method
     # -> GET /api/
-    get(self):
+    def get(self):
         return {
             "message": "This will show on get call"
         }
 
     # method named post, automatically accepts post method
     # -> POST /api/
-    post(self):
+    def post(self):
         return {
             "message": "This will show on POST call"
         }
@@ -94,7 +94,7 @@ class Api(Assembly):
     # Can change the response to json
     # -> /api/about/
     @response.json
-    about(self): 
+    def about(self): 
         return {
             "name": "Assembly",
             "version": "1.0.1"
@@ -103,13 +103,13 @@ class Api(Assembly):
     # endpoint with different method 
     # -> POST /api/submit/
     @request.post
-    submit(self):
+    def submit(self):
         return {
             "message": "This will show on POST call only"
         }
 
     # This will throw an Unauthorize error
-    error(self):
+    def error(self):
         raise HTTPError.Unauthorized()
 
 ```
@@ -241,14 +241,14 @@ from assembly import (Assembly, response)
 
 class Index(Assembly):
     
-    index(self):
+    def index(self):
         return {
             "title": "Assembly is awesome",
             "content": "That is a true fact"
         }
 
     @response.json
-    api(self):
+    def api(self):
         return {
             "name": "Assembly",
             "version": "x-to-infinity"

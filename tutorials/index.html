@@ -796,14 +796,14 @@
 <p><code>asm-admin gen-template-view admin</code></p>
 <p>This will generate a View package with <code>__init__.py</code>, <code>__models__.py</code>, <code>templates/</code>, <code>static/</code>, <code>cli.py</code>.</p>
 <p><strong>Import in wsgi.py</strong></p>
-<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># wsgi.py</span>
 
-<span class="n">APPS</span> <span class="o">=</span> <span class="err">{</span>
-  <span class="ss">&quot;default&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="ss">&quot;main&quot;</span><span class="p">,</span>
-    <span class="ss">&quot;admin&quot;</span>
-  <span class="p">]</span>
-<span class="err">}</span>
+<span class="nv">APPS</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="s2">&quot;default&quot;</span>: <span class="o">[</span>
+    <span class="s2">&quot;main&quot;</span>,
+    <span class="s2">&quot;admin&quot;</span>
+  <span class="o">]</span>
+<span class="o">}</span>
 </pre></div>
 
 
@@ -815,14 +815,14 @@
 <span class="nd">@response.route</span><span class="p">(</span><span class="s2">&quot;/admin/&quot;</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly is awesome&quot;</span><span class="p">,</span>
             <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;That is a true fact&quot;</span>
         <span class="p">}</span>
 
     <span class="nd">@response.json</span>
-    <span class="n">api</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">api</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly&quot;</span><span class="p">,</span>
             <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;x-to-infinity&quot;</span>
@@ -833,18 +833,18 @@
 <p><strong>Edit Index/index.html</strong></p>
 <div class="codehilite"><pre><span></span><span class="c">&lt;!-- admin/templates/Index/index.html --&gt;</span>
 
-<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;main/layouts/base.html&#39;</span> <span class="cp">%}</span>
+{% extends &#39;main/layouts/base.html&#39; %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>Welcome to Admin <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block title %}Welcome to Admin {% endblock %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
-    <span class="nt">&lt;div&gt;</span>
-        <span class="nt">&lt;h1&gt;</span><span class="cp">{{</span> <span class="nv">title</span> <span class="cp">}}</span><span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div&gt;</span>
-        <span class="cp">{{</span> <span class="nv">content</span> <span class="cp">}}</span>
-    <span class="nt">&lt;/div&gt;</span>
-<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block body %}
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{ title }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        {{ content }}
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endblock %}
 </pre></div>
 
 

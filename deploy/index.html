@@ -720,17 +720,17 @@
 <hr />
 <h3 id="environment-variable">Environment Variable</h3>
 <p><strong>Note</strong>: When deploying, make sure you set the right environment </p>
-<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span>
-<span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Development</span>
+<div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">ASSEMBLY_APP</span><span class="o">=</span>default
+<span class="nb">export</span> <span class="nv">ASSEMBLY_ENV</span><span class="o">=</span>Development
 </pre></div>
 
 
 <hr />
 <h3 id="gunicorn">Gunicorn</h3>
 <p>Gunicorn ‘Green Unicorn’ is a WSGI HTTP Server for UNIX. It’s a pre-fork worker model ported from Ruby’s Unicorn project. It supports both eventlet and greenlet.</p>
-<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span>
-<span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span>
-<span class="n">gunicorn</span> <span class="o">-</span><span class="n">w</span> <span class="mi">4</span> <span class="n">wsgi</span><span class="p">:</span><span class="n">app</span>
+<div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">ASSEMBLY_APP</span><span class="o">=</span>default
+<span class="nb">export</span> <span class="nv">ASSEMBLY_ENV</span><span class="o">=</span>Production
+gunicorn -w <span class="m">4</span> wsgi:app
 </pre></div>
 
 
@@ -749,24 +749,24 @@
 <p>Learn more about <a href="https://github.com/mardix/gokku" target="_blank"><strong>Gokku</strong></a></p>
 <p>Gokku configuration is already shipped with Assembly, with <code>app.json</code>. The <code>app.json</code> will launch your website from 0 to 100 just like it would on Heroku. </p>
 <p>At the root  of the application, <strong>app.json</strong> is a manifest format for describing web apps. It declares environment variables, scripts, and other information required to run an app on your server.</p>
-<div class="codehilite"><pre><span></span><span class="err">{</span>
-  <span class="ss">&quot;gokku&quot;</span><span class="p">:</span> <span class="err">{</span>
-    <span class="ss">&quot;domain_name&quot;</span><span class="p">:</span> <span class="ss">&quot;myapp.domain.com&quot;</span><span class="p">,</span>
-    <span class="ss">&quot;env&quot;</span><span class="p">:</span> <span class="err">{</span>
-      <span class="ss">&quot;ASSEMBLY_ENV&quot;</span><span class="p">:</span> <span class="ss">&quot;Production&quot;</span><span class="p">,</span>
-      <span class="ss">&quot;ASSEMBLY_APP&quot;</span><span class="p">:</span> <span class="ss">&quot;default&quot;</span>
-    <span class="err">}</span><span class="p">,</span>
-    <span class="ss">&quot;scripts&quot;</span><span class="p">:</span> <span class="err">{</span>
-      <span class="ss">&quot;release&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="ss">&quot;asm-admin sync-models&quot;</span><span class="p">,</span>
-        <span class="ss">&quot;asm setup&quot;</span>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;gokku&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;domain_name&quot;</span><span class="o">:</span> <span class="s2">&quot;myapp.domain.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;ASSEMBLY_ENV&quot;</span><span class="o">:</span> <span class="s2">&quot;Production&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;ASSEMBLY_APP&quot;</span><span class="o">:</span> <span class="s2">&quot;default&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;release&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;asm-admin sync-models&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;asm setup&quot;</span>
       <span class="p">]</span>
-    <span class="err">}</span><span class="p">,</span>    
-    <span class="ss">&quot;run&quot;</span><span class="p">:</span> <span class="err">{</span>
-      <span class="ss">&quot;web&quot;</span><span class="p">:</span> <span class="ss">&quot;wsgi:app&quot;</span>
-    <span class="err">}</span>
-  <span class="err">}</span>
-<span class="err">}</span>
+    <span class="p">},</span>    
+    <span class="s2">&quot;run&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;web&quot;</span><span class="o">:</span> <span class="s2">&quot;wsgi:app&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
                 
                   

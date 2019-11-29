@@ -750,13 +750,13 @@ where <code>wsgi.py</code> exists.</p>
 of the <code>BaseConfig</code>, this way they can share some common config.</p>
 <p>The environment classes will be loaded on Assembly startup. By default, and in development, Assembly will attempt to load the <code>Development</code> if one isn't provided.</p>
 <p>To switch to a different config, you have to set the environment variable, or in production</p>
-<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span>
-<span class="n">export</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span>
+<div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">ASSEMBLY_ENV</span><span class="o">=</span>Production
+<span class="nb">export</span> <span class="nv">ASSEMBLY_APP</span><span class="o">=</span>default
 </pre></div>
 
 
 <p>or to set the application along with the environment</p>
-<div class="codehilite"><pre><span></span><span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span> <span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">serve</span>
+<div class="codehilite"><pre><span></span><span class="nv">ASSEMBLY_ENV</span><span class="o">=</span>Production <span class="nv">ASSEMBLY_APP</span><span class="o">=</span>default asm-admin serve
 </pre></div>
 
 
@@ -769,7 +769,7 @@ environment, could be for testing, prod, dev, etc.</p>
 <p><code>config</code> is a subset of dict, and also has dot notation accessor, where can access variable 
 using the dot notation, ie: <code>config.get('key.val1.val2.val3')</code></p>
 <h4 id="import">Import</h4>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">config</span> 
+<div class="codehilite"><pre><span></span>from assembly import config 
 </pre></div>
 
 
@@ -801,18 +801,18 @@ using the dot notation, ie: <code>config.get('key.val1.val2.val3')</code></p>
 <hr />
 <h2 id="class-based-configuration">Class Based Configuration</h2>
 <p>Each class corresponds to an environment that you will be able to use for either 'Development', 'Production', 'Testing', 'Staging' etc.</p>
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="n">BaseConf</span>(<span class="n">object</span>):
-    <span class="s">&quot;&quot;&quot; That will be default class base, which other classes will extends from &quot;&quot;&quot;</span>
-    <span class="n">APPLICATION_NAME</span> = <span class="s">&quot;Assembly&quot;</span>   
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">BaseConf</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; That will be default class base, which other classes will extends from &quot;&quot;&quot;</span>
+    <span class="n">APPLICATION_NAME</span> <span class="o">=</span> <span class="s2">&quot;Assembly&quot;</span>   
 
-<span class="k">class</span> <span class="n">Development</span>(<span class="n">BaseConf</span>):
-    <span class="n">DEBUG</span> = <span class="nb">True</span>
+<span class="k">class</span> <span class="nc">Development</span><span class="p">(</span><span class="n">BaseConf</span><span class="p">):</span>
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="k">class</span> <span class="n">Production</span>(<span class="n">BaseConf</span>):
-    <span class="n">DEBUG</span> = <span class="nb">False</span>
+<span class="k">class</span> <span class="nc">Production</span><span class="p">(</span><span class="n">BaseConf</span><span class="p">):</span>
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="k">class</span> <span class="n">Testing</span>(<span class="n">BaseConf</span>):
-    <span class="n">DEBUG</span> = <span class="nb">True</span>
+<span class="k">class</span> <span class="nc">Testing</span><span class="p">(</span><span class="n">BaseConf</span><span class="p">):</span>
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
 </pre></div>
 
 

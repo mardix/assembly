@@ -789,34 +789,34 @@ the freedom to do whatever else. </p>
 <hr />
 <h2 id="structure">Structure</h2>
 <p>A basic application structure looks like this</p>
-<div class="codehilite"><pre><span></span><span class="c1">-- /</span>
-    <span class="o">|-</span> <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
-    <span class="o">|-</span> <span class="n">app</span><span class="p">.</span><span class="n">json</span>
-    <span class="o">|-</span> <span class="n">_data</span>  
-    <span class="o">|-</span> <span class="n">main</span>
-        <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
-        <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
-        <span class="o">|-</span> <span class="n">templates</span>
-            <span class="o">|-</span> <span class="k">Index</span>
-                <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="n">layouts</span>
-                <span class="o">|-</span> <span class="n">base</span><span class="p">.</span><span class="n">html</span>
-        <span class="o">|-</span> <span class="k">static</span>
-        <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
+<div class="codehilite"><pre><span></span>-- /
+    <span class="p">|</span>- wsgi.py
+    <span class="p">|</span>- config.py
+    <span class="p">|</span>- requirements.txt
+    <span class="p">|</span>- app.json
+    <span class="p">|</span>- _data  
+    <span class="p">|</span>- main
+        <span class="p">|</span>- __init__.py
+        <span class="p">|</span>- __models__.py
+        <span class="p">|</span>- templates
+            <span class="p">|</span>- Index
+                <span class="p">|</span>- index.html
+            <span class="p">|</span>- layouts
+                <span class="p">|</span>- base.html
+        <span class="p">|</span>- static
+        <span class="p">|</span>- cli.py
 </pre></div>
 
 
 <hr />
 <h3 id="base-files">Base files</h3>
 <p>Base files are at the root of the application. And <code>wsgi.py</code>, <code>config.py</code> are required by Assembly.</p>
-<div class="codehilite"><pre><span></span><span class="c1">-- /</span>
-    <span class="o">|-</span> <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
-    <span class="o">|-</span> <span class="n">app</span><span class="p">.</span><span class="n">json</span>
-    <span class="o">|-</span> <span class="n">_data</span>  
+<div class="codehilite"><pre><span></span>-- /
+    <span class="p">|</span>- wsgi.py
+    <span class="p">|</span>- config.py
+    <span class="p">|</span>- requirements.txt
+    <span class="p">|</span>- app.json
+    <span class="p">|</span>- _data  
 </pre></div>
 
 
@@ -842,16 +842,16 @@ the freedom to do whatever else. </p>
 <p>View Package are simply a package/directory that contains at least <code>__init__.py</code> and can be imported into the <code>APPS</code> list in the <code>wsgi.py</code> file. </p>
 <p>Additionally, you can find <code>__models__.py</code>, <code>templates/</code>, <code>static/</code></p>
 <p>The view name is the folder. The example below show the <code>main</code> view.</p>
-<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="n">main</span>
-    <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">templates</span>
-        <span class="o">|-</span> <span class="k">Index</span>
-            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-        <span class="o">|-</span> <span class="n">layouts</span>
-            <span class="o">|-</span> <span class="n">base</span><span class="p">.</span><span class="n">html</span>
-    <span class="o">|-</span> <span class="k">static</span>
-    <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
+<div class="codehilite"><pre><span></span><span class="p">|</span>- main
+    <span class="p">|</span>- __init__.py
+    <span class="p">|</span>- __models__.py
+    <span class="p">|</span>- templates
+        <span class="p">|</span>- Index
+            <span class="p">|</span>- index.html
+        <span class="p">|</span>- layouts
+            <span class="p">|</span>- base.html
+    <span class="p">|</span>- static
+    <span class="p">|</span>- cli.py
 </pre></div>
 
 
@@ -888,18 +888,18 @@ the freedom to do whatever else. </p>
 
 <span class="c1"># responds to /</span>
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
-  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> 
 
 <span class="c1"># responds to /api/</span>
 <span class="k">class</span> <span class="nc">Api</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
-  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span>
 
 
 <span class="c1"># responds to /admin/</span>
 <span class="k">class</span> <span class="nc">Admin</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
-  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span>
 </pre></div>
 
@@ -913,7 +913,7 @@ the freedom to do whatever else. </p>
 
 <span class="c1"># responds to /</span>
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
-  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> 
 
 <span class="o">---</span>
@@ -925,7 +925,7 @@ the freedom to do whatever else. </p>
 <span class="c1"># responds to /admin/</span>
 <span class="nd">@request.route</span><span class="p">(</span><span class="s2">&quot;/admin/&quot;</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
-  <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> 
 </pre></div>
 

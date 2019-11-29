@@ -867,56 +867,56 @@
 <p>This command allows you to access Assembly specific commands</p>
 <h3 id="init">init</h3>
 <p>To initialize Assembly for the first time in the current directory</p>
-<div class="codehilite"><pre><span></span><span class="n">cd</span> <span class="n">my</span><span class="o">-</span><span class="n">dir</span>
-<span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">init</span>
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> my-dir
+asm-admin init
 </pre></div>
 
 
 <h3 id="serve">serve</h3>
 <p>To run the development server.</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">serve</span>
+<div class="codehilite"><pre><span></span>asm-admin serve
 </pre></div>
 
 
 <p>or changing environment</p>
-<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Staging</span> 
-<span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">serve</span>
+<div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">ASSEMBLY_ENV</span><span class="o">=</span>Staging 
+asm-admin serve
 </pre></div>
 
 
 <p>or changing environment and app</p>
-<div class="codehilite"><pre><span></span><span class="n">export</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Testing</span>
-<span class="n">export</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="n">api</span>
-<span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">serve</span>
+<div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">ASSEMBLY_ENV</span><span class="o">=</span>Testing
+<span class="nb">export</span> <span class="nv">ASSEMBLY_APP</span><span class="o">=</span>api
+asm-admin serve
 </pre></div>
 
 
 <h3 id="sync-models">sync-models</h3>
 <p>To sync database models to create new tables. Models that extended <code>db.Model</code> will be created.</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">sync</span><span class="o">-</span><span class="n">models</span>
+<div class="codehilite"><pre><span></span>asm-admin sync-models
 </pre></div>
 
 
 <h3 id="gen-api-view">gen-api-view</h3>
 <p>To create a view that can be used as API endpoint</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">gen</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="k">view</span> <span class="err">$</span><span class="k">view</span><span class="o">-</span><span class="n">name</span>
+<div class="codehilite"><pre><span></span>asm-admin gen-api-view <span class="nv">$view</span>-name
 </pre></div>
 
 
 <p>ie:</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">gen</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="k">view</span> <span class="n">api</span>
+<div class="codehilite"><pre><span></span>asm-admin gen-api-view api
 </pre></div>
 
 
 <p>It will create a new view at the root. </p>
 <h3 id="gen-template-view">gen-template-view</h3>
 <p>To create a view that contains template</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">gen</span><span class="o">-</span><span class="k">template</span><span class="o">-</span><span class="k">view</span> <span class="err">$</span><span class="k">view</span><span class="o">-</span><span class="n">name</span>
+<div class="codehilite"><pre><span></span>asm-admin gen-template-view <span class="nv">$view</span>-name
 </pre></div>
 
 
 <p>ie:</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">gen</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="k">view</span> <span class="k">admin</span>
+<div class="codehilite"><pre><span></span>asm-admin gen-api-view admin
 </pre></div>
 
 
@@ -926,13 +926,13 @@
 <p>When <code>config.ASSETS_DELIVERY_METHOD</code> is <code>S3</code>, this util will allow you to upload
 your assets to S3, and the application will automatically point all your assets
 to S3.</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">upload</span><span class="o">-</span><span class="n">assets</span><span class="o">-</span><span class="n">s3</span>
+<div class="codehilite"><pre><span></span>asm-admin upload-assets-s3
 </pre></div>
 
 
 <h3 id="version">version</h3>
 <p>Return the version of Assembly</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="k">version</span>
+<div class="codehilite"><pre><span></span>asm-admin version
 </pre></div>
 
 

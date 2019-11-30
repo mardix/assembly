@@ -24,7 +24,7 @@ This command allows you to access Assembly specific commands
 
 To initialize Assembly for the first time in the current directory
 
-```
+```sh
 cd my-dir
 asm-admin init
 ```
@@ -33,20 +33,20 @@ asm-admin init
 
 To run the development server.
 
-```
+```sh
 asm-admin serve
 ```
 
 or changing environment
 
-```
+```sh
 export ASSEMBLY_ENV=Staging 
 asm-admin serve
 ```
 
 or changing environment and app
 
-```
+```sh
 export ASSEMBLY_ENV=Testing
 export ASSEMBLY_APP=api
 asm-admin serve
@@ -57,7 +57,7 @@ asm-admin serve
 
 To sync database models to create new tables. Models that extended `db.Model` will be created.
 
-```
+```sh
 asm-admin sync-models
 ```
 
@@ -65,13 +65,13 @@ asm-admin sync-models
 
 To create a view that can be used as API endpoint
 
-```
+```sh
 asm-admin gen-api-view $view-name
 ```
 
 ie:
 
-```
+```sh
 asm-admin gen-api-view api
 ```
 
@@ -82,13 +82,13 @@ It will create a new view at the root.
 
 To create a view that contains template
 
-```
+```sh
 asm-admin gen-template-view $view-name
 ```
 
 ie:
 
-```
+```sh
 asm-admin gen-api-view admin
 ```
 
@@ -102,7 +102,7 @@ When `config.ASSETS_DELIVERY_METHOD` is `S3`, this util will allow you to upload
 your assets to S3, and the application will automatically point all your assets
 to S3.
 
-```
+```sh
 asm-admin upload-assets-s3
 ```
 
@@ -110,7 +110,7 @@ asm-admin upload-assets-s3
 
 Return the version of Assembly
 
-```
+```sh
 asm-admin version
 ```
 
@@ -134,7 +134,7 @@ NOTE: `@command` is the alias to the custom command. Use it, otherwise your CLI 
 
 Learn more about **<a href="https://click.palletsprojects.com/" target="_blank">Click</a>**
 
-```
+```python
 # main/cli.py
 
 from assembly.cli import (command, option, argument, click)
@@ -151,7 +151,7 @@ def do_something(name):
 ```
 
 ### 2. Import in wsgi.py
-```
+```python
 # wsgi.py
 
 from assembly import Assembly
@@ -176,7 +176,7 @@ Commands can easily be executed by invoking `asm` followed by the name of the fu
 
 Example:
 
-```
+```python
 # main/cli.py
 
 from assembly.cli import (command, option, argument, click)

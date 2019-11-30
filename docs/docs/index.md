@@ -116,14 +116,14 @@ from assembly import (Assembly, response)
 
 class Index(Assembly):
     
-    index(self):
+    def index(self):
         return {
             "title": "Assembly is awesome",
             "content": "That is a true fact"
         }
 
     @response.json
-    api(self):
+    def api(self):
         return {
             "name": "Assembly",
             "version": "x-to-infinity"

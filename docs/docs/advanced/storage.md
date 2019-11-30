@@ -11,11 +11,11 @@ Extension: <a href="https://github.com/mardix/flask-cloudy" target="_blank">flas
 
 ## Usage
 
-```
-from assembly import asm
+```python
+from assembly import get_file, upload_file, download_file, delete_file
 ```
 
-**get_file**, **upload_file**, **download_file**, **delete_file** are functions in the **asm** module.
+**get_file**, **upload_file**, **download_file**, **delete_file** are part part of functions to work with files.
 
 
 ---
@@ -23,12 +23,12 @@ from assembly import asm
 
 ### Get file
 
-`asm.get_file` will return a Storage Object.
+`get_file` will return a Storage Object.
 
-```
-from assembly import asm
+```python
+from assembly import get_file
 
-myfile = asm.get_file("hello.txt")
+myfile = get_file("hello.txt")
 
 myfile.name  # return The file name
 myfile.size  # returns file size
@@ -40,14 +40,14 @@ myfile.full_url # the full url of the file
 
 ### Upload file
 
-`asm.upload_file` to save or upload a file in the container
+`upload_file` to save or upload a file in the container
 
 #### Example of file upload
 
-```
+```python
 # main/__init__.py
 
-from assembly import Assembly, asm, request, redirect
+from assembly import Assembly, upload_file, request, redirect
 
 class Index(Assembly):
 
@@ -58,7 +58,7 @@ class Index(Assembly):
     def upload(self):
         file = request.files.get("file")
         if file:
-            profile_image = asm.upload_file(file,
+            profile_image = upload_file(file,
                                         name=utils.gen_uuid(),
                                         prefix="img.",
                                         public=True,
@@ -73,7 +73,7 @@ class Index(Assembly):
 Template
 
 
-```
+```html
 <!-- main/templates/Index/index.html -->
 
 {% extends 'main/layouts/base.html' %}
@@ -94,18 +94,18 @@ Template
 
 **Note**: Since this will call a POST, we also add the CSRF token in the form
 
-```
+```html
 <input type='hidden' name="_csrf_token" value='{{ csrf_token() }}'>
 ```
 
 #### Signal
 
-`asm.upload_file` emits a signal to be used
+`upload_file` emits a signal to be used
 
-```
-from assembly import asm
+```python
+from assembly import upload_file
 
-@asm.upload_file.post
+@upload_file.post
 def file_uploaded(result, **kw):
     if result:
         print("File uploaded successfully!")
@@ -116,29 +116,29 @@ def file_uploaded(result, **kw):
 
 ### Download File
 
-`asm.download_file` to download a file to the user. You will need to redirect to that path.
+`download_file` to download a file to the user. You will need to redirect to that path.
 
-```
-from assembly import Assembly, asm, redirect
+```python
+from assembly import Assembly, download_file, redirect
 
 class Index(Assembly):
 
     def dowload(self):
         filename = "hello.txt"
         name = "new-name-hello"
-        url = asm.download_file(filename, name=name, timeout=60)
+        url = download_file(filename, name=name, timeout=60)
         return redirect(url)
 
 ```
 
 #### Signal
 
-`asm.download_file` emits a signal to be used
+`download_file` emits a signal to be used
 
-```
-from assembly import asm
+```python
+from assembly import download_file
 
-@asm.download_file.post
+@download_file.post
 def file_downloaded(result, **kw):
     if result:
         print("File uploaded successfully!")
@@ -149,24 +149,24 @@ def file_downloaded(result, **kw):
 
 ### Delete File
 
-`asm.delete_file` deletes a file from storage
+`delete_file` deletes a file from storage
 
 
-```
-from assembly import asm 
+```python
+from assembly import delete_file 
 
-asm.delete_file("hello.txt")
+delete_file("hello.txt")
 
 ```
 
 #### Signal
 
-`asm.delete_file` emits a signal to be used
+`delete_file` emits a signal to be used
 
-```
-from assembly import asm
+```python
+from assembly import delete_file
 
-@asm.delete_file.post
+@delete_file.post
 def file_deleted(result, **kw):
     if result:
         print("File deleted successfully!")
@@ -177,7 +177,7 @@ def file_deleted(result, **kw):
 
 ## Config
 
-```
+```python
 # config.py
 
 #: STORAGE_PROVIDER:
@@ -220,8 +220,9 @@ STORAGE_SERVER_URL = "files"
 The class **Object** is an entity of an object in the container.
 
 Usually, you will get a cloud object by accessing an object in the container.
-```
-my_object = asm.get_file("my_object.txt")
+
+```python
+my_object = get_file("my_object.txt")
 ```	
 
 Properties and Methods:

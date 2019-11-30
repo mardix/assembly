@@ -13,15 +13,13 @@ Extension: <a href="https://arrow.readthedocs.io/en/latest/" target="_blank">Arr
 
 ### Import
 
-```
+```python
 from assembly import date
 ```
 
-
-
 ### Usage
 
-```
+```python
 from assembly import date
 
 date.get('2013-05-11T21:23:58.970460+07:00')
@@ -52,7 +50,7 @@ local.humanize()
 
 or along with config
 
-```
+```python
 from assembly import date, config
 
 local = utc.to(config.get('TIMEZONE'))

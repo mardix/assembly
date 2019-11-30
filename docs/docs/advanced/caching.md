@@ -14,7 +14,7 @@ Extension: <a href="https://github.com/sh4nks/flask-caching" target="_blank">fla
 
 Assembly exposes `@response.cache` to cache enpoint. The decorator will use request.path by default for the cache_key 
 
-```
+```python
 from assembly import Assembly, response, date
 
 class Index(Assembly):
@@ -42,7 +42,7 @@ class Index(Assembly):
 
 Set the configuration below in your `config.py` file.
 
-```
+```python
     #: CACHE_TYPE
     #: The type of cache to use
     #: null, simple, redis, filesystem,

@@ -18,7 +18,7 @@ Extension:
 
 In the config file, set the MAIL_SENDER and MAIL_REPLY_TO.
 
-```
+```python
 # config.py
 
 #: MAIL_SENDER - The sender of the email by default
@@ -35,11 +35,9 @@ MAIL_REPLY_TO = "me@myemail.com"
 
 ### Import
 
+```python
+from assembly import send_mail
 ```
-from assembly import asm
-```
-
-**send_mail** is a function in the **asm** module. `asm.send_mail` will be used to send the email
 
 ---
 
@@ -48,14 +46,14 @@ from assembly import asm
 
 To send basic email
 
-```
-from assembly import asm
+```python
+from assembly import send_mail
 
 to = "user@email.com"
 subject = "Welcome"
 body = "Welcome to our site"
 
-asm.send_mail(to=to, subject=subject, body=body)
+send_mail(to=to, subject=subject, body=body)
 
 ```
 
@@ -65,7 +63,7 @@ asm.send_mail(to=to, subject=subject, body=body)
 
 Having a template like this...
 
-```
+```sh
 # welcome.txt
 
 {% block subject %}
@@ -81,12 +79,12 @@ Having a template like this...
 
 Send email with vars
 
-```
-from assembly import asm
+```python
+from assembly import send_mail
 
-asm.send_mail(to="x@y.com", 
-            template="welcome.txt", 
-            name="Mardix")
+send_mail(to="x@y.com", 
+        template="welcome.txt", 
+        name="Mardix")
 ```
 
 ---
@@ -95,10 +93,10 @@ asm.send_mail(to="x@y.com",
 
 The mail also emit a signal, which can be used to pre and post process information
 
-```
-from assembly import asm
+```python
+from assembly import send_mail
 
-@asm.send_mail.post
+@send_mail.post
 def process_email_sent(result, **kwargs):
     if result:
         print("Email sent successfully!")
@@ -151,7 +149,7 @@ Place your templates files in there. The files name will be used to retrieve the
 
 inside of the config.py, 
 
-```
+```python
 # config.py
 
 MAIL_TEMPLATES_DIR = os.path.join(DATA_DIR, "mail-templates")
@@ -171,7 +169,7 @@ Structure of the templates directory
 
 If you don't want to create files, you can dictionary based templates
 
-```
+```python
 
 # config.py
 
@@ -193,18 +191,18 @@ MAIL_TEMPLATES_DICT = {
 
 For either files or dictionary based templates:
 
-```
+```python
 # welcome
 
-asm.send_mail(to="x@y.com", 
-            template="welcome.txt", 
-            name="Mardix")
+send_mail(to="x@y.com", 
+        template="welcome.txt", 
+        name="Mardix")
 
 # lost-password
-asm.send_mail(to="x@y.com", 
-            template="lost-password.txt", 
-            name="Mardix", 
-            new_password="mynewpassword")
+send_mail(to="x@y.com", 
+        template="lost-password.txt", 
+        name="Mardix", 
+        new_password="mynewpassword")
 ```
 ---
 
@@ -259,7 +257,7 @@ asm.send_mail(to="x@y.com",
 For the core functionalities of Flask-Mail or SES-Mailer, import 
 the extension that was set
 
-```
+```python
 from assembly import ext
 ```
 
@@ -267,7 +265,7 @@ from assembly import ext
 
 ### For SES-Mailer
 
-```
+```python
 from assembly import ext
 
 ext.mail.mail.send(*args, **kw)
@@ -278,7 +276,7 @@ ext.mail.mail.send_template(*args, **kw)
 
 ### For Flask-Mail
 
-```
+```python
 from assembly import ext
 
 ext.mail.mail.send_message(*args, **kw)

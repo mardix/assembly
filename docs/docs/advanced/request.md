@@ -8,13 +8,13 @@ Request is a Proxy to Flask request with extra functionalities. For example it a
 
 **Import**
 
-```
+```python
 from assembly import request
 ```
 
 ### @route
 
-```
+```python
 class Index(Assembly):
 
     # responds to -> /hello-world/
@@ -27,7 +27,7 @@ class Index(Assembly):
 
 Restrict a method to only accepts POST request.
 
-```
+```python
 class Index(Assembly):
 
     @request.post
@@ -39,7 +39,7 @@ class Index(Assembly):
 
 Restrict a method to only accepts GET request.
 
-```
+```python
 class Index(Assembly):
 
     @request.get
@@ -51,7 +51,7 @@ class Index(Assembly):
 
 Restrict a method to only accepts POST and GET request.
 
-```
+```python
 class Index(Assembly):
 
     @request.post_get
@@ -64,7 +64,7 @@ class Index(Assembly):
 
 Restrict a method to only accepts all requests (POST, GET, PUT, DELETE, UPDATE, OPTIONS).
 
-```
+```python
 class Index(Assembly):
 
     @request.all
@@ -85,7 +85,7 @@ Restrict a method to only accepts DELETE request.
 
 Make an endpoint CORS.  
 
-```
+```python
 class Index(Assembly):
 
     @request.cors
@@ -97,7 +97,7 @@ class Index(Assembly):
 
 To exempt CSRF on this endpoint.
 
-```
+```python
 class Index(Assembly):
 
     @request.post
@@ -110,7 +110,7 @@ class Index(Assembly):
 
 Get the authorization bearer, ie: JWT.
 
-```
+```python
 class Index(Assembly):
 
     def index(self):
@@ -122,7 +122,7 @@ class Index(Assembly):
 
 Test if a request is GET. Usually if one endpoint accepts multiple method
 
-```
+```python
 class Index(Assembly):
 
     @request.post
@@ -137,7 +137,7 @@ class Index(Assembly):
 
 Test if a request is POST. Usually if one endpoint accepts multiple method
 
-```
+```python
 class Index(Assembly):
 
     @request.post
@@ -174,7 +174,7 @@ request.args.get('name')
 
 `request.form.getlist` returns a list of all the items with the same name that was posted in a form.
 
-```
+```html
 # HTML
 <input type='checkbox' name='options' value='apple'>
 <input type='checkbox' name='options' value='orange'>
@@ -189,7 +189,7 @@ options = request.form.getlist("options")
 
 `request.files.get` allow you to retrieve a file that was uploaded
 
-```
+```html
 # HTML
 <input type=file name="file">
 
@@ -202,7 +202,7 @@ file = request.files.get("file")
 
 `request.files.getlist` allow you to retrieve multiple files uploaded with the same name
 
-```
+```html
 #HTML
 <input type=file name="file">
 <input type=file name="file">

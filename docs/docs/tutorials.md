@@ -38,7 +38,8 @@ APPS = {
 
 **Edit View**
 
-```
+```python
+
 # /api/__init__.py
 
 from assembly import (Assembly, request, response, date)
@@ -72,7 +73,8 @@ This will generate a View package with `__init__.py`, `__models__.py`, `template
 
 **Import in wsgi.py**
 
-```
+```sh
+
 # wsgi.py
 
 APPS = {
@@ -85,7 +87,7 @@ APPS = {
 
 **Edit your first view**
 
-```
+```python
 
 # admin/__init__.py
 
@@ -94,14 +96,14 @@ from assembly import (Assembly, response)
 @response.route("/admin/")
 class Index(Assembly):
     
-    index(self):
+    def index(self):
         return {
             "title": "Assembly is awesome",
             "content": "That is a true fact"
         }
 
     @response.json
-    api(self):
+    def api(self):
         return {
             "name": "Assembly",
             "version": "x-to-infinity"
@@ -112,7 +114,8 @@ class Index(Assembly):
 
 **Edit Index/index.html**
 
-```
+```html
+
 <!-- admin/templates/Index/index.html -->
 
 {% extends 'main/layouts/base.html' %}

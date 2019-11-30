@@ -6,7 +6,7 @@ Redirect is a Proxy to Flask redirct. Redirect helps you redirect to different e
 ## Usage
 
 
-```
+```python
 from assembly import Assembly, redirect
 
 class Index(Assembly):
@@ -22,7 +22,7 @@ class Index(Assembly):
 
 ### Redirect by Class name
 
-```
+```python
 from assembly import Assembly, redirect
 
 class Index(Assembly):
@@ -41,7 +41,7 @@ class Blog(Assembly):
 
 For View classes that are not in the same file, you can redirect by using the `views`
 
-```
+```python
 # main/__init__.py
 
 from assembly import Assembly, redirect, views
@@ -55,7 +55,7 @@ class Index(Assembly):
 
 ```
 
-```
+```python
 # admin/__init__.py
 
 from assembly import Assembly, request

@@ -9,7 +9,7 @@
 
 ## wsgi.py
 
-```
+```python
 # wsgi.py
 
 from assembly import Assembly

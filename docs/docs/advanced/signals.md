@@ -17,7 +17,7 @@ Extension: <a href="https://pythonhosted.org/blinker/" target="_blank">Blinker</
 
 ### Import
 
-```
+```python
 from assembly import signal
 ```
 
@@ -28,8 +28,7 @@ Import and use the `@signal` decorator on the function to send signal from. It w
 
 Whenever the function with the `@signal` get executed, all functions with `@pre` and `@post` will be executed before and after the `@signal` function is executed repectively.
 
-```
-
+```python
 from assembly import signal
 
 @signal
@@ -43,7 +42,7 @@ def hello_world(name):
 
 Now `hello_world` has `@hello_world.pre` and `@hello_world.post`. These decorators can attached to functions.
 
-```
+```python
 
 @hello_world.pre
 def before_hello_world(*a, **kw):
@@ -68,8 +67,7 @@ def after_another_hello_world(result, *kw):
 Now we can run the functions and our signals will be executed
 
 
-
-```
+```python
 from assembly import signal
 
 # Emit the signal
@@ -114,6 +112,7 @@ hello_world('Mardix')
 Functions with `@pre` will be executed before the signaled functions is executed.
 
 The function receiving the signal, must have 1 args:
+
 ```
 - *a
 - **kwargs: 
@@ -125,7 +124,7 @@ The function receiving the signal, must have 1 args:
 
 Example
 
-```
+```python
 @myfn.pre
 def post_action(*a, **kw):
     pass
@@ -150,7 +149,7 @@ The function receiving the signal, must have 2 args:
 
 Example
 
-```
+```python
 @myfn.post
 def post_action(result, **kw):
     if result: 

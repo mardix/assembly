@@ -7,7 +7,7 @@ namespace some 3rd party function for convenience
 
 Import the utils as follow:
 
-```
+```python
 from assembly import utils
 ```
 

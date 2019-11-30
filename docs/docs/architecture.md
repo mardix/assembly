@@ -12,7 +12,7 @@ It lays out a basic layout, so the application can be consistent.
 
 A basic application structure looks like this
 
-```
+```sh
 -- /
     |- wsgi.py
     |- config.py
@@ -39,7 +39,7 @@ A basic application structure looks like this
 Base files are at the root of the application. And `wsgi.py`, `config.py` are required by Assembly.
 
 
-```
+```sh
 -- /
     |- wsgi.py
     |- config.py
@@ -69,7 +69,7 @@ Additionally, you can find `__models__.py`, `templates/`, `static/`
 
 The view name is the folder. The example below show the `main` view.
 
-```
+```sh
 |- main
     |- __init__.py
     |- __models__.py
@@ -102,7 +102,7 @@ You can place your view classes in `__init__.py`. Assembly will automatically lo
 
 Aside from importing the `assembly` package, nothing special needs to be done in the View. Just work on your application like you would in your normal Python file. As a matter of fact this is a normal Python file.
 
-```
+```python
 # main/__init__
 
 from assembly import Assembly
@@ -119,7 +119,7 @@ class Index(Assembly):
 
 It's ok to have multiple classes in a single view file, `__init__.py`. They will be treated properly with the proper endpoint.
 
-```
+```python
 
 # main/__init__
 
@@ -127,18 +127,18 @@ from assembly import Assembly, request
 
 # responds to /
 class Index(Assembly):
-  index(self):
+  def index(self):
     return 
 
 # responds to /api/
 class Api(Assembly):
-  index(self):
+  def index(self):
     return
 
 
 # responds to /admin/
 class Admin(Assembly):
-  index(self):
+  def index(self):
     return
 
 ```
@@ -149,14 +149,14 @@ class Admin(Assembly):
 
 Everything is properly namespaced, however the only time you may have some clashes is when more than one class has the same class name. To fix that, just use a different **route endpoint** for the class.
 
-```
+```python
 # main/__init__
 
 from assembly import Assembly
 
 # responds to /
 class Index(Assembly):
-  index(self):
+  def index(self):
     return 
 
 ---
@@ -168,7 +168,7 @@ from assembly import Assembly, request
 # responds to /admin/
 @request.route("/admin/")
 class Index(Assembly):
-  index(self):
+  def index(self):
     return 
 ```
 
@@ -182,7 +182,7 @@ Templates are mapped by their class and method name in the view.
 
 Having a View like this...
 
-```
+```python
 # admin/__init__.py
 
 from assembly import Assembly

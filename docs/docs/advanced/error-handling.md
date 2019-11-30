@@ -16,7 +16,7 @@ To use specific error handler, omit _error_handler instead use the `_error_$erro
 `_error_404`
 
 
-```
+```python
 
 # error/__init__.py
 
@@ -33,7 +33,7 @@ class Index(Assembly):
 
 Template:
 
-```
+```html
 <!-- error/templates/Index/error_handler.html -->
 
 {% extends 'main/layouts/base.html' %}
@@ -60,7 +60,7 @@ $errorCode is valid HTTP Error Code. Invalid code will throw an error
 A template with the name `error_$errorCode.html` will be used.
 
 
-```
+```python
 
 # error/__init__.py
 
@@ -81,7 +81,7 @@ class Index(Assembly):
 
 Template:
 
-```
+```html
 <!-- error/templates/Index/error_404.html -->
 
 {% extends 'main/layouts/base.html' %}
@@ -111,7 +111,7 @@ Template:
 
 ## Error Method Usage
 
-```
+```python
 from assembly import Assembly, HTTPError
 
 class Index(Assembly):
@@ -127,7 +127,7 @@ class Index(Assembly):
 
 `abort` can also be used to trigger error
 
-```
+```python
 from assembly import Assembly, HTTPError
 
 class Index(Assembly):

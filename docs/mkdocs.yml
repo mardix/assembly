@@ -42,15 +42,19 @@ pages:
   - Static: application/static.md
   - wsgi.py: wsgipy.md  
   - Advanced:
+    - Core: advanced/core.md
     - Request: advanced/request.md
     - Response: advanced/response.md
     - Redirect: advanced/redirect.md
     - Signals: advanced/signals.md
     - Date: advanced/date.md
+    - Forms: advanced/forms.md
     - Caching: advanced/caching.md    
     - CSFR: advanced/csrf.md
     - Mail: advanced/mail.md
     - Storage: advanced/storage.md
+    - Flash: advanced/flash.md
+    - Login Manager: advanced/login-manager.md
     - Pagination: advanced/pagination.md    
     - Utils: advanced/utils.md    
     - Error Handling: advanced/error-handling.md  

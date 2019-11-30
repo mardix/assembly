@@ -12,14 +12,14 @@ The environment classes will be loaded on Assembly startup. By default, and in d
 
 To switch to a different config, you have to set the environment variable, or in production
 
-```
+```sh
 export ASSEMBLY_ENV=Production
 export ASSEMBLY_APP=default
 ```
 
 or to set the application along with the environment
 
-```
+```sh
 ASSEMBLY_ENV=Production ASSEMBLY_APP=default asm-admin serve
 ```
 
@@ -42,14 +42,14 @@ using the dot notation, ie: `config.get('key.val1.val2.val3')`
 
 #### Import
 
-```
+```sh
 from assembly import config 
 ```
 
 
 #### Usage
 
-```
+```python
 from assembly import (Assembly, config)
 
 class Index(Assembly):
@@ -65,7 +65,7 @@ class Index(Assembly):
 As DotNotation
 
 
-```
+```python
 from assembly import (Assembly, config)
 
 class Index(Assembly):
@@ -83,7 +83,7 @@ class Index(Assembly):
 
 Each class corresponds to an environment that you will be able to use for either 'Development', 'Production', 'Testing', 'Staging' etc.
 
-```
+```python
 
 class BaseConf(object):
     """ That will be default class base, which other classes will extends from """
@@ -122,7 +122,7 @@ Assembly uses class-based configuration, and the config will be loaded implicite
 `./config.py` is required at the root of the application.
 
 
-``` 
+```python
 # config.py
 
 import os

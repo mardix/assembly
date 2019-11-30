@@ -34,19 +34,19 @@ The documentation is built with [MkDocs](http://www.mkdocs.org/)
     
 #### Install
 
-```
+```sh
 pip install -r requirements-docs.txt
 ```
 
 #### Serve local
 
-```
+```sh
 mkdocs serve
 ```
 
 #### Deploy to Github
 
-```
+```sh
 mkdocs gh-deploy --clean
 ```
 

@@ -8,7 +8,7 @@ By default, Assembly will attempt to match a template with the view. Sometimes y
 
 ## Usage
 
-```
+```python
 from assembly import response
 ```
 
@@ -16,7 +16,7 @@ from assembly import response
 
 Turn a response dict into a JSON
 
-```
+```python
 class Index(Assembly):
 
     @response.json
@@ -30,7 +30,7 @@ class Index(Assembly):
 
 Cache the response 
 
-```
+```python
 class Index(Assembly):
 
     @response.json
@@ -45,7 +45,7 @@ class Index(Assembly):
 
 Turn a response dict into an XML
 
-```
+```python
 class Index(Assembly):
 
     @response.xml
@@ -61,7 +61,7 @@ class Index(Assembly):
 
 Change the template that would be used by default to another one
 
-```
+```python
 class Index(Assembly):
 
     @response.template("myOtherPackage/Index/api.html")
@@ -75,7 +75,7 @@ class Index(Assembly):
 
 Add additional headers in the response
 
-```
+```python
 class Index(Assembly):
 
     @response.headers({"X-COMMON": "something.2.4"})
@@ -89,7 +89,7 @@ class Index(Assembly):
 
 Add the no-index in the headers, hopefully, so search engines don't index the endpoint.
 
-```
+```python
 class Index(Assembly):
 
     @response.noindex

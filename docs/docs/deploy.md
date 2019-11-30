@@ -11,7 +11,7 @@ Below are some of the options, you would be interested in.
 
 **Note**: When deploying, make sure you set the right environment 
 
-```
+```sh
 export ASSEMBLY_APP=default
 export ASSEMBLY_ENV=Development
 ```
@@ -24,7 +24,7 @@ export ASSEMBLY_ENV=Development
 
 Gunicorn ‘Green Unicorn’ is a WSGI HTTP Server for UNIX. It’s a pre-fork worker model ported from Ruby’s Unicorn project. It supports both eventlet and greenlet.
 
-```
+```sh
 export ASSEMBLY_APP=default
 export ASSEMBLY_ENV=Production
 gunicorn -w 4 wsgi:app
@@ -55,7 +55,7 @@ Gokku configuration is already shipped with Assembly, with `app.json`. The `app.
 
 At the root  of the application, **app.json** is a manifest format for describing web apps. It declares environment variables, scripts, and other information required to run an app on your server.
 
-```
+```js
 {
   "gokku": {
     "domain_name": "myapp.domain.com",

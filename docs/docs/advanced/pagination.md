@@ -14,7 +14,7 @@ Extension: <a href="https://github.com/mardix/paginator.py" target="_blank">Pagi
 
 Paginate models
 
-```
+```python
 
 from assembly import Assembly, models, request
 
@@ -42,7 +42,7 @@ class Index(Assembly):
 
 To paginate a list of items
 
-```
+```python
 
 from assembly import Assembly, request
 from paginator import Paginator
@@ -60,9 +60,6 @@ class Index(Assembly):
             "items": [i for i in items]
         }
 
-
-
-
 ```
 
 ---
@@ -71,7 +68,7 @@ class Index(Assembly):
 
 **Paginator(query, page=1, per_page=10, total=None, padding=0, callback=None, static_query=False)**
 
-```
+```python
 :param query: Iterable to paginate. Can be a query object, list or any iterables
 :param page: current page
 :param per_page: max number of items per page
@@ -98,7 +95,7 @@ class Index(Assembly):
 
 ### Create Jinja Macro
  
-```
+```python
     {#: PAGINATION -------------------------------------------------------------- #}
     {#
          :paginator: iterator

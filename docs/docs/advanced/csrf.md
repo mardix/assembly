@@ -22,13 +22,13 @@ This includes POST from FORMS or AJAX calls.
 In HTML, `csrf_token()` needs to be added for any POST forms.
 
 
-```
+```html
 <input type='hidden' name="_csrf_token" value='{{ csrf_token() }}'>
 ```
 
 Example:
 
-```
+```html
 <h1>Upload</h1>
 <form id="uploadbanner" action="/upload/" enctype="multipart/form-data" method="post">
     <input type='hidden' name="_csrf_token" value='{{ csrf_token() }}'>
@@ -54,7 +54,7 @@ To validate CSRF, use `request.csrf`.
 
 If CSRF fails to validate, it will throw a **Forbidden/403** error.
 
-```
+```python
 from assembly import Assembly, request
 
 class Index(Assembly):
@@ -71,7 +71,7 @@ class Index(Assembly):
 
 Assembly exposes `@request.csrf.exempt` to exclude a view from CSRF validation.
 
-```
+```python
 from assembly import Assembly, request
 
 class Index(Assembly):
@@ -96,7 +96,7 @@ In the example above, when POSTing to /post/ it will require the CSRF token, how
 
 Set the configuration below in your `config.py` file.
 
-```
+```python
     CSRF_COOKIE_NAME="_csrf_token"
     CSRF_HEADER_NAME="X-CSRFToken"
     CSRF_DISABLE

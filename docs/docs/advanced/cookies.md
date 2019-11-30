@@ -11,7 +11,7 @@ to help you with that.
 
 ### Import
 
-```
+```python
 from assembly import  set_cookie, get_cookie, delete_cookie
 ```
 
@@ -21,7 +21,7 @@ from assembly import  set_cookie, get_cookie, delete_cookie
 
 To set a cookie
 
-```
+```python
 from assembly import (Assembly, set_cookie)
 
 class Index(Assembly):
@@ -34,7 +34,7 @@ class Index(Assembly):
 
 ```
 
-```
+```python
 set_cookie(
           key,
           value="",
@@ -80,7 +80,7 @@ To retrieve a cookie. It will return `None` if the key doesn't exist.
 
 You can also retrieve the cookie with `request.cookies`
 
-```
+```python
 from assembly import (Assembly, get_cookie)
 
 class Index(Assembly):
@@ -99,7 +99,7 @@ class Index(Assembly):
 
 To delete a cookie that was set. It will silently fail if it doesn't exist
 
-```
+```python
 from assembly import (Assembly, delete_cookie)
 
 class Index(Assembly):
@@ -113,7 +113,7 @@ class Index(Assembly):
 ```
 
 
-```
+```python
 delete_cookie(self, key, path="/", domain=None)
 
 Delete a cookie.  Fails silently if key doesn't exist.

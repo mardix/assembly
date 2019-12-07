@@ -1,0 +1,29 @@
+# Boxie 
+# Boxie allows you to deploy multiple sites or apps, 
+# run scripts and background workers on a single VPS, 
+# Digital Ocean or Linode instance, with a process similar 
+# to Heroku or Dokku.
+# https://github.com/mardix/boxie/ 
+#
+# boxie.yml is a manifest format for describing apps. 
+# It declares environment variables, scripts, and other 
+# information required to run an app on your server. 
+
+---
+name: My Assembly App
+description: my awesome app in Assembly
+version: 1.0.0
+apps:
+  - name: yourdomain.com
+    server_name: yourdomain.com
+    runtime: python
+    auto_restart: true
+    env:
+      ASSEMBLY_ENV: Production
+      ASSEMBLY_APP: default
+    scripts:
+      release:
+        - asm-admin sync-models
+        - asm setup
+    process:
+      web: wsgi:app

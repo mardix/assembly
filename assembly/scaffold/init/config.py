@@ -168,32 +168,32 @@ class BaseConfig(object):
         # The provider to use. By default it's 'LOCAL'.
         # You can use:
         # LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES
-        "PROVIDER": "LOCAL"
+        "PROVIDER": "LOCAL",
 
         #: STORAGE_KEY
         # The storage key. Leave it blank if PROVIDER is LOCAL
-        "KEY": AWS_ACCESS_KEY_ID
+        "KEY": AWS_ACCESS_KEY_ID,
 
         #: STORAGE_SECRET
         #: The storage secret key. Leave it blank if PROVIDER is LOCAL
-        "SECRET": AWS_SECRET_ACCESS_KEY
+        "SECRET": AWS_SECRET_ACCESS_KEY,
 
         #: STORAGE_REGION_NAME
         #: The region for the storage. Leave it blank if PROVIDER is LOCAL
-        "REGION_NAME": AWS_REGION_NAME
+        "REGION_NAME": AWS_REGION_NAME,
 
         #: STORAGE_CONTAINER
         #: The Bucket name (for S3, Google storage, Azure, cloudfile)
         #: or the directory name (LOCAL) to access
-        "CONTAINER": os.path.join(DATA_DIR, "uploads")
+        "CONTAINER": os.path.join(DATA_DIR, "uploads"),
 
         #: STORAGE_SERVER
         #: Bool, to serve local file
-        "SERVER": True
+        "SERVER": True,
 
         #: STORAGE_SERVER_URL
         #: The url suffix for local storage
-        "SERVER_URL": "files"
+        "SERVER_URL": "files",
 
         #:STORAGE_UPLOAD_FILE_PROPS
         #: A convenient K/V properties for storage.upload to use when using `upload_file()`
@@ -219,63 +219,63 @@ class BaseConfig(object):
     #--------- MAIL ----------
     # To send emails
     #
-    # from assembly import asm
-    # asm.send_mail(to="user@email.com", subject="Hi", body="How are you?")
-    #
-    # OPTIONS
-    #
-    # AWS SES
-    # To use AWS SES to send email
-    #:
-    #: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
-    #: set MAIL_URL = "ses://"
-    #: * To use a different credential:
-    #: set MAIL_URL = "ses://{access_key}:{secret_key}@{region}"
-    #:
-    #: *** uncomment if you are using SMTP instead
-    # MAIL_URL = "ses://"
+    # from assembly import send_mail
+    # send_mail(to="user@email.com", subject="Hi", body="How are you?")
 
-    # SMTP
-    #: If you are using SMTP, it will use Flask-Mail
-    #: The uri for the smtp connection. It will use Flask-Mail
-    #: format: smtp://USERNAME:PASSWORD@HOST:PORT
-    #: with sll -> smtp+ssl://USERNAME:PASSWORD@HOST:PORT
-    #: with ssl and tls -> smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT
-    #:
-    #: *** comment out if you are using SMTP instead
-    # MAIL_URL = "smtp+ssl://{username}:{password}@{host}:{port}"\
-    #    .format(username="", password="", host="smtp.gmail.com", port=465)
+    MAIL = {
+        # OPTIONS
+        #
+        # AWS SES
+        # To use AWS SES to send email
+        #:
+        #: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+        #: set MAIL_URL = "ses://"
+        #: * To use a different credential:
+        #: set MAIL_URL = "ses://{access_key}:{secret_key}@{region}"
+        #:
+        #: *** uncomment if you are using SMTP instead
+        # "URL": "ses://",
 
-    #: MAIL_SENDER - The sender of the email by default
-    #: For SES, this email must be authorized
-    MAIL_SENDER = ADMIN_EMAIL
+        # SMTP
+        #: If you are using SMTP, it will use Flask-Mail
+        #: The uri for the smtp connection. It will use Flask-Mail
+        #: format: smtp://USERNAME:PASSWORD@HOST:PORT
+        #: with sll -> smtp+ssl://USERNAME:PASSWORD@HOST:PORT
+        #: with ssl and tls -> smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT
+        #:
+        "URL": "smtp+ssl://{username}:{password}@{host}:{port}"\
+            .format(username="", password="", host="smtp.gmail.com", port=465),
 
-    #: MAIL_REPLY_TO
-    #: The email to reply to by default
-    MAIL_REPLY_TO = ADMIN_EMAIL
+        #: MAIL_SENDER - The sender of the email by default
+        #: For SES, this email must be authorized
+        "MAIL_SENDER": ADMIN_EMAIL,
 
-    #: MAIL_TEMPLATES_DIR
-    #: files based templates
-    MAIL_TEMPLATES_DIR = os.path.join(DATA_DIR, 'mail-templates')
+        #: MAIL_REPLY_TO
+        #: The email to reply to by default
+        "MAIL_REPLY_TO": ADMIN_EMAIL,
 
-    #: MAIL_TEMPLATES_DICT
-    #: dict based templates 
-    # MAIL_TEMPLATES_DICT = {
-    #     "welcome.txt": """
-    #     {% block subject %}Welcome{% endblock %}
-    #     {% block body %}Welcome to the site {{name}}?{% endblock %}        
-    #     """
-    # }
+        #: MAIL_TEMPLATES_DIR
+        #: files based templates
+        "TEMPLATES_DIR": os.path.join(DATA_DIR, 'mail-templates'),
 
-    #: MAIL_TEMPLATE_CONTEXT
-    #: a dict of all context to pass to the email by default
-    MAIL_TEMPLATE_CONTEXT = {
-        "params": {
-            "site_name": APPLICATION_NAME,
-            "site_url": APPLICATION_URL
+        #: MAIL_TEMPLATES_DICT
+        #: dict based templates 
+        # "TEMPLATES_DICT": {
+        #     "welcome.txt": """
+        #     {% block subject %}Welcome{% endblock %}
+        #     {% block body %}Welcome to the site {{name}}?{% endblock %}        
+        #     """
+        # },
+
+        #: MAIL_TEMPLATE_CONTEXT
+        #: a dict of all context to pass to the email by default
+        "TEMPLATE_CONTEXT": {
+            "params": {
+                "site_name": APPLICATION_NAME,
+                "site_url": APPLICATION_URL
+            }
         }
     }
-
 
     #--------- CACHING ----------
     #: Flask-Cache is used to caching

@@ -35,9 +35,9 @@ Import the base Assembly
 from assembly import Assembly
 
 """
-If you want to use your views CLI, you can import them below
+Import your modules scripts to enable their command line interface
 """
-import modules.main.cli
+import modules.main.scripts
 
 """
 APPS = {}

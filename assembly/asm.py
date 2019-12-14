@@ -15,7 +15,7 @@ import functools
 import itsdangerous
 import flask_cloudy
 from passlib.hash import bcrypt
-from . import (app_context, ext, config)
+from . import (app_context, ext, config, utils)
 from flask import (send_file, session, g)
 
 __all__ = [
@@ -176,7 +176,10 @@ def send_mail(to, **kwargs):
 # ------------------------------------------------------------------------------
 # Storage
 storage = flask_cloudy.Storage()
-app_context(storage.init_app)
+@app_context
+def init_storage(app):
+    utils.flatten_config_property("STORAGE", app.config)
+    storage.init_app(app)
 
 
 def get_file(filename):

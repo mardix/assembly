@@ -1,5 +1,5 @@
 Flask>=1.0.0
-Flask-Assets>=0.12
+flask-assets>=0.12
 flask-kvsession>=0.6.2
 flask-s3>=0.3.3
 flask-mail>=0.9.1
@@ -7,6 +7,7 @@ flask-caching>=1.7.2
 flask-cloudy>=1.0.1 
 flask-seasurf>=0.2.2
 flask-cors>=3.0.8
+flask-login>=0.4.1
 Active-Alchemy>=1.0.0
 six>=1.9.0
 passlib>=1.7.0,<1.8.0
@@ -23,6 +24,7 @@ itsdangerous>=1.1.0
 requests>=2.13.0
 paginator
 pyyaml
+wtforms
 
 # To remove when botocore is upgraded
 python-dateutil<2.8.1

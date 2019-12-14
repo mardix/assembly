@@ -23,12 +23,7 @@ from jinja2.lexer import Token, describe_token
 from flask import (request, current_app, send_file, session)
 
 
-# mail, 
-# assets_delivery, 
-# crypt
-# markdown
-
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 @app_context
 def setup(app):
     # app.jinja_env.filters.update({
@@ -44,7 +39,7 @@ def setup(app):
             exit()
 
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Set CORS
 
 @app_context
@@ -57,7 +52,7 @@ def setup(app):
     utils.flatten_config_property("CORS", app.config)
 
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Session
 
 @app_context
@@ -110,8 +105,9 @@ def session(app):
     if store:
         flask_kvsession.KVSessionExtension(store, app)
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Mailer
+
 
 class _Mailer(object):
     """
@@ -131,13 +127,12 @@ class _Mailer(object):
         self.config = app.config
         scheme = None
 
-
         mailer_uri = self.config.get("MAIL_URL")
         if mailer_uri:
             templates_sources = app.config.get("MAIL_TEMPLATE")
             if not templates_sources:
                 templates_sources = app.config.get("MAIL_TEMPLATES_DIR") or app.config.get("MAIL_TEMPLATES_DICT")
-            
+
             mailer_uri = urlparse(mailer_uri)
             scheme = mailer_uri.scheme
             hostname = mailer_uri.hostname
@@ -236,11 +231,13 @@ class _Mailer(object):
         else:
             raise Error("Invalid mail provider. Must be 'SES' or 'SMTP'")
 
+
 ext.mail = _Mailer()
 app_context(ext.mail.init_app)
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Assets Delivery
+
 
 class _AssetsDelivery(flask_s3.FlaskS3):
     def init_app(self, app):
@@ -267,11 +264,12 @@ class _AssetsDelivery(flask_s3.FlaskS3):
 
             super(self.__class__, self).init_app(app)
 
+
 ext.assets_delivery = _AssetsDelivery()
 app_context(ext.assets_delivery.init_app)
 
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Markdown
 
 class JinjaMDTagExt(Extension):
@@ -285,6 +283,7 @@ class JinjaMDTagExt(Extension):
     </div>
     """
     tags = set(['markdown'])
+
     def __init__(self, environment):
         super(JinjaMDTagExt, self).__init__(environment)
         environment.extend(
@@ -330,6 +329,7 @@ class JinjaMDTagExt(Extension):
         block = self.environment.markdowner.convert(block)
         return block
 
+
 class JinjaMDExt(Extension):
     """
     JINJA Convert Markdown file to HTML
@@ -339,9 +339,10 @@ class JinjaMDExt(Extension):
 
     def preprocess(self, source, name, filename=None):
         if (not name or
-           (name and not os.path.splitext(name)[1] in self.file_extensions)):
+                (name and not os.path.splitext(name)[1] in self.file_extensions)):
             return source
         return md_to_html(source)
+
 
 # Markdown
 mkd = markdown.Markdown(extensions=[
@@ -350,6 +351,7 @@ mkd = markdown.Markdown(extensions=[
     'markdown.extensions.sane_lists',
     'markdown.extensions.toc'
 ])
+
 
 def md_to_html(text):
     '''
@@ -368,6 +370,7 @@ def setup_markdown(app):
     """
     app.jinja_env.add_extension(JinjaMDTagExt)
     app.jinja_env.add_extension(JinjaMDExt)
+
 
 # The extension
 ext.markdown = md_to_html
@@ -451,7 +454,7 @@ class HTMLCompress(Extension):
     def is_breaking(self, tag, other_tag):
         breaking = self.breaking_rules.get(other_tag)
         return breaking and (tag in breaking or (
-        '#block' in breaking and tag in self.block_elements))
+            '#block' in breaking and tag in self.block_elements))
 
     def enter_tag(self, tag, ctx):
         while ctx.stack and self.is_breaking(tag, ctx.stack[-1]):
@@ -536,10 +539,89 @@ class SelectiveHTMLCompress(HTMLCompress):
                 yield stream.current
             next(stream)
 
-@app_context 
+
+@app_context
 def setup_compress_html(app):
     if app.config.get("COMPRESS_HTML"):
         app.jinja_env.add_extension(HTMLCompress)
-            
+
+# ------------------------------------------------------------------------------
+
+"""
+PLACEHOLDER
+
+With this extension you can define placeholders where your blocks get rendered 
+and at different places in your templates append to those blocks. 
+This is especially useful for css and javascript. 
+Your sub-templates can now define css and Javascript files 
+to be included, and the css will be nicely put at the top and 
+the Javascript to the bottom, just like you should. 
+It will also ignore any duplicate content in a single block.
+
+<html>
+    <head>
+        {% placeholder "css" %}
+    </head>
+    <body>
+        Your content comes here.
+        Maybe you want to throw in some css:
+
+        {% addto "css" %}
+            <link href="/media/css/stylesheet.css" media="screen" rel="[stylesheet](stylesheet)" type="text/css" />
+        {% endaddto %}
+
+        Some more content here.
+
+        {% addto "js" %}
+            <script type="text/javascript">
+                alert("Hello flask");
+            </script>
+        {% endaddto %}
+
+        And even more content.
+        {% placeholder "js" %}
+    </body>
+</html>
+"""
 
 
+@app_context
+def init_app(app):
+    app.jinja_env.add_extension(PlaceholderAddTo)
+    app.jinja_env.add_extension(PlaceholderRender)
+    app.jinja_env.sekazi_tags = {}
+
+
+class PlaceholderAddTo(Extension):
+    tags = set(['addto'])
+    def _render_tag(self, name, caller):
+        context = self.environment.sekazi_tags
+        blocks = context.get(name)
+        if blocks is None:
+            blocks = set()
+        blocks.add(caller().strip())
+        context[name] = blocks
+        return jinja2.Markup("")
+
+    def parse(self, parser):
+        lineno = next(parser.stream).lineno
+        name = parser.parse_expression()
+        body = parser.parse_statements(['name:endaddto'], drop_needle=True)
+        args = [name]
+        return CallBlock(self.call_method('_render_tag', args),
+                         [], [], body).set_lineno(lineno)
+
+
+class PlaceholderRender(Extension):
+    tags = set(['placeholder'])
+
+    def _render_tag(self, name: str, caller):
+        context = self.environment.sekazi_tags
+        return jinja2.Markup('\n'.join(context.get(name, [])))
+
+    def parse(self, parser):
+        lineno = next(parser.stream).lineno
+        name = parser.parse_expression()
+        args = [name]
+        return CallBlock(self.call_method('_render_tag', args),
+                         [], [], []).set_lineno(lineno)

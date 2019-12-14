@@ -31,20 +31,20 @@ pip install assembly
 
 ### Initialize
 
-Initialize Assembly with `asm-admin init`
+Initialize Assembly with `asm gen:init`
 
-CD into the folder you intend to create the application, then run `asm-admin init`. 
+CD into the folder you intend to create the application, then run `asm gen:init`. 
 This will setup the structure along with the necessary files to get started
 
 ```sh
 cd app-dir
 
-asm-admin init
+asm gen:init
 
 ```
 
 ### Launch first app
 
 ```sh
-asm-admin serve
+asm gen:serve
 ```

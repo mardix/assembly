@@ -57,7 +57,7 @@ heroku config:set ASSEMBLY_APP=default
 
 ```
 web: gunicorn wsgi:app
-release: asm-admin sync-models; asm setup 
+release: asm gen:sync-models; asm setup 
 ```
 
 ---
@@ -100,7 +100,7 @@ apps:
       ASSEMBLY_APP: default
     scripts:
       release:
-        - asm-admin sync-models
+        - asm gen:sync-models
         - asm setup
     process:
       web: wsgi:app

@@ -5,23 +5,23 @@
 
 `pip install assembly`
 
-**Initialiaze**
+**Initialize**
 
-`asm-admin init`
+`asm gen:init`
 
 **Run Development Server**
 
-`asm-admin serve`
+`asm gen:serve`
 
 ---
 
 ## REST API
 
-**Generate the view using asm-admin**
+**Generate the view using asm **
 
-`asm-admin gen-api-view my-api`
+`asm gen:resful-module my-api`
 
-This will generate a View package with `__init__.py`, `__models__.py`, `cli.py`.
+This will generate a Module package with `__views__.py`, `__models__.py`, `scripts.py`.
 
 **Import in wsgi.py**
 
@@ -30,8 +30,8 @@ This will generate a View package with `__init__.py`, `__models__.py`, `cli.py`.
 
 APPS = {
   "default": [
-    "main",
-    "api"
+    "modules.main",
+    "modules.api"
   ]
 }
 ```
@@ -40,7 +40,7 @@ APPS = {
 
 ```python
 
-# /api/__init__.py
+# modules/api/__views__.py
 
 from assembly import (Assembly, request, response, date)
 
@@ -67,9 +67,9 @@ class Index(Assembly):
 
 **Generate the view using asm-admin**
 
-`asm-admin gen-template-view admin`
+`asm gen:template-module admin`
 
-This will generate a View package with `__init__.py`, `__models__.py`, `templates/`, `static/`, `cli.py`.
+This will generate a View package with `__views__.py`, `__models__.py`, `templates/`, `static/`, `cli.py`.
 
 **Import in wsgi.py**
 
@@ -79,8 +79,8 @@ This will generate a View package with `__init__.py`, `__models__.py`, `template
 
 APPS = {
   "default": [
-    "main",
-    "admin"
+    "modules.main",
+    "modules.admin"
   ]
 }
 ```
@@ -89,7 +89,7 @@ APPS = {
 
 ```python
 
-# admin/__init__.py
+# modules/admin/__init__.py
 
 from assembly import (Assembly, response)
 
@@ -116,9 +116,9 @@ class Index(Assembly):
 
 ```html
 
-<!-- admin/templates/Index/index.html -->
+<!-- modules/admin/templates/Index/index.html -->
 
-{% extends 'main/layouts/base.html' %}
+{% extends 'modules/main/layouts/base.html' %}
 
 {% block title %}Welcome to Admin {% endblock %}
 
@@ -138,7 +138,7 @@ class Index(Assembly):
 If everything is all set, all you need to do now is run your site:
 
 ```
-asm-admin serve
+asm gen:serve
 ```
 
 It will start serving your application by default at `127.0.0.1:5000`

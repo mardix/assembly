@@ -17,18 +17,19 @@ A basic application structure looks like this
     |- wsgi.py
     |- config.py
     |- requirements.txt
-    |- app.json
-    |- _data  
-    |- main
-        |- __init__.py
-        |- __models__.py
-        |- templates
-            |- Index
-                |- index.html
-            |- layouts
-                |- base.html
-        |- static
-        |- cli.py
+    |- data/
+    |- modules/ 
+      |- main
+          |- __init__.py
+          |- __views__.py
+          |- __models__.py
+          |- templates
+              |- Index
+                  |- index.html
+              |- layouts
+                  |- base.html
+          |- static
+          |- scripts.py
 
 ```
 
@@ -44,34 +45,36 @@ Base files are at the root of the application. And `wsgi.py`, `config.py` are re
     |- wsgi.py
     |- config.py
     |- requirements.txt
-    |- app.json
-    |- _data  
+    |- modules/
+    |- data/  
 ```
 
 - `wsgi.py` is the application object. (required)
 
 - `config.py`: contains class based configurations (required)
 
-- `requirements.txt`: contains application dependencies including `assembly`
+- `requirements.txt`: contains application dependencies including `assembly` (required)
 
-- `app.json`: Application manifest to deploy using Gokku
+- `modules`: a directory containing the view modules
 
-- `_data`: A variable directory, to put misc files, uploads, etc.
+- `data`: a directory containing the various data, uploads, etc.
 
 
 ---
 
-### View Package Structure
+### View Module Structure
 
-View Package are simply a package/directory that contains at least `__init__.py` and can be imported into the `APPS` list in the `wsgi.py` file. 
+View Module are simply a package/directory that contains a `__views__.py` and can be imported into the `APPS` list in the `wsgi.py` file. 
 
-Additionally, you can find `__models__.py`, `templates/`, `static/`
+By default the view modules will be placed under `/modules/`.
+
+Additionally, it may contain `__models__.py`, `templates/`, `static/`
 
 The view name is the folder. The example below show the `main` view.
 
 ```sh
 |- main
-    |- __init__.py
+    |- __views__.py
     |- __models__.py
     |- templates
         |- Index
@@ -79,31 +82,30 @@ The view name is the folder. The example below show the `main` view.
         |- layouts
             |- base.html
     |- static
-    |- cli.py
+    |- scripts.py
 
 ```
 
-- `main` view directory
-- `__init__.py` contains all the View classes
+- `main` view module directory
+- `__init__.py` the init file
+- `__views__.py` contains all the View classes
 - `__models__.py` contains all the Models for that View
 - `templates` contains templates for the each endpoint in the View classes
 - `static` contain the static files, images, css, js, etc.
-- `cli.py` Custom CLI for that view.
+- `scripts.py` Custom scripts for that view.
 
-`__init__.py`, `__models__.py`, `templates/`, `static/` will be loaded implicitely by Assemby. Only `__init__.py` is required.
-
-`__init__.py` is also served as files containing all the view classes.
+`__views__.py`, `__models__.py`, `templates/`, `static/` will be loaded implicitely by Assemby.
 
 ---
 
 ## View Class structure
 
-You can place your view classes in `__init__.py`. Assembly will automatically load them when they are added in the APPS list.
+By convention, it is recommended to have your view classes in `__views__.py`. Assembly will automatically load them when they are added in the APPS list.
 
 Aside from importing the `assembly` package, nothing special needs to be done in the View. Just work on your application like you would in your normal Python file. As a matter of fact this is a normal Python file.
 
 ```python
-# main/__init__
+# modules/main/__views__.py
 
 from assembly import Assembly
 
@@ -117,11 +119,11 @@ class Index(Assembly):
 
 ### Multiple Classes
 
-It's ok to have multiple classes in a single view file, `__init__.py`. They will be treated properly with the proper endpoint.
+It's ok to have multiple classes in a single view file, `__views__.py`. They will be treated properly with the proper endpoint.
 
 ```python
 
-# main/__init__
+# modules/main/__views__.py
 
 from assembly import Assembly, request
 
@@ -147,10 +149,10 @@ class Admin(Assembly):
 
 ### Namespace
 
-Everything is properly namespaced, however the only time you may have some clashes is when more than one class has the same class name. To fix that, just use a different **route endpoint** for the class.
+Everything is properly namespaced, however the only time you may see some clashes is when more than one class has the same class name. To fix that, just use a different **route endpoint** for the class.
 
 ```python
-# main/__init__
+# modules/main/__views__.py
 
 from assembly import Assembly
 
@@ -161,7 +163,7 @@ class Index(Assembly):
 
 ---
 
-# admin/__init__
+# modules/admin/__views__.py
 
 from assembly import Assembly, request
 
@@ -170,6 +172,7 @@ from assembly import Assembly, request
 class Index(Assembly):
   def index(self):
     return 
+
 ```
 
 ---
@@ -183,7 +186,7 @@ Templates are mapped by their class and method name in the view.
 Having a View like this...
 
 ```python
-# admin/__init__.py
+# modules/admin/__views__.py
 
 from assembly import Assembly
 
@@ -220,7 +223,7 @@ will map to templates below
 
 ```
 |- admin
-    |- __init__.py
+    |- __views__.py
     |- __models__.py
     |- templates
         |- Index
@@ -234,7 +237,7 @@ will map to templates below
             |- guide.html            
             |- channels.html            
     |- static
-    |- cli.py
+    |- scripts.py
 
 ```
 

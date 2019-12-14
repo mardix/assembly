@@ -70,16 +70,16 @@ pip install assembly
 
 ### 2. Initialize your application
 
-Initialize Assembly with `asm-admin init`
+Initialize Assembly with `asm gen:init`
 
-CD into the folder you intend to create the application, then run `asm-admin init`. 
+CD into the folder you intend to create the application, then run `asm gen:init`. 
 This will setup the structure along with the necessary files to get started
 
 ```
 
 cd app-dir
 
-asm-admin init
+asm gen:init
 
 ```
 
@@ -90,18 +90,19 @@ Upon initialization you should have a structure similar to this:
     |- wsgi.py
     |- config.py
     |- requirements.txt
-    |- main
-        |- __init__.py
-        |- __models__.py
-        |- templates
-            |- Index
-                |- index.html
-            |- layouts
-                |- base.html
-        |- static
-        |- cli.py
+    |- modules/
+        |- main
+            |- __views__.py
+            |- __models__.py
+            |- templates
+                |- Index
+                    |- index.html
+                |- layouts
+                    |- base.html
+            |- static
+            |- scripts.py
 
-    |- _data/
+    |- data/
 ```
 
 
@@ -110,7 +111,7 @@ Upon initialization you should have a structure similar to this:
 
 ```
 
-# main/__init__.py
+# modules/main/__views__.py
 
 from assembly import (Assembly, response)
 
@@ -136,7 +137,7 @@ class Index(Assembly):
 #### 4.0 Edit base layout 
 
 ```
-<!-- main/templates/layouts/base.html -->
+<!-- modules/main/templates/layouts/base.html -->
 
 <!doctype html>
 <html lang="en">
@@ -156,9 +157,9 @@ class Index(Assembly):
 #### 4.1  Edit Index/index.html
 ```
 
-<!-- main/templates/Index/index.html -->
+<!-- modules/main/templates/Index/index.html -->
 
-{% extends 'main/layouts/base.html' %}
+{% extends 'modules/main/layouts/base.html' %}
 
 {% block title %}Welcome to my Assembly Site {% endblock %}
 
@@ -180,7 +181,7 @@ class Index(Assembly):
 If everything is all set, all you need to do now is run your site:
 
 ```
-asm-admin serve
+asm gen:serve
 ```
 
 It will start serving your application by default at `127.0.0.1:5000`
@@ -216,11 +217,15 @@ Two endpoints will be available:
 
 - Database/ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
 
+- Login: interface with Flask-Login
+
+- Form Validation: with WTForms
+
 - CSRF on all POST
 
 - Idiomatic HTTP error responses
 
-- Storage: Local, S3, Google Storage [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
+- Storage: to access and store files from  Local, S3, Google Storage with [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
 
 - Mailer (SES or SMTP)
 
@@ -242,7 +247,7 @@ Two endpoints will be available:
 
 - Web Assets
 
-- CLI
+- CLI/Scripts
 
 - Inbuilt development server
 

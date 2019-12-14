@@ -1,6 +1,8 @@
 
 ## Overview
 
+Assembly provides support for writing external scripts. This includes running a development server, a customised Python shell, scripts to set up your database, cronjobs, and other command-line tasks that belong outside the web application itself.
+
 Assembly provides a CLI tool and framework based on **Click** library
 
 Extension: **<a href="https://click.palletsprojects.com/" target="_blank">Click</a>**
@@ -9,39 +11,38 @@ Extension: **<a href="https://click.palletsprojects.com/" target="_blank">Click<
 
 ## Usage
 
-Upon installing Assembly via `pip install assembly`, two commands will be available for the command line:
+Upon installing Assembly via `pip install assembly`, Assembly will setup a command line tool for you to interface with some scripts via the `asm` command.
 
-- `asm`: for custom command list
-- `asm-admin`: for Assembly specific commands
+There are the Generator commands start with `asm gen:*` and your custom commands
 
 ---
 
-## Admin CLI: asm-admin
+## Generator
 
 This command allows you to access Assembly specific commands
 
-### init
+### gen:init
 
 To initialize Assembly for the first time in the current directory
 
 ```sh
 cd my-dir
-asm-admin init
+asm gen:init
 ```
 
-### serve
+### gen:serve
 
 To run the development server.
 
 ```sh
-asm-admin serve
+asm gen:serve
 ```
 
 or changing environment
 
 ```sh
 export ASSEMBLY_ENV=Staging 
-asm-admin serve
+asm gen:serve
 ```
 
 or changing environment and app
@@ -49,52 +50,52 @@ or changing environment and app
 ```sh
 export ASSEMBLY_ENV=Testing
 export ASSEMBLY_APP=api
-asm-admin serve
+asm gen:serve
 ```
 
 
-### sync-models
+### gen:sync-models
 
 To sync database models to create new tables. Models that extended `db.Model` will be created.
 
 ```sh
-asm-admin sync-models
+asm gen:sync-models
 ```
 
-### gen-api-view
+### gen:restful-module
 
-To create a view that can be used as API endpoint
+To generate API/RESTful based modules
 
 ```sh
-asm-admin gen-api-view $view-name
+asm gen:restful-module $view-name
 ```
 
 ie:
 
 ```sh
-asm-admin gen-api-view api
+asm gen:restful-module api
 ```
 
-It will create a new view at the root. 
+It will create a new module structure in the `/modules` directory. 
 
 
-### gen-template-view
+### gen:template-module
 
-To create a view that contains template
+To generate Template based modules
 
 ```sh
-asm-admin gen-template-view $view-name
+asm gen:template-module $view-name
 ```
 
 ie:
 
 ```sh
-asm-admin gen-api-view admin
+asm gen:template-module admin
 ```
 
-It will create a new view `admin` at the root. 
+It will create a new module structure in the `/modules` directory.  
 
-### upload-assets-s3
+### gen:upload-assets-s3
 
 If you are serving your assets via CDN or S3, you need to upload them before deploying the application.
 
@@ -103,21 +104,21 @@ your assets to S3, and the application will automatically point all your assets
 to S3.
 
 ```sh
-asm-admin upload-assets-s3
+asm gen:upload-assets-s3
 ```
 
-### version
+### gen:version
 
 Return the version of Assembly
 
 ```sh
-asm-admin version
+asm gen:version
 ```
 
 ---
 
 
-## Custom CLI: asm
+## Custom Scripts
 
 Assembly also allows you to create your own CLI scripts, to use with your application. 
 
@@ -135,9 +136,9 @@ NOTE: `@command` is the alias to the custom command. Use it, otherwise your CLI 
 Learn more about **<a href="https://click.palletsprojects.com/" target="_blank">Click</a>**
 
 ```python
-# main/cli.py
+# modules/main/scripts.py
 
-from assembly.cli import (command, option, argument, click)
+from assembly.scripts import (command, option, argument, click)
 
 @command
 def hello():
@@ -156,12 +157,12 @@ def do_something(name):
 
 from assembly import Assembly
 
-#->>> Import your CLI in the wsgi.py
-import admin.cli
+#->>> Import scripts wsgi.py
+import modules.admin.scripts
 
 APPS = {
     "default": [
-        "main"
+        "modules.main"
     ]
 }
 
@@ -177,9 +178,9 @@ Commands can easily be executed by invoking `asm` followed by the name of the fu
 Example:
 
 ```python
-# main/cli.py
+# modules/main/scripts.py
 
-from assembly.cli import (command, option, argument, click)
+from assembly.scripts import (command, option, argument, click)
 
 @command
 def hello():

@@ -329,9 +329,12 @@ class Assembly(object):
             """
 
             for view in apps_list[app_name]:
+                
+                # auto load __views__
+                werkzeug.import_string("%s.__views__" % view, True)
 
-                # auto import models
-                werkzeug.import_string("%s.__models__" % view)
+                # auto load __models__
+                werkzeug.import_string("%s.__models__" % view, True)
                 cls._expose_models__()
 
                 # auto register templates an static
@@ -873,6 +876,8 @@ def _register___application_template(pkg, prefix):
 def _make_template_path(cls, method_name):
     _template = _make_routename_from_cls(cls, method_name)
     m = _template.split(".")
+    if "__views__" in m:
+        m.remove("__views__")    
     _template = ".".join(list(m))
     _template = utils.list_replace([".", ":"], "/", _template)
     return "%s.html" % _template

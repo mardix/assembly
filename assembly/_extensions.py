@@ -270,11 +270,19 @@ app_context(ext.assets_delivery.init_app)
 # Flask-Login
 
 ext.login_manager = flask_login.LoginManager()
+@ext.login_manager.user_loader
+def _login_manager_user_loader(user_id):
+    """ 
+    setup None user loader. 
+    Without this, it will throw an error if it doesn't exist 
+    """
+    return None
 
 @app_context
 def login_manager_init(app):
-    ext.login_manager.init_app(app)
+    """ set the config for the login manager """
     lm = app.config.get("LOGIN_MANAGER")
+    ext.login_manager.init_app(app)
     if lm:
         for k, v in lm.items():
             setattr(ext.login_manager, k, v)

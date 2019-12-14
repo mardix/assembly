@@ -293,6 +293,32 @@ class BaseConfig(object):
     CACHE_DIR = ""
 
 
+    #--------- LOGIN_MANAGER ----------
+    # Flask-Login login_manager configuration
+    LOGIN_MANAGER = {
+        #: The name of the view to redirect to when the user needs to log in.
+        #: (This can be an absolute URL as well, if your authentication
+        #: machinery is external to your application.)
+        "login_view": None,
+
+        #: The message to flash when a user is redirected to the login page.
+        "login_message": "Please log in to access this page.",
+
+        #: The message category to flash when a user is redirected to the login page.
+        "login_message_category": "message",
+
+        #: The name of the view to redirect to when the user needs to reauthenticate.
+        "refresh_view": None,
+
+        #: The message to flash when a user is redirected to the 'needs
+        #: refresh' page.
+        "needs_refresh_message": "Please reauthenticate to access this page.",
+
+        #: The message category to flash when a user is redirected to the
+        #: 'needs refresh' page.
+        "needs_refresh_message_category": "message",
+    }
+    
 # -------------------------- ENVIRONMENT BASED CONFIG ---------------------------
 """
 The environment based config is what will be loaded.

@@ -807,6 +807,27 @@ def _make_routename_from_endpoint(endpoint):
     return _make_routename_from_cls(endpoint, method_name, class_name)
 
 
+
+class _PrefixLoader(jinja2.PrefixLoader):
+    """
+    Prefix loader modifier, that will take into account the full path
+    """
+    def get_loader(self, template):
+        try:
+            pre = list(self.mapping.keys())[0]
+            pre_k = pre.replace(".", "/")
+            if template.startswith(pre_k):
+                prefix = pre
+                name = template.split(pre_k + "/", 1)[1]
+            else:
+                prefix, name = template.split(self.delimiter, 1)
+            loader = self.mapping[prefix]
+        except (ValueError, KeyError):
+            raise jinja2.exceptions.TemplateNotFound(template)
+        return loader, name
+
+
+
 def _register___application_template(pkg, prefix):
     """
     Allow to register an app templates by loading and exposing: templates, static,
@@ -832,7 +853,6 @@ def _register___application_template(pkg, prefix):
                     usually __name__ of templates and static
     :param prefix: str - to prefix the template path
     """
-
     root_pkg_dir = pkg
     if not os.path.isdir(pkg):
         root_pkg_dir = pkg_resources.resource_filename(pkg, "")
@@ -842,10 +862,9 @@ def _register___application_template(pkg, prefix):
 
     if os.path.isdir(template_path):
         loader = jinja2.FileSystemLoader(template_path)
-        ploader = jinja2.PrefixLoader({prefix: loader})
+        ploader = _PrefixLoader({prefix: loader})
         loader = ploader
         Assembly._template_paths.add(loader)
-
     if os.path.isdir(static_path):
         Assembly._static_paths.add(static_path)
         Assembly._add_asset_bundle__(static_path)

@@ -40,23 +40,22 @@ from flask import (Flask,
 
 __all__ = [
     "Assembly",
-    "g",
     "db",
     "env",
     "ext",
     "date",
     "views",
-    "flash",
+    "apply",
     "config",
     "models",
-    "session",
-    "get_cookie",
-    "set_cookie",
-    "delete_cookie",
-    "app_context",
     "url_for",
     "redirect",
-    "HTTPError"
+    "HTTPError",
+    "get_cookie",
+    "set_cookie",
+    "app_context",
+    "delete_cookie",
+    
 ]
 
 """
@@ -198,6 +197,20 @@ def redirect(endpoint, **kw):
     return f_redirect(url_for(endpoint, **kw))
 
 
+def apply(fn):
+    """
+    A decorator to apply decorators to all view methods of a class.
+
+    @apply(login_required)
+    class Index(Assembly):
+        ...
+
+    """
+    def decorator(kls):
+        if inspect.isclass(kls):
+            apply_function_to_members(kls, fn)
+        return kls
+    return decorator
 
 """
 Cookies
@@ -256,7 +269,7 @@ class Assembly(object):
              ):
         """
         Initialize Assembly
-        :param import_name: __name__
+        :param import_name: Flask instance or import name -> __name__
         :param apps_list: dict of applications/views to load. ie:
                 {
                     "default": [
@@ -270,7 +283,7 @@ class Assembly(object):
         """
 
         # initialize flask
-        app = Flask(import_name)
+        app = import_name if isinstance(import_name, Flask) else Flask(import_name)
 
         # set app_name
         if env.get("ASSEMBLY_APP"):

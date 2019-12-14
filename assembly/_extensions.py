@@ -12,24 +12,20 @@ import markdown
 import flask_s3
 import flask_mail
 import ses_mailer
+import flask_login
 import flask_kvsession
 from jinja2 import Markup
 from jinja2.ext import Extension
 from urllib.parse import urlparse
 from jinja2.nodes import CallBlock
 from jinja2 import TemplateSyntaxError
-from . import (ext, app_context, utils)
+from . import (ext, config, app_context, utils)
 from jinja2.lexer import Token, describe_token
 from flask import (request, current_app, send_file, session)
-
 
 # ------------------------------------------------------------------------------
 @app_context
 def setup(app):
-    # app.jinja_env.filters.update({
-    #     "format_datetime": format_datetime
-    # })
-
     check_config_keys = ["SECRET_KEY"]
     for k in check_config_keys:
         if k not in app.config \
@@ -38,18 +34,18 @@ def setup(app):
             logging.warning(msg)
             exit()
 
-
-# ------------------------------------------------------------------------------
-# Set CORS
-
-@app_context
-def setup(app):
+    # 
     """
-    setup
+    Flatten properties that were set in dict in the config
+    MAIL = {
+        "sender": "me@email.com",
+        "a_key": "some-value
+    }
+    MAIL_SENDER
+    MAIL_A_KEY
     """
-
-    # flatten CORS = {...} -> CORS_*
-    utils.flatten_config_property("CORS", app.config)
+    for k in ["CORS"]:
+        utils.flatten_config_property(k, app.config)
 
 
 # ------------------------------------------------------------------------------
@@ -124,6 +120,8 @@ class _Mailer(object):
         return bool(self.mail)
 
     def init_app(self, app):
+
+        utils.flatten_config_property("MAIL", app.config)
         self.config = app.config
         scheme = None
 
@@ -267,6 +265,19 @@ class _AssetsDelivery(flask_s3.FlaskS3):
 
 ext.assets_delivery = _AssetsDelivery()
 app_context(ext.assets_delivery.init_app)
+
+# ------------------------------------------------------------------------------
+# Flask-Login
+
+ext.login_manager = flask_login.LoginManager()
+
+@app_context
+def login_manager_init(app):
+    ext.login_manager.init_app(app)
+    lm = app.config.get("LOGIN_MANAGER")
+    if lm:
+        for k, v in lm.items():
+            setattr(ext.login_manager, k, v)
 
 
 # ------------------------------------------------------------------------------

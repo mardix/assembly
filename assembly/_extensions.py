@@ -608,35 +608,35 @@ It will also ignore any duplicate content in a single block.
 def init_app(app):
     app.jinja_env.add_extension(PlaceholderAddTo)
     app.jinja_env.add_extension(PlaceholderRender)
-    app.jinja_env.sekazi_tags = {}
+    app.jinja_env.placeholder_tags = {}
 
 
 class PlaceholderAddTo(Extension):
-    tags = set(['addto'])
+    tags = set(['addtoblock'])
     def _render_tag(self, name, caller):
-        context = self.environment.sekazi_tags
+        context = self.environment.placeholder_tags
         blocks = context.get(name)
         if blocks is None:
             blocks = set()
         blocks.add(caller().strip())
         context[name] = blocks
-        return jinja2.Markup("")
+        return Markup("")
 
     def parse(self, parser):
         lineno = next(parser.stream).lineno
         name = parser.parse_expression()
-        body = parser.parse_statements(['name:endaddto'], drop_needle=True)
+        body = parser.parse_statements(['name:endaddtoblock'], drop_needle=True)
         args = [name]
         return CallBlock(self.call_method('_render_tag', args),
                          [], [], body).set_lineno(lineno)
 
 
 class PlaceholderRender(Extension):
-    tags = set(['placeholder'])
+    tags = set(['renderblock'])
 
     def _render_tag(self, name: str, caller):
-        context = self.environment.sekazi_tags
-        return jinja2.Markup('\n'.join(context.get(name, [])))
+        context = self.environment.placeholder_tags
+        return Markup('\n'.join(context.get(name, [])))
 
     def parse(self, parser):
         lineno = next(parser.stream).lineno

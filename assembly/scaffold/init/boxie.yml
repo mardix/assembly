@@ -23,7 +23,7 @@ apps:
       ASSEMBLY_APP: default
     scripts:
       release:
-        - asm-admin sync-models
+        - asm gen:sync-models
         - asm setup
     process:
       web: wsgi:app

@@ -1,10 +1,11 @@
 
-[ ] - Allow modules to have a new route in the apps list
-  ```
-    APPS = {
-      "default": [
-        "modules.main",
-        ("modules.admin", "new-admin")
-      ]
-    }
-  ```
+- [ ] - Allow modules to have a new route in the apps list
+    ```
+      APPS = {
+        "default": [
+          "modules.main",
+          ("modules.admin", "new-admin")
+        ]
+      }
+    ```
+- [ ] - ? map static the view name 

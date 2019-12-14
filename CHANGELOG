@@ -1,6 +1,5 @@
 ## 1.3.0-dev
 (date: TBD)
-- ? map static the view name 
 - Added Flask-Login extension. And have ext.login_manager to access FL setup
 - forms validation with WTForms
 - flash_data, get_flashed_data: to add data instead of message for the user

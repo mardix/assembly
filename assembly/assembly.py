@@ -801,8 +801,8 @@ def _make_routename_from_cls(cls, method_name, class_name=None):
     :param class_name: To pass the class name.
     :return: string
     """
-
-    return "%s.%s:%s" % (cls.__module__, class_name or cls.__name__, method_name)
+    m = cls.__module__.replace(".__views__", "")
+    return "%s.%s:%s" % (m, class_name or cls.__name__, method_name)
 
 
 def _make_routename_from_endpoint(endpoint):

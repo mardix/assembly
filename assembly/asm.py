@@ -15,9 +15,25 @@ import functools
 import itsdangerous
 import flask_cloudy
 from passlib.hash import bcrypt
-from . import (app_context, ext, g, config)
-from flask import (send_file, session)
+from . import (app_context, ext, config)
+from flask import (send_file, session, g)
 
+__all__ = [
+    "signal",
+    "flash_data",
+    "get_flashed_data",
+    "send_mail",
+    "get_file",
+    "upload_file",
+    "delete_file",
+    "download_file",
+    "hash_string",
+    "verify_hashed_string",
+    "encode_jwt",
+    "decode_jwt",
+    "sign_data",
+    "unsign_data"
+]
 
 # ------------------------------------------------------------------------------
 # signal
@@ -114,7 +130,7 @@ def signal(fn):
 
 # ------------------------------------------------------------------------------
 
-def set_flash_data(data):
+def flash_data(data):
     """
     Set temporary data in the session.
     It will replace the previous one

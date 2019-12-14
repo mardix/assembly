@@ -199,7 +199,7 @@ caching = flask_caching.Cache()
 
 @app_context
 def _init_caching(app):
-    utils.flatten_config_property("CACHE")
+    utils.flatten_config_property("CACHE", app.config)
     caching.init_app(app)
 
 cache = caching.cached

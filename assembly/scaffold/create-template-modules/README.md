@@ -2,7 +2,7 @@
 # Assembly Template View
 
 Assembly is composed of 
-- `__init__` contains the views
+- `__views__` contains the views
 - `__models__` contains the models
 - `templates` contains the HTML template
 - `static` contains the static assets: css, js, images, etc.
@@ -11,7 +11,7 @@ Assembly is composed of
 
 ## Views
 
-`__init__` contains class based views extended by `Assembly`. Views are loaded implicitely. 
+`__views__` contains class based views extended by `Assembly`. Views are loaded implicitely. 
 
 ```
 
@@ -60,14 +60,14 @@ will match the template `Index/about_us.html`
 
 ## Using Base Layout
 
-For convenience, you can use the main base layout from `main/layouts/base.html` for the layout of the page
+For convenience, you can use the main base layout from `modules/main/layouts/base.html` for the layout of the page
 
 ### Extends base layout
 
 Extends the base layout in the pages
 
 ```
-{% extends 'main/layouts/base.html' %}
+{% extends 'modules/main/layouts/base.html' %}
 ```
 
 ### Block title

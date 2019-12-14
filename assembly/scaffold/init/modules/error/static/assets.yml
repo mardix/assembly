@@ -13,15 +13,15 @@
 #{% endassets %}
 
 
-# List all the css files to include, under contents
-main/styles.css:
-    output: "gen/styles.css"
-    contents:
-        - main/css/style.css
+# # List all the css files to include, under contents
+# main/styles.css:
+#     output: "gen/styles.css"
+#     contents:
+#         - main/css/style.css
 
-# List all the js files to include, under contents
-main/app.js:
-    output: "gen/app.js"
-    contents:
-        - main/js/app.js
+# # List all the js files to include, under contents
+# main/app.js:
+#     output: "gen/app.js"
+#     contents:
+#         - main/js/app.js
 

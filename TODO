@@ -1,1 +1,10 @@
 
+[ ] - Allow modules to have a new route in the apps list
+  ```
+    APPS = {
+      "default": [
+        "modules.main",
+        ("modules.admin", "new-admin")
+      ]
+    }
+  ```

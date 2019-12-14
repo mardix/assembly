@@ -2,14 +2,14 @@
 # Assembly API View
 
 Assembly is composed of 
-- `__init__` contains the views
+- `__views__` contains the views
 - `__models__` contains the models
 
 ---
 
 ## Views
 
-`__init__` contains class based views extended by `Assembly`. Views are loaded implicitely. 
+`__views__` contains class based views extended by `Assembly`. Views are loaded implicitely. 
 
 ```
 

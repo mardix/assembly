@@ -145,36 +145,36 @@ def init():
         print("- Launch app on development mode, run [ asm-admin serve ]")
         print("")
 
-def create_views(scaffold, name):
-    dest = os.path.join(app_dir, name)
+def create_modules(scaffold, name):
+    dest = os.path.join(app_dir, "modules", name)
     if os.path.isdir(dest):
         print("ERROR: directory exists already '%s'" % dest)
     else:
         utils.mkpath(dest)
         copy_resource_dir(SKELETON_DIR + "/%s/" % scaffold, dest)
-        viewdest = os.path.join(dest, "__init__.py")
+        viewdest = os.path.join(dest, "__views__.py")
         with open(viewdest, "r+") as f:
             content = f.read().replace("%ROUTE%", name.lower())
             f.seek(0)
             f.write(content)
             f.truncate()
 
-@cli_admin.command("gen-template-view")
+@cli_admin.command("gen-module-template")
 @click.argument("name")
 def add_view(name):
-    """ Generate Template based views"""
+    """ Generate Template based modules"""
 
-    header("Create Template based views")
-    create_views("create-template-views", name)
+    header("Create Template based modules")
+    create_modules("create-template-modules", name)
     print("")
     print("*" * 80)
 
-@cli_admin.command("gen-api-view")
+@cli_admin.command("gen-module-api")
 @click.argument("name")
 def api_view(name):
-    """ Generate API based views"""
-    header("Create API based views")
-    create_views("create-api-views", name)
+    """ Generate API based modules"""
+    header("Create API based modules")
+    create_modules("create-api-modules", name)
     print("")
     print("*" * 80)
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Assembly: cli 
+Assembly: scripts 
 """
 
 import os
@@ -75,8 +75,11 @@ def bold(str):
     return '\033[1m%s\033[0m' % str
 
 def header(title=None):
-    print('*' * 80)
-    print("%s v. %s" % (about.__title__,about.__version__))
+    print("")
+    print("")
+    print('=-*' * 25)
+    print("                   %s v. %s" % (about.__title__,about.__version__))
+    print('=-*' * 25)
     print("")
     if title:
         print(':: %s ::' % title.upper())
@@ -95,8 +98,6 @@ def build_assets(app):
 @click.group()
 def cli():
     """ Assembly
-
-    NOTE: To use the admin commands run 'asm-admin'
 
     (http://mardix.github.io/assembly) 
 
@@ -122,7 +123,7 @@ option = click.option
 
 #-------------------------------------
 
-@cli_admin.command("init")
+@cli.command("gen:init")
 @catch_exception
 def init():
     """Init Assembly in the current directory """
@@ -159,27 +160,26 @@ def create_modules(scaffold, name):
             f.write(content)
             f.truncate()
 
-@cli_admin.command("gen-module-template")
+@cli.command("gen:template-module")
 @click.argument("name")
 def add_view(name):
-    """ Generate Template based modules"""
-
-    header("Create Template based modules")
+    """ Generate Template modules"""
+    header("Generate Template modules")
     create_modules("create-template-modules", name)
     print("")
     print("*" * 80)
 
-@cli_admin.command("gen-module-api")
+@cli.command("gen:restful-module")
 @click.argument("name")
 def api_view(name):
-    """ Generate API based modules"""
-    header("Create API based modules")
+    """ Generate API/RESTful modules"""
+    header("Generate API/RESTful modules")
     create_modules("create-api-modules", name)
     print("")
     print("*" * 80)
 
 
-@cli_admin.command("serve")
+@cli.command("gen:serve")
 @click.option("--port", "-p", default=5000)
 @catch_exception
 def run(port):
@@ -191,7 +191,7 @@ def run(port):
     asm_app.run(debug=True, host='0.0.0.0', port=port)
 
 
-@cli_admin.command("sync-models")
+@cli.command("gen:sync-models")
 def sync_models():
     """ Sync database models to create new tables """
 
@@ -205,7 +205,7 @@ def sync_models():
                 getattr(m, "__sync__")()
         print("")
 
-@cli_admin.command("upload-assets-s3")
+@cli.command("gen:upload-assets-s3")
 @catch_exception
 def assets2s3():
     """ Upload assets files to S3 """
@@ -220,7 +220,7 @@ def assets2s3():
     print("")
 
 
-@cli_admin.command("version")
+@cli.command("gen:version")
 def version():
     """Get the version"""
     print(about.__version__)
@@ -235,27 +235,23 @@ def cmd():
     :return:
     """
     global asm_app, app_dir
-
-    script_name = sys.argv[0].split('/')[-1]
-    is_admin = script_name == 'asm-admin'
-
     asmpyfile = os.path.join(os.path.join(CWD, ENTRY_PY))
     if os.path.isfile(asmpyfile):
         cwd_to_sys_path()
         entry = import_string(ENTRY_PY.replace('.py', ''))
         asm_app = entry.app
         app_dir = CWD
-        cli_admin() if is_admin is True else cli()
+        cli()
         return 
     else:
         header()
-        if len(sys.argv) == 1 or (len(sys.argv) > 1 and sys.argv[1] != 'init'):
-            print("Error: %s is  not setup yet" % about.__title__)
-            print("Run %s in the directory you want to create it" % bold("asm-admin init"))
-            print("Missing file '%s' in %s" % (ENTRY_PY, CWD))
+        if len(sys.argv) == 1 or (len(sys.argv) > 1 and sys.argv[1] != 'gen:init'):
+            print("Error: %s is not setup yet" % about.__title__)
+            print("missing file '%s' in %s" % (ENTRY_PY, CWD))
+            print("Run %s in this directory to initialize" % bold("asm gen:init"))
             print('_' * 80)
             print("")
-    if is_admin is True:
-        cli_admin()
+        elif len(sys.argv) == 1 or (len(sys.argv) > 1 and sys.argv[1] == 'gen:init'):
+            cli()
 
     

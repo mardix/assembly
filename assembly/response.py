@@ -196,6 +196,11 @@ def cached(self):
 
 """
 caching = flask_caching.Cache()
-app_context(caching.init_app)
+
+@app_context
+def _init_caching(app):
+    utils.flatten_config_property("CACHE")
+    caching.init_app(app)
+
 cache = caching.cached
 

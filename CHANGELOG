@@ -1,3 +1,32 @@
+## 1.3.0-dev
+(date: TBD)
+- ? map static the view name 
+- Added Flask-Login extension. And have ext.login_manager to access FL setup
+- Placeholder: extension to add content from subtemplate
+  ```
+    {% placeholder "css" %}
+
+    {% addto "css" %}
+      <style>
+      ...
+      </style>
+    {% endaddto %}
+
+  ```
+- forms validation with WTForms
+- flash_data, get_flashed_data: to add data instead of message for the user
+- `Assembly.initialize`, can now accept Flask instance as first argument to make it work with 
+  existing flask application.
+- Added @apply, to apply a decorator to all methods, 
+  usually when a decorator was meant for only function. ie 
+  ```  
+  @apply(login_required)
+  class Index(Assembly):
+    ...
+  ```
+- Expose asm functions as *. Now all functions in asm will be available from assembly
+- Add Boxie configuration to deploy on own server
+
 ## 1.2.0
 (Nov 27 2019)
 

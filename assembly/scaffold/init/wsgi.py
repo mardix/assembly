@@ -5,7 +5,7 @@ Assembly
 https://github.com/mardix/assembly
 --------------------------------------------------------------------------------
 
-'asm_wsgi.py' is your application's object. It's required by Assembly.
+"wsgi.py" is the application object. It's required by Assembly.
 
 It sets up and initialize all the views per application
 
@@ -37,19 +37,19 @@ from assembly import Assembly
 """
 If you want to use your views CLI, you can import them below
 """
-import main.cli
+import modules.main.cli
 
 """
 APPS = {}
-a dict with list of applications to load by name
-You can add as many views as you want per application.
+a dict with list of modules to load by name
+You can add as many modules as you want per application.
 Set the environment variable 'ASSEMBLY_APP' to the name of the app to use
 ie: 'export ASSEMBLY_APP=default'
 """
 
 APPS = {
     "default": [
-        "main"
+        "modules.main"
     ]
 }
 

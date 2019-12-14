@@ -14,7 +14,7 @@ where it will share base layout that all views can use.
 
 ## Views
 
-`__init__` contains class based views extended by `Assembly`. Views are loaded implicitely. 
+`__views__` contains class based views extended by `Assembly`. Views are loaded implicitely. 
 
 ```
 

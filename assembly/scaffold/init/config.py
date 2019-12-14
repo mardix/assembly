@@ -28,7 +28,7 @@ import os
 ROOT_DIR = os.path.dirname(__file__)
 
 # Data directory
-DATA_DIR = os.path.join(ROOT_DIR, "_data")
+DATA_DIR = os.path.join(ROOT_DIR, "data")
 
 
 class BaseConfig(object):
@@ -163,55 +163,57 @@ class BaseConfig(object):
     #: Cloudfiles, Azure Blobs, and Local storage
     #: When using local storage, they can be accessed via http://yoursite/files
     #:
+    STORAGE = {
+        #: STORAGE_PROVIDER:
+        # The provider to use. By default it's 'LOCAL'.
+        # You can use:
+        # LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES
+        "PROVIDER": "LOCAL"
 
-    #: STORAGE_PROVIDER:
-    # The provider to use. By default it's 'LOCAL'.
-    # You can use:
-    # LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES
-    STORAGE_PROVIDER = "LOCAL"
+        #: STORAGE_KEY
+        # The storage key. Leave it blank if PROVIDER is LOCAL
+        "KEY": AWS_ACCESS_KEY_ID
 
-    #: STORAGE_KEY
-    # The storage key. Leave it blank if PROVIDER is LOCAL
-    STORAGE_KEY = AWS_ACCESS_KEY_ID
+        #: STORAGE_SECRET
+        #: The storage secret key. Leave it blank if PROVIDER is LOCAL
+        "SECRET": AWS_SECRET_ACCESS_KEY
 
-    #: STORAGE_SECRET
-    #: The storage secret key. Leave it blank if PROVIDER is LOCAL
-    STORAGE_SECRET = AWS_SECRET_ACCESS_KEY
+        #: STORAGE_REGION_NAME
+        #: The region for the storage. Leave it blank if PROVIDER is LOCAL
+        "REGION_NAME": AWS_REGION_NAME
 
-    #: STORAGE_REGION_NAME
-    #: The region for the storage. Leave it blank if PROVIDER is LOCAL
-    STORAGE_REGION_NAME = AWS_REGION_NAME
+        #: STORAGE_CONTAINER
+        #: The Bucket name (for S3, Google storage, Azure, cloudfile)
+        #: or the directory name (LOCAL) to access
+        "CONTAINER": os.path.join(DATA_DIR, "uploads")
 
-    #: STORAGE_CONTAINER
-    #: The Bucket name (for S3, Google storage, Azure, cloudfile)
-    #: or the directory name (LOCAL) to access
-    STORAGE_CONTAINER = os.path.join(DATA_DIR, "uploads")
+        #: STORAGE_SERVER
+        #: Bool, to serve local file
+        "SERVER": True
 
-    #: STORAGE_SERVER
-    #: Bool, to serve local file
-    STORAGE_SERVER = True
+        #: STORAGE_SERVER_URL
+        #: The url suffix for local storage
+        "SERVER_URL": "files"
 
-    #: STORAGE_SERVER_URL
-    #: The url suffix for local storage
-    STORAGE_SERVER_URL = "files"
+        #:STORAGE_UPLOAD_FILE_PROPS
+        #: A convenient K/V properties for storage.upload to use when using `upload_file()`
+        #: It contains common properties that can passed into the upload function
+        #: ie: upload_file("profile-image", file)
+        "UPLOAD_FILE_PROPS": {
+            # To upload regular images
+            "image": {
+                "extensions": ["jpg", "png", "gif", "jpeg"],
+                "public": True
+            },
 
-    #:STORAGE_UPLOAD_FILE_PROPS
-    #: A convenient K/V properties for storage.upload to use when using `upload_file()`
-    #: It contains common properties that can passed into the upload function
-    #: ie: upload_file("profile-image", file)
-    STORAGE_UPLOAD_FILE_PROPS = {
-        # To upload regular images
-        "image": {
-            "extensions": ["jpg", "png", "gif", "jpeg"],
-            "public": True
-        },
-
-        # To upload profile image
-        "profile-image": {
-            "prefix": "profile-image/",
-            "extensions": ["jpg", "png", "gif", "jpeg"],
-            "public": True
+            # To upload profile image
+            "profile-image": {
+                "prefix": "profile-image/",
+                "extensions": ["jpg", "png", "gif", "jpeg"],
+                "public": True
+            }
         }
+
     }
 
     #--------- MAIL ----------
@@ -277,21 +279,21 @@ class BaseConfig(object):
 
     #--------- CACHING ----------
     #: Flask-Cache is used to caching
+    CACHE = {
+        #: CACHE_TYPE
+        #: The type of cache to use
+        #: null, simple, redis, filesystem,        
+        "TYPE": "simple",
 
-    #: CACHE_TYPE
-    #: The type of cache to use
-    #: null, simple, redis, filesystem,
-    CACHE_TYPE = "simple"
+        #: CACHE_REDIS_URL
+        #: If CHACHE_TYPE is 'redis', set the redis uri
+        #: redis://username:password@host:port/db        
+        "REDIS_URL": "",
 
-    #: CACHE_REDIS_URL
-    #: If CHACHE_TYPE is 'redis', set the redis uri
-    #: redis://username:password@host:port/db
-    CACHE_REDIS_URL = ""
-
-    #: CACHE_DIR
-    #: Directory to store cache if CACHE_TYPE is filesystem, it will
-    CACHE_DIR = ""
-
+        #: CACHE_DIR
+        #: Directory to store cache if CACHE_TYPE is filesystem, it will
+        "DIR": ""
+    }
 
     #--------- LOGIN_MANAGER ----------
     # Flask-Login login_manager configuration

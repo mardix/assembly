@@ -23,18 +23,20 @@ wsgi:app
     |- wsgi.py
     |- config.py
     |- requirements.txt
-    |- main
-        |- __init__.py
-        |- __models__.py
-        |- templates
-            |- Index
-                |- index.html
-            |- layouts
-                |- base.html
-        |- static
-        |- cli.py
+    |- modules/
+        |- main
+            |- __init__.py
+            |- __views__.py
+            |- __models__.py
+            |- templates
+                |- Index
+                    |- index.html
+                |- layouts
+                    |- base.html
+            |- static
+            |- cli.py
 
-    |- __data__
+    |- data/
 ```
 
 

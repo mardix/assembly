@@ -55,7 +55,7 @@ __all__ = [
     "set_cookie",
     "app_context",
     "delete_cookie",
-    
+
 ]
 
 """
@@ -87,7 +87,7 @@ models
 Will hold models from apps, or to be shared
 ie, set new model property -> models.MyNewModel = MyModel
 ie: use property -> models.MyNewModel.all()
-For convenience, use `_register___models(**kw)` to register the models
+For convenience, use `_register_models(**kw)` to register the models
 By default Assembly will load all the application/__models__.py models
 """
 models = type('', (), {})
@@ -106,7 +106,6 @@ upon initialization will use the right URL for it
 also, it exposes the db object to all modules
 """
 db = _db.ActiveAlchemyProxy()
-
 
 
 def app_context(kls):
@@ -212,6 +211,7 @@ def apply(fn):
         return kls
     return decorator
 
+
 """
 Cookies
 set_cookie, caches set_cookie *args **kwargs in the g object
@@ -220,22 +220,26 @@ When we receive the response for rendering, we actually set_cookie
 set_cookie is a method of the response object.
 """
 __ASM_SET_COOKIES__ = "__ASM_SET_COOKIES__"
+
+
 def set_cookie(*a, **kw):
     """
     Proxy to response.set_cookie()
     It caches the cookies to be set in the g object
-    """   
-    cookies = [] 
+    """
+    cookies = []
     if __ASM_SET_COOKIES__ in g:
         cookies = getattr(g, __ASM_SET_COOKIES__)
     cookies.append((a, kw))
     setattr(g, __ASM_SET_COOKIES__, cookies)
-    
+
+
 def delete_cookie(key, path="/", domain=None):
     """
     To delete a cookie
     """
     set_cookie(key, expires=0, max_age=0, path=path, domain=domain)
+
 
 def get_cookie(key):
     """
@@ -245,6 +249,7 @@ def get_cookie(key):
 
 # ------------------------------------------------------------------------------
 # Assembly core class
+
 
 class Assembly(object):
     decorators = []
@@ -256,9 +261,8 @@ class Assembly(object):
     __special_methods = ["get", "put", "patch", "post", "delete", "index"]
     _app = None
     _init_apps = set()
-    _template_paths = set()
+    _template_fsl = {}
     _static_paths = set()
-    _asset_bundles = set()
 
     @classmethod
     def init(cls,
@@ -294,13 +298,13 @@ class Assembly(object):
             app_env = env.get("ASSEMBLY_ENV")
         app_env = app_env.lower().capitalize()
 
-        # load the config file 
+        # load the config file
         app.config.from_object("config.%s" % app_env)
 
         # update config object. Return a DotDict object
-        if not config: 
+        if not config:
             config.update(app.config.items())
-  
+
         # Proxyfix
         # By default it will use PROXY FIX
         # To by pass it, or to use your own, set config
@@ -308,7 +312,7 @@ class Assembly(object):
         if app.config.get("USE_PROXY_FIX", True):
             app.wsgi_app = ProxyFix(app.wsgi_app)
 
-        app.url_map.converters['regex'] = RegexConverter
+        app.url_map.converters['regex'] = _RegexConverter
 
         cls._app = app
         cls.assets = Environment(app)
@@ -329,7 +333,7 @@ class Assembly(object):
             """
 
             for view in apps_list[app_name]:
-                
+
                 # auto load __views__
                 werkzeug.import_string("%s.__views__" % view, True)
 
@@ -338,7 +342,7 @@ class Assembly(object):
                 cls._expose_models__()
 
                 # auto register templates an static
-                _register___application_template(view, view)
+                _register_application_template(view, view)
 
         except ImportError as ie1:
             logging.critical(ie1)
@@ -349,14 +353,18 @@ class Assembly(object):
         [init_app(app) for init_app in cls._init_apps]
 
         # register templates
-        if cls._template_paths:
-            loader = [app.jinja_loader] + list(cls._template_paths)
+        if cls._template_fsl:
+            loader = [app.jinja_loader, _JinjaPrefixLoader(cls._template_fsl)]
             app.jinja_loader = jinja2.ChoiceLoader(loader)
 
         # register static
         if cls._static_paths:
             cls.assets.load_path = [app.static_folder] + list(cls._static_paths)
-            [cls.assets.from_yaml(a) for a in cls._asset_bundles]
+
+            for p in cls._static_paths:
+                f = "%s/assets.yml" % p
+                if os.path.isfile(f):
+                    cls.assets.from_yaml(f)
 
         # register views
         for subcls in cls.__subclasses__():
@@ -397,14 +405,6 @@ class Assembly(object):
 
         return render_template(__template__, **data)
 
-    @classmethod
-    def _add_asset_bundle__(cls, path):
-        """
-        Add a webassets bundle yml file
-        """
-        f = "%s/assets.yml" % path
-        if os.path.isfile(f):
-            cls._asset_bundles.add(f)
 
     @classmethod
     def _setup_db__(cls, app):
@@ -422,17 +422,17 @@ class Assembly(object):
         :return:
         """
         if db._IS_OK_:
-            _register___models(**{m.__name__: m
-                                for m in db.Model.__subclasses__()
-                                if not hasattr(models, m.__name__)})
+            _register_models(**{m.__name__: m
+                                  for m in db.Model.__subclasses__()
+                                  if not hasattr(models, m.__name__)})
 
     @classmethod
     def _register__(cls,
-                  app,
-                  base_route=None,
-                  subdomain=None,
-                  route_prefix=None,
-                  trailing_slash=True):
+                    app,
+                    base_route=None,
+                    subdomain=None,
+                    route_prefix=None,
+                    trailing_slash=True):
         """Registers a Assembly class for use with a specific instance of a
         Flask app. Any methods not prefixes with an underscore are candidates
         to be routed and will have routes registered when this method is
@@ -546,7 +546,7 @@ class Assembly(object):
             if match:
                 try:
                     mname = match.groups()[0]
-                    exc = int(mname) if mname.isdigit() else HTTPException                        
+                    exc = int(mname) if mname.isdigit() else HTTPException
                     app.register_error_handler(exc, lambda e: cls._error_handler__(fn, e))
                 except KeyError as kE:
                     raise AssemblyError(str(kE) + " - module: '%s'" % _get_full_method_name(fn))
@@ -708,7 +708,7 @@ class Assembly(object):
             # template can be changed using @respone.template('app/class/action.html')
             if "__template__" not in data:
                 data["__template__"] = _make_template_path(cls, fn.__name__.lstrip("_"))
-            return cls.render(**resp), e.code, headers  
+            return cls.render(**resp), e.code, headers
         return resp
 
 # ------------------------------------------------------------------------------
@@ -726,33 +726,14 @@ def apply_function_to_members(cls, fn):
         setattr(cls, name, fn(method))
 
 # ------------------------------------------------------------------------------
-
-
-class DecoratorCompatibilityError(Exception):
-    pass
-
-
-class RegexConverter(BaseConverter):
-    def __init__(self, url_map, *items):
-        super(RegexConverter, self).__init__(url_map)
-        self.regex = items[0]
-
-
-class AssemblyError(Exception):
-    """
-    This exception is not reserved, but it used for all Assembly exception.
-    It helps catch Core problems.
-    """
-
-# ------------------------------------------------------------------------------
-# Private functions
+# Utility functions
 
 
 def _get_full_method_name(mtd):
     return "%s.%s" % (mtd.__module__, mtd.__name__)
 
 
-def _register___models(**kwargs):
+def _register_models(**kwargs):
     """
     Alias to register model
     :param kwargs:
@@ -810,28 +791,7 @@ def _make_routename_from_endpoint(endpoint):
     return _make_routename_from_cls(endpoint, method_name, class_name)
 
 
-
-class _PrefixLoader(jinja2.PrefixLoader):
-    """
-    Prefix loader modifier, that will take into account the full path
-    """
-    def get_loader(self, template):
-        try:
-            pre = list(self.mapping.keys())[0]
-            pre_k = pre.replace(".", "/")
-            if template.startswith(pre_k):
-                prefix = pre
-                name = template.split(pre_k + "/", 1)[1]
-            else:
-                prefix, name = template.split(self.delimiter, 1)
-            loader = self.mapping[prefix]
-        except (ValueError, KeyError):
-            raise jinja2.exceptions.TemplateNotFound(template)
-        return loader, name
-
-
-
-def _register___application_template(pkg, prefix):
+def _register_application_template(pkg, prefix):
     """
     Allow to register an app templates by loading and exposing: templates, static,
     and exceptions for abort()
@@ -865,19 +825,16 @@ def _register___application_template(pkg, prefix):
 
     if os.path.isdir(template_path):
         loader = jinja2.FileSystemLoader(template_path)
-        ploader = _PrefixLoader({prefix: loader})
-        loader = ploader
-        Assembly._template_paths.add(loader)
+        Assembly._template_fsl.update({prefix: loader})
     if os.path.isdir(static_path):
         Assembly._static_paths.add(static_path)
-        Assembly._add_asset_bundle__(static_path)
 
 
 def _make_template_path(cls, method_name):
     _template = _make_routename_from_cls(cls, method_name)
     m = _template.split(".")
     if "__views__" in m:
-        m.remove("__views__")    
+        m.remove("__views__")
     _template = ".".join(list(m))
     _template = utils.list_replace([".", ":"], "/", _template)
     return "%s.html" % _template
@@ -948,3 +905,39 @@ def _get_true_argspec(method):
         if true_argspec:
             return true_argspec
 
+# ------------------------------------------------------------------------------
+# Utility classes
+
+class AssemblyError(Exception):
+    """
+    This exception is not reserved, but it used for all Assembly exception.
+    It helps catch Core problems.
+    """
+
+class DecoratorCompatibilityError(Exception):
+    pass
+
+
+class _RegexConverter(BaseConverter):
+    def __init__(self, url_map, *items):
+        super(_RegexConverter, self).__init__(url_map)
+        self.regex = items[0]
+
+
+class _JinjaPrefixLoader(jinja2.PrefixLoader):
+    """
+    Prefix loader modifier, that will take into account the full path
+    """
+    def get_loader(self, template):
+        try:
+            for prefix in self.mapping.keys():
+                prek = prefix.replace(".", "/") + "/"
+                if template.startswith(prek):
+                    name = template.split(prek, 1)[1]
+                    break
+            else:
+                prefix, name = template.split(self.delimiter, 1)
+            loader = self.mapping[prefix]
+        except (ValueError, KeyError):
+            raise jinja2.exceptions.TemplateNotFound(template)
+        return loader, name

@@ -457,10 +457,10 @@ class Assembly(object):
 
         # Create a unique namespaced key to access view.
         module = cls.__module__
-
-        if not hasattr(views, module):
-            setattr(views, module, type('', (), {}))
-        mod = getattr(views, module)
+        module_name = _sanitize_module_name(cls.__module__)
+        if not hasattr(views, module_name):
+            setattr(views, module_name, type('', (), {}))
+        mod = getattr(views, module_name)
         setattr(mod, cls.__name__, cls)
 
         if base_route:
@@ -728,6 +728,8 @@ def apply_function_to_members(cls, fn):
 # ------------------------------------------------------------------------------
 # Utility functions
 
+def _sanitize_module_name(module_name):
+    return module_name.replace(".__views__", "")
 
 def _get_full_method_name(mtd):
     return "%s.%s" % (mtd.__module__, mtd.__name__)
@@ -782,7 +784,7 @@ def _make_routename_from_cls(cls, method_name, class_name=None):
     :param class_name: To pass the class name.
     :return: string
     """
-    m = cls.__module__.replace(".__views__", "")
+    m = _sanitize_module_name(cls.__module__)
     return "%s.%s:%s" % (m, class_name or cls.__name__, method_name)
 
 

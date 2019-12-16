@@ -455,13 +455,8 @@ class Assembly(object):
         if cls is Assembly:
             raise TypeError("cls must be a subclass of Assembly, not Assembly itself")
 
-        # Create a unique namespaced key to access view.
-        module = cls.__module__
-        module_name = _sanitize_module_name(cls.__module__)
-        if not hasattr(views, module_name):
-            setattr(views, module_name, type('', (), {}))
-        mod = getattr(views, module_name)
-        setattr(mod, cls.__name__, cls)
+        # Register the view
+        _register_view(cls)
 
         if base_route:
             cls.orig_base_route = cls.base_route
@@ -743,6 +738,20 @@ def _register_models(**kwargs):
     """
     [setattr(models, k, v) for k, v in kwargs.items()]
 
+def _register_view(cls):
+    """
+    To register a view that will be accessed in the `views` object
+    so view path can be reached like: redirect(views.modules.main.Index.index)
+    :param cls: the view class
+    """
+    mod = views
+    module_name = _sanitize_module_name(cls.__module__)
+    if "." in module_name:
+        for k in module_name.split("."):
+            if not hasattr(mod, k):
+                setattr(mod, k, type('', (), {}))
+            mod = getattr(mod, k)
+    setattr(mod, cls.__name__, cls)
 
 def _get_action_endpoint(action):
     """

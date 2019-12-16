@@ -9,8 +9,6 @@ def test__sanitize_module_name():
 
 
 def test__register_models():
-    from tests.module_test.main.__views__ import Test1
-
     class A:
       pass
     class B:

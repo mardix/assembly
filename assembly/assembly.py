@@ -794,7 +794,7 @@ def _make_routename_from_cls(cls, method_name, class_name=None):
     :return: string
     """
     m = _sanitize_module_name(cls.__module__)
-    return "%s.%s:%s" % (m, class_name or cls.__name__, method_name)
+    return "%s.%s.%s" % (m, class_name or cls.__name__, method_name)
 
 
 def _make_routename_from_endpoint(endpoint):

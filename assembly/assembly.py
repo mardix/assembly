@@ -267,14 +267,14 @@ class Assembly(object):
     @classmethod
     def init(cls,
              import_name,
-             apps_list,
+             views_list,
              app_name="default",
              app_env="Development"
              ):
         """
         Initialize Assembly
         :param import_name: Flask instance or import name -> __name__
-        :param apps_list: dict of applications/views to load. ie:
+        :param views_list: dict of applications/views to load. ie:
                 {
                     "default": [
                         "application",
@@ -318,8 +318,9 @@ class Assembly(object):
         cls.assets = Environment(app)
         cls._setup_db__(app)
 
+        # Load views
         try:
-            if app_name not in apps_list:
+            if app_name not in views_list:
                 raise AssemblyError("Missing project: %s" % app_name)
 
             """
@@ -332,20 +333,19 @@ class Assembly(object):
                 }
             """
 
-            for view in apps_list[app_name]:
-
-                # auto load __views__
-                werkzeug.import_string("%s.__views__" % view, True)
-
-                # auto load __models__
-                werkzeug.import_string("%s.__models__" % view, True)
-                cls._expose_models__()
-
+            logging.info("Initializing app: [%s]" % app_name)
+            for view in views_list[app_name]:
+                logging.info("Importing views: %s " % view)
+                # auto load views.py
+                werkzeug.import_string(view)
                 # auto register templates an static
                 _register_application_template(view, view)
 
         except ImportError as ie1:
             logging.critical(ie1)
+
+        # register models
+        cls._register_models__()
 
         # Extensions
         # instanciate all functions that may need the flask.app object
@@ -374,7 +374,6 @@ class Assembly(object):
                 if subcls.__name__.lower() == "index":
                     base_route = "/"
             subcls._register__(app, base_route=base_route)
-
         return app
 
     @classmethod
@@ -416,7 +415,7 @@ class Assembly(object):
             db.connect__(uri, app)
 
     @classmethod
-    def _expose_models__(cls):
+    def _register_models__(cls):
         """
         Register the models and assign them to `models`
         :return:
@@ -724,7 +723,7 @@ def apply_function_to_members(cls, fn):
 # Utility functions
 
 def _sanitize_module_name(module_name):
-    return module_name.replace(".__views__", "")
+    return module_name.replace(".views", "")
 
 def _get_full_method_name(mtd):
     return "%s.%s" % (mtd.__module__, mtd.__name__)
@@ -844,8 +843,8 @@ def _register_application_template(pkg, prefix):
 def _make_template_path(cls, method_name):
     _template = _make_routename_from_cls(cls, method_name)
     m = _template.split(".")
-    if "__views__" in m:
-        m.remove("__views__")
+    if "views" in m:
+        m.remove("views")
     _template = ".".join(list(m))
     _template = utils.list_replace([".", ":"], "/", _template)
     return "%s.html" % _template

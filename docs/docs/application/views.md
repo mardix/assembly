@@ -4,19 +4,19 @@
 
 Assembly views are classes that extend **Assembly** 
 
-Assembly by default suggests that you put your views in `__init__.py`, in the View Package folder.
+Assembly by default suggests that you put your views in `views.py`, in the View Package folder.
 
 A simple View would look like this
 
 ```
 |- hello_world/
-    |- __init__.py
+    |- views.py
 
 ```
  
 
-```
-# hello_world/__init__.py
+```python
+# modules/hello_world/views.py
 
 from assembly import Assembly
 
@@ -29,26 +29,27 @@ class Index(Assembly):
 
 ## Working with View
 
-To create a view, just create a folder at the root of the application and create `__init__.py` in it. You may also create `__models__.py`, `templates/`, `static/`, `cli.py`.
+To create a view, just create a folder at the root of the application and create `views.py` in it. You may also create `models.py`, `templates/`, `static/`, `scripts.py`.
 
 Or you can use the built-in CLI to create your view 
 
-```
-# 
-asm-admin gen-api-view myapi
-#
-asm-admin gen-template-view admin
+```python
+# to create a RESTful module
+asm gen:restful-module api
+
+# to create a module that contains template
+asm gen:template-module admin
 ```
 
 ### Imports
 
 Turn your classes into Assembly views by extending **Assembly**
 
-```
+```python
 from assembly import Assembly
 
 class Index(Assembly):
-    index(self):
+    def index(self):
         return
 
 ```
@@ -62,7 +63,7 @@ By default Assembly creates routes based on the class name and the method.
 
 Use `@request.route` on classes or method to change the route endpoint
 
-```
+```python
 from assembly import Assembly, request
 
 # responds to -> /admin
@@ -71,7 +72,7 @@ class Index(Assembly):
 
     # responds to /admin/catalog
     @request.route("catalog")
-    index(self):
+    def index(self):
         return
 
 ```
@@ -85,12 +86,12 @@ class Index(Assembly):
 
 Class named **Index** or method named **index** will be the root of the endpoint
 
-```
+```python
 # responds to -> /
 class Index(Assembly):
 
     # responds to -> /
-    index(self):
+    def index(self):
         return
 ```
 
@@ -98,7 +99,7 @@ class Index(Assembly):
 
 the class name is the base url
 
-```
+```python
 # responds to -> /api
 class Api(Assembly):
 
@@ -118,20 +119,20 @@ class Article(Assembly):
 
 #### method names are routes
 
-```
+```python
 # responds to -> /
 class Index(Assembly):
 
     # responds to -> /
-    index(self):
+    def index(self):
         return
 
     # responds to -> /hello/
-    hello(self):
+    def hello(self):
         return
 
     # responds to -> /save/
-    save(self):
+    def save(self):
         return
 ```
 
@@ -139,22 +140,22 @@ class Index(Assembly):
 
 Methods containing underscore in between, will turn into dash/hyphe
 
-```
+```python
 class Index(Assembly):
 
     # responds to -> /about-us/
-    about_us(self):
+    def about_us(self):
         return
 ```
 
 However, method starting with undescrore will be ignored
 
 
-```
+```python
 class Index(Assembly):
 
     # will not be assigned a route because it starts with underscore
-    _log_data_info(self):
+    def _log_data_info(self):
         return
 ```
 
@@ -162,27 +163,27 @@ class Index(Assembly):
 
 **get**, **post**, **put**, **delete** will automatically be assigned their method name
 
-```
+```python
 class Index(Assembly):
 
     # will responds on get call
-    get(self):
+    def get(self):
         return
 
     # will responds on post call
-    post(self):
+    def post(self):
         return
 
     # will responds on delete call
-    delete(self):
+    def delete(self):
         return
 
     # will responds on put call
-    put(self):
+    def put(self):
         return
 
     # will responds on update call
-    update(self):
+    def update(self):
         return
 
 ```
@@ -198,7 +199,7 @@ Below are methods that are very special to your application
 
 This function will run before each request
 
-```
+```python
 class Index(Assembly):
 
     def _before_request(self, name):
@@ -218,7 +219,7 @@ class Index(Assembly):
 
 This function will run after each request
 
-```
+```python
 class Index(Assembly):
 
     def _after_request(self, name, response):
@@ -237,7 +238,7 @@ class Index(Assembly):
 
 This function will catch all HTTPError. 
 
-```
+```python
 class Index(Assembly):
 
     def _error_handler(self, error):
@@ -251,7 +252,7 @@ class Index(Assembly):
 
 This function will catch an HTTP Error Code
 
-```
+```python
 class Index(Assembly):
 
     # will catch 404 only
@@ -279,7 +280,7 @@ class Index(Assembly):
 
 This function will run before each time $methodName is called
 
-```
+```python
 class Index(Assembly):
 
     def _before_about_us(self, name):
@@ -298,7 +299,7 @@ class Index(Assembly):
 
 This function will run after each time $methodName is called
 
-```
+```python
 class Index(Assembly):
 
     def _after_about_us(self, name):
@@ -320,7 +321,7 @@ class Index(Assembly):
 
 Request is a Proxy to Flask request with extra functionalities. For example it adds route decorator, cors decorator, etc.  
 
-```
+```python
 from assembly import request
 ```
 
@@ -332,7 +333,7 @@ Go to: **[Request](../advanced/request.md) **
 
 By default, Assembly will attempt to match a template with the view. Sometimes you may want to return JSON or cache the response. The `response` module provides some decorators to help with some response functionalities.
 
-```
+```python
 from assembly import response
 ```
 
@@ -344,7 +345,7 @@ Go to: **[Response](../advanced/response.md) **
 
 Redirect helps you redirect to different enpoint using the method name via 'self' or the class itself. Assembly knows what to do. also allows inter within
 
-```
+```python
 from assembly import redirect
 ```
 
@@ -358,7 +359,7 @@ Generates a URL to the given endpoint with the method provided. It's a proxy to 
 
 Extra arguments will be used as query params. To get the full url, add `_external=True`.
 
-```
+```python
 from assembly import Assembly, url_for, views
 
 
@@ -374,12 +375,12 @@ class Index(Assembly):
     def about_us(self):
         return
 
-Class Blog(Assembly):
+class Blog(Assembly):
     def index(self):
         return
 
 
-# articles/__init__.py
+# articles/views.py
 
 class Articles(Assembly):
 
@@ -398,8 +399,8 @@ Models can be used easily by importing the `models` object. It contains a refere
 Learn more on **[Models](../application/models.md) **
 
 
-```
-# main/__models__.py
+```python
+# modules/main/models.py
 
 from assembly import db
 
@@ -413,7 +414,7 @@ class Author(db.Model):
 ```
 
 
-```
+```python
 
 from assembly import Assembly, models
 
@@ -438,7 +439,7 @@ Go to: **[Config](../config.md) **
 
 
 
-```
+```python
 
 from assembly import Assembly, config
 
@@ -457,7 +458,7 @@ class Index(Assembly):
 
 A special method _error_handler can be added in your view class to capture any HTTPException.
 
-```
+```python
 from assembly import HTTPError
 ```
 
@@ -469,7 +470,7 @@ Go to: **[Error Handling](../advanced/error-handling.md) **
 
 To work with dates, Assembly provides `date`.
 
-```
+```python
 from assembly import date
 ```
 
@@ -482,7 +483,7 @@ Go to: **[Dates](../advanced/date.md) **
 
 Working with session
 
-```
+```python
 from assembly import session
 ```
 
@@ -493,7 +494,7 @@ Go to: **[Session](../advanced/sessions.md) **
 
 Working with flash
 
-```
+```python
 from assembly import flash
 ```
 

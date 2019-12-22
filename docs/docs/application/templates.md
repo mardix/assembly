@@ -4,11 +4,13 @@
 Assembly uses Jinja as template language, files are organized per Class and Methods name.
 
 ```
-|- main/
-    |- __init__.py
-    |- __models__.py
-    |- templates/
-    |- static/
+|- modules/
+    |- main/
+      |- __init__.py
+      |- views.py
+      |- models.py
+      |- templates/
+      |- static/
 
 ```
 
@@ -19,8 +21,8 @@ Files are organized per Class and Methods name.  Each class name have correspond
 
 Having a View like this...
 
-```
-# admin/__init__.py
+```python
+# modules/admin/views.py
 
 from assembly import Assembly
 
@@ -56,22 +58,24 @@ class Movies(Assembly):
 will map to templates below
 
 ```
-|- admin
-    |- __init__.py
-    |- __models__.py
-    |- templates
-        |- Index
-            |- index.html
-            |- login.html
-        |- Articles
-            |- index.html
-            |- all.html
-        |- Movies
-            |- index.html
-            |- guide.html            
-            |- channels.html            
-    |- static
-    |- cli.py
+|- modules/
+    |- admin/
+      |- __init__.py
+      |- views.py
+      |- models.py
+      |- templates
+          |- Index
+              |- index.html
+              |- login.html
+          |- Articles
+              |- index.html
+              |- all.html
+          |- Movies
+              |- index.html
+              |- guide.html            
+              |- channels.html            
+      |- static
+      |- scripts.py
 
 ```
 

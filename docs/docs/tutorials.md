@@ -21,7 +21,7 @@
 
 `asm gen:resful-module my-api`
 
-This will generate a Module package with `__views__.py`, `__models__.py`, `scripts.py`.
+This will generate a Module package with `views.py`, `models.py`, `scripts.py`.
 
 **Import in wsgi.py**
 
@@ -69,7 +69,7 @@ class Index(Assembly):
 
 `asm gen:template-module admin`
 
-This will generate a View package with `__views__.py`, `__models__.py`, `templates/`, `static/`, `cli.py`.
+This will generate a View package with `views.py`, `models.py`, `templates/`, `static/`, `scripts.py`.
 
 **Import in wsgi.py**
 
@@ -89,7 +89,7 @@ APPS = {
 
 ```python
 
-# modules/admin/__init__.py
+# modules/admin/views.py
 
 from assembly import (Assembly, response)
 

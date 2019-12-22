@@ -42,7 +42,7 @@ class Blog(Assembly):
 For View classes that are not in the same file, you can redirect by using the `views`
 
 ```python
-# main/__init__.py
+# modules/main/__views__.py
 
 from assembly import Assembly, redirect, views
 
@@ -50,13 +50,13 @@ class Index(Assembly):
 
     # redirects a different class, no need to know the endpoint
     def redirect_me(self):
-        return redirect(views.admin.Index.login)
+        return redirect(views.modules.admin.Index.login)
 
 
 ```
 
 ```python
-# admin/__init__.py
+# modules/admin/__views__.py
 
 from assembly import Assembly, request
 

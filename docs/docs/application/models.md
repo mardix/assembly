@@ -12,13 +12,14 @@ A simple Models would look like this
 ```
 |- main/
     |- __init__.py
+    |- __views__.py
     |- __models__.py
 
 ```
  
 
-```
-# main/__models__.py
+```python
+# modules/main/__models__.py
 
 from assembly import db
 
@@ -32,8 +33,8 @@ class Article(db.Model):
 
 in views, model can be accessed with `models.$ModelClassName`. 
 
-```
-# main/__init__.py
+```python
+# modules/main/__views__.py
 
 from assembly import Assembly, models
 
@@ -47,7 +48,7 @@ class Article(Assembly):
 
 ```
 
-Note: **Every model class created have a reference in the `models` object**. You can access any models in the application.
+Note: **Every model class created has a reference in the `models` object**. You can access any models in the application.
 
 
 
@@ -137,8 +138,8 @@ from assembly import db
 Create model classes by extending your class to `db.Model`. By default Assembly will look for `__models__.py` to exist to automatically load your models.
 
 
-```
-# main/__models__.py
+```python
+# modules/main/__models__.py
 
 from assembly import db
 
@@ -186,7 +187,7 @@ Examples
 
 To define your own table name, or to create a model from an existing table name, assign `__tablename__` property to the value of the table name.
 
-```
+```python
 class TodoList(db.Model):
     __tablename__ = "my_existing_table_name"
 
@@ -216,7 +217,7 @@ This command automatically connects to the DB and only creates the tables that d
 
 `Model.__sync__()` is a class method to add in your Model class that will be executed, when `asm-admin sync-models` is run. It will allow you to run some routines to setup some data once it's created, or if you want to do some other updates or housekeeping
 
-```
+```python
 from assembly import db
 
 class Test(db.Model):
@@ -436,8 +437,8 @@ from assembly import Assembly, models
 
 All the models created will have their reference in the `models` object.
 
-```
-# main/__init__.py
+```python
+# modules/main/__init__.py
 
 from assembly import Assembly, models
 
@@ -462,7 +463,7 @@ Columns are also properties under `db` object.
 
 ie:
 
-```
+```python
 from assembly import db
 
 class Article(db.Model):
@@ -586,7 +587,7 @@ It automatically changes Arrow objects to JSON objects on the way in and
 
 *Example*
 
-```
+```python
 from assembly import db
 
 class Article(db.Model):
@@ -597,7 +598,7 @@ class Article(db.Model):
 
 ** Create **
 
-```
+```python
 from assembly import date, models, asm
 
 image_file = "file/xyz.jpg"
@@ -607,7 +608,7 @@ models.Article.create(title='Hi', published_at=date.utcnow, image=image)
 
 ** Read **
 
-```
+```python
 from assembly import models
 
 article = models.Article.get(1)
@@ -625,7 +626,7 @@ Provides a way for storing emails in a lower case.
 
 *Example*
 
-```
+```python
 from assembly import db
 
 class Article(db.Model):
@@ -646,7 +647,7 @@ while on other databases its simply ‘text’.
 
 *Example*
 
-```
+```python
 from assembly import db
 
 class Article(db.Model):
@@ -657,7 +658,7 @@ class Article(db.Model):
 
 ** Create **
 
-```
+```python
 from assembly import models, date
 
 models.Article.create(title='Hello',
@@ -670,7 +671,7 @@ models.Article.create(title='Hello',
 
 ** Read **
 
-```
+```python
 article = models.Article.get(1)
 
 article.data.get("reference")

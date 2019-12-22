@@ -13,7 +13,7 @@
 - rename cli.py to scripts.py 
 - Add Boxie configuration to deploy on own server
 - Update doc
-- Changed "module.x.Y:z" to "module.x.Y.z" to align route endpoint to contain the route path, with dot. 
+- Changed route endpoint format "module.x.Y:z" to "module.x.Y.z", with dot instead. 
 - Added @apply, to apply a decorator to all methods, 
   usually when a decorator was meant for only function. ie 
   ```  

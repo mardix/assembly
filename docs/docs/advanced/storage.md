@@ -15,7 +15,7 @@ Extension: <a href="https://github.com/mardix/flask-cloudy" target="_blank">flas
 from assembly import get_file, upload_file, download_file, delete_file
 ```
 
-**get_file**, **upload_file**, **download_file**, **delete_file** are part part of functions to work with files.
+**get_file**, **upload_file**, **download_file**, **delete_file** are part of functions to work with files.
 
 
 ---
@@ -45,7 +45,7 @@ myfile.full_url # the full url of the file
 #### Example of file upload
 
 ```python
-# main/__init__.py
+# modules/main/__views__.py
 
 from assembly import Assembly, upload_file, request, redirect
 
@@ -74,7 +74,7 @@ Template
 
 
 ```html
-<!-- main/templates/Index/index.html -->
+<!-- modules/main/templates/Index/index.html -->
 
 {% extends 'main/layouts/base.html' %}
 

@@ -125,8 +125,4 @@ Filter Messages
 
 ```
 
-```python
-from assembly import Assembly
-from flask import flash
-
 

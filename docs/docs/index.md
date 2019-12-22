@@ -92,8 +92,9 @@ Upon initialization you should have a structure similar to this:
     |- requirements.txt
     |- modules/
         |- main
-            |- __views__.py
-            |- __models__.py
+            |- __init__.py
+            |- views.py
+            |- models.py
             |- templates
                 |- Index
                     |- index.html
@@ -109,9 +110,9 @@ Upon initialization you should have a structure similar to this:
 
 ### 3. Edit your first view
 
-```
+```python
 
-# modules/main/__views__.py
+# modules/main/views.py
 
 from assembly import (Assembly, response)
 
@@ -136,7 +137,7 @@ class Index(Assembly):
 
 #### 4.0 Edit base layout 
 
-```
+```html
 <!-- modules/main/templates/layouts/base.html -->
 
 <!doctype html>
@@ -155,7 +156,7 @@ class Index(Assembly):
 ```
 
 #### 4.1  Edit Index/index.html
-```
+```html
 
 <!-- modules/main/templates/Index/index.html -->
 

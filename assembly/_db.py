@@ -40,12 +40,9 @@ class ActiveAlchemyProxy(active_alchemy.ActiveAlchemy):
         self.connector = None
         self._engine_lock = active_alchemy.threading.Lock()
         self.session = active_alchemy._create_scoped_session(self, query_cls=active_alchemy.BaseQuery)
-
         self.Model.db, self.BaseModel.db = self, self
         self.Model._query, self.BaseModel._query = self.session.query, self.session.query
-
         self.init_app(app)
-
 
 
 # ------------------------------------------------------------------------------

@@ -141,42 +141,48 @@ def init():
         print("")
         print("> To do:")
         print("- Edit application's config [ ./config.py ] ")
-        print("- Create your Models/Database tables, then run [ asm-admin sync-models ]")        
+        print("- Edit requirements [ ./requirements ] to add dependencies packages")
+        print("- Create your Models/Database tables, then run [ asm gen:sync-models ]")        
         print("- Create your commands in [ cli.py ] and run your setup command [ asm setup ]")
-        print("- Launch app on development mode, run [ asm-admin serve ]")
+        print("- Launch app on development mode, run [ asm gen:serve ]")
         print("")
 
-def create_modules(scaffold, name):
-    dest = os.path.join(app_dir, "modules", name)
-    if os.path.isdir(dest):
-        print("ERROR: directory exists already '%s'" % dest)
+
+@cli.command("gen:view")
+@click.argument("module_name")
+@click.option("-x", "--restful", is_flag=True)
+def gen_view(module_name, restful):
+    """ Generate a View """
+    header("Generate Views")
+
+    skel_dir = os.path.join(SKELETON_DIR, "views")
+    skel_views  = os.path.join(skel_dir, "views.py")
+    skel_template  = os.path.join(skel_dir, "template.html")
+
+    module_name = module_name.lower()
+    views_dir = os.path.join(app_dir, "views")
+    templates_dir = os.path.join(app_dir, "templates", module_name, "Index")
+    view_file = os.path.join(views_dir, "%s.py" % module_name)
+    template_file = os.path.join(templates_dir, "index.html")
+
+    if os.path.isfile(view_file):
+        print("ERROR: View exists already '%s'" % view_file)
     else:
-        utils.mkpath(dest)
-        copy_resource_dir(SKELETON_DIR + "/%s/" % scaffold, dest)
-        viewdest = os.path.join(dest, "__views__.py")
-        with open(viewdest, "r+") as f:
-            content = f.read().replace("%ROUTE%", name.lower())
+        # Copy the view
+        copy_resource_file(skel_views, view_file)
+        with open(view_file, "r+") as f:
+            content = f.read()
+            content = content.replace("%MODULE_NAME%", module_name)
+            content = content.replace("%ROUTE_NAME%", module_name)
             f.seek(0)
             f.write(content)
             f.truncate()
 
-@cli.command("gen:template-module")
-@click.argument("name")
-def add_view(name):
-    """ Generate Template modules"""
-    header("Generate Template modules")
-    create_modules("create-template-modules", name)
-    print("")
-    print("*" * 80)
-
-@cli.command("gen:restful-module")
-@click.argument("name")
-def api_view(name):
-    """ Generate API/RESTful modules"""
-    header("Generate API/RESTful modules")
-    create_modules("create-api-modules", name)
-    print("")
-    print("*" * 80)
+        # templates            
+        if not restful:
+            if not os.path.isdir(templates_dir):
+                utils.mkpath(templates_dir)
+            copy_resource_file(skel_template, template_file)
 
 
 @cli.command("gen:serve")

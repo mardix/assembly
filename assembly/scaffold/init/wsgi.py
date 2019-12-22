@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""""
+"""
 Assembly
 
 https://github.com/mardix/assembly
@@ -35,21 +35,21 @@ Import the base Assembly
 from assembly import Assembly
 
 """
-Import your modules scripts to enable their command line interface
+Import your views scripts to enable their command line interface
 """
-import modules.main.scripts
+import views.scripts
 
 """
 APPS = {}
-a dict with list of modules to load by name
-You can add as many modules as you want per application.
+a dict with list of apps to load by name
+You can add as many apps as you want per application.
 Set the environment variable 'ASSEMBLY_APP' to the name of the app to use
 ie: 'export ASSEMBLY_APP=default'
 """
 
 APPS = {
     "default": [
-        "modules.main"
+        "views.main"
     ]
 }
 

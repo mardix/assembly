@@ -1,0 +1,8 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Error {{ e.code }} {% endblock %}
+
+{% block body %}
+  <h1>Error: {{ e.code }}</h1>
+  <h4>{{ e.description }}</h4>
+{% endblock %}

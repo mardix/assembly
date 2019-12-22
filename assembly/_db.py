@@ -21,7 +21,8 @@ class ActiveAlchemyProxy(active_alchemy.ActiveAlchemy):
         self.BaseModel = active_alchemy.declarative_base(cls=active_alchemy.BaseModel, name='BaseModel')
         self._initialized = False
         self._IS_OK_ = False
-        self.redis = {}
+        active_alchemy._include_sqlalchemy(self)
+        self.StorageObjectType = StorageObjectType
 
     def connect__(self, uri, app):
         self.uri = uri
@@ -44,8 +45,7 @@ class ActiveAlchemyProxy(active_alchemy.ActiveAlchemy):
         self.Model._query, self.BaseModel._query = self.session.query, self.session.query
 
         self.init_app(app)
-        active_alchemy._include_sqlalchemy(self)
-        self.StorageObjectType = StorageObjectType
+
 
 
 # ------------------------------------------------------------------------------

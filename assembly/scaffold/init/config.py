@@ -335,7 +335,7 @@ wsgi:app
 
 
 ### **for development server
-asm-admin serve
+asm gen:serve
 
 """
 

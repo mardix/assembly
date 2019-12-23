@@ -5,7 +5,7 @@
     
     <title>{% block title %}{% endblock %}</title>
 
-    {% assets "styles.css" %}
+    {% assets "css/styles.css" %}
         <link rel="stylesheet" href="{{ ASSET_URL }}">
     {% endassets %}
 
@@ -25,7 +25,7 @@
       {% block footer %}{% endblock %}
     </footer>
 
-    {% assets "app.js" %}
+    {% assets "js/app.js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
   </body>

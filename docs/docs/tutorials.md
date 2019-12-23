@@ -17,11 +17,11 @@
 
 ## REST API
 
-**Generate the view using asm **
+**Generate the view using `asm` generator**
 
-`asm gen:resful-module my-api`
+`asm gen:views my-api --restful`
 
-This will generate a Module package with `views.py`, `models.py`, `scripts.py`.
+This will generate a module at `/views/api.py`
 
 **Import in wsgi.py**
 
@@ -30,8 +30,8 @@ This will generate a Module package with `views.py`, `models.py`, `scripts.py`.
 
 APPS = {
   "default": [
-    "modules.main",
-    "modules.api"
+    "views.main",
+    "views.api"
   ]
 }
 ```
@@ -40,7 +40,7 @@ APPS = {
 
 ```python
 
-# modules/api/__views__.py
+# views/api.py
 
 from assembly import (Assembly, request, response, date)
 
@@ -65,11 +65,11 @@ class Index(Assembly):
 
 ## HTML Site
 
-**Generate the view using asm-admin**
+**Generate the view using `asm` generator**
 
-`asm gen:template-module admin`
+`asm gen:view admin`
 
-This will generate a View package with `views.py`, `models.py`, `templates/`, `static/`, `scripts.py`.
+This will generate a module at `/views/admin.py`. And its associated templates at `/templates/admin/Index/index.html`
 
 **Import in wsgi.py**
 
@@ -79,8 +79,8 @@ This will generate a View package with `views.py`, `models.py`, `templates/`, `s
 
 APPS = {
   "default": [
-    "modules.main",
-    "modules.admin"
+    "views.main",
+    "views.admin"
   ]
 }
 ```
@@ -89,7 +89,7 @@ APPS = {
 
 ```python
 
-# modules/admin/views.py
+# views/admin.py
 
 from assembly import (Assembly, response)
 
@@ -102,12 +102,6 @@ class Index(Assembly):
             "content": "That is a true fact"
         }
 
-    @response.json
-    def api(self):
-        return {
-            "name": "Assembly",
-            "version": "x-to-infinity"
-        }
 
 ```
 
@@ -116,9 +110,9 @@ class Index(Assembly):
 
 ```html
 
-<!-- modules/admin/templates/Index/index.html -->
+<!-- templates/main/Index/index.html -->
 
-{% extends 'modules/main/layouts/base.html' %}
+{% extends 'layouts/base.html' %}
 
 {% block title %}Welcome to Admin {% endblock %}
 
@@ -173,3 +167,12 @@ Two endpoints will be available:
 
 ## Upload Application
 
+---
+
+## Login Manager
+
+---
+
+## Forms
+
+---

@@ -198,41 +198,45 @@ Two endpoints will be available:
 
 ## Features List
 
-- Smart routing: automatically generates routes based on the classes and methods in your views
+- Smart Pythonic Routing: automatically generates routes based on the classes and methods in your views
 
 - Class name as the base url, ie: class UserAccount will be accessed at '/user-account'
 
 - Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'
 
-- RESTful API
+- RESTful: good to create API endpoints, which can also return JSON object
 
 - Automatic view rendering
 
-- Auto route can be edited with @route()
+- Auto route can be edited with @request.route()
 
-- Markdown friendly. Inclusion of a markdown file will turn into HTML
+- Multi responses type: HTML, JSON, Text 
+
+- Markdown friendly: Inclusion of a markdown file will turn into HTML
 
 - BCRYPT is chosen as the password hasher
 
 - Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL
 
-- Database/ORM: [Active-Alchemy](https://github.com/mardix/active-alchemy) (SQLALchemy wrapper)
+- Database/ORM: SQLAlchemy base to work DB models via [Active-Alchemy](https://github.com/mardix/active-alchemy)
 
-- Login: interface with Flask-Login
+- Login Manager: for user session management via Flask-Login
 
-- Form Validation: with WTForms
+- Form Validations: Validate your forms via WTForms
 
-- CSRF on all POST
+- CSRF on all POST: to protect against CSRF attacks 
 
 - Idiomatic HTTP error responses
 
 - Storage: to access and store files from  Local, S3, Google Storage with [Flask-Cloudy](https://github.com/mardix/flask-cloudy)
 
-- Mailer (SES or SMTP)
+- Mailer: To send email using SMTP or AWS SES
 
-- Arrow for date and time
+- Arrow: Human friendly date and time library
 
-- Caching
+- CLI/Scripts: Create your own scripts to be used on the command line.
+
+- Caching: To cache responses
 
 - JWT
 
@@ -244,13 +248,13 @@ Two endpoints will be available:
 
 - Jinja2 for templating language
 
-- Multi application
+- Multi application: Allow to share the same codebase but with multiple applications.
 
-- Web Assets
-
-- CLI/Scripts
+- Web Assets: To easily manage your static content: css, js, images etc...
 
 - Inbuilt development server
+
+- And much more...
 
 ---
 

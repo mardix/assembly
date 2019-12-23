@@ -45,10 +45,10 @@ __all__ = [
     "ext",
     "date",
     "views",
-    "apply",
     "config",
     "models",
     "url_for",
+    "decorate",
     "redirect",
     "HTTPError",
     "get_cookie",
@@ -196,11 +196,12 @@ def redirect(endpoint, **kw):
     return f_redirect(url_for(endpoint, **kw))
 
 
-def apply(fn):
+def decorate(fn):
     """
     A decorator to apply decorators to all view methods of a class.
+    usually when the decorator was meant for a single function. 
 
-    @apply(login_required)
+    @decorate(login_required)
     class Index(Assembly):
         ...
 
@@ -347,24 +348,22 @@ class Assembly(object):
         # register models
         cls._register_models__()
 
-        # Extensions
-        # instanciate all functions that may need the flask.app object
-        # Usually for flask extension to be setup
-        [init_app(app) for init_app in cls._init_apps]
-
         # register templates
         if cls._template_fsl:
             loader = [app.jinja_loader, _JinjaPrefixLoader(cls._template_fsl)]
             app.jinja_loader = jinja2.ChoiceLoader(loader)
 
-        # register static
-        if cls._static_paths:
-            cls.assets.load_path = [app.static_folder] + list(cls._static_paths)
+        # register static, load assets.yml
+        cls.assets.load_path = [app.static_folder] + list(cls._static_paths)
+        for p in cls.assets.load_path:
+            f = "%s/assets.yml" % p
+            if os.path.isfile(f):
+                cls.assets.from_yaml(f)
 
-            for p in cls._static_paths:
-                f = "%s/assets.yml" % p
-                if os.path.isfile(f):
-                    cls.assets.from_yaml(f)
+        # Extensions
+        # instanciate all functions that may need the flask.app object
+        # Usually for flask extension to be setup
+        [init_app(app) for init_app in cls._init_apps]
 
         # register views
         for subcls in cls.__subclasses__():

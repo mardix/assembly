@@ -1,23 +1,27 @@
 ## 1.3.0-dev
 (date: TBD)
+- ** Restructure application layout
 - Added Flask-Login extension. And have ext.login_manager to access FL setup
 - forms validation with WTForms
 - flash_data, get_flashed_data: to add data instead of message for the user
 - `Assembly.initialize`, can now accept Flask instance as first argument to make it work with 
   existing flask application.
 - Expose asm functions as *. Now all functions in asm will be available from assembly
-- Based views are created under /modules
-- __views__ now contain the views. 
-- Safe silent load of __views__ and __models__. If they don't exist they will not throw an error
+- Adopting a flatter structure by default
+  |-/views/: contains the views
+  |-/templates
+  |-/static/
+- Models are explicit, must be loaded manually
 - Consolidate CLI asm-admin to asm
 - rename cli.py to scripts.py 
 - Add Boxie configuration to deploy on own server
 - Update doc
 - Changed route endpoint format "module.x.Y:z" to "module.x.Y.z", with dot instead. 
-- Added @apply, to apply a decorator to all methods, 
+- new scripts command: 'asm gen:view' to generate views
+- Added @decorate, to apply a decorator to all methods, 
   usually when a decorator was meant for only function. ie 
   ```  
-  @apply(login_required)
+  @decorate(login_required)
   class Index(Assembly):
     ...
   ```

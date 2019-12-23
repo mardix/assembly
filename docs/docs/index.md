@@ -76,7 +76,6 @@ CD into the folder you intend to create the application, then run `asm gen:init`
 This will setup the structure along with the necessary files to get started
 
 ```
-
 cd app-dir
 
 asm gen:init
@@ -90,20 +89,21 @@ Upon initialization you should have a structure similar to this:
     |- wsgi.py
     |- config.py
     |- requirements.txt
-    |- modules/
-        |- main
-            |- __init__.py
-            |- views.py
-            |- models.py
-            |- templates
-                |- Index
-                    |- index.html
-                |- layouts
-                    |- base.html
-            |- static
-            |- scripts.py
-
+    |- views/
+      |- __init__.py
+      |- main.py
+      |- models.py
+      |- scripts.py
+    |- templates/
+      |- main
+        |- Index
+          |- index.html
+    |- static/
+      |- js
+      |- css
+      |- imgs
     |- data/
+
 ```
 
 
@@ -112,7 +112,7 @@ Upon initialization you should have a structure similar to this:
 
 ```python
 
-# modules/main/views.py
+# views/main.py
 
 from assembly import (Assembly, response)
 
@@ -138,7 +138,7 @@ class Index(Assembly):
 #### 4.0 Edit base layout 
 
 ```html
-<!-- modules/main/templates/layouts/base.html -->
+<!-- templates/layouts/base.html -->
 
 <!doctype html>
 <html lang="en">
@@ -158,9 +158,9 @@ class Index(Assembly):
 #### 4.1  Edit Index/index.html
 ```html
 
-<!-- modules/main/templates/Index/index.html -->
+<!-- templates/main/Index/index.html -->
 
-{% extends 'modules/main/layouts/base.html' %}
+{% extends 'layouts/base.html' %}
 
 {% block title %}Welcome to my Assembly Site {% endblock %}
 

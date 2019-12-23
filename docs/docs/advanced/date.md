@@ -3,7 +3,7 @@
 
 ## Overview
 
-**Arrow** is used as the date library in Assembly,  an `date` is the alias available. Arrow helps you work with dates and times with fewer imports and a lot less code.
+**Arrow** is used as the date library in Assembly,  and `date` is the alias available. Arrow helps you work with dates and times with fewer imports and a lot less code.
 
 Extension: <a href="https://arrow.readthedocs.io/en/latest/" target="_blank">Arrow</a>
 

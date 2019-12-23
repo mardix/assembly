@@ -10,16 +10,16 @@ Models are classes that extends `db.Model`
 A simple Models would look like this
 
 ```
-|- main/
+|- views/
     |- __init__.py
-    |- __views__.py
-    |- __models__.py
+    |- views.py
+    |- models.py
 
 ```
  
 
 ```python
-# modules/main/__models__.py
+# views/models.py
 
 from assembly import db
 
@@ -139,7 +139,7 @@ Create model classes by extending your class to `db.Model`. By default Assembly 
 
 
 ```python
-# modules/main/__models__.py
+# views/models.py
 
 from assembly import db
 

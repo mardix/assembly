@@ -22,7 +22,7 @@ Files are organized per Class and Methods name.  Each class name have correspond
 Having a View like this...
 
 ```python
-# modules/admin/views.py
+# views/admin.py
 
 from assembly import Assembly
 
@@ -58,25 +58,21 @@ class Movies(Assembly):
 will map to templates below
 
 ```
-|- modules/
+|- views/
+    |- __init__.py
+    |- admin.py
+|- templates/
     |- admin/
-      |- __init__.py
-      |- views.py
-      |- models.py
-      |- templates
-          |- Index
-              |- index.html
-              |- login.html
-          |- Articles
-              |- index.html
-              |- all.html
-          |- Movies
-              |- index.html
-              |- guide.html            
-              |- channels.html            
-      |- static
-      |- scripts.py
-
+      |- Index
+          |- index.html
+          |- login.html
+      |- Articles
+          |- index.html
+          |- all.html
+      |- Movies
+          |- index.html
+          |- guide.html            
+          |- channels.html            
 ```
 
 ---

@@ -16,7 +16,7 @@ from assembly import Assembly
 
 APPS = {
   "default": [
-    "modules.main"
+    "views.main"
   ]
 }
 

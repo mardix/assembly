@@ -219,6 +219,11 @@ class BaseConfig(object):
     #: DB_URL
     #: Assembly uses Active-Alchemy to work with DB 
     #: format: engine://USERNAME:PASSWORD@HOST:PORT/DB_NAME
+    #: format: dialect+driver://USERNAME:PASSWORD@HOST:PORT/DB_NAME
+    #: SQLite: sqlite:////foo.db
+    #: SQLite in memory: sqlite://
+    #: Postgresql: postgresql+pg8000://user:password@host:port/dbname
+    #: MySQL: mysql+pymysql://user:password@host:port/dbname
     DB_URL = "sqlite:////%s/db.db" % DATA_DIR
 
     #: DB_REDIS_URL
@@ -261,122 +266,164 @@ class BaseConfig(object):
     #: Cloudfiles, Azure Blobs, and Local storage
     #: When using local storage, they can be accessed via http://yoursite/files
     #:
+    STORAGE = {
+        #: STORAGE_PROVIDER:
+        # The provider to use. By default it's 'LOCAL'.
+        # You can use:
+        # LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES
+        "PROVIDER": "LOCAL",
 
-    #: STORAGE_PROVIDER:
-    # The provider to use. By default it's 'LOCAL'.
-    # You can use:
-    # LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES
-    STORAGE_PROVIDER = "LOCAL"
+        #: STORAGE_KEY
+        # The storage key. Leave it blank if PROVIDER is LOCAL
+        "KEY": AWS_ACCESS_KEY_ID,
 
-    #: STORAGE_KEY
-    # The storage key. Leave it blank if PROVIDER is LOCAL
-    STORAGE_KEY = AWS_ACCESS_KEY_ID
+        #: STORAGE_SECRET
+        #: The storage secret key. Leave it blank if PROVIDER is LOCAL
+        "SECRET": AWS_SECRET_ACCESS_KEY,
 
-    #: STORAGE_SECRET
-    #: The storage secret key. Leave it blank if PROVIDER is LOCAL
-    STORAGE_SECRET = AWS_SECRET_ACCESS_KEY
+        #: STORAGE_REGION_NAME
+        #: The region for the storage. Leave it blank if PROVIDER is LOCAL
+        "REGION_NAME": AWS_REGION_NAME,
 
-    #: STORAGE_REGION_NAME
-    #: The region for the storage. Leave it blank if PROVIDER is LOCAL
-    STORAGE_REGION_NAME = AWS_REGION_NAME
+        #: STORAGE_CONTAINER
+        #: The Bucket name (for S3, Google storage, Azure, cloudfile)
+        #: or the directory name (LOCAL) to access
+        "CONTAINER": os.path.join(DATA_DIR, "uploads"),
 
-    #: STORAGE_CONTAINER
-    #: The Bucket name (for S3, Google storage, Azure, cloudfile)
-    #: or the directory name (LOCAL) to access
-    STORAGE_CONTAINER = os.path.join(DATA_DIR, "uploads")
+        #: STORAGE_SERVER
+        #: Bool, to serve local file
+        "SERVER": True,
 
-    #: STORAGE_SERVER
-    #: Bool, to serve local file
-    STORAGE_SERVER = True
+        #: STORAGE_SERVER_URL
+        #: The url suffix for local storage
+        "SERVER_URL": "files",
 
-    #: STORAGE_SERVER_URL
-    #: The url suffix for local storage
-    STORAGE_SERVER_URL = "files"
+        #:STORAGE_UPLOAD_FILE_PROPS
+        #: A convenient K/V properties for storage.upload to use when using `upload_file()`
+        #: It contains common properties that can passed into the upload function
+        #: ie: upload_file("profile-image", file)
+        "UPLOAD_FILE_PROPS": {
+            # To upload regular images
+            "image": {
+                "extensions": ["jpg", "png", "gif", "jpeg"],
+                "public": True
+            },
 
-    #:STORAGE_UPLOAD_FILE_PROPS
-    #: A convenient K/V properties for storage.upload to use when using `upload_file()`
-    #: It contains common properties that can passed into the upload function
-    #: ie: upload_file("profile-image", file)
-    STORAGE_UPLOAD_FILE_PROPS = {
-        # To upload regular images
-        "image": {
-            "extensions": ["jpg", "png", "gif", "jpeg"],
-            "public": True
-        },
-
-        # To upload profile image
-        "profile-image": {
-            "prefix": "profile-image/",
-            "extensions": ["jpg", "png", "gif", "jpeg"],
-            "public": True
+            # To upload profile image
+            "profile-image": {
+                "prefix": "profile-image/",
+                "extensions": ["jpg", "png", "gif", "jpeg"],
+                "public": True
+            }
         }
+
     }
 
     #--------- MAIL ----------
     # To send emails
+    #
+    # from assembly import send_mail
+    # send_mail(to="user@email.com", subject="Hi", body="How are you?")
 
-    # AWS SES
-    # To use AWS SES to send email
-    #:
-    #: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
-    #: set MAIL_URL = "ses://"
-    #: * To use a different credential:
-    #: set MAIL_URL = "ses://{access_key}:{secret_key}@{region}"
-    #:
-    #: *** uncomment if you are using SMTP instead
-    # MAIL_URL = "ses://"
+    MAIL = {
+        # OPTIONS
+        #
+        # AWS SES
+        # To use AWS SES to send email
+        #:
+        #: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+        #: set MAIL_URL = "ses://"
+        #: * To use a different credential:
+        #: set MAIL_URL = "ses://{access_key}:{secret_key}@{region}"
+        #:
+        #: *** uncomment if you are using SMTP instead
+        # "URL": "ses://",
 
-    # SMTP
-    #: If you are using SMTP, it will use Flask-Mail
-    #: The uri for the smtp connection. It will use Flask-Mail
-    #: format: smtp://USERNAME:PASSWORD@HOST:PORT
-    #: with sll -> smtp+ssl://USERNAME:PASSWORD@HOST:PORT
-    #: with ssl and tls -> smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT
-    #:
-    #: *** comment out if you are using SES instead
-    # MAIL_URL = "smtp+ssl://{username}:{password}@{host}:{port}"\
-    #    .format(username="", password="", host="smtp.gmail.com", port=465)
+        # SMTP
+        #: If you are using SMTP, it will use Flask-Mail
+        #: The uri for the smtp connection. It will use Flask-Mail
+        #: format: smtp://USERNAME:PASSWORD@HOST:PORT
+        #: with sll -> smtp+ssl://USERNAME:PASSWORD@HOST:PORT
+        #: with ssl and tls -> smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT
+        #:
+        "URL": "smtp+ssl://{username}:{password}@{host}:{port}"\
+            .format(username="", password="", host="smtp.gmail.com", port=465),
 
-    #: MAIL_SENDER - The sender of the email by default
-    #: For SES, this email must be authorized
-    MAIL_SENDER = ADMIN_EMAIL
+        #: MAIL_SENDER - The sender of the email by default
+        #: For SES, this email must be authorized
+        "MAIL_SENDER": ADMIN_EMAIL,
 
-    #: MAIL_REPLY_TO
-    #: The email to reply to by default
-    MAIL_REPLY_TO = ADMIN_EMAIL
+        #: MAIL_REPLY_TO
+        #: The email to reply to by default
+        "MAIL_REPLY_TO": ADMIN_EMAIL,
 
-    #: MAIL_TEMPLATE
-    #: a directory that contains the email template or a dict
-    MAIL_TEMPLATE = os.path.join(DATA_DIR, 'mail-templates')
+        #: MAIL_TEMPLATES_DIR
+        #: files based templates
+        "TEMPLATES_DIR": os.path.join(DATA_DIR, 'mail-templates'),
 
-    #: MAIL_TEMPLATE_CONTEXT
-    #: a dict of all context to pass to the email by default
-    MAIL_TEMPLATE_CONTEXT = {
-        "params": {
-            "site_name": APPLICATION_NAME,
-            "site_url": APPLICATION_URL
+        #: MAIL_TEMPLATES_DICT
+        #: dict based templates 
+        # "TEMPLATES_DICT": {
+        #     "welcome.txt": """
+        #     {% block subject %}Welcome{% endblock %}
+        #     {% block body %}Welcome to the site {{name}}?{% endblock %}        
+        #     """
+        # },
+
+        #: MAIL_TEMPLATE_CONTEXT
+        #: a dict of all context to pass to the email by default
+        "TEMPLATE_CONTEXT": {
+            "params": {
+                "site_name": APPLICATION_NAME,
+                "site_url": APPLICATION_URL
+            }
         }
     }
 
-
     #--------- CACHING ----------
     #: Flask-Cache is used to caching
+    CACHE = {
+        #: CACHE_TYPE
+        #: The type of cache to use
+        #: null, simple, redis, filesystem,        
+        "TYPE": "simple",
 
-    #: CACHE_TYPE
-    #: The type of cache to use
-    #: null, simple, redis, filesystem,
-    CACHE_TYPE = "simple"
+        #: CACHE_REDIS_URL
+        #: If CHACHE_TYPE is 'redis', set the redis uri
+        #: redis://username:password@host:port/db        
+        "REDIS_URL": "",
 
-    #: CACHE_REDIS_URL
-    #: If CHACHE_TYPE is 'redis', set the redis uri
-    #: redis://username:password@host:port/db
-    CACHE_REDIS_URL = ""
+        #: CACHE_DIR
+        #: Directory to store cache if CACHE_TYPE is filesystem, it will
+        "DIR": ""
+    }
 
-    #: CACHE_DIR
-    #: Directory to store cache if CACHE_TYPE is filesystem, it will
-    CACHE_DIR = ""
+    #--------- LOGIN_MANAGER ----------
+    # Flask-Login login_manager configuration
+    LOGIN_MANAGER = {
+        #: The name of the view to redirect to when the user needs to log in.
+        #: (This can be an absolute URL as well, if your authentication
+        #: machinery is external to your application.)
+        "login_view": None,
 
+        #: The message to flash when a user is redirected to the login page.
+        "login_message": "Please log in to access this page.",
 
+        #: The message category to flash when a user is redirected to the login page.
+        "login_message_category": "message",
+
+        #: The name of the view to redirect to when the user needs to reauthenticate.
+        "refresh_view": None,
+
+        #: The message to flash when a user is redirected to the 'needs
+        #: refresh' page.
+        "needs_refresh_message": "Please reauthenticate to access this page.",
+
+        #: The message category to flash when a user is redirected to the
+        #: 'needs refresh' page.
+        "needs_refresh_message_category": "message",
+    }
+    
 # -------------------------- ENVIRONMENT BASED CONFIG ---------------------------
 """
 The environment based config is what will be loaded.
@@ -390,8 +437,8 @@ export ASSEMBLY_APP=default
 wsgi:app
 
 
-### **for local server
-asm-admin server
+### **for development server
+asm gen:serve
 
 """
 

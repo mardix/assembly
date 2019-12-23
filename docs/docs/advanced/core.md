@@ -104,10 +104,19 @@ from assembly import redirect
 
 ## Decorators
 
-### view_decorator
+### decorate
 
-```
-from assembly import view_decorator
+Applies a decorator, usually a 3rd party decoartor to all method in the class
+
+```python
+from assembly import decorate
+from flask_login import login_required
+
+@decorate(login_required)
+class Login(Assembly):
+  def index(self):
+    return 
+
 ```
 
 ### app_context

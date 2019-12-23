@@ -43,18 +43,22 @@ class Index(Assembly):
 Set the configuration below in your `config.py` file.
 
 ```python
+#--------- CACHING ----------
+#: Flask-Cache is used to caching
+CACHE = {
     #: CACHE_TYPE
     #: The type of cache to use
-    #: null, simple, redis, filesystem,
-    CACHE_TYPE = "simple"
+    #: null, simple, redis, filesystem,        
+    "TYPE": "simple",
 
     #: CACHE_REDIS_URL
     #: If CHACHE_TYPE is 'redis', set the redis uri
-    #: redis://username:password@host:port/db
-    CACHE_REDIS_URL = ""
+    #: redis://username:password@host:port/db        
+    "REDIS_URL": "",
 
     #: CACHE_DIR
     #: Directory to store cache if CACHE_TYPE is filesystem, it will
-    CACHE_DIR = ""
+    "DIR": ""
+}
 ```
 

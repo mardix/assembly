@@ -18,11 +18,11 @@ To use specific error handler, omit _error_handler instead use the `_error_$erro
 
 ```python
 
-# error/__init__.py
+# views/error.py
 
 from assembly import Assembly, HTTPError
 
-class Index(Assembly):
+class Error(Assembly):
 
     def _error_handler(self, e):
         return {
@@ -34,9 +34,9 @@ class Index(Assembly):
 Template:
 
 ```html
-<!-- error/templates/Index/error_handler.html -->
+<!-- templates/error/Error/error_handler.html -->
 
-{% extends 'main/layouts/base.html' %}
+{% extends 'layouts/base.html' %}
 
 {% block title %}Error {{ e.code }} {% endblock %}
 
@@ -62,11 +62,11 @@ A template with the name `error_$errorCode.html` will be used.
 
 ```python
 
-# error/__init__.py
+# views/error.py
 
 from assembly import Assembly, HTTPError
 
-class Index(Assembly):
+class Error(Assembly):
 
     def _error_404(self, e):
         return {
@@ -82,9 +82,9 @@ class Index(Assembly):
 Template:
 
 ```html
-<!-- error/templates/Index/error_404.html -->
+<!-- templates/error/Error/error_404.html -->
 
-{% extends 'main/layouts/base.html' %}
+{% extends 'layouts/base.html' %}
 
 {% block title %}Error {{ e.code }} {% endblock %}
 
@@ -94,9 +94,9 @@ Template:
 {% endblock %}
 
 
-<!-- error/templates/Index/error_500.html -->
+<!-- templates/error/Error/error_500.html -->
 
-{% extends 'main/layouts/base.html' %}
+{% extends 'layouts/base.html' %}
 
 {% block title %}Error {{ e.code }} {% endblock %}
 

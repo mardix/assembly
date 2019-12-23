@@ -4,41 +4,63 @@
 
 Assembly views are classes that extend **Assembly** 
 
-Assembly by default suggests that you put your views in `views.py`, in the View Package folder.
+By default they are placed in `/views` as modules and may have a template associated to them in the `/templates` folder. 
 
-A simple View would look like this
+The can be imported directly in the `__init__.py` or in the `APPS` list in the `wsgi.py` file.
+
+A simple View would with its template would look like this
+
 
 ```
-|- hello_world/
-    |- views.py
-
+|- views/
+    |- __init__.py
+    |- main.py
+|- templates/
+    |- main
+        |- Index
+            |- index.html
 ```
  
 
 ```python
-# modules/hello_world/views.py
 
+# views/main.py
 from assembly import Assembly
 
 class Index(Assembly):
     def index(self):
-        return "Hello World"
+        return {
+            "name": "Assembly",
+            "title": "Assembly For Ever!"
+        }
+
 ```
 
+
+```python
+# wsgi.py
+
+APPS = {
+    "default": [
+        "views.main"
+    ]
+}
+
+```
 ---
 
 ## Working with View
 
-To create a view, just create a folder at the root of the application and create `views.py` in it. You may also create `models.py`, `templates/`, `static/`, `scripts.py`.
+A view is python module (file) that contains classes extending `Assembly`.
 
-Or you can use the built-in CLI to create your view 
+Simply create a python file in the `views/` directory, called view module. In the `templates/` create a directory with the same name as the view module. For every class that gets created, have a matching folder name which will contain html files associated to each method names. 
+
+So an action with the following signature `views.admin.Index.index` will have a matching template `templates/admin/Index/index.html`.
+
+If that's too hard to do manually, we can use the generator to help us create a view.
 
 ```python
-# to create a RESTful module
-asm gen:restful-module api
-
-# to create a module that contains template
-asm gen:template-module admin
+asm gen:view admin
 ```
 
 ### Imports
@@ -84,7 +106,7 @@ class Index(Assembly):
 
 #### Index
 
-Class named **Index** or method named **index** will be the root of the endpoint
+Class named **Index** or method named **index** will be the root of the endpoint, or the entry point.
 
 ```python
 # responds to -> /
@@ -107,17 +129,41 @@ class Api(Assembly):
     def index(self):
         return 
 
+    # responds to -> /api/items
+    def items(self):
+        return 
+
 # responds to -> /article/
 class Article(Assembly):
 
-    # responds to -> /articles/
+    # responds to -> /article/
     def index(self):
         return 
 
+    # responds to -> /article/reviews
+    def reviews(self):
+        return
+```
+
+#### Class name with UpperCamelCase
+
+Class name with UpperCamelCase will turn into dash/hyphen.
+
+```python
+
+# responds to -> /super-hero/
+class SuperHero(Assembly):
+  def index(self):
+    return 
+
+  # responds to -> /super-hero/contact-us/
+  def contact_us(self):
+    return
 
 ```
 
-#### method names are routes
+
+#### Method names are routes
 
 ```python
 # responds to -> /
@@ -136,9 +182,9 @@ class Index(Assembly):
         return
 ```
 
-#### With underscore
+#### Method name with underscore
 
-Methods containing underscore in between, will turn into dash/hyphe
+Methods containing underscore in between, will turn into dash/hyphen
 
 ```python
 class Index(Assembly):
@@ -148,7 +194,7 @@ class Index(Assembly):
         return
 ```
 
-However, method starting with undescrore will be ignored
+However, method starting with undescrore are private methods that will not have a route attached them.
 
 
 ```python
@@ -158,6 +204,23 @@ class Index(Assembly):
     def _log_data_info(self):
         return
 ```
+
+```python
+
+# responds to -> /super-hero/
+class SuperHero(Assembly):
+    def index(self):
+        return 
+
+    # responds to -> /super-hero/contact-us/
+    def contact_us(self):
+        return
+
+    # will not be assigned a route because it starts with underscore
+    def _log_data_info(self):
+        return
+```
+
 
 #### RESTful
 
@@ -369,7 +432,7 @@ class Index(Assembly):
         return {
             "about-us-url": url_for(self.about_us),
             "blog-url": url_for(Blog.index),
-            "articles-url": url_for(views.articles.Articles.index),
+            "articles-url": url_for(views.views.articles.Articles.index),
         }
 
     def about_us(self):
@@ -380,7 +443,7 @@ class Blog(Assembly):
         return
 
 
-# articles/views.py
+# views/articles.py
 
 class Articles(Assembly):
 
@@ -400,7 +463,7 @@ Learn more on **[Models](../application/models.md) **
 
 
 ```python
-# modules/main/models.py
+# views/models.py
 
 from assembly import db
 
@@ -499,3 +562,26 @@ from assembly import flash
 ```
 
 Go to: **[Flash](../advanced/flash.md) **
+
+---
+## Form Validations
+
+Working with form validations
+
+```python
+from assembly import forms
+```
+
+Go to: **[Form Validations](../advanced/form-validations.md) **
+
+
+---
+## Login Manager
+
+Login Manager
+
+```python
+from assembly import login_manager
+```
+
+Go to: **[Form Validations](../advanced/login-manager.md) **

@@ -48,7 +48,7 @@ pages:
     - Redirect: advanced/redirect.md
     - Signals: advanced/signals.md
     - Date: advanced/date.md
-    - Forms: advanced/forms.md
+    - Form Validations: advanced/form-validations.md
     - Caching: advanced/caching.md    
     - CSFR: advanced/csrf.md
     - Mail: advanced/mail.md

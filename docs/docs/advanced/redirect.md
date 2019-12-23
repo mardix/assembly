@@ -39,10 +39,10 @@ class Blog(Assembly):
 
 ### Redirect with other Views
 
-For View classes that are not in the same file, you can redirect by using the `views`
+For View classes that are not in the same file, you can redirect by using the `views` object, which contains the reference of every view modules.
 
 ```python
-# modules/main/__views__.py
+# views/main.py
 
 from assembly import Assembly, redirect, views
 
@@ -50,13 +50,13 @@ class Index(Assembly):
 
     # redirects a different class, no need to know the endpoint
     def redirect_me(self):
-        return redirect(views.modules.admin.Index.login)
+        return redirect(views.views.admin.Index.login)
 
 
 ```
 
 ```python
-# modules/admin/__views__.py
+# views/admin.py
 
 from assembly import Assembly, request
 

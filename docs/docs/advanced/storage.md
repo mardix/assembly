@@ -45,7 +45,7 @@ myfile.full_url # the full url of the file
 #### Example of file upload
 
 ```python
-# modules/main/__views__.py
+# views/main.py
 
 from assembly import Assembly, upload_file, request, redirect
 
@@ -74,9 +74,9 @@ Template
 
 
 ```html
-<!-- modules/main/templates/Index/index.html -->
+<!-- templates/main/Index/index.html -->
 
-{% extends 'main/layouts/base.html' %}
+{% extends 'layouts/base.html' %}
 
 {% block title %}Upload{% endblock %}
 
@@ -180,36 +180,58 @@ def file_deleted(result, **kw):
 ```python
 # config.py
 
-#: STORAGE_PROVIDER:
-# The provider to use. By default it's 'LOCAL'.
-# You can use:
-# LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES
-STORAGE_PROVIDER = "LOCAL"
+STORAGE = {
+    #: STORAGE_PROVIDER:
+    # The provider to use. By default it's 'LOCAL'.
+    # You can use:
+    # LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES
+    "PROVIDER": "LOCAL",
 
-#: STORAGE_KEY
-# The storage key. Leave it blank if PROVIDER is LOCAL
-STORAGE_KEY = AWS_ACCESS_KEY_ID
+    #: STORAGE_KEY
+    # The storage key. Leave it blank if PROVIDER is LOCAL
+    "KEY": AWS_ACCESS_KEY_ID,
 
-#: STORAGE_SECRET
-#: The storage secret key. Leave it blank if PROVIDER is LOCAL
-STORAGE_SECRET = AWS_SECRET_ACCESS_KEY
+    #: STORAGE_SECRET
+    #: The storage secret key. Leave it blank if PROVIDER is LOCAL
+    "SECRET": AWS_SECRET_ACCESS_KEY,
 
-#: STORAGE_REGION_NAME
-#: The region for the storage. Leave it blank if PROVIDER is LOCAL
-STORAGE_REGION_NAME = AWS_REGION_NAME
+    #: STORAGE_REGION_NAME
+    #: The region for the storage. Leave it blank if PROVIDER is LOCAL
+    "REGION_NAME": AWS_REGION_NAME,
 
-#: STORAGE_CONTAINER
-#: The Bucket name (for S3, Google storage, Azure, cloudfile)
-#: or the directory name (LOCAL) to access
-STORAGE_CONTAINER = os.path.join(DATA_DIR, "uploads")
+    #: STORAGE_CONTAINER
+    #: The Bucket name (for S3, Google storage, Azure, cloudfile)
+    #: or the directory name (LOCAL) to access
+    "CONTAINER": os.path.join(DATA_DIR, "uploads"),
 
-#: STORAGE_SERVER
-#: Bool, to serve local file
-STORAGE_SERVER = True
+    #: STORAGE_SERVER
+    #: Bool, to serve local file
+    "SERVER": True,
 
-#: STORAGE_SERVER_URL
-#: The url suffix for local storage
-STORAGE_SERVER_URL = "files"
+    #: STORAGE_SERVER_URL
+    #: The url suffix for local storage
+    "SERVER_URL": "files",
+
+    #:STORAGE_UPLOAD_FILE_PROPS
+    #: A convenient K/V properties for storage.upload to use when using `upload_file()`
+    #: It contains common properties that can passed into the upload function
+    #: ie: upload_file("profile-image", file)
+    "UPLOAD_FILE_PROPS": {
+        # To upload regular images
+        "image": {
+            "extensions": ["jpg", "png", "gif", "jpeg"],
+            "public": True
+        },
+
+        # To upload profile image
+        "profile-image": {
+            "prefix": "profile-image/",
+            "extensions": ["jpg", "png", "gif", "jpeg"],
+            "public": True
+        }
+    }
+
+}
 
 ```
 

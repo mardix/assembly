@@ -62,35 +62,26 @@ To sync database models to create new tables. Models that extended `db.Model` wi
 asm gen:sync-models
 ```
 
-### gen:restful-module
+### gen:view
 
-To generate API/RESTful based modules
+To generate to generate a view file with its associated templates. The view file will be created in `/views`, and the templates will be in `/templates`
 
 ```sh
-asm gen:restful-module $view-name
+asm gen:view $view-name
 ```
 
 ie:
 
 ```sh
-asm gen:restful-module api
+asm gen:view admin
 ```
 
-It will create a new module structure in the `/modules` directory. 
+#### Restful
 
-
-### gen:template-module
-
-To generate Template based modules
+This command can also create a view without templates, by appending `--resftul` or `-x` 
 
 ```sh
-asm gen:template-module $view-name
-```
-
-ie:
-
-```sh
-asm gen:template-module admin
+asm gen:view api --resful
 ```
 
 It will create a new module structure in the `/modules` directory.  
@@ -129,14 +120,14 @@ You probably need CLI to run some routines and setup outside of the web environm
 
 Assembly CLI is based on **<a href="https://click.palletsprojects.com/" target="_blank">Click</a>** library.
 
-Inside of your view, create `cli.py` (named so for discoverability). 
+Inside of your view, create `scripts.py` (named so for discoverability). 
 
 NOTE: `@command` is the alias to the custom command. Use it, otherwise your CLI scripts won't be available.
 
 Learn more about **<a href="https://click.palletsprojects.com/" target="_blank">Click</a>**
 
 ```python
-# modules/main/scripts.py
+# views/scripts.py
 
 from assembly.scripts import (command, option, argument, click)
 
@@ -158,11 +149,11 @@ def do_something(name):
 from assembly import Assembly
 
 #->>> Import scripts wsgi.py
-import modules.admin.scripts
+import views.scripts
 
 APPS = {
     "default": [
-        "modules.main"
+        "views.main"
     ]
 }
 
@@ -178,7 +169,7 @@ Commands can easily be executed by invoking `asm` followed by the name of the fu
 Example:
 
 ```python
-# modules/main/scripts.py
+# views/scripts.py
 
 from assembly.scripts import (command, option, argument, click)
 

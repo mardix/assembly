@@ -47,6 +47,145 @@ Assembly is very extensible, as every View is it's own package. Making it easy t
 
 ---
 
+## Assembly in action
+
+### Pythonic Routes
+
+Routes are created based on the class and the method names by default. 
+Class named *Index* and method named *index* will be the entry point of the route.
+
+
+```python
+from assembly import Assembly
+
+# Extends to Assembly makes it a route automatically
+# By default, Index will be the root url
+class Index(Assembly):
+
+    # index is the entry route
+    # -> /
+    def index(self):
+        return "welcome to my site"
+
+    # method name becomes the route
+    # -> /hello/
+    def hello(self):
+        return "I am a string"
+
+    # undescore method name will be dasherize
+    # -> /about-us/
+    def about_us(self):
+        return "I am a string"
+
+# The class name is part of the url prefix
+# This will become -> /blog
+class Blog(Assembly):
+
+    # index will be the root
+    # -> /blog/
+    def index(self):
+        return [
+            {
+                "title": "title 1",
+                "content": "content"
+            },
+        ]
+
+    # with params. The order will be respected
+    # -> /blog/comments/1234/
+    # 1234 will be passed to the id
+    def comments(self, id):
+        return [
+            {
+                # comments
+            }
+        ]
+
+```
+
+### RESTful
+
+Methods named **get**, **post**, **put**, **delete**, **update** will automatically accept the associated methods GET, POST, PUT, DELETE UPDATE respectively.
+
+But you can also assign a different method by using the appropriate request decorator.
+
+
+```python
+from assembly import Assembly, request
+
+class Api(Assembly):
+
+    # method named get, automatically accepts get method
+    # -> GET /api/<id>
+    def get(self, id):
+        return {
+            "message": "This will show on get call"
+        }
+
+    # method named post, automatically accepts post method
+    # -> POST /api/
+    def post(self):
+        return {
+            "message": "This will show on POST call"
+        }
+        
+    # Example of a different route assigned a method
+    # /submit/ will only accept POST call
+    # -> POST /submit/
+    @request.post
+    def submit(self):
+        return "Submitted!"
+```
+
+### Multi Response Type
+
+By default Assembly will map the route to its associated template. It's very convenient as you don't have to explicitely render the template.
+
+But you can also make the route return JSON.
+
+
+```python
+# views/main.py
+
+from assembly import (Assembly, response, request, HTTPError)
+
+# Extends to Assembly makes it a route automatically
+# By default, Index will be the root url
+class Index(Assembly):
+
+    # index is the entry route
+    # -> /
+    # it will render its associated template from 
+    # 'templates/main/Index/index.html'
+    def index(self):
+        return 
+
+    # returning string will be rendered as string.
+    # -> /hello/
+    def hello(self):
+        return "I am a string"
+
+    # returns a json response
+    # -> /api/
+    @response.json
+    def api(self):
+        return {
+            "name": "Assembly",
+            "title": "Assembly for ever",
+            "items": [
+                # list of items
+            ]
+        }
+
+    # This will throw an Unauthorize error
+    def error(self):
+        raise HTTPError.Unauthorized()
+
+```
+
+
+---
+
 ## Quick Start
 
 This quickstart will allow us to go with Assembly from 0 to 100!

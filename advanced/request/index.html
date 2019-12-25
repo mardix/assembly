@@ -363,6 +363,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -605,6 +617,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -643,6 +667,30 @@
   <li class="md-nav__item">
     <a href="../storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -949,51 +997,51 @@
 
 
 <h3 id="route">@route</h3>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    # <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="nv">hello</span><span class="o">-</span><span class="nv">world</span><span class="o">/</span>
-    @<span class="nv">request</span>.<span class="nv">route</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">hello-world</span><span class="s2">&quot;</span><span class="ss">)</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># responds to -&gt; /hello-world/</span>
+    <span class="nd">@request.route</span><span class="p">(</span><span class="s2">&quot;hello-world&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="post">@post</h3>
 <p>Restrict a method to only accepts POST request.</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    @<span class="nv">request</span>.<span class="nv">post</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="nd">@request.post</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="get">@get</h3>
 <p>Restrict a method to only accepts GET request.</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    @<span class="nv">request</span>.<span class="nv">get</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="nd">@request.get</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="post_get">@post_get</h3>
 <p>Restrict a method to only accepts POST and GET request.</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    @<span class="nv">request</span>.<span class="nv">post_get</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="nd">@request.post_get</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="all">@all</h3>
 <p>Restrict a method to only accepts all requests (POST, GET, PUT, DELETE, UPDATE, OPTIONS).</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    @<span class="nv">request</span>.<span class="nv">all</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="nd">@request.all</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
@@ -1004,57 +1052,57 @@
 <p>Restrict a method to only accepts DELETE request.</p>
 <h3 id="cors">@cors</h3>
 <p>Make an endpoint CORS.  </p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    @<span class="nv">request</span>.<span class="nv">cors</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="nd">@request.cors</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="csrfexempt">@csrf.exempt</h3>
 <p>To exempt CSRF on this endpoint.</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    @<span class="nv">request</span>.<span class="nv">post</span>
-    @<span class="nv">request</span>.<span class="nv">csrf</span>.<span class="nv">exempt</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="nd">@request.post</span>
+    <span class="nd">@request.csrf.exempt</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="get_auth_bearer">get_auth_bearer</h3>
 <p>Get the authorization bearer, ie: JWT.</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="nv">auth_bearer</span> <span class="o">=</span> <span class="nv">request</span>.<span class="nv">get_auth_bearer</span><span class="ss">()</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">auth_bearer</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_auth_bearer</span><span class="p">()</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="is_get">IS_GET</h3>
 <p>Test if a request is GET. Usually if one endpoint accepts multiple method</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    @<span class="nv">request</span>.<span class="nv">post</span>
-    @<span class="nv">request</span>.<span class="nv">get</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="k">if</span> <span class="nv">request</span>.<span class="nv">IS_GET</span>:
-            # <span class="k">do</span> <span class="nv">something</span>
+    <span class="nd">@request.post</span>
+    <span class="nd">@request.get</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">IS_GET</span><span class="p">:</span>
+            <span class="c1"># do something</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="is_post">IS_POST</h3>
 <p>Test if a request is POST. Usually if one endpoint accepts multiple method</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    @<span class="nv">request</span>.<span class="nv">post</span>
-    @<span class="nv">request</span>.<span class="nv">get</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="k">if</span> <span class="nv">request</span>.<span class="nv">IS_POST</span>:
-            # <span class="k">do</span> <span class="nv">something</span>
+    <span class="nd">@request.post</span>
+    <span class="nd">@request.get</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">IS_POST</span><span class="p">:</span>
+            <span class="c1"># do something</span>
         <span class="k">return</span>
 </pre></div>
 
@@ -1075,35 +1123,35 @@
 <p><code>request.form.get</code> lets you get the data that was sent in a post form</p>
 <h3 id="getlist">getlist</h3>
 <p><code>request.form.getlist</code> returns a list of all the items with the same name that was posted in a form.</p>
-<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">HTML</span>
-<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="s1">&#39;checkbox&#39;</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;options&#39;</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;apple&#39;</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="s1">&#39;checkbox&#39;</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;options&#39;</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="s1">&#39;checkbox&#39;</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;options&#39;</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;grapes&#39;</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span># HTML
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;checkbox&#39;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#39;options&#39;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;apple&#39;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;checkbox&#39;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#39;options&#39;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;orange&#39;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;checkbox&#39;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#39;options&#39;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;grapes&#39;</span><span class="p">&gt;</span>
 
-<span class="o">#</span> 
-<span class="k">options</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">.</span><span class="n">getlist</span><span class="p">(</span><span class="ss">&quot;options&quot;</span><span class="p">)</span>
+# 
+options = request.form.getlist(&quot;options&quot;)
 </pre></div>
 
 
 <h3 id="filesget">files.get</h3>
 <p><code>request.files.get</code> allow you to retrieve a file that was uploaded</p>
-<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">HTML</span>
-<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="n">file</span> <span class="n">name</span><span class="o">=</span><span class="ss">&quot;file&quot;</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span># HTML
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">file</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="p">&gt;</span>
 
-<span class="o">#</span><span class="n">py</span>
-<span class="n">file</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">files</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;file&quot;</span><span class="p">)</span>
+#py
+file = request.files.get(&quot;file&quot;)
 </pre></div>
 
 
 <h3 id="filesgetlist">files.getlist</h3>
 <p><code>request.files.getlist</code> allow you to retrieve multiple files uploaded with the same name</p>
-<div class="codehilite"><pre><span></span><span class="o">#</span><span class="n">HTML</span>
-<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="n">file</span> <span class="n">name</span><span class="o">=</span><span class="ss">&quot;file&quot;</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="n">file</span> <span class="n">name</span><span class="o">=</span><span class="ss">&quot;file&quot;</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="k">input</span> <span class="k">type</span><span class="o">=</span><span class="n">file</span> <span class="n">name</span><span class="o">=</span><span class="ss">&quot;file&quot;</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span>#HTML
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">file</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">file</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">file</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="p">&gt;</span>
 
-<span class="o">#</span><span class="n">py</span>
-<span class="n">files</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">files</span><span class="p">.</span><span class="n">getlist</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">)</span>
+#py
+files = request.files.getlist(&#39;file&#39;)
 </pre></div>
                 
                   
@@ -1125,7 +1173,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../../wsgipy/" title="wsgi.py" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../core/" title="Core" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1134,7 +1182,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                wsgi.py
+                Core
               </span>
             </div>
           </a>

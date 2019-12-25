@@ -365,15 +365,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#method-names-are-routes" class="md-nav__link">
-    method names are routes
+  <a href="#class-name-with-uppercamelcase" class="md-nav__link">
+    Class name with UpperCamelCase
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#with-underscore" class="md-nav__link">
-    With underscore
+  <a href="#method-names-are-routes" class="md-nav__link">
+    Method names are routes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-name-with-underscore" class="md-nav__link">
+    Method name with underscore
   </a>
   
 </li>
@@ -520,6 +527,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#form-validations" class="md-nav__link">
+    Form Validations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#login-manager" class="md-nav__link">
+    Login Manager
+  </a>
+  
+</li>
+      
       
       
       
@@ -604,6 +625,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced/core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../advanced/request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -664,6 +697,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced/form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../advanced/caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -702,6 +747,30 @@
   <li class="md-nav__item">
     <a href="../../advanced/storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced/flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced/login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -884,15 +953,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#method-names-are-routes" class="md-nav__link">
-    method names are routes
+  <a href="#class-name-with-uppercamelcase" class="md-nav__link">
+    Class name with UpperCamelCase
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#with-underscore" class="md-nav__link">
-    With underscore
+  <a href="#method-names-are-routes" class="md-nav__link">
+    Method names are routes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-name-with-underscore" class="md-nav__link">
+    Method name with underscore
   </a>
   
 </li>
@@ -1039,6 +1115,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#form-validations" class="md-nav__link">
+    Form Validations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#login-manager" class="md-nav__link">
+    Login Manager
+  </a>
+  
+</li>
+      
       
       
       
@@ -1062,31 +1152,48 @@
                 
                 <h2 id="overview">Overview</h2>
 <p>Assembly views are classes that extend <strong>Assembly</strong> </p>
-<p>Assembly by default suggests that you put your views in <code>__init__.py</code>, in the View Package folder.</p>
-<p>A simple View would look like this</p>
-<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="n">hello_world</span><span class="o">/</span>
+<p>By default they are placed in <code>/views</code> as modules and may have a template associated to them in the <code>/templates</code> folder. </p>
+<p>The can be imported directly in the <code>__init__.py</code> or in the <code>APPS</code> list in the <code>wsgi.py</code> file.</p>
+<p>A simple View would with its template would look like this</p>
+<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="n">views</span><span class="o">/</span>
     <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">main</span><span class="p">.</span><span class="n">py</span>
+<span class="o">|-</span> <span class="n">templates</span><span class="o">/</span>
+    <span class="o">|-</span> <span class="n">main</span>
+        <span class="o">|-</span> <span class="k">Index</span>
+            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1"># hello_world/__init__.py</span>
-
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
 
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;Hello World&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly For Ever!&quot;</span>
+        <span class="p">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1"># wsgi.py</span>
+
+<span class="n">APPS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;views.main&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 
 
 <hr />
 <h2 id="working-with-view">Working with View</h2>
-<p>To create a view, just create a folder at the root of the application and create <code>__init__.py</code> in it. You may also create <code>__models__.py</code>, <code>templates/</code>, <code>static/</code>, <code>cli.py</code>.</p>
-<p>Or you can use the built-in CLI to create your view </p>
-<div class="codehilite"><pre><span></span><span class="o">#</span> 
-<span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">gen</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="k">view</span> <span class="n">myapi</span>
-<span class="o">#</span>
-<span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">gen</span><span class="o">-</span><span class="k">template</span><span class="o">-</span><span class="k">view</span> <span class="k">admin</span>
+<p>A view is python module (file) that contains classes extending <code>Assembly</code>.</p>
+<p>Simply create a python file in the <code>views/</code> directory, called view module. In the <code>templates/</code> create a directory with the same name as the view module. For every class that gets created, have a matching folder name which will contain html files associated to each method names. </p>
+<p>So an action with the following signature <code>views.admin.Index.index</code> will have a matching template <code>templates/admin/Index/index.html</code>.</p>
+<p>If that's too hard to do manually, we can use the generator to help us create a view.</p>
+<div class="codehilite"><pre><span></span><span class="n">asm</span> <span class="n">gen</span><span class="p">:</span><span class="n">view</span> <span class="n">admin</span>
 </pre></div>
 
 
@@ -1095,7 +1202,7 @@
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
 
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
-    <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
@@ -1112,7 +1219,7 @@
 
     <span class="c1"># responds to /admin/catalog</span>
     <span class="nd">@request.route</span><span class="p">(</span><span class="s2">&quot;catalog&quot;</span><span class="p">)</span>
-    <span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
@@ -1120,93 +1227,129 @@
 <hr />
 <h3 id="routing-rules">Routing Rules</h3>
 <h4 id="index">Index</h4>
-<p>Class named <strong>Index</strong> or method named <strong>index</strong> will be the root of the endpoint</p>
-<div class="codehilite"><pre><span></span># <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span>
-<span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<p>Class named <strong>Index</strong> or method named <strong>index</strong> will be the root of the endpoint, or the entry point.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># responds to -&gt; /</span>
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    # <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span>
-    <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># responds to -&gt; /</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h4 id="class-name-are-base-routes">Class name are base routes</h4>
 <p>the class name is the base url</p>
-<div class="codehilite"><pre><span></span># <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="nv">api</span>
-<span class="nv">class</span> <span class="nv">Api</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="c1"># responds to -&gt; /api</span>
+<span class="k">class</span> <span class="nc">Api</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    # <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="nv">api</span><span class="o">/</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># responds to -&gt; /api/</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> 
 
-# <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="nv">article</span><span class="o">/</span>
-<span class="nv">class</span> <span class="nv">Article</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
-
-    # <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="nv">articles</span><span class="o">/</span>
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># responds to -&gt; /api/items</span>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> 
-</pre></div>
 
+<span class="c1"># responds to -&gt; /article/</span>
+<span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-<h4 id="method-names-are-routes">method names are routes</h4>
-<div class="codehilite"><pre><span></span># <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span>
-<span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+    <span class="c1"># responds to -&gt; /article/</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> 
 
-    # <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span>
-    <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="k">return</span>
-
-    # <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="nv">hello</span><span class="o">/</span>
-    <span class="nv">hello</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="k">return</span>
-
-    # <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="nv">save</span><span class="o">/</span>
-    <span class="nv">save</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># responds to -&gt; /article/reviews</span>
+    <span class="k">def</span> <span class="nf">reviews</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
-<h4 id="with-underscore">With underscore</h4>
-<p>Methods containing underscore in between, will turn into dash/hyphe</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<h4 id="class-name-with-uppercamelcase">Class name with UpperCamelCase</h4>
+<p>Class name with UpperCamelCase will turn into dash/hyphen.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># responds to -&gt; /super-hero/</span>
+<span class="k">class</span> <span class="nc">SuperHero</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
 
-    # <span class="nv">responds</span> <span class="nv">to</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="nv">about</span><span class="o">-</span><span class="nv">us</span><span class="o">/</span>
-    <span class="nv">about_us</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+  <span class="c1"># responds to -&gt; /super-hero/contact-us/</span>
+  <span class="k">def</span> <span class="nf">contact_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
+</pre></div>
+
+
+<h4 id="method-names-are-routes">Method names are routes</h4>
+<div class="codehilite"><pre><span></span><span class="c1"># responds to -&gt; /</span>
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="c1"># responds to -&gt; /</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="c1"># responds to -&gt; /hello/</span>
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="c1"># responds to -&gt; /save/</span>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
-<p>However, method starting with undescrore will be ignored</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<h4 id="method-name-with-underscore">Method name with underscore</h4>
+<p>Methods containing underscore in between, will turn into dash/hyphen</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    # <span class="nv">will</span> <span class="nv">not</span> <span class="nv">be</span> <span class="nv">assigned</span> <span class="nv">a</span> <span class="nv">route</span> <span class="nv">because</span> <span class="nv">it</span> <span class="nv">starts</span> <span class="nv">with</span> <span class="nv">underscore</span>
-    <span class="nv">_log_data_info</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># responds to -&gt; /about-us/</span>
+    <span class="k">def</span> <span class="nf">about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+</pre></div>
+
+
+<p>However, method starting with undescrore are private methods that will not have a route attached them.</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="c1"># will not be assigned a route because it starts with underscore</span>
+    <span class="k">def</span> <span class="nf">_log_data_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1"># responds to -&gt; /super-hero/</span>
+<span class="k">class</span> <span class="nc">SuperHero</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> 
+
+    <span class="c1"># responds to -&gt; /super-hero/contact-us/</span>
+    <span class="k">def</span> <span class="nf">contact_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="c1"># will not be assigned a route because it starts with underscore</span>
+    <span class="k">def</span> <span class="nf">_log_data_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h4 id="restful">RESTful</h4>
 <p><strong>get</strong>, <strong>post</strong>, <strong>put</strong>, <strong>delete</strong> will automatically be assigned their method name</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    # <span class="nv">will</span> <span class="nv">responds</span> <span class="nv">on</span> <span class="nv">get</span> <span class="nv">call</span>
-    <span class="nv">get</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># will responds on get call</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 
-    # <span class="nv">will</span> <span class="nv">responds</span> <span class="nv">on</span> <span class="nv">post</span> <span class="nv">call</span>
-    <span class="nv">post</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># will responds on post call</span>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 
-    # <span class="nv">will</span> <span class="nv">responds</span> <span class="nv">on</span> <span class="nv">delete</span> <span class="nv">call</span>
-    <span class="nv">delete</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># will responds on delete call</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 
-    # <span class="nv">will</span> <span class="nv">responds</span> <span class="nv">on</span> <span class="nv">put</span> <span class="nv">call</span>
-    <span class="nv">put</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># will responds on put call</span>
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 
-    # <span class="nv">will</span> <span class="nv">responds</span> <span class="nv">on</span> <span class="nv">update</span> <span class="nv">call</span>
-    <span class="nv">update</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="c1"># will responds on update call</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
@@ -1216,98 +1359,98 @@
 <p>Below are methods that are very special to your application</p>
 <h3 id="_before_request">_before_request</h3>
 <p>This function will run before each request</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    <span class="nv">def</span> <span class="nv">_before_request</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">name</span><span class="ss">)</span>:
-        <span class="s2">&quot;&quot;&quot;</span>
-        <span class="nv">name</span>: <span class="nv">The</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">view</span> <span class="nv">that</span>’<span class="nv">s</span> <span class="nv">about</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">called</span>
-        <span class="s2">&quot;&quot;&quot;</span>
-        <span class="nv">pass</span>
+    <span class="k">def</span> <span class="nf">_before_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        name: The name of the view that’s about to be called</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
 
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="_after_request">_after_request</h3>
 <p>This function will run after each request</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    <span class="nv">def</span> <span class="nv">_after_request</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">name</span>, <span class="nv">response</span><span class="ss">)</span>:
-        <span class="s2">&quot;&quot;&quot;</span>
-        <span class="nv">name</span>: <span class="nv">The</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">view</span> <span class="nv">that</span>’<span class="nv">s</span> <span class="nv">about</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">called</span>
-        <span class="nv">response</span>: <span class="nv">The</span> <span class="nv">response</span> <span class="nv">object</span>. <span class="nv">Must</span> <span class="k">return</span> <span class="nv">the</span> <span class="nv">response</span>
-        <span class="s2">&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nv">response</span>
+    <span class="k">def</span> <span class="nf">_after_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        name: The name of the view that’s about to be called</span>
+<span class="sd">        response: The response object. Must return the response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">response</span>
 
-    <span class="nv">def</span> <span class="nv">index</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 </pre></div>
 
 
 <h3 id="_error_handler">_error_handler</h3>
 <p>This function will catch all HTTPError. </p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    <span class="nv">def</span> <span class="nv">_error_handler</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">error</span><span class="ss">)</span>:
-        <span class="k">return</span> {
-            <span class="s2">&quot;</span><span class="s">e</span><span class="s2">&quot;</span>: <span class="nv">error</span>
-        }
+    <span class="k">def</span> <span class="nf">_error_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;e&quot;</span><span class="p">:</span> <span class="n">error</span>
+        <span class="p">}</span>
 </pre></div>
 
 
 <h3 id="_error95errorcode">_error_$errorCode</h3>
 <p>This function will catch an HTTP Error Code</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    # <span class="nv">will</span> <span class="nv">catch</span> <span class="mi">404</span> <span class="nv">only</span>
-    <span class="nv">def</span> <span class="nv">_error_404</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">error</span><span class="ss">)</span>:
-        <span class="k">return</span> {
-            <span class="s2">&quot;</span><span class="s">e</span><span class="s2">&quot;</span>: <span class="nv">error</span>
-        }
+    <span class="c1"># will catch 404 only</span>
+    <span class="k">def</span> <span class="nf">_error_404</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;e&quot;</span><span class="p">:</span> <span class="n">error</span>
+        <span class="p">}</span>
 
-    # <span class="nv">will</span> <span class="nv">catch</span> <span class="mi">401</span> <span class="nv">only</span>
-    <span class="nv">def</span> <span class="nv">_error_401</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">error</span><span class="ss">)</span>:
-        <span class="k">return</span> {
-            <span class="s2">&quot;</span><span class="s">e</span><span class="s2">&quot;</span>: <span class="nv">error</span>
-        }
+    <span class="c1"># will catch 401 only</span>
+    <span class="k">def</span> <span class="nf">_error_401</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;e&quot;</span><span class="p">:</span> <span class="n">error</span>
+        <span class="p">}</span>
 
-    # <span class="nv">will</span> <span class="nv">catch</span> <span class="mi">500</span> <span class="nv">only</span>
-    <span class="nv">def</span> <span class="nv">_error_500</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">error</span><span class="ss">)</span>:
-        <span class="k">return</span> {
-            <span class="s2">&quot;</span><span class="s">e</span><span class="s2">&quot;</span>: <span class="nv">error</span>
-        }
+    <span class="c1"># will catch 500 only</span>
+    <span class="k">def</span> <span class="nf">_error_500</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;e&quot;</span><span class="p">:</span> <span class="n">error</span>
+        <span class="p">}</span>
 </pre></div>
 
 
 <h3 id="_before95methodname">_before_$methodName</h3>
 <p>This function will run before each time $methodName is called</p>
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="n">Index</span>(<span class="n">Assembly</span>):
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    <span class="n">def</span> <span class="n">_before_about_us</span>(<span class="k">self</span>, <span class="nb">name</span>):
-        <span class="s">&quot;&quot;&quot;</span>
-<span class="s">        name: The name of the view that’s about to be called</span>
-<span class="s">        &quot;&quot;&quot;</span>
-        <span class="nb">pass</span>
+    <span class="k">def</span> <span class="nf">_before_about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        name: The name of the view that’s about to be called</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
 
-    <span class="n">def</span> <span class="n">about_us</span>(<span class="k">self</span>):
-        <span class="nb">pass</span>
+    <span class="k">def</span> <span class="nf">about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
 </pre></div>
 
 
 <h3 id="_after95methodname">_after_$methodName</h3>
 <p>This function will run after each time $methodName is called</p>
-<div class="codehilite"><pre><span></span><span class="nv">class</span> <span class="nv">Index</span><span class="ss">(</span><span class="nv">Assembly</span><span class="ss">)</span>:
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
-    <span class="nv">def</span> <span class="nv">_after_about_us</span><span class="ss">(</span><span class="nv">self</span>, <span class="nv">name</span><span class="ss">)</span>:
-        <span class="s2">&quot;&quot;&quot;</span>
-        <span class="nv">name</span>: <span class="nv">The</span> <span class="nv">name</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">view</span> <span class="nv">that</span>’<span class="nv">s</span> <span class="nv">about</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">called</span>
-        <span class="nv">response</span>: <span class="nv">The</span> <span class="nv">response</span> <span class="nv">object</span>. <span class="nv">Must</span> <span class="k">return</span> <span class="nv">the</span> <span class="nv">response</span>
-        <span class="s2">&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nv">response</span>
+    <span class="k">def</span> <span class="nf">_after_about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        name: The name of the view that’s about to be called</span>
+<span class="sd">        response: The response object. Must return the response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">response</span>
 
-    <span class="nv">def</span> <span class="nv">about_us</span><span class="ss">(</span><span class="nv">self</span><span class="ss">)</span>:
-        <span class="nv">pass</span>
+    <span class="k">def</span> <span class="nf">about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
 </pre></div>
 
 
@@ -1348,18 +1491,18 @@
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;about-us-url&quot;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">about_us</span><span class="p">),</span>
             <span class="s2">&quot;blog-url&quot;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="n">Blog</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
-            <span class="s2">&quot;articles-url&quot;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="n">views</span><span class="o">.</span><span class="n">articles</span><span class="o">.</span><span class="n">Articles</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
+            <span class="s2">&quot;articles-url&quot;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="n">views</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">articles</span><span class="o">.</span><span class="n">Articles</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
         <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 
-<span class="n">Class</span> <span class="n">Blog</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Blog</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span>
 
 
-<span class="c1"># articles/__init__.py</span>
+<span class="c1"># views/articles.py</span>
 
 <span class="k">class</span> <span class="nc">Articles</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
@@ -1372,7 +1515,7 @@
 <h2 id="models">Models</h2>
 <p>Models can be used easily by importing the <code>models</code> object. It contains a reference of every models that have been created with <code>db.Model</code></p>
 <p>Learn more on <strong><a href="../models/">Models</a> </strong></p>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__models__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/models.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">db</span>
 
@@ -1445,6 +1588,22 @@
 
 
 <p>Go to: <strong><a href="../../advanced/flash/">Flash</a> </strong></p>
+<hr />
+<h2 id="form-validations">Form Validations</h2>
+<p>Working with form validations</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">forms</span>
+</pre></div>
+
+
+<p>Go to: <strong><a href="../../advanced/form-validations/">Form Validations</a> </strong></p>
+<hr />
+<h2 id="login-manager">Login Manager</h2>
+<p>Login Manager</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">login_manager</span>
+</pre></div>
+
+
+<p>Go to: <strong><a href="../../advanced/login-manager/">Form Validations</a> </strong></p>
                 
                   
                 

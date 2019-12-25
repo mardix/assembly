@@ -363,6 +363,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced/core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../advanced/request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -423,6 +435,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced/form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../advanced/caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -461,6 +485,30 @@
   <li class="md-nav__item">
     <a href="../advanced/storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -600,8 +648,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#gokku" class="md-nav__link">
-    Gokku
+  <a href="#heroku" class="md-nav__link">
+    Heroku
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxie" class="md-nav__link">
+    Boxie
   </a>
   
 </li>
@@ -682,8 +737,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#gokku" class="md-nav__link">
-    Gokku
+  <a href="#heroku" class="md-nav__link">
+    Heroku
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxie" class="md-nav__link">
+    Boxie
   </a>
   
 </li>
@@ -716,7 +778,7 @@
                 
                 <h2 id="deploy-options">Deploy Options</h2>
 <p>To get a comprehensive deploy options with Assembly, please follow <a href="https://flask.palletsprojects.com/en/1.1.x/deploying/" target="_blank"><strong>Deploying Options</strong></a> with Flask. Assembly is actually Flask, so everything on the link is valid for Assembly.</p>
-<p>Below are some of the options, you would be interested in.</p>
+<p>Below are some of the options you would be interested in.</p>
 <hr />
 <h3 id="environment-variable">Environment Variable</h3>
 <p><strong>Note</strong>: When deploying, make sure you set the right environment </p>
@@ -744,29 +806,53 @@ gunicorn -w <span class="m">4</span> wsgi:app
 
 
 <hr />
-<h3 id="gokku">Gokku</h3>
-<p><strong>Gokku</strong> is a very small PaaS to do git push deployments to your own servers (Digital Ocean, Linode) similar to Heroku.</p>
-<p>Learn more about <a href="https://github.com/mardix/gokku" target="_blank"><strong>Gokku</strong></a></p>
-<p>Gokku configuration is already shipped with Assembly, with <code>app.json</code>. The <code>app.json</code> will launch your website from 0 to 100 just like it would on Heroku. </p>
-<p>At the root  of the application, <strong>app.json</strong> is a manifest format for describing web apps. It declares environment variables, scripts, and other information required to run an app on your server.</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;gokku&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;domain_name&quot;</span><span class="o">:</span> <span class="s2">&quot;myapp.domain.com&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;ASSEMBLY_ENV&quot;</span><span class="o">:</span> <span class="s2">&quot;Production&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;ASSEMBLY_APP&quot;</span><span class="o">:</span> <span class="s2">&quot;default&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;release&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;asm-admin sync-models&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;asm setup&quot;</span>
-      <span class="p">]</span>
-    <span class="p">},</span>    
-    <span class="s2">&quot;run&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;web&quot;</span><span class="o">:</span> <span class="s2">&quot;wsgi:app&quot;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<h3 id="heroku">Heroku</h3>
+<p>Set the environment variables for Heroku</p>
+<div class="codehilite"><pre><span></span><span class="n">heroku</span> <span class="n">config</span><span class="p">:</span><span class="k">set</span> <span class="n">ASSEMBLY_ENV</span><span class="o">=</span><span class="n">Production</span>
+<span class="n">heroku</span> <span class="n">config</span><span class="p">:</span><span class="k">set</span> <span class="n">ASSEMBLY_APP</span><span class="o">=</span><span class="k">default</span>
+</pre></div>
+
+
+<p><strong>Edit *PROCFILE</strong>*</p>
+<div class="codehilite"><pre><span></span><span class="n">web</span><span class="o">:</span> <span class="n">gunicorn</span> <span class="n">wsgi</span><span class="o">:</span><span class="n">app</span>
+<span class="n">release</span><span class="o">:</span> <span class="n">asm</span> <span class="n">gen</span><span class="o">:</span><span class="n">sync</span><span class="o">-</span><span class="n">models</span><span class="o">;</span> <span class="n">asm</span> <span class="n">setup</span> 
+</pre></div>
+
+
+<hr />
+<h3 id="boxie">Boxie</h3>
+<p>Unlike Gunicorn and uWSGI, Boxie gives you something more like a PaaS (Platform as a Service) option. If you manage your own server, we recommend Boxie and you will love it :).</p>
+<p><strong>Boxie</strong> is a utility to install on a host machine, that allows you to deploy multiple sites or apps, run scripts and background workers on a single VPS, Digital Ocean or Linode instance.</p>
+<p><strong>Boxie</strong> follows a process similar to Heroku or Dokku where you push code to the host via Git, and <strong>Boxie</strong> will:
+- create an instance on the host machine
+- deploy the new code
+- create virtual environments for your application
+- get a free SSL from LetsEncrypt and assign it to your domain
+- execute scripts to be executed
+- put your application online
+- monitor the application
+- restart the application if it crashes</p>
+<p>Learn more about <a href="https://github.com/mardix/boxie" target="_blank"><strong>Boxie</strong></a></p>
+<p>Boxie configuration is already shipped with Assembly, with <code>boxie.yml</code>. </p>
+<p><code>boxie.yml</code> is a manifest format for describing apps. It declares environment variables, scripts, and other information required to run an app on your server.</p>
+<div class="codehilite"><pre><span></span><span class="c1">---</span>
+<span class="n">name</span><span class="p">:</span> <span class="n">My</span> <span class="n">Assembly</span> <span class="n">App</span>
+<span class="n">description</span><span class="p">:</span> <span class="n">my</span> <span class="n">awesome</span> <span class="n">app</span> <span class="k">in</span> <span class="n">Assembly</span>
+<span class="k">version</span><span class="p">:</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span>
+<span class="n">apps</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">yourdomain</span><span class="p">.</span><span class="n">com</span>
+    <span class="k">server_name</span><span class="p">:</span> <span class="n">yourdomain</span><span class="p">.</span><span class="n">com</span>
+    <span class="n">runtime</span><span class="p">:</span> <span class="n">python</span>
+    <span class="n">auto_restart</span><span class="p">:</span> <span class="k">true</span>
+    <span class="n">env</span><span class="p">:</span>
+      <span class="n">ASSEMBLY_ENV</span><span class="p">:</span> <span class="n">Production</span>
+      <span class="n">ASSEMBLY_APP</span><span class="p">:</span> <span class="k">default</span>
+    <span class="n">scripts</span><span class="p">:</span>
+      <span class="n">release</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">asm</span> <span class="n">gen</span><span class="p">:</span><span class="n">sync</span><span class="o">-</span><span class="n">models</span>
+        <span class="o">-</span> <span class="n">asm</span> <span class="n">setup</span>
+    <span class="n">process</span><span class="p">:</span>
+      <span class="n">web</span><span class="p">:</span> <span class="n">wsgi</span><span class="p">:</span><span class="n">app</span>
 </pre></div>
                 
                   

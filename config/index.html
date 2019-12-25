@@ -445,6 +445,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced/core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../advanced/request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -505,6 +517,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced/form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../advanced/caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -543,6 +567,30 @@
   <li class="md-nav__item">
     <a href="../advanced/storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -743,9 +791,8 @@
                   <h1>Configuration</h1>
                 
                 <h2 id="overview">Overview</h2>
-<p><code>./config.py</code> contains class-based configurations. 
-This file must exist at the root of the application 
-where <code>wsgi.py</code> exists.</p>
+<p><code>lib/config.py</code> contains class-based configurations. 
+This file must exist inside of the <code>lib</code> folder and will imported implicitely.</p>
 <p>It is recommended to have a base class, <code>BaseConfig</code>, and your environment classes <code>Development</code>, <code>Production</code> which are subclasses
 of the <code>BaseConfig</code>, this way they can share some common config.</p>
 <p>The environment classes will be loaded on Assembly startup. By default, and in development, Assembly will attempt to load the <code>Development</code> if one isn't provided.</p>
@@ -826,8 +873,8 @@ using the dot notation, ie: <code>config.get('key.val1.val2.val3')</code></p>
 <hr />
 <h2 id="default-configurations">Default Configurations</h2>
 <p>Assembly uses class-based configuration, and the config will be loaded implicitely.</p>
-<p><code>./config.py</code> is required at the root of the application.</p>
-<div class="codehilite"><pre><span></span><span class="c1"># config.py</span>
+<p><code>lib/config.py</code> is required at the root of the application.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># lib/config.py</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -835,7 +882,7 @@ using the dot notation, ie: <code>config.get('key.val1.val2.val3')</code></p>
 <span class="n">ROOT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
 
 <span class="c1"># Data directory</span>
-<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT_DIR</span><span class="p">,</span> <span class="s2">&quot;_data&quot;</span><span class="p">)</span>
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT_DIR</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">BaseConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -923,6 +970,11 @@ using the dot notation, ie: <code>config.get('key.val1.val2.val3')</code></p>
     <span class="c1">#: DB_URL</span>
     <span class="c1">#: Assembly uses Active-Alchemy to work with DB </span>
     <span class="c1">#: format: engine://USERNAME:PASSWORD@HOST:PORT/DB_NAME</span>
+    <span class="c1">#: format: dialect+driver://USERNAME:PASSWORD@HOST:PORT/DB_NAME</span>
+    <span class="c1">#: SQLite: sqlite:////foo.db</span>
+    <span class="c1">#: SQLite in memory: sqlite://</span>
+    <span class="c1">#: Postgresql: postgresql+pg8000://user:password@host:port/dbname</span>
+    <span class="c1">#: MySQL: mysql+pymysql://user:password@host:port/dbname</span>
     <span class="n">DB_URL</span> <span class="o">=</span> <span class="s2">&quot;sqlite:////</span><span class="si">%s</span><span class="s2">/db.db&quot;</span> <span class="o">%</span> <span class="n">DATA_DIR</span>
 
     <span class="c1">#: DB_REDIS_URL</span>
@@ -965,121 +1017,163 @@ using the dot notation, ie: <code>config.get('key.val1.val2.val3')</code></p>
     <span class="c1">#: Cloudfiles, Azure Blobs, and Local storage</span>
     <span class="c1">#: When using local storage, they can be accessed via http://yoursite/files</span>
     <span class="c1">#:</span>
+    <span class="n">STORAGE</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">#: STORAGE_PROVIDER:</span>
+        <span class="c1"># The provider to use. By default it&#39;s &#39;LOCAL&#39;.</span>
+        <span class="c1"># You can use:</span>
+        <span class="c1"># LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES</span>
+        <span class="s2">&quot;PROVIDER&quot;</span><span class="p">:</span> <span class="s2">&quot;LOCAL&quot;</span><span class="p">,</span>
 
-    <span class="c1">#: STORAGE_PROVIDER:</span>
-    <span class="c1"># The provider to use. By default it&#39;s &#39;LOCAL&#39;.</span>
-    <span class="c1"># You can use:</span>
-    <span class="c1"># LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES</span>
-    <span class="n">STORAGE_PROVIDER</span> <span class="o">=</span> <span class="s2">&quot;LOCAL&quot;</span>
+        <span class="c1">#: STORAGE_KEY</span>
+        <span class="c1"># The storage key. Leave it blank if PROVIDER is LOCAL</span>
+        <span class="s2">&quot;KEY&quot;</span><span class="p">:</span> <span class="n">AWS_ACCESS_KEY_ID</span><span class="p">,</span>
 
-    <span class="c1">#: STORAGE_KEY</span>
-    <span class="c1"># The storage key. Leave it blank if PROVIDER is LOCAL</span>
-    <span class="n">STORAGE_KEY</span> <span class="o">=</span> <span class="n">AWS_ACCESS_KEY_ID</span>
+        <span class="c1">#: STORAGE_SECRET</span>
+        <span class="c1">#: The storage secret key. Leave it blank if PROVIDER is LOCAL</span>
+        <span class="s2">&quot;SECRET&quot;</span><span class="p">:</span> <span class="n">AWS_SECRET_ACCESS_KEY</span><span class="p">,</span>
 
-    <span class="c1">#: STORAGE_SECRET</span>
-    <span class="c1">#: The storage secret key. Leave it blank if PROVIDER is LOCAL</span>
-    <span class="n">STORAGE_SECRET</span> <span class="o">=</span> <span class="n">AWS_SECRET_ACCESS_KEY</span>
+        <span class="c1">#: STORAGE_REGION_NAME</span>
+        <span class="c1">#: The region for the storage. Leave it blank if PROVIDER is LOCAL</span>
+        <span class="s2">&quot;REGION_NAME&quot;</span><span class="p">:</span> <span class="n">AWS_REGION_NAME</span><span class="p">,</span>
 
-    <span class="c1">#: STORAGE_REGION_NAME</span>
-    <span class="c1">#: The region for the storage. Leave it blank if PROVIDER is LOCAL</span>
-    <span class="n">STORAGE_REGION_NAME</span> <span class="o">=</span> <span class="n">AWS_REGION_NAME</span>
+        <span class="c1">#: STORAGE_CONTAINER</span>
+        <span class="c1">#: The Bucket name (for S3, Google storage, Azure, cloudfile)</span>
+        <span class="c1">#: or the directory name (LOCAL) to access</span>
+        <span class="s2">&quot;CONTAINER&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;uploads&quot;</span><span class="p">),</span>
 
-    <span class="c1">#: STORAGE_CONTAINER</span>
-    <span class="c1">#: The Bucket name (for S3, Google storage, Azure, cloudfile)</span>
-    <span class="c1">#: or the directory name (LOCAL) to access</span>
-    <span class="n">STORAGE_CONTAINER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;uploads&quot;</span><span class="p">)</span>
+        <span class="c1">#: STORAGE_SERVER</span>
+        <span class="c1">#: Bool, to serve local file</span>
+        <span class="s2">&quot;SERVER&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
 
-    <span class="c1">#: STORAGE_SERVER</span>
-    <span class="c1">#: Bool, to serve local file</span>
-    <span class="n">STORAGE_SERVER</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="c1">#: STORAGE_SERVER_URL</span>
+        <span class="c1">#: The url suffix for local storage</span>
+        <span class="s2">&quot;SERVER_URL&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
 
-    <span class="c1">#: STORAGE_SERVER_URL</span>
-    <span class="c1">#: The url suffix for local storage</span>
-    <span class="n">STORAGE_SERVER_URL</span> <span class="o">=</span> <span class="s2">&quot;files&quot;</span>
+        <span class="c1">#:STORAGE_UPLOAD_FILE_PROPS</span>
+        <span class="c1">#: A convenient K/V properties for storage.upload to use when using `upload_file()`</span>
+        <span class="c1">#: It contains common properties that can passed into the upload function</span>
+        <span class="c1">#: ie: upload_file(&quot;profile-image&quot;, file)</span>
+        <span class="s2">&quot;UPLOAD_FILE_PROPS&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1"># To upload regular images</span>
+            <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;public&quot;</span><span class="p">:</span> <span class="bp">True</span>
+            <span class="p">},</span>
 
-    <span class="c1">#:STORAGE_UPLOAD_FILE_PROPS</span>
-    <span class="c1">#: A convenient K/V properties for storage.upload to use when using `upload_file()`</span>
-    <span class="c1">#: It contains common properties that can passed into the upload function</span>
-    <span class="c1">#: ie: upload_file(&quot;profile-image&quot;, file)</span>
-    <span class="n">STORAGE_UPLOAD_FILE_PROPS</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="c1"># To upload regular images</span>
-        <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;public&quot;</span><span class="p">:</span> <span class="bp">True</span>
-        <span class="p">},</span>
-
-        <span class="c1"># To upload profile image</span>
-        <span class="s2">&quot;profile-image&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;profile-image/&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;public&quot;</span><span class="p">:</span> <span class="bp">True</span>
+            <span class="c1"># To upload profile image</span>
+            <span class="s2">&quot;profile-image&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;profile-image/&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;public&quot;</span><span class="p">:</span> <span class="bp">True</span>
+            <span class="p">}</span>
         <span class="p">}</span>
+
     <span class="p">}</span>
 
     <span class="c1">#--------- MAIL ----------</span>
     <span class="c1"># To send emails</span>
+    <span class="c1">#</span>
+    <span class="c1"># from assembly import send_mail</span>
+    <span class="c1"># send_mail(to=&quot;user@email.com&quot;, subject=&quot;Hi&quot;, body=&quot;How are you?&quot;)</span>
 
-    <span class="c1"># AWS SES</span>
-    <span class="c1"># To use AWS SES to send email</span>
-    <span class="c1">#:</span>
-    <span class="c1">#: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)</span>
-    <span class="c1">#: set MAIL_URL = &quot;ses://&quot;</span>
-    <span class="c1">#: * To use a different credential:</span>
-    <span class="c1">#: set MAIL_URL = &quot;ses://{access_key}:{secret_key}@{region}&quot;</span>
-    <span class="c1">#:</span>
-    <span class="c1">#: *** uncomment if you are using SMTP instead</span>
-    <span class="c1"># MAIL_URL = &quot;ses://&quot;</span>
+    <span class="n">MAIL</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># OPTIONS</span>
+        <span class="c1">#</span>
+        <span class="c1"># AWS SES</span>
+        <span class="c1"># To use AWS SES to send email</span>
+        <span class="c1">#:</span>
+        <span class="c1">#: - To use the default AWS credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)</span>
+        <span class="c1">#: set MAIL_URL = &quot;ses://&quot;</span>
+        <span class="c1">#: * To use a different credential:</span>
+        <span class="c1">#: set MAIL_URL = &quot;ses://{access_key}:{secret_key}@{region}&quot;</span>
+        <span class="c1">#:</span>
+        <span class="c1">#: *** uncomment if you are using SMTP instead</span>
+        <span class="c1"># &quot;URL&quot;: &quot;ses://&quot;,</span>
 
-    <span class="c1"># SMTP</span>
-    <span class="c1">#: If you are using SMTP, it will use Flask-Mail</span>
-    <span class="c1">#: The uri for the smtp connection. It will use Flask-Mail</span>
-    <span class="c1">#: format: smtp://USERNAME:PASSWORD@HOST:PORT</span>
-    <span class="c1">#: with sll -&gt; smtp+ssl://USERNAME:PASSWORD@HOST:PORT</span>
-    <span class="c1">#: with ssl and tls -&gt; smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT</span>
-    <span class="c1">#:</span>
-    <span class="c1">#: *** comment out if you are using SES instead</span>
-    <span class="c1"># MAIL_URL = &quot;smtp+ssl://{username}:{password}@{host}:{port}&quot;\</span>
-    <span class="c1">#    .format(username=&quot;&quot;, password=&quot;&quot;, host=&quot;smtp.gmail.com&quot;, port=465)</span>
+        <span class="c1"># SMTP</span>
+        <span class="c1">#: If you are using SMTP, it will use Flask-Mail</span>
+        <span class="c1">#: The uri for the smtp connection. It will use Flask-Mail</span>
+        <span class="c1">#: format: smtp://USERNAME:PASSWORD@HOST:PORT</span>
+        <span class="c1">#: with sll -&gt; smtp+ssl://USERNAME:PASSWORD@HOST:PORT</span>
+        <span class="c1">#: with ssl and tls -&gt; smtp+ssl+tls://USERNAME:PASSWORD@HOST:PORT</span>
+        <span class="c1">#:</span>
+        <span class="s2">&quot;URL&quot;</span><span class="p">:</span> <span class="s2">&quot;smtp+ssl://{username}:{password}@{host}:{port}&quot;</span>\
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;smtp.gmail.com&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">465</span><span class="p">),</span>
 
-    <span class="c1">#: MAIL_SENDER - The sender of the email by default</span>
-    <span class="c1">#: For SES, this email must be authorized</span>
-    <span class="n">MAIL_SENDER</span> <span class="o">=</span> <span class="n">ADMIN_EMAIL</span>
+        <span class="c1">#: MAIL_SENDER - The sender of the email by default</span>
+        <span class="c1">#: For SES, this email must be authorized</span>
+        <span class="s2">&quot;MAIL_SENDER&quot;</span><span class="p">:</span> <span class="n">ADMIN_EMAIL</span><span class="p">,</span>
 
-    <span class="c1">#: MAIL_REPLY_TO</span>
-    <span class="c1">#: The email to reply to by default</span>
-    <span class="n">MAIL_REPLY_TO</span> <span class="o">=</span> <span class="n">ADMIN_EMAIL</span>
+        <span class="c1">#: MAIL_REPLY_TO</span>
+        <span class="c1">#: The email to reply to by default</span>
+        <span class="s2">&quot;MAIL_REPLY_TO&quot;</span><span class="p">:</span> <span class="n">ADMIN_EMAIL</span><span class="p">,</span>
 
-    <span class="c1">#: MAIL_TEMPLATE</span>
-    <span class="c1">#: a directory that contains the email template or a dict</span>
-    <span class="n">MAIL_TEMPLATE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s1">&#39;mail-templates&#39;</span><span class="p">)</span>
+        <span class="c1">#: MAIL_TEMPLATES_DIR</span>
+        <span class="c1">#: files based templates</span>
+        <span class="s2">&quot;TEMPLATES_DIR&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s1">&#39;mail-templates&#39;</span><span class="p">),</span>
 
-    <span class="c1">#: MAIL_TEMPLATE_CONTEXT</span>
-    <span class="c1">#: a dict of all context to pass to the email by default</span>
-    <span class="n">MAIL_TEMPLATE_CONTEXT</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;site_name&quot;</span><span class="p">:</span> <span class="n">APPLICATION_NAME</span><span class="p">,</span>
-            <span class="s2">&quot;site_url&quot;</span><span class="p">:</span> <span class="n">APPLICATION_URL</span>
+        <span class="c1">#: MAIL_TEMPLATES_DICT</span>
+        <span class="c1">#: dict based templates </span>
+        <span class="c1"># &quot;TEMPLATES_DICT&quot;: {</span>
+        <span class="c1">#     &quot;welcome.txt&quot;: &quot;&quot;&quot;</span>
+        <span class="c1">#     {% block subject %}Welcome{% endblock %}</span>
+        <span class="c1">#     {% block body %}Welcome to the site {{name}}?{% endblock %}        </span>
+        <span class="c1">#     &quot;&quot;&quot;</span>
+        <span class="c1"># },</span>
+
+        <span class="c1">#: MAIL_TEMPLATE_CONTEXT</span>
+        <span class="c1">#: a dict of all context to pass to the email by default</span>
+        <span class="s2">&quot;TEMPLATE_CONTEXT&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;site_name&quot;</span><span class="p">:</span> <span class="n">APPLICATION_NAME</span><span class="p">,</span>
+                <span class="s2">&quot;site_url&quot;</span><span class="p">:</span> <span class="n">APPLICATION_URL</span>
+            <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
-
     <span class="c1">#--------- CACHING ----------</span>
     <span class="c1">#: Flask-Cache is used to caching</span>
+    <span class="n">CACHE</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">#: CACHE_TYPE</span>
+        <span class="c1">#: The type of cache to use</span>
+        <span class="c1">#: null, simple, redis, filesystem,        </span>
+        <span class="s2">&quot;TYPE&quot;</span><span class="p">:</span> <span class="s2">&quot;simple&quot;</span><span class="p">,</span>
 
-    <span class="c1">#: CACHE_TYPE</span>
-    <span class="c1">#: The type of cache to use</span>
-    <span class="c1">#: null, simple, redis, filesystem,</span>
-    <span class="n">CACHE_TYPE</span> <span class="o">=</span> <span class="s2">&quot;simple&quot;</span>
+        <span class="c1">#: CACHE_REDIS_URL</span>
+        <span class="c1">#: If CHACHE_TYPE is &#39;redis&#39;, set the redis uri</span>
+        <span class="c1">#: redis://username:password@host:port/db        </span>
+        <span class="s2">&quot;REDIS_URL&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 
-    <span class="c1">#: CACHE_REDIS_URL</span>
-    <span class="c1">#: If CHACHE_TYPE is &#39;redis&#39;, set the redis uri</span>
-    <span class="c1">#: redis://username:password@host:port/db</span>
-    <span class="n">CACHE_REDIS_URL</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="c1">#: CACHE_DIR</span>
+        <span class="c1">#: Directory to store cache if CACHE_TYPE is filesystem, it will</span>
+        <span class="s2">&quot;DIR&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+    <span class="p">}</span>
 
-    <span class="c1">#: CACHE_DIR</span>
-    <span class="c1">#: Directory to store cache if CACHE_TYPE is filesystem, it will</span>
-    <span class="n">CACHE_DIR</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="c1">#--------- LOGIN_MANAGER ----------</span>
+    <span class="c1"># Flask-Login login_manager configuration</span>
+    <span class="n">LOGIN_MANAGER</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">#: The name of the view to redirect to when the user needs to log in.</span>
+        <span class="c1">#: (This can be an absolute URL as well, if your authentication</span>
+        <span class="c1">#: machinery is external to your application.)</span>
+        <span class="s2">&quot;login_view&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
 
+        <span class="c1">#: The message to flash when a user is redirected to the login page.</span>
+        <span class="s2">&quot;login_message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please log in to access this page.&quot;</span><span class="p">,</span>
+
+        <span class="c1">#: The message category to flash when a user is redirected to the login page.</span>
+        <span class="s2">&quot;login_message_category&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
+
+        <span class="c1">#: The name of the view to redirect to when the user needs to reauthenticate.</span>
+        <span class="s2">&quot;refresh_view&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+
+        <span class="c1">#: The message to flash when a user is redirected to the &#39;needs</span>
+        <span class="c1">#: refresh&#39; page.</span>
+        <span class="s2">&quot;needs_refresh_message&quot;</span><span class="p">:</span> <span class="s2">&quot;Please reauthenticate to access this page.&quot;</span><span class="p">,</span>
+
+        <span class="c1">#: The message category to flash when a user is redirected to the</span>
+        <span class="c1">#: &#39;needs refresh&#39; page.</span>
+        <span class="s2">&quot;needs_refresh_message_category&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
 
 <span class="c1"># -------------------------- ENVIRONMENT BASED CONFIG ---------------------------</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -1094,8 +1188,8 @@ using the dot notation, ie: <code>config.get('key.val1.val2.val3')</code></p>
 <span class="sd">wsgi:app</span>
 
 
-<span class="sd">### **for local server</span>
-<span class="sd">asm-admin server</span>
+<span class="sd">### **for development server</span>
+<span class="sd">asm gen:serve</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 

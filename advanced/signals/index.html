@@ -365,6 +365,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -541,6 +553,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -579,6 +603,30 @@
   <li class="md-nav__item">
     <a href="../storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -837,21 +885,21 @@ interested parties to subscribe to events, or “signals”.</p>
 
 <h3 id="listens-to-a-signal">Listens to a signal</h3>
 <p>Now <code>hello_world</code> has <code>@hello_world.pre</code> and <code>@hello_world.post</code>. These decorators can attached to functions.</p>
-<div class="codehilite"><pre><span></span>@<span class="nv">hello_world</span>.<span class="nv">pre</span>
-<span class="nv">def</span> <span class="nv">before_hello_world</span><span class="ss">(</span><span class="o">*</span><span class="nv">a</span>, <span class="o">**</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">This will be executed before</span><span class="s2">&quot;&quot;&quot;</span>
+<div class="codehilite"><pre><span></span><span class="nd">@hello_world.pre</span>
+<span class="k">def</span> <span class="nf">before_hello_world</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This will be executed before&quot;&quot;&quot;</span>
 
-@<span class="nv">hello_world</span>.<span class="nv">post</span>
-<span class="nv">def</span> <span class="nv">after_hello_world</span><span class="ss">(</span><span class="nb">result</span>, <span class="o">*</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">This will be executed after</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">result</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nb">result</span><span class="ss">)</span>
+<span class="nd">@hello_world.post</span>
+<span class="k">def</span> <span class="nf">after_hello_world</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">*</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This will be executed after&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-@<span class="nv">hello_world</span>.<span class="nv">post</span>
-<span class="nv">def</span> <span class="nv">after_another_hello_world</span><span class="ss">(</span><span class="nb">result</span>, <span class="o">*</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="s2">&quot;&quot;&quot;</span><span class="s">This will be executed after</span><span class="s2">&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">result</span>:
-        <span class="nv">print</span><span class="ss">(</span><span class="nb">result</span><span class="ss">)</span>
+<span class="nd">@hello_world.post</span>
+<span class="k">def</span> <span class="nf">after_another_hello_world</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">*</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This will be executed after&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 
 
@@ -905,9 +953,9 @@ interested parties to subscribe to events, or “signals”.</p>
 
 
 <p>Example</p>
-<div class="codehilite"><pre><span></span><span class="nv">@myfn</span><span class="p">.</span><span class="n">pre</span><span class="w"></span>
-<span class="n">def</span><span class="w"> </span><span class="n">post_action</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kw</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
-<span class="w">    </span><span class="n">pass</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><span class="nd">@myfn.pre</span>
+<span class="k">def</span> <span class="nf">post_action</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">pass</span>
 </pre></div>
 
 
@@ -925,10 +973,10 @@ interested parties to subscribe to events, or “signals”.</p>
 
 
 <p>Example</p>
-<div class="codehilite"><pre><span></span>@<span class="nv">myfn</span>.<span class="nv">post</span>
-<span class="nv">def</span> <span class="nv">post_action</span><span class="ss">(</span><span class="nb">result</span>, <span class="o">**</span><span class="nv">kw</span><span class="ss">)</span>:
-    <span class="k">if</span> <span class="nb">result</span>: 
-        <span class="nv">print</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">Done!</span><span class="s2">&quot;</span><span class="ss">)</span>
+<div class="codehilite"><pre><span></span><span class="nd">@myfn.post</span>
+<span class="k">def</span> <span class="nf">post_action</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">:</span> 
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Done!&quot;</span><span class="p">)</span>
 </pre></div>
 
 

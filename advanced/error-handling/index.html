@@ -365,6 +365,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -425,6 +437,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -463,6 +487,30 @@
   <li class="md-nav__item">
     <a href="../storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -1189,11 +1237,11 @@
 the other error handlers. </p>
 <p>To use specific error handler, omit _error_handler instead use the <code>_error_$errorCode</code> for example 
 <code>_error_404</code></p>
-<div class="codehilite"><pre><span></span><span class="c1"># error/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/error.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">HTTPError</span>
 
-<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">_error_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
@@ -1203,16 +1251,16 @@ the other error handlers. </p>
 
 
 <p>Template:</p>
-<div class="codehilite"><pre><span></span><span class="c">&lt;!-- error/templates/Index/error_handler.html --&gt;</span>
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- templates/error/Error/error_handler.html --&gt;</span>
 
-<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;main/layouts/base.html&#39;</span> <span class="cp">%}</span>
+{% extends &#39;layouts/base.html&#39; %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>Error <span class="cp">{{</span> <span class="nv">e.code</span> <span class="cp">}}</span> <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block title %}Error {{ e.code }} {% endblock %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
-  <span class="nt">&lt;h1&gt;</span>Error: <span class="cp">{{</span> <span class="nv">e.code</span> <span class="cp">}}</span><span class="nt">&lt;/h1&gt;</span>
-  <span class="nt">&lt;h4&gt;</span><span class="cp">{{</span> <span class="nv">e.description</span> <span class="cp">}}</span><span class="nt">&lt;/h4&gt;</span>
-<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block body %}
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Error: {{ e.code }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{{ e.description }}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+{% endblock %}
 </pre></div>
 
 
@@ -1223,11 +1271,11 @@ the other error handlers. </p>
 <code>_error_404</code></p>
 <p>$errorCode is valid HTTP Error Code. Invalid code will throw an error</p>
 <p>A template with the name <code>error_$errorCode.html</code> will be used.</p>
-<div class="codehilite"><pre><span></span><span class="c1"># error/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/error.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">HTTPError</span>
 
-<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">_error_404</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
@@ -1242,28 +1290,28 @@ the other error handlers. </p>
 
 
 <p>Template:</p>
-<div class="codehilite"><pre><span></span><span class="c">&lt;!-- error/templates/Index/error_404.html --&gt;</span>
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- templates/error/Error/error_404.html --&gt;</span>
 
-<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;main/layouts/base.html&#39;</span> <span class="cp">%}</span>
+{% extends &#39;layouts/base.html&#39; %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>Error <span class="cp">{{</span> <span class="nv">e.code</span> <span class="cp">}}</span> <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block title %}Error {{ e.code }} {% endblock %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
-  <span class="nt">&lt;h1&gt;</span>Error: <span class="cp">{{</span> <span class="nv">e.code</span> <span class="cp">}}</span><span class="nt">&lt;/h1&gt;</span>
-  <span class="nt">&lt;h4&gt;</span><span class="cp">{{</span> <span class="nv">e.description</span> <span class="cp">}}</span><span class="nt">&lt;/h4&gt;</span>
-<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block body %}
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Error: {{ e.code }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{{ e.description }}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+{% endblock %}
 
 
-<span class="c">&lt;!-- error/templates/Index/error_500.html --&gt;</span>
+<span class="c">&lt;!-- templates/error/Error/error_500.html --&gt;</span>
 
-<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;main/layouts/base.html&#39;</span> <span class="cp">%}</span>
+{% extends &#39;layouts/base.html&#39; %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>Error <span class="cp">{{</span> <span class="nv">e.code</span> <span class="cp">}}</span> <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block title %}Error {{ e.code }} {% endblock %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
-  <span class="nt">&lt;h1&gt;</span>Error: <span class="cp">{{</span> <span class="nv">e.code</span> <span class="cp">}}</span><span class="nt">&lt;/h1&gt;</span>
-  <span class="nt">&lt;h4&gt;</span><span class="cp">{{</span> <span class="nv">e.description</span> <span class="cp">}}</span><span class="nt">&lt;/h4&gt;</span>
-<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block body %}
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Error: {{ e.code }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{{ e.description }}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+{% endblock %}
 </pre></div>
 
 

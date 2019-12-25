@@ -365,6 +365,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -486,6 +498,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -524,6 +548,30 @@
   <li class="md-nav__item">
     <a href="../storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -735,8 +783,8 @@
 
 
 <h3 id="redirect-with-other-views">Redirect with other Views</h3>
-<p>For View classes that are not in the same file, you can redirect by using the <code>views</code></p>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__init__.py</span>
+<p>For View classes that are not in the same file, you can redirect by using the <code>views</code> object, which contains the reference of every view modules.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">views</span>
 
@@ -744,11 +792,11 @@
 
     <span class="c1"># redirects a different class, no need to know the endpoint</span>
     <span class="k">def</span> <span class="nf">redirect_me</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">views</span><span class="o">.</span><span class="n">admin</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">login</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">views</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">admin</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">login</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1"># admin/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/admin.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">request</span>
 

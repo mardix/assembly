@@ -365,6 +365,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -425,6 +437,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -463,6 +487,30 @@
   <li class="md-nav__item">
     <a href="../storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -805,14 +853,14 @@
 <hr />
 <h2 id="api">API</h2>
 <p><strong>Paginator(query, page=1, per_page=10, total=None, padding=0, callback=None, static_query=False)</strong></p>
-<div class="codehilite"><pre><span></span><span class="nl">:param</span> <span class="nv">query</span>: <span class="nv">Iterable</span> <span class="nv">to</span> <span class="nv">paginate</span>. <span class="nv">Can</span> <span class="nv">be</span> <span class="nv">a</span> <span class="nv">query</span> <span class="nv">object</span>, <span class="nv">list</span> <span class="nv">or</span> <span class="nv">any</span> <span class="nv">iterables</span>
-<span class="nl">:param</span> <span class="nv">page</span>: <span class="nv">current</span> <span class="nv">page</span>
-<span class="nl">:param</span> <span class="nv">per_page</span>: <span class="nv">max</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">items</span> <span class="nv">per</span> <span class="nv">page</span>
-<span class="nl">:param</span> <span class="nv">total</span>: <span class="nv">Max</span> <span class="nv">number</span> <span class="nv">of</span> <span class="nv">items</span>. <span class="k">If</span> <span class="nv">not</span> <span class="nv">provided</span>, <span class="nv">it</span> <span class="nv">will</span> <span class="nv">use</span> <span class="nv">the</span> <span class="nv">query</span> <span class="nv">to</span> <span class="nv">count</span>
-<span class="nl">:param</span> <span class="nv">padding</span>: <span class="nv">Number</span> <span class="nv">of</span> <span class="nv">elements</span> <span class="nv">of</span> <span class="nv">the</span> <span class="k">next</span> <span class="nv">page</span> <span class="nv">to</span> <span class="k">show</span>
-<span class="nl">:param</span> <span class="nv">callback</span>: <span class="nv">a</span> <span class="nv">function</span> <span class="nv">to</span> <span class="nv">callback</span> <span class="nv">on</span> <span class="nv">each</span> <span class="nv">item</span> <span class="nv">being</span> <span class="nv">iterated</span>.
-<span class="nl">:param</span> <span class="nv">static_query</span>: <span class="nv">bool</span> <span class="o">-</span> <span class="nv">When</span> <span class="nv">True</span> <span class="nv">it</span> <span class="nv">will</span> <span class="k">return</span> <span class="nv">the</span> <span class="nv">query</span> <span class="nv">as</span> <span class="nv">is</span>, <span class="nv">without</span> <span class="nv">slicing</span><span class="o">/</span><span class="nv">limit</span>. <span class="nv">Usally</span> <span class="nv">when</span> <span class="nv">using</span> <span class="nv">the</span> <span class="nv">paginator</span> <span class="nv">to</span> <span class="nv">just</span> <span class="nv">create</span> <span class="nv">the</span> <span class="nv">pagination</span>.
-<span class="nl">:return</span>:
+<div class="codehilite"><pre><span></span><span class="p">:</span><span class="n">param</span> <span class="n">query</span><span class="p">:</span> <span class="n">Iterable</span> <span class="n">to</span> <span class="n">paginate</span><span class="o">.</span> <span class="n">Can</span> <span class="n">be</span> <span class="n">a</span> <span class="n">query</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">list</span> <span class="ow">or</span> <span class="nb">any</span> <span class="n">iterables</span>
+<span class="p">:</span><span class="n">param</span> <span class="n">page</span><span class="p">:</span> <span class="n">current</span> <span class="n">page</span>
+<span class="p">:</span><span class="n">param</span> <span class="n">per_page</span><span class="p">:</span> <span class="nb">max</span> <span class="n">number</span> <span class="n">of</span> <span class="n">items</span> <span class="n">per</span> <span class="n">page</span>
+<span class="p">:</span><span class="n">param</span> <span class="n">total</span><span class="p">:</span> <span class="n">Max</span> <span class="n">number</span> <span class="n">of</span> <span class="n">items</span><span class="o">.</span> <span class="n">If</span> <span class="ow">not</span> <span class="n">provided</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">use</span> <span class="n">the</span> <span class="n">query</span> <span class="n">to</span> <span class="n">count</span>
+<span class="p">:</span><span class="n">param</span> <span class="n">padding</span><span class="p">:</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">elements</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">page</span> <span class="n">to</span> <span class="n">show</span>
+<span class="p">:</span><span class="n">param</span> <span class="n">callback</span><span class="p">:</span> <span class="n">a</span> <span class="n">function</span> <span class="n">to</span> <span class="n">callback</span> <span class="n">on</span> <span class="n">each</span> <span class="n">item</span> <span class="n">being</span> <span class="n">iterated</span><span class="o">.</span>
+<span class="p">:</span><span class="n">param</span> <span class="n">static_query</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">-</span> <span class="n">When</span> <span class="bp">True</span> <span class="n">it</span> <span class="n">will</span> <span class="k">return</span> <span class="n">the</span> <span class="n">query</span> <span class="k">as</span> <span class="ow">is</span><span class="p">,</span> <span class="n">without</span> <span class="n">slicing</span><span class="o">/</span><span class="n">limit</span><span class="o">.</span> <span class="n">Usally</span> <span class="n">when</span> <span class="n">using</span> <span class="n">the</span> <span class="n">paginator</span> <span class="n">to</span> <span class="n">just</span> <span class="n">create</span> <span class="n">the</span> <span class="n">pagination</span><span class="o">.</span>
+<span class="p">:</span><span class="k">return</span><span class="p">:</span>
 </pre></div>
 
 
@@ -828,84 +876,84 @@
 <li>pages (iterables)</li>
 </ul>
 <h3 id="create-jinja-macro">Create Jinja Macro</h3>
-<div class="codehilite"><pre><span></span>    {#: <span class="nv">PAGINATION</span> <span class="o">--------------------------------------------------------------</span> #}
-    {#
-         :<span class="nv">paginator</span>: <span class="nv">iterator</span>
-         :<span class="nv">endpoint</span>:
-         :<span class="nv">prev</span>: <span class="nv">Text</span> <span class="k">for</span> <span class="nv">previous</span> <span class="nv">button</span>
-         :<span class="k">next</span>: <span class="nv">Text</span> <span class="k">for</span> <span class="k">Next</span> <span class="nv">button</span>
-         :<span class="nv">class_</span>: <span class="nv">A</span> <span class="nv">class</span> <span class="nv">name</span> <span class="k">for</span> <span class="nv">pagination</span> <span class="k">if</span> <span class="nv">customed</span>. <span class="k">If</span> <span class="nv">you</span> <span class="nv">are</span> <span class="nv">extending</span> <span class="nv">the</span> <span class="nv">class</span>
-                 <span class="nv">best</span> <span class="nv">to</span> <span class="nv">add</span> <span class="nv">the</span> <span class="nv">original</span> <span class="nv">class</span> <span class="nv">and</span> <span class="nv">your</span> <span class="nv">custom</span> <span class="nv">class</span>
-                 <span class="nv">ie</span>: <span class="s1">&#39;</span><span class="s">pagination my_custom_pagination</span><span class="s1">&#39;</span> <span class="nv">or</span> <span class="s1">&#39;</span><span class="s">pager my_custom_page</span><span class="s1">&#39;</span>
-         :<span class="nv">pager</span>: <span class="k">If</span> <span class="nv">true</span> <span class="nv">it</span> <span class="nv">will</span> <span class="k">show</span> <span class="nv">a</span> <span class="nv">pager</span> <span class="nv">instead</span> <span class="nv">of</span> <span class="nv">numbered</span> <span class="nv">pagination</span>
+<div class="codehilite"><pre><span></span>    <span class="p">{</span><span class="c1">#: PAGINATION -------------------------------------------------------------- #}</span>
+    <span class="p">{</span><span class="c1">#</span>
+         <span class="p">:</span><span class="n">paginator</span><span class="p">:</span> <span class="n">iterator</span>
+         <span class="p">:</span><span class="n">endpoint</span><span class="p">:</span>
+         <span class="p">:</span><span class="n">prev</span><span class="p">:</span> <span class="n">Text</span> <span class="k">for</span> <span class="n">previous</span> <span class="n">button</span>
+         <span class="p">:</span><span class="nb">next</span><span class="p">:</span> <span class="n">Text</span> <span class="k">for</span> <span class="n">Next</span> <span class="n">button</span>
+         <span class="p">:</span><span class="n">class_</span><span class="p">:</span> <span class="n">A</span> <span class="k">class</span> <span class="nc">name</span> <span class="k">for</span> <span class="n">pagination</span> <span class="k">if</span> <span class="n">customed</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">extending</span> <span class="n">the</span> <span class="k">class</span>
+                 <span class="nc">best</span> <span class="n">to</span> <span class="n">add</span> <span class="n">the</span> <span class="n">original</span> <span class="k">class</span> <span class="nc">and</span> <span class="n">your</span> <span class="n">custom</span> <span class="k">class</span>
+                 <span class="nc">ie</span><span class="p">:</span> <span class="s1">&#39;pagination my_custom_pagination&#39;</span> <span class="ow">or</span> <span class="s1">&#39;pager my_custom_page&#39;</span>
+         <span class="p">:</span><span class="n">pager</span><span class="p">:</span> <span class="n">If</span> <span class="n">true</span> <span class="n">it</span> <span class="n">will</span> <span class="n">show</span> <span class="n">a</span> <span class="n">pager</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">numbered</span> <span class="n">pagination</span>
 
-    #}
+    <span class="c1">#}</span>
 
-    {<span class="o">%</span> <span class="nv">macro</span> <span class="nv">pagination</span><span class="ss">(</span><span class="nv">paginator</span>, <span class="nv">endpoint</span><span class="o">=</span><span class="nv">None</span>, <span class="nv">prev</span><span class="o">=</span><span class="s2">&quot;&quot;</span>, <span class="k">next</span><span class="o">=</span><span class="s2">&quot;&quot;</span>, <span class="nv">class_</span><span class="o">=</span><span class="nv">None</span>, <span class="nv">pager</span><span class="o">=</span><span class="nv">False</span><span class="ss">)</span> <span class="o">%</span>}
-        {<span class="o">%</span> <span class="k">if</span> <span class="nv">not</span> <span class="nv">endpoint</span> <span class="o">%</span>}
-            {<span class="o">%</span> <span class="nv">set</span> <span class="nv">endpoint</span> <span class="o">=</span> <span class="nv">request</span>.<span class="nv">endpoint</span> <span class="o">%</span>}
-        {<span class="o">%</span> <span class="k">endif</span> <span class="o">%</span>}
-        {<span class="o">%</span> <span class="k">if</span> <span class="s2">&quot;</span><span class="s">page</span><span class="s2">&quot;</span> <span class="nv">in</span> <span class="nv">kwargs</span> <span class="o">%</span>}
-            {<span class="o">%</span> <span class="nv">set</span> <span class="nv">_</span> <span class="o">=</span> <span class="nv">kwargs</span>.<span class="nv">pop</span><span class="ss">(</span><span class="s2">&quot;</span><span class="s">page</span><span class="s2">&quot;</span><span class="ss">)</span> <span class="o">%</span>}
-        {<span class="o">%</span> <span class="k">endif</span> <span class="o">%</span>}
+    <span class="p">{</span><span class="o">%</span> <span class="n">macro</span> <span class="n">pagination</span><span class="p">(</span><span class="n">paginator</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">prev</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">pager</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="o">%</span><span class="p">}</span>
+        <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">endpoint</span> <span class="o">%</span><span class="p">}</span>
+            <span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">%</span><span class="p">}</span>
+        <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+        <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="s2">&quot;page&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="o">%</span><span class="p">}</span>
+            <span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;page&quot;</span><span class="p">)</span> <span class="o">%</span><span class="p">}</span>
+        <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
 
-        {<span class="o">%</span>  <span class="k">if</span> <span class="nv">not</span> <span class="nv">class_</span> <span class="o">%</span>}
-            {<span class="o">%</span> <span class="nv">set</span> <span class="nv">class_</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">pagination</span><span class="s2">&quot;</span> <span class="o">%</span>}
-            {<span class="o">%</span> <span class="k">if</span> <span class="nv">pager</span> <span class="o">%</span>}
-                {<span class="o">%</span> <span class="nv">set</span> <span class="nv">class_</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">pager</span><span class="s2">&quot;</span> <span class="o">%</span>}
-            {<span class="o">%</span> <span class="k">endif</span> <span class="o">%</span>}
-        {<span class="o">%</span> <span class="k">endif</span> <span class="o">%</span>}
+        <span class="p">{</span><span class="o">%</span>  <span class="k">if</span> <span class="ow">not</span> <span class="n">class_</span> <span class="o">%</span><span class="p">}</span>
+            <span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;pagination&quot;</span> <span class="o">%</span><span class="p">}</span>
+            <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">pager</span> <span class="o">%</span><span class="p">}</span>
+                <span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;pager&quot;</span> <span class="o">%</span><span class="p">}</span>
+            <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+        <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
 
-        {<span class="o">%</span> <span class="nv">set</span> <span class="nv">_prev_btn</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">&lt;span aria-hidden=&#39;true&#39;&gt;&amp;larr;&lt;/span&gt; %s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nv">prev</span> <span class="o">%</span>}
-        {<span class="o">%</span> <span class="nv">set</span> <span class="nv">_next_btn</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">&lt;span aria-hidden=&#39;true&#39;&gt;&amp;rarr;&lt;/span&gt; %s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="k">next</span> <span class="o">%</span>}
+        <span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">_prev_btn</span> <span class="o">=</span> <span class="s2">&quot;&lt;span aria-hidden=&#39;true&#39;&gt;&amp;larr;&lt;/span&gt; </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">prev</span> <span class="o">%</span><span class="p">}</span>
+        <span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">_next_btn</span> <span class="o">=</span> <span class="s2">&quot;&lt;span aria-hidden=&#39;true&#39;&gt;&amp;rarr;&lt;/span&gt; </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">next</span> <span class="o">%</span><span class="p">}</span>
 
-        <span class="o">&lt;</span><span class="nv">nav</span><span class="o">&gt;</span>
-          <span class="o">&lt;</span><span class="nv">ul</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">{{ class_ }}</span><span class="s2">&quot;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">nav</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">ul</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;{{ class_ }}&quot;</span><span class="o">&gt;</span>
 
-              {<span class="o">%-</span> <span class="k">if</span> <span class="nv">paginator</span>.<span class="nv">has_prev</span> <span class="o">%</span>}
-                <span class="o">&lt;</span><span class="nv">li</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">previous</span><span class="s2">&quot;</span><span class="o">&gt;</span>
-                    <span class="o">&lt;</span><span class="nv">a</span> <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">{{ url_for(endpoint, page=paginator.prev_page_number, **kwargs) }}</span><span class="s2">&quot;</span><span class="o">&gt;</span>
-                         {{ <span class="nv">_prev_btn</span> <span class="o">|</span> <span class="nv">safe</span> }}<span class="o">&lt;/</span><span class="nv">a</span><span class="o">&gt;</span>
-                <span class="o">&lt;/</span><span class="nv">li</span><span class="o">&gt;</span>
-              {<span class="o">%</span> <span class="k">else</span> <span class="o">%</span>}
-                <span class="o">&lt;</span><span class="nv">li</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">disabled previous</span><span class="s2">&quot;</span><span class="o">&gt;</span>
-                    <span class="o">&lt;</span><span class="nv">a</span> <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">#</span><span class="s2">&quot;</span><span class="o">&gt;</span>{{ <span class="nv">_prev_btn</span> <span class="o">|</span> <span class="nv">safe</span> }}<span class="o">&lt;/</span><span class="nv">a</span><span class="o">&gt;</span>
-                <span class="o">&lt;/</span><span class="nv">li</span><span class="o">&gt;</span>
-              {<span class="o">%-</span> <span class="k">endif</span> <span class="o">%</span>}
-
-
-                {<span class="o">%</span> <span class="k">if</span> <span class="nv">not</span> <span class="nv">pager</span> <span class="o">%</span>}
-
-                      {<span class="o">%-</span> <span class="k">for</span> <span class="nv">page</span> <span class="nv">in</span> <span class="nv">paginator</span>.<span class="nv">iter_pages</span><span class="ss">()</span> <span class="o">%</span>}
-                        {<span class="o">%</span> <span class="k">if</span> <span class="nv">page</span> <span class="o">%</span>}
-                          {<span class="o">%</span> <span class="k">if</span> <span class="nv">page</span> <span class="o">!=</span> <span class="nv">paginator</span>.<span class="nv">page</span> <span class="o">%</span>}
-                            <span class="o">&lt;</span><span class="nv">li</span><span class="o">&gt;&lt;</span><span class="nv">a</span> <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">{{ url_for(endpoint, page=page, **kwargs) }}</span><span class="s2">&quot;</span>
-                             <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">me</span><span class="s2">&quot;</span><span class="o">&gt;</span>{{ <span class="nv">page</span> }}<span class="o">&lt;/</span><span class="nv">a</span><span class="o">&gt;&lt;/</span><span class="nv">li</span><span class="o">&gt;</span>
-                          {<span class="o">%</span> <span class="k">else</span> <span class="o">%</span>}
-                            <span class="o">&lt;</span><span class="nv">li</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">active</span><span class="s2">&quot;</span><span class="o">&gt;&lt;</span><span class="nv">span</span><span class="o">&gt;</span>{{ <span class="nv">page</span> }}<span class="o">&lt;/</span><span class="nv">span</span><span class="o">&gt;&lt;/</span><span class="nv">li</span><span class="o">&gt;</span>
-                          {<span class="o">%</span> <span class="k">endif</span> <span class="o">%</span>}
-                        {<span class="o">%</span> <span class="k">else</span> <span class="o">%</span>}
-                          <span class="o">&lt;</span><span class="nv">li</span><span class="o">&gt;&lt;</span><span class="nv">span</span> <span class="nv">class</span><span class="o">=</span><span class="nv">ellipsis</span><span class="o">&gt;</span>…<span class="o">&lt;/</span><span class="nv">span</span><span class="o">&gt;&lt;/</span><span class="nv">li</span><span class="o">&gt;</span>
-                        {<span class="o">%</span> <span class="k">endif</span> <span class="o">%</span>}
-                      {<span class="o">%-</span> <span class="nv">endfor</span> <span class="o">%</span>}
-
-                {<span class="o">%</span> <span class="k">endif</span> <span class="o">%</span>}
+              <span class="p">{</span><span class="o">%-</span> <span class="k">if</span> <span class="n">paginator</span><span class="o">.</span><span class="n">has_prev</span> <span class="o">%</span><span class="p">}</span>
+                <span class="o">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;previous&quot;</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{{ url_for(endpoint, page=paginator.prev_page_number, **kwargs) }}&quot;</span><span class="o">&gt;</span>
+                         <span class="p">{{</span> <span class="n">_prev_btn</span> <span class="o">|</span> <span class="n">safe</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+              <span class="p">{</span><span class="o">%</span> <span class="k">else</span> <span class="o">%</span><span class="p">}</span>
+                <span class="o">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;disabled previous&quot;</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">_prev_btn</span> <span class="o">|</span> <span class="n">safe</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+              <span class="p">{</span><span class="o">%-</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
 
 
-              {<span class="o">%-</span> <span class="k">if</span> <span class="nv">paginator</span>.<span class="nv">has_next</span> <span class="o">%</span>}
-                <span class="o">&lt;</span><span class="nv">li</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">next</span><span class="s2">&quot;</span><span class="o">&gt;</span>
-                    <span class="o">&lt;</span><span class="nv">a</span> <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">{{ url_for(endpoint, page=paginator.next_page_number, **kwargs) }}</span><span class="s2">&quot;</span><span class="o">&gt;</span>
-                        {{ <span class="nv">_next_btn</span> <span class="o">|</span> <span class="nv">safe</span> }}<span class="o">&lt;/</span><span class="nv">a</span><span class="o">&gt;</span>
-                <span class="o">&lt;/</span><span class="nv">li</span><span class="o">&gt;</span>
-              {<span class="o">%</span> <span class="k">else</span> <span class="o">%</span>}
-                <span class="o">&lt;</span><span class="nv">li</span> <span class="nv">class</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">disabled next</span><span class="s2">&quot;</span><span class="o">&gt;</span>
-                    <span class="o">&lt;</span><span class="nv">a</span> <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">#</span><span class="s2">&quot;</span><span class="o">&gt;</span>{{ <span class="nv">_next_btn</span> <span class="o">|</span> <span class="nv">safe</span> }}<span class="o">&lt;/</span><span class="nv">a</span><span class="o">&gt;</span>
-                <span class="o">&lt;/</span><span class="nv">li</span><span class="o">&gt;</span>
-              {<span class="o">%-</span> <span class="k">endif</span> <span class="o">%</span>}
-          <span class="o">&lt;/</span><span class="nv">ul</span><span class="o">&gt;</span>
-        <span class="o">&lt;/</span><span class="nv">nav</span><span class="o">&gt;</span>
+                <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pager</span> <span class="o">%</span><span class="p">}</span>
 
-    {<span class="o">%</span> <span class="nv">endmacro</span> <span class="o">%</span>}
+                      <span class="p">{</span><span class="o">%-</span> <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">paginator</span><span class="o">.</span><span class="n">iter_pages</span><span class="p">()</span> <span class="o">%</span><span class="p">}</span>
+                        <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span> <span class="o">%</span><span class="p">}</span>
+                          <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span> <span class="o">!=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span> <span class="o">%</span><span class="p">}</span>
+                            <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{{ url_for(endpoint, page=page, **kwargs) }}&quot;</span>
+                             <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;me&quot;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">page</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+                          <span class="p">{</span><span class="o">%</span> <span class="k">else</span> <span class="o">%</span><span class="p">}</span>
+                            <span class="o">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="o">&gt;&lt;</span><span class="n">span</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">page</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">span</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+                          <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+                        <span class="p">{</span><span class="o">%</span> <span class="k">else</span> <span class="o">%</span><span class="p">}</span>
+                          <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="n">ellipsis</span><span class="o">&gt;</span><span class="err">…</span><span class="o">&lt;/</span><span class="n">span</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+                        <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+                      <span class="p">{</span><span class="o">%-</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+
+                <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+
+
+              <span class="p">{</span><span class="o">%-</span> <span class="k">if</span> <span class="n">paginator</span><span class="o">.</span><span class="n">has_next</span> <span class="o">%</span><span class="p">}</span>
+                <span class="o">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;next&quot;</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{{ url_for(endpoint, page=paginator.next_page_number, **kwargs) }}&quot;</span><span class="o">&gt;</span>
+                        <span class="p">{{</span> <span class="n">_next_btn</span> <span class="o">|</span> <span class="n">safe</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+              <span class="p">{</span><span class="o">%</span> <span class="k">else</span> <span class="o">%</span><span class="p">}</span>
+                <span class="o">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;disabled next&quot;</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">_next_btn</span> <span class="o">|</span> <span class="n">safe</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+              <span class="p">{</span><span class="o">%-</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+          <span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">nav</span><span class="o">&gt;</span>
+
+    <span class="p">{</span><span class="o">%</span> <span class="n">endmacro</span> <span class="o">%</span><span class="p">}</span>
 </pre></div>
 
 
@@ -930,7 +978,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../storage/" title="Storage" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../login-manager/" title="Login Manager" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -939,7 +987,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Storage
+                Login Manager
               </span>
             </div>
           </a>

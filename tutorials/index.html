@@ -338,6 +338,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#login-manager" class="md-nav__link">
+    Login Manager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forms" class="md-nav__link">
+    Forms
+  </a>
+  
+</li>
+      
       
       
       
@@ -446,6 +460,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced/core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../advanced/request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -506,6 +532,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced/form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../advanced/caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -544,6 +582,30 @@
   <li class="md-nav__item">
     <a href="../advanced/storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -723,6 +785,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#login-manager" class="md-nav__link">
+    Login Manager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forms" class="md-nav__link">
+    Forms
+  </a>
+  
+</li>
+      
       
       
       
@@ -747,29 +823,29 @@
                 <h2 id="setup-assembly">Setup Assembly</h2>
 <p><strong>Install</strong></p>
 <p><code>pip install assembly</code></p>
-<p><strong>Initialiaze</strong></p>
-<p><code>asm-admin init</code></p>
+<p><strong>Initialize</strong></p>
+<p><code>asm gen:init</code></p>
 <p><strong>Run Development Server</strong></p>
-<p><code>asm-admin serve</code></p>
+<p><code>asm gen:serve</code></p>
 <hr />
 <h2 id="rest-api">REST API</h2>
-<p><strong>Generate the view using asm-admin</strong></p>
-<p><code>asm-admin gen-api-view my-api</code></p>
-<p>This will generate a View package with <code>__init__.py</code>, <code>__models__.py</code>, <code>cli.py</code>.</p>
+<p><strong>Generate the view using <code>asm</code> generator</strong></p>
+<p><code>asm gen:views my-api --restful</code></p>
+<p>This will generate a module at <code>/views/api.py</code></p>
 <p><strong>Import in wsgi.py</strong></p>
 <div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
 
 <span class="n">APPS</span> <span class="o">=</span> <span class="err">{</span>
   <span class="ss">&quot;default&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="ss">&quot;main&quot;</span><span class="p">,</span>
-    <span class="ss">&quot;api&quot;</span>
+    <span class="ss">&quot;views.main&quot;</span><span class="p">,</span>
+    <span class="ss">&quot;views.api&quot;</span>
   <span class="p">]</span>
 <span class="err">}</span>
 </pre></div>
 
 
 <p><strong>Edit View</strong></p>
-<div class="codehilite"><pre><span></span><span class="c1"># /api/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/api.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
 
@@ -792,23 +868,23 @@
 
 <hr />
 <h2 id="html-site">HTML Site</h2>
-<p><strong>Generate the view using asm-admin</strong></p>
-<p><code>asm-admin gen-template-view admin</code></p>
-<p>This will generate a View package with <code>__init__.py</code>, <code>__models__.py</code>, <code>templates/</code>, <code>static/</code>, <code>cli.py</code>.</p>
+<p><strong>Generate the view using <code>asm</code> generator</strong></p>
+<p><code>asm gen:view admin</code></p>
+<p>This will generate a module at <code>/views/admin.py</code>. And its associated templates at <code>/templates/admin/Index/index.html</code></p>
 <p><strong>Import in wsgi.py</strong></p>
 <div class="codehilite"><pre><span></span><span class="c1"># wsgi.py</span>
 
 <span class="nv">APPS</span> <span class="o">=</span> <span class="o">{</span>
   <span class="s2">&quot;default&quot;</span>: <span class="o">[</span>
-    <span class="s2">&quot;main&quot;</span>,
-    <span class="s2">&quot;admin&quot;</span>
+    <span class="s2">&quot;views.main&quot;</span>,
+    <span class="s2">&quot;views.admin&quot;</span>
   <span class="o">]</span>
 <span class="o">}</span>
 </pre></div>
 
 
 <p><strong>Edit your first view</strong></p>
-<div class="codehilite"><pre><span></span><span class="c1"># admin/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/admin.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
 
@@ -820,20 +896,13 @@
             <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly is awesome&quot;</span><span class="p">,</span>
             <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;That is a true fact&quot;</span>
         <span class="p">}</span>
-
-    <span class="nd">@response.json</span>
-    <span class="k">def</span> <span class="nf">api</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;x-to-infinity&quot;</span>
-        <span class="p">}</span>
 </pre></div>
 
 
 <p><strong>Edit Index/index.html</strong></p>
-<div class="codehilite"><pre><span></span><span class="c">&lt;!-- admin/templates/Index/index.html --&gt;</span>
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- templates/main/Index/index.html --&gt;</span>
 
-{% extends &#39;main/layouts/base.html&#39; %}
+{% extends &#39;layouts/base.html&#39; %}
 
 {% block title %}Welcome to Admin {% endblock %}
 
@@ -850,7 +919,7 @@
 
 <p><strong>Serve your first application</strong></p>
 <p>If everything is all set, all you need to do now is run your site:</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">serve</span>
+<div class="codehilite"><pre><span></span><span class="n">asm</span> <span class="n">gen</span><span class="p">:</span><span class="n">serve</span>
 </pre></div>
 
 
@@ -870,6 +939,11 @@
 <h2 id="work-with-csrf">Work with CSRF</h2>
 <hr />
 <h2 id="upload-application">Upload Application</h2>
+<hr />
+<h2 id="login-manager">Login Manager</h2>
+<hr />
+<h2 id="forms">Forms</h2>
+<hr />
                 
                   
                 

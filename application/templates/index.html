@@ -404,6 +404,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced/core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../advanced/request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -464,6 +476,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced/form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../advanced/caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -502,6 +526,30 @@
   <li class="md-nav__item">
     <a href="../../advanced/storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced/flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced/login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -662,18 +710,10 @@
                 
                 <h2 id="overview">Overview</h2>
 <p>Assembly uses Jinja as template language, files are organized per Class and Methods name.</p>
-<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="n">main</span><span class="o">/</span>
-    <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">templates</span><span class="o">/</span>
-    <span class="o">|-</span> <span class="k">static</span><span class="o">/</span>
-</pre></div>
-
-
 <h2 id="structure">Structure</h2>
 <p>Files are organized per Class and Methods name.  Each class name have corresponding <strong>folder</strong> with the same name, and every method have a corresponding <strong>.html</strong> with the same name inside of the folder.</p>
 <p>Having a View like this...</p>
-<div class="codehilite"><pre><span></span><span class="c1"># admin/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/admin.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
 
@@ -705,22 +745,21 @@
 
 
 <p>will map to templates below</p>
-<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="k">admin</span>
+<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="n">views</span><span class="o">/</span>
     <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">templates</span>
-        <span class="o">|-</span> <span class="k">Index</span>
-            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="n">login</span><span class="p">.</span><span class="n">html</span>
-        <span class="o">|-</span> <span class="n">Articles</span>
-            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="k">all</span><span class="p">.</span><span class="n">html</span>
-        <span class="o">|-</span> <span class="n">Movies</span>
-            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="n">guide</span><span class="p">.</span><span class="n">html</span>            
-            <span class="o">|-</span> <span class="n">channels</span><span class="p">.</span><span class="n">html</span>            
-    <span class="o">|-</span> <span class="k">static</span>
-    <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="k">admin</span><span class="p">.</span><span class="n">py</span>
+<span class="o">|-</span> <span class="n">templates</span><span class="o">/</span>
+    <span class="o">|-</span> <span class="k">admin</span><span class="o">/</span>
+      <span class="o">|-</span> <span class="k">Index</span>
+          <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+          <span class="o">|-</span> <span class="n">login</span><span class="p">.</span><span class="n">html</span>
+      <span class="o">|-</span> <span class="n">Articles</span>
+          <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+          <span class="o">|-</span> <span class="k">all</span><span class="p">.</span><span class="n">html</span>
+      <span class="o">|-</span> <span class="n">Movies</span>
+          <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+          <span class="o">|-</span> <span class="n">guide</span><span class="p">.</span><span class="n">html</span>            
+          <span class="o">|-</span> <span class="n">channels</span><span class="p">.</span><span class="n">html</span>            
 </pre></div>
 
 

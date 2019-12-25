@@ -365,6 +365,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -415,6 +427,18 @@
   <li class="md-nav__item">
     <a href="../date/" title="Date" class="md-nav__link">
       Date
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
     </a>
   </li>
 
@@ -599,6 +623,30 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
+    </a>
   </li>
 
         
@@ -857,17 +905,17 @@ Rackspace Cloudfiles, and even Local file system.</p>
 <p>Extension: <a href="https://github.com/mardix/flask-cloudy" target="_blank">flask-cloudy</a></p>
 <hr />
 <h2 id="usage">Usage</h2>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">get_file</span><span class="p">,</span> <span class="n">upload_file</span><span class="p">,</span> <span class="n">download_file</span><span class="p">,</span> <span class="n">delete_file</span>
 </pre></div>
 
 
-<p><strong>get_file</strong>, <strong>upload_file</strong>, <strong>download_file</strong>, <strong>delete_file</strong> are functions in the <strong>asm</strong> module.</p>
+<p><strong>get_file</strong>, <strong>upload_file</strong>, <strong>download_file</strong>, <strong>delete_file</strong> are part of functions to work with files.</p>
 <hr />
 <h3 id="get-file">Get file</h3>
-<p><code>asm.get_file</code> will return a Storage Object.</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+<p><code>get_file</code> will return a Storage Object.</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">get_file</span>
 
-<span class="n">myfile</span> <span class="o">=</span> <span class="n">asm</span><span class="o">.</span><span class="n">get_file</span><span class="p">(</span><span class="s2">&quot;hello.txt&quot;</span><span class="p">)</span>
+<span class="n">myfile</span> <span class="o">=</span> <span class="n">get_file</span><span class="p">(</span><span class="s2">&quot;hello.txt&quot;</span><span class="p">)</span>
 
 <span class="n">myfile</span><span class="o">.</span><span class="n">name</span>  <span class="c1"># return The file name</span>
 <span class="n">myfile</span><span class="o">.</span><span class="n">size</span>  <span class="c1"># returns file size</span>
@@ -877,11 +925,11 @@ Rackspace Cloudfiles, and even Local file system.</p>
 
 <hr />
 <h3 id="upload-file">Upload file</h3>
-<p><code>asm.upload_file</code> to save or upload a file in the container</p>
+<p><code>upload_file</code> to save or upload a file in the container</p>
 <h4 id="example-of-file-upload">Example of file upload</h4>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 
-<span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">asm</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">upload_file</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span>
 
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
@@ -892,7 +940,7 @@ Rackspace Cloudfiles, and even Local file system.</p>
     <span class="k">def</span> <span class="nf">upload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">file</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">file</span><span class="p">:</span>
-            <span class="n">profile_image</span> <span class="o">=</span> <span class="n">asm</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span>
+            <span class="n">profile_image</span> <span class="o">=</span> <span class="n">upload_file</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span>
                                         <span class="n">name</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">gen_uuid</span><span class="p">(),</span>
                                         <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;img.&quot;</span><span class="p">,</span>
                                         <span class="n">public</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
@@ -905,34 +953,34 @@ Rackspace Cloudfiles, and even Local file system.</p>
 
 
 <p>Template</p>
-<div class="codehilite"><pre><span></span><span class="c">&lt;!-- main/templates/Index/index.html --&gt;</span>
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- templates/main/Index/index.html --&gt;</span>
 
-<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;main/layouts/base.html&#39;</span> <span class="cp">%}</span>
+{% extends &#39;layouts/base.html&#39; %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>Upload<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block title %}Upload{% endblock %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
-    <span class="nt">&lt;h1&gt;</span>Upload<span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">&quot;uploadbanner&quot;</span> <span class="na">action=</span><span class="s">&quot;/upload/&quot;</span> <span class="na">enctype=</span><span class="s">&quot;multipart/form-data&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#39;hidden&#39;</span> <span class="na">name=</span><span class="s">&quot;_csrf_token&quot;</span> <span class="na">value=</span><span class="s">&#39;</span><span class="cp">{{</span> <span class="nv">csrf_token</span><span class="o">()</span> <span class="cp">}}</span><span class="s">&#39;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">&quot;fileupload&quot;</span> <span class="na">name=</span><span class="s">&quot;file&quot;</span> <span class="na">type=</span><span class="s">&quot;file&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Upload&quot;</span> <span class="na">id=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
-     <span class="nt">&lt;/form&gt;</span>    
+{% block body %}
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Upload<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;uploadbanner&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;/upload/&quot;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&quot;multipart/form-data&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;hidden&#39;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;_csrf_token&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;{{ csrf_token() }}&#39;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;fileupload&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Upload&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="p">/&gt;</span>
+     <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>    
 
-<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% endblock %}
 </pre></div>
 
 
 <p><strong>Note</strong>: Since this will call a POST, we also add the CSRF token in the form</p>
-<div class="codehilite"><pre><span></span><span class="x">&lt;input type=&#39;hidden&#39; name=&quot;_csrf_token&quot; value=&#39;</span><span class="cp">{{</span> <span class="nv">csrf_token</span><span class="o">()</span> <span class="cp">}}</span><span class="x">&#39;&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;hidden&#39;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;_csrf_token&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;{{ csrf_token() }}&#39;</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <h4 id="signal">Signal</h4>
-<p><code>asm.upload_file</code> emits a signal to be used</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+<p><code>upload_file</code> emits a signal to be used</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">upload_file</span>
 
-<span class="nd">@asm.upload_file.post</span>
+<span class="nd">@upload_file.post</span>
 <span class="k">def</span> <span class="nf">file_uploaded</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;File uploaded successfully!&quot;</span><span class="p">)</span>
@@ -941,24 +989,24 @@ Rackspace Cloudfiles, and even Local file system.</p>
 
 <hr />
 <h3 id="download-file">Download File</h3>
-<p><code>asm.download_file</code> to download a file to the user. You will need to redirect to that path.</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">asm</span><span class="p">,</span> <span class="n">redirect</span>
+<p><code>download_file</code> to download a file to the user. You will need to redirect to that path.</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">download_file</span><span class="p">,</span> <span class="n">redirect</span>
 
 <span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">dowload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;hello.txt&quot;</span>
         <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;new-name-hello&quot;</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">asm</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">download_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 
 
 <h4 id="signal_1">Signal</h4>
-<p><code>asm.download_file</code> emits a signal to be used</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+<p><code>download_file</code> emits a signal to be used</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">download_file</span>
 
-<span class="nd">@asm.download_file.post</span>
+<span class="nd">@download_file.post</span>
 <span class="k">def</span> <span class="nf">file_downloaded</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;File uploaded successfully!&quot;</span><span class="p">)</span>
@@ -967,18 +1015,18 @@ Rackspace Cloudfiles, and even Local file system.</p>
 
 <hr />
 <h3 id="delete-file">Delete File</h3>
-<p><code>asm.delete_file</code> deletes a file from storage</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span> 
+<p><code>delete_file</code> deletes a file from storage</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">delete_file</span> 
 
-<span class="n">asm</span><span class="o">.</span><span class="n">delete_file</span><span class="p">(</span><span class="s2">&quot;hello.txt&quot;</span><span class="p">)</span>
+<span class="n">delete_file</span><span class="p">(</span><span class="s2">&quot;hello.txt&quot;</span><span class="p">)</span>
 </pre></div>
 
 
 <h4 id="signal_2">Signal</h4>
-<p><code>asm.delete_file</code> emits a signal to be used</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+<p><code>delete_file</code> emits a signal to be used</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">delete_file</span>
 
-<span class="nd">@asm.delete_file.post</span>
+<span class="nd">@delete_file.post</span>
 <span class="k">def</span> <span class="nf">file_deleted</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;File deleted successfully!&quot;</span><span class="p">)</span>
@@ -987,38 +1035,60 @@ Rackspace Cloudfiles, and even Local file system.</p>
 
 <hr />
 <h2 id="config">Config</h2>
-<div class="codehilite"><pre><span></span># <span class="nv">config</span>.<span class="nv">py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># config.py</span>
 
-#: <span class="nv">STORAGE_PROVIDER</span>:
-# <span class="nv">The</span> <span class="nv">provider</span> <span class="nv">to</span> <span class="nv">use</span>. <span class="nv">By</span> <span class="nv">default</span> <span class="nv">it</span><span class="s1">&#39;</span><span class="s">s </span><span class="s1">&#39;</span><span class="nv">LOCAL</span><span class="s1">&#39;</span><span class="s">.</span>
-# <span class="nv">You</span> <span class="nv">can</span> <span class="nv">use</span>:
-# <span class="nv">LOCAL</span>, <span class="nv">S3</span>, <span class="nv">GOOGLE_STORAGE</span>, <span class="nv">AZURE_BLOBS</span>, <span class="nv">CLOUDFILES</span>
-<span class="nv">STORAGE_PROVIDER</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">LOCAL</span><span class="s2">&quot;</span>
+<span class="n">STORAGE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">#: STORAGE_PROVIDER:</span>
+    <span class="c1"># The provider to use. By default it&#39;s &#39;LOCAL&#39;.</span>
+    <span class="c1"># You can use:</span>
+    <span class="c1"># LOCAL, S3, GOOGLE_STORAGE, AZURE_BLOBS, CLOUDFILES</span>
+    <span class="s2">&quot;PROVIDER&quot;</span><span class="p">:</span> <span class="s2">&quot;LOCAL&quot;</span><span class="p">,</span>
 
-#: <span class="nv">STORAGE_KEY</span>
-# <span class="nv">The</span> <span class="nv">storage</span> <span class="nv">key</span>. <span class="nv">Leave</span> <span class="nv">it</span> <span class="nv">blank</span> <span class="k">if</span> <span class="nv">PROVIDER</span> <span class="nv">is</span> <span class="nv">LOCAL</span>
-<span class="nv">STORAGE_KEY</span> <span class="o">=</span> <span class="nv">AWS_ACCESS_KEY_ID</span>
+    <span class="c1">#: STORAGE_KEY</span>
+    <span class="c1"># The storage key. Leave it blank if PROVIDER is LOCAL</span>
+    <span class="s2">&quot;KEY&quot;</span><span class="p">:</span> <span class="n">AWS_ACCESS_KEY_ID</span><span class="p">,</span>
 
-#: <span class="nv">STORAGE_SECRET</span>
-#: <span class="nv">The</span> <span class="nv">storage</span> <span class="nv">secret</span> <span class="nv">key</span>. <span class="nv">Leave</span> <span class="nv">it</span> <span class="nv">blank</span> <span class="k">if</span> <span class="nv">PROVIDER</span> <span class="nv">is</span> <span class="nv">LOCAL</span>
-<span class="nv">STORAGE_SECRET</span> <span class="o">=</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span>
+    <span class="c1">#: STORAGE_SECRET</span>
+    <span class="c1">#: The storage secret key. Leave it blank if PROVIDER is LOCAL</span>
+    <span class="s2">&quot;SECRET&quot;</span><span class="p">:</span> <span class="n">AWS_SECRET_ACCESS_KEY</span><span class="p">,</span>
 
-#: <span class="nv">STORAGE_REGION_NAME</span>
-#: <span class="nv">The</span> <span class="nv">region</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">storage</span>. <span class="nv">Leave</span> <span class="nv">it</span> <span class="nv">blank</span> <span class="k">if</span> <span class="nv">PROVIDER</span> <span class="nv">is</span> <span class="nv">LOCAL</span>
-<span class="nv">STORAGE_REGION_NAME</span> <span class="o">=</span> <span class="nv">AWS_REGION_NAME</span>
+    <span class="c1">#: STORAGE_REGION_NAME</span>
+    <span class="c1">#: The region for the storage. Leave it blank if PROVIDER is LOCAL</span>
+    <span class="s2">&quot;REGION_NAME&quot;</span><span class="p">:</span> <span class="n">AWS_REGION_NAME</span><span class="p">,</span>
 
-#: <span class="nv">STORAGE_CONTAINER</span>
-#: <span class="nv">The</span> <span class="nv">Bucket</span> <span class="nv">name</span> <span class="ss">(</span><span class="k">for</span> <span class="nv">S3</span>, <span class="nv">Google</span> <span class="nv">storage</span>, <span class="nv">Azure</span>, <span class="nv">cloudfile</span><span class="ss">)</span>
-#: <span class="nv">or</span> <span class="nv">the</span> <span class="nv">directory</span> <span class="nv">name</span> <span class="ss">(</span><span class="nv">LOCAL</span><span class="ss">)</span> <span class="nv">to</span> <span class="nv">access</span>
-<span class="nv">STORAGE_CONTAINER</span> <span class="o">=</span> <span class="nv">os</span>.<span class="nv">path</span>.<span class="nv">join</span><span class="ss">(</span><span class="nv">DATA_DIR</span>, <span class="s2">&quot;</span><span class="s">uploads</span><span class="s2">&quot;</span><span class="ss">)</span>
+    <span class="c1">#: STORAGE_CONTAINER</span>
+    <span class="c1">#: The Bucket name (for S3, Google storage, Azure, cloudfile)</span>
+    <span class="c1">#: or the directory name (LOCAL) to access</span>
+    <span class="s2">&quot;CONTAINER&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;uploads&quot;</span><span class="p">),</span>
 
-#: <span class="nv">STORAGE_SERVER</span>
-#: <span class="nv">Bool</span>, <span class="nv">to</span> <span class="nv">serve</span> <span class="nv">local</span> <span class="nv">file</span>
-<span class="nv">STORAGE_SERVER</span> <span class="o">=</span> <span class="nv">True</span>
+    <span class="c1">#: STORAGE_SERVER</span>
+    <span class="c1">#: Bool, to serve local file</span>
+    <span class="s2">&quot;SERVER&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
 
-#: <span class="nv">STORAGE_SERVER_URL</span>
-#: <span class="nv">The</span> <span class="nv">url</span> <span class="nv">suffix</span> <span class="k">for</span> <span class="nv">local</span> <span class="nv">storage</span>
-<span class="nv">STORAGE_SERVER_URL</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">files</span><span class="s2">&quot;</span>
+    <span class="c1">#: STORAGE_SERVER_URL</span>
+    <span class="c1">#: The url suffix for local storage</span>
+    <span class="s2">&quot;SERVER_URL&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
+
+    <span class="c1">#:STORAGE_UPLOAD_FILE_PROPS</span>
+    <span class="c1">#: A convenient K/V properties for storage.upload to use when using `upload_file()`</span>
+    <span class="c1">#: It contains common properties that can passed into the upload function</span>
+    <span class="c1">#: ie: upload_file(&quot;profile-image&quot;, file)</span>
+    <span class="s2">&quot;UPLOAD_FILE_PROPS&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># To upload regular images</span>
+        <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;public&quot;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">},</span>
+
+        <span class="c1"># To upload profile image</span>
+        <span class="s2">&quot;profile-image&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;profile-image/&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="s2">&quot;gif&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;public&quot;</span><span class="p">:</span> <span class="bp">True</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
 </pre></div>
 
 
@@ -1026,7 +1096,7 @@ Rackspace Cloudfiles, and even Local file system.</p>
 <h2 id="storage-object">Storage Object</h2>
 <p>The class <strong>Object</strong> is an entity of an object in the container.</p>
 <p>Usually, you will get a cloud object by accessing an object in the container.</p>
-<div class="codehilite"><pre><span></span><span class="n">my_object</span> <span class="o">=</span> <span class="n">asm</span><span class="p">.</span><span class="n">get_file</span><span class="p">(</span><span class="ss">&quot;my_object.txt&quot;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">my_object</span> <span class="o">=</span> <span class="n">get_file</span><span class="p">(</span><span class="s2">&quot;my_object.txt&quot;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -1082,13 +1152,13 @@ Rackspace Cloudfiles, and even Local file system.</p>
           </a>
         
         
-          <a href="../pagination/" title="Pagination" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../flash/" title="Flash" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Pagination
+                Flash
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

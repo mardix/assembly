@@ -365,6 +365,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -415,6 +427,18 @@
   <li class="md-nav__item">
     <a href="../date/" title="Date" class="md-nav__link">
       Date
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
     </a>
   </li>
 
@@ -620,6 +644,30 @@
   <li class="md-nav__item">
     <a href="../storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -905,70 +953,69 @@
 <h2 id="usage">Usage</h2>
 <h3 id="set-sender">Set Sender</h3>
 <p>In the config file, set the MAIL_SENDER and MAIL_REPLY_TO.</p>
-<div class="codehilite"><pre><span></span># <span class="nv">config</span>.<span class="nv">py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># config.py</span>
 
-#: <span class="nv">MAIL_SENDER</span> <span class="o">-</span> <span class="nv">The</span> <span class="nv">sender</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">email</span> <span class="nv">by</span> <span class="nv">default</span>
-#: <span class="k">For</span> <span class="nv">SES</span>, <span class="nv">this</span> <span class="nv">email</span> <span class="nv">must</span> <span class="nv">be</span> <span class="nv">authorized</span>
-<span class="nv">MAIL_SENDER</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">me@myemail.com</span><span class="s2">&quot;</span>
+<span class="c1">#: MAIL_SENDER - The sender of the email by default</span>
+<span class="c1">#: For SES, this email must be authorized</span>
+<span class="n">MAIL_SENDER</span> <span class="o">=</span> <span class="s2">&quot;me@myemail.com&quot;</span>
 
-#: <span class="nv">MAIL_REPLY_TO</span>
-#: <span class="nv">The</span> <span class="nv">email</span> <span class="nv">to</span> <span class="nv">reply</span> <span class="nv">to</span> <span class="nv">by</span> <span class="nv">default</span>
-<span class="nv">MAIL_REPLY_TO</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">me@myemail.com</span><span class="s2">&quot;</span>
+<span class="c1">#: MAIL_REPLY_TO</span>
+<span class="c1">#: The email to reply to by default</span>
+<span class="n">MAIL_REPLY_TO</span> <span class="o">=</span> <span class="s2">&quot;me@myemail.com&quot;</span>
 </pre></div>
 
 
 <hr />
 <h3 id="import">Import</h3>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">send_mail</span>
 </pre></div>
 
 
-<p><strong>send_mail</strong> is a function in the <strong>asm</strong> module. <code>asm.send_mail</code> will be used to send the email</p>
 <hr />
 <h3 id="send-simple-email">Send Simple Email</h3>
 <p>To send basic email</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">send_mail</span>
 
 <span class="n">to</span> <span class="o">=</span> <span class="s2">&quot;user@email.com&quot;</span>
 <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;Welcome&quot;</span>
 <span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;Welcome to our site&quot;</span>
 
-<span class="n">asm</span><span class="o">.</span><span class="n">send_mail</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">to</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span>
+<span class="n">send_mail</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">to</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span>
 </pre></div>
 
 
 <hr />
 <h3 id="send-template-email">Send Template Email</h3>
 <p>Having a template like this...</p>
-<div class="codehilite"><pre><span></span># <span class="nv">welcome</span>.<span class="nv">txt</span>
+<div class="codehilite"><pre><span></span><span class="c1"># welcome.txt</span>
 
-{<span class="o">%</span> <span class="nv">block</span> <span class="nv">subject</span> <span class="o">%</span>}
-    <span class="nv">Welcome</span> {{<span class="nv">name</span>}} <span class="nv">to</span> <span class="nv">our</span> <span class="nv">site</span> 
-{<span class="o">%</span> <span class="nv">endblock</span> <span class="o">%</span>}
+<span class="o">{</span>% block subject %<span class="o">}</span>
+    Welcome <span class="o">{{</span>name<span class="o">}}</span> to our site 
+<span class="o">{</span>% endblock %<span class="o">}</span>
 
-{<span class="o">%</span> <span class="nv">block</span> <span class="nv">body</span> <span class="o">%</span>}
-    <span class="nv">Dear</span> {{<span class="nv">name</span>}} <span class="nv">this</span> <span class="nv">is</span> <span class="nv">the</span> <span class="nv">content</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">message</span> 
+<span class="o">{</span>% block body %<span class="o">}</span>
+    Dear <span class="o">{{</span>name<span class="o">}}</span> this is the content of the message 
 
-    <span class="nv">Thank</span> <span class="nv">you</span> <span class="nv">very</span> <span class="nv">much</span> <span class="k">for</span> <span class="nv">your</span> <span class="nv">visiting</span> <span class="nv">us</span>
-{<span class="o">%</span> <span class="nv">endblock</span> <span class="o">%</span>}
+    Thank you very much <span class="k">for</span> your visiting us
+<span class="o">{</span>% endblock %<span class="o">}</span>
 </pre></div>
 
 
 <p>Send email with vars</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">send_mail</span>
 
-<span class="n">asm</span><span class="o">.</span><span class="n">send_mail</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="s2">&quot;x@y.com&quot;</span><span class="p">,</span> 
-            <span class="n">template</span><span class="o">=</span><span class="s2">&quot;welcome.txt&quot;</span><span class="p">,</span> 
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mardix&quot;</span><span class="p">)</span>
+<span class="n">send_mail</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="s2">&quot;x@y.com&quot;</span><span class="p">,</span> 
+        <span class="n">template</span><span class="o">=</span><span class="s2">&quot;welcome.txt&quot;</span><span class="p">,</span> 
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mardix&quot;</span><span class="p">)</span>
 </pre></div>
 
 
 <hr />
 <h3 id="signal">Signal</h3>
 <p>The mail also emit a signal, which can be used to pre and post process information</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">asm</span>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">send_mail</span>
 
-<span class="nd">@asm.send_mail.post</span>
+<span class="nd">@send_mail.post</span>
 <span class="k">def</span> <span class="nf">process_email_sent</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Email sent successfully!&quot;</span><span class="p">)</span>
@@ -1007,9 +1054,9 @@ to put the messages that will be sent.</p>
 <p>By default, Assembly places them in <code>./_data/emails-templates/</code> </p>
 <p>Place your templates files in there. The files name will be used to retrieve the template.</p>
 <p>inside of the config.py, </p>
-<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># config.py</span>
 
-<span class="n">MAIL_TEMPLATES_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="ss">&quot;mail-templates&quot;</span><span class="p">)</span>
+<span class="n">MAIL_TEMPLATES_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;mail-templates&quot;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -1024,36 +1071,36 @@ to put the messages that will be sent.</p>
 
 <h3 id="dictionary-based-templates">Dictionary based templates</h3>
 <p>If you don't want to create files, you can dictionary based templates</p>
-<div class="codehilite"><pre><span></span><span class="x"># config.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># config.py</span>
 
-<span class="x">MAIL_TEMPLATES_DICT = {</span>
-<span class="x">    &quot;welcome.txt&quot;: &quot;&quot;&quot;</span>
-<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">subject</span> <span class="cp">%}</span><span class="x">I&#39;m subject</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span><span class="x">How are you </span><span class="cp">{{</span><span class="nv">name</span><span class="cp">}}</span><span class="x">?</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">    &quot;&quot;&quot;,</span>
-<span class="x">    &quot;lost-password.txt&quot;: &quot;&quot;&quot;</span>
-<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">subject</span> <span class="cp">%}</span><span class="x">Lost Password</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span><span class="x">Hello </span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">. </span>
-<span class="x">        Here&#39;s your new password: </span><span class="cp">{{</span> <span class="nv">new_password</span> <span class="cp">}}</span><span class="x"> </span>
-<span class="x">        </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
-<span class="x">    &quot;&quot;&quot;,    </span>
-<span class="x">}</span>
+<span class="n">MAIL_TEMPLATES_DICT</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;welcome.txt&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        {% block subject %}I&#39;m subject{</span><span class="si">% e</span><span class="s2">ndblock %}</span>
+<span class="s2">        {% block body %}How are you {{name}}?{</span><span class="si">% e</span><span class="s2">ndblock %}</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lost-password.txt&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        {% block subject %}Lost Password{</span><span class="si">% e</span><span class="s2">ndblock %}</span>
+<span class="s2">        {% block body %}Hello {{ name }}. </span>
+<span class="s2">        Here&#39;s your new password: {{ new_password }} </span>
+<span class="s2">        {</span><span class="si">% e</span><span class="s2">ndblock %}</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>    
+<span class="p">}</span>
 </pre></div>
 
 
 <h3 id="send-email">Send Email</h3>
 <p>For either files or dictionary based templates:</p>
-<div class="codehilite"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="n">welcome</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><span class="c1"># welcome</span>
 
-<span class="n">asm</span><span class="p">.</span><span class="n">send_mail</span><span class="p">(</span><span class="k">to</span><span class="o">=</span><span class="ss">&quot;x@y.com&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">            </span><span class="n">template</span><span class="o">=</span><span class="ss">&quot;welcome.txt&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">            </span><span class="n">name</span><span class="o">=</span><span class="ss">&quot;Mardix&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="n">send_mail</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="s2">&quot;x@y.com&quot;</span><span class="p">,</span> 
+        <span class="n">template</span><span class="o">=</span><span class="s2">&quot;welcome.txt&quot;</span><span class="p">,</span> 
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mardix&quot;</span><span class="p">)</span>
 
-<span class="err">#</span><span class="w"> </span><span class="n">lost</span><span class="o">-</span><span class="n">password</span><span class="w"></span>
-<span class="n">asm</span><span class="p">.</span><span class="n">send_mail</span><span class="p">(</span><span class="k">to</span><span class="o">=</span><span class="ss">&quot;x@y.com&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">            </span><span class="n">template</span><span class="o">=</span><span class="ss">&quot;lost-password.txt&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">            </span><span class="n">name</span><span class="o">=</span><span class="ss">&quot;Mardix&quot;</span><span class="p">,</span><span class="w"> </span>
-<span class="w">            </span><span class="n">new_password</span><span class="o">=</span><span class="ss">&quot;mynewpassword&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="c1"># lost-password</span>
+<span class="n">send_mail</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="s2">&quot;x@y.com&quot;</span><span class="p">,</span> 
+        <span class="n">template</span><span class="o">=</span><span class="s2">&quot;lost-password.txt&quot;</span><span class="p">,</span> 
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mardix&quot;</span><span class="p">,</span> 
+        <span class="n">new_password</span><span class="o">=</span><span class="s2">&quot;mynewpassword&quot;</span><span class="p">)</span>
 </pre></div>
 
 

@@ -286,15 +286,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#base-files" class="md-nav__link">
-    Base files
+  <a href="#structure-description" class="md-nav__link">
+    Structure Description
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#view-package-structure" class="md-nav__link">
-    View Package Structure
+  <a href="#default-view-structure" class="md-nav__link">
+    Default View Structure
   </a>
   
 </li>
@@ -315,6 +315,13 @@
           <li class="md-nav__item">
   <a href="#multiple-classes" class="md-nav__link">
     Multiple Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routes-and-entry-points" class="md-nav__link">
+    Routes and Entry Points
   </a>
   
 </li>
@@ -341,6 +348,13 @@
         <li class="md-nav__item">
   <a href="#view-static" class="md-nav__link">
     View Static
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-component" class="md-nav__link">
+    View Component
   </a>
   
 </li>
@@ -465,6 +479,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced/core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../advanced/request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -525,6 +551,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../advanced/form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../advanced/caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -563,6 +601,30 @@
   <li class="md-nav__item">
     <a href="../advanced/storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advanced/login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -702,15 +764,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#base-files" class="md-nav__link">
-    Base files
+  <a href="#structure-description" class="md-nav__link">
+    Structure Description
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#view-package-structure" class="md-nav__link">
-    View Package Structure
+  <a href="#default-view-structure" class="md-nav__link">
+    Default View Structure
   </a>
   
 </li>
@@ -731,6 +793,13 @@
           <li class="md-nav__item">
   <a href="#multiple-classes" class="md-nav__link">
     Multiple Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routes-and-entry-points" class="md-nav__link">
+    Routes and Entry Points
   </a>
   
 </li>
@@ -761,6 +830,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#view-component" class="md-nav__link">
+    View Component
+  </a>
+  
+</li>
+      
       
       
       
@@ -783,93 +859,85 @@
                   <h1>Architecture</h1>
                 
                 <h2 id="overview">Overview</h2>
-<p>Assembly tries to keep it simple by providing a flat structure for your application and gives you 
-the freedom to do whatever else. </p>
+<p>Assembly tries to keep it simple by providing a flat structure for your application and gives you the freedom to do whatever else. </p>
 <p>It lays out a basic layout, so the application can be consistent. </p>
 <hr />
 <h2 id="structure">Structure</h2>
 <p>A basic application structure looks like this</p>
 <div class="codehilite"><pre><span></span>-- /
     <span class="p">|</span>- wsgi.py
-    <span class="p">|</span>- config.py
     <span class="p">|</span>- requirements.txt
-    <span class="p">|</span>- app.json
-    <span class="p">|</span>- _data  
-    <span class="p">|</span>- main
-        <span class="p">|</span>- __init__.py
-        <span class="p">|</span>- __models__.py
-        <span class="p">|</span>- templates
-            <span class="p">|</span>- Index
+    <span class="p">|</span>- lib/
+        <span class="p">|</span>- config.py
+        <span class="p">|</span>- models.py
+    <span class="p">|</span>- run
+        <span class="p">|</span>- scripts.py
+    <span class="p">|</span>- views/
+        <span class="p">|</span>- main.py
+    <span class="p">|</span>- templates/
+        <span class="p">|</span>- layouts/
+            <span class="p">|</span>- base.html    
+        <span class="p">|</span>- main/
+            <span class="p">|</span>- Index/
                 <span class="p">|</span>- index.html
-            <span class="p">|</span>- layouts
-                <span class="p">|</span>- base.html
-        <span class="p">|</span>- static
-        <span class="p">|</span>- cli.py
+    <span class="p">|</span>- static/
+      <span class="p">|</span>- js
+      <span class="p">|</span>- css
+      <span class="p">|</span>- imgs
+    <span class="p">|</span>- data/
 </pre></div>
 
 
-<hr />
-<h3 id="base-files">Base files</h3>
-<p>Base files are at the root of the application. And <code>wsgi.py</code>, <code>config.py</code> are required by Assembly.</p>
-<div class="codehilite"><pre><span></span>-- /
-    <span class="p">|</span>- wsgi.py
-    <span class="p">|</span>- config.py
-    <span class="p">|</span>- requirements.txt
-    <span class="p">|</span>- app.json
-    <span class="p">|</span>- _data  
-</pre></div>
-
-
+<h3 id="structure-description">Structure Description</h3>
 <ul>
 <li>
 <p><code>wsgi.py</code> is the application object. (required)</p>
 </li>
 <li>
-<p><code>config.py</code>: contains class based configurations (required)</p>
+<p><code>requirements.txt</code>: contains application dependencies including <code>assembly</code> (required)</p>
 </li>
 <li>
-<p><code>requirements.txt</code>: contains application dependencies including <code>assembly</code></p>
+<p><code>lib</code> contains config and models, including shared modules (directory required)</p>
 </li>
 <li>
-<p><code>app.json</code>: Application manifest to deploy using Gokku</p>
+<p><code>run</code> contains scripts and executable files to run</p>
 </li>
 <li>
-<p><code>_data</code>: A variable directory, to put misc files, uploads, etc.</p>
+<p><code>views</code>: a directory containing the view modules. It must contain  <code>__init__.py</code></p>
+</li>
+<li>
+<p><code>templates</code>: contains the HTML templates associated to the views from <code>/views</code>. </p>
+</li>
+<li>
+<p><code>static</code>: contains the images, js, css or any non user-generated files. </p>
+</li>
+<li>
+<p><code>data</code>: a directory containing various data, uploads, etc, including user-generated files.</p>
 </li>
 </ul>
 <hr />
-<h3 id="view-package-structure">View Package Structure</h3>
-<p>View Package are simply a package/directory that contains at least <code>__init__.py</code> and can be imported into the <code>APPS</code> list in the <code>wsgi.py</code> file. </p>
-<p>Additionally, you can find <code>__models__.py</code>, <code>templates/</code>, <code>static/</code></p>
+<h3 id="default-view-structure">Default View Structure</h3>
+<p>By default Assembly will be initialized with <code>/views</code>, which contains the modules having classes extending <code>Assembly</code>.</p>
+<p>The view package is simply a package/directory that contains a <code>__init__.py</code> and can be imported into the <code>APPS</code> list in the <code>wsgi.py</code> file. </p>
+<p><em>You can also create View Component to have distributable or shared package to import, learn more about it below.</em> </p>
 <p>The view name is the folder. The example below show the <code>main</code> view.</p>
-<div class="codehilite"><pre><span></span><span class="p">|</span>- main
-    <span class="p">|</span>- __init__.py
-    <span class="p">|</span>- __models__.py
-    <span class="p">|</span>- templates
-        <span class="p">|</span>- Index
-            <span class="p">|</span>- index.html
-        <span class="p">|</span>- layouts
-            <span class="p">|</span>- base.html
-    <span class="p">|</span>- static
-    <span class="p">|</span>- cli.py
+<div class="codehilite"><pre><span></span><span class="p">|</span>- views/
+  <span class="p">|</span>- __init__.py
+  <span class="p">|</span>- main.py
+<span class="p">|</span>- templates
+    <span class="p">|</span>- main/
+      <span class="p">|</span>- Index
+          <span class="p">|</span>- index.html
+    <span class="p">|</span>- layouts
+        <span class="p">|</span>- base.html
 </pre></div>
 
 
-<ul>
-<li><code>main</code> view directory</li>
-<li><code>__init__.py</code> contains all the View classes</li>
-<li><code>__models__.py</code> contains all the Models for that View</li>
-<li><code>templates</code> contains templates for the each endpoint in the View classes</li>
-<li><code>static</code> contain the static files, images, css, js, etc.</li>
-<li><code>cli.py</code> Custom CLI for that view.</li>
-</ul>
-<p><code>__init__.py</code>, <code>__models__.py</code>, <code>templates/</code>, <code>static/</code> will be loaded implicitely by Assemby. Only <code>__init__.py</code> is required.</p>
-<p><code>__init__.py</code> is also served as files containing all the view classes.</p>
 <hr />
 <h2 id="view-class-structure">View Class structure</h2>
-<p>You can place your view classes in <code>__init__.py</code>. Assembly will automatically load them when they are added in the APPS list.</p>
-<p>Aside from importing the <code>assembly</code> package, nothing special needs to be done in the View. Just work on your application like you would in your normal Python file. As a matter of fact this is a normal Python file.</p>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__init__</span>
+<p>To create a View class, all you need is to create classes that extends <code>Assembly</code>, and Assembly will make it routable and behave the right way.</p>
+<p>You will need to import the modules either by importing them in the <code>__init__.py</code> or APPS list in the <code>wsgi.py</code></p>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
 
@@ -881,8 +949,8 @@ the freedom to do whatever else. </p>
 
 <hr />
 <h3 id="multiple-classes">Multiple Classes</h3>
-<p>It's ok to have multiple classes in a single view file, <code>__init__.py</code>. They will be treated properly with the proper endpoint.</p>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__init__</span>
+<p>You can have multiple classes in a single view file, ie: <code>main.py</code>. They will be treated properly with the proper endpoint.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">request</span>
 
@@ -905,9 +973,79 @@ the freedom to do whatever else. </p>
 
 
 <hr />
+<h3 id="routes-and-entry-points">Routes and Entry Points</h3>
+<p>There are some rules  around the routes and endpoints.</p>
+<p>Assembly will automatically use the class name as the ROUTE, and the method names as SUB ROUTE.</p>
+<ul>
+<li>
+<p>Classes named <strong>Index</strong> will be used as the ENTRY POINT. Method with the name <strong>index</strong> will be used the </p>
+</li>
+<li>
+<p>Classes name in  UpperCamelCase, will be routed to the dasherize name of the class. </p>
+</li>
+<li>
+<p>Method with under_score will be routed to the dasherized of the method.</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="c1"># responds to /</span>
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
+
+  <span class="c1"># /about</span>
+  <span class="k">def</span> <span class="nf">about</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
+
+<span class="c1"># responds to /api/</span>
+<span class="k">class</span> <span class="nc">Api</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
+
+
+<span class="c1"># responds to /admin/</span>
+<span class="k">class</span> <span class="nc">Admin</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
+
+  <span class="k">def</span> <span class="nf">settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
+
+<span class="k">class</span> <span class="nc">SuperHero</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> 
+
+  <span class="k">def</span> <span class="nf">contact_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p><code>Index.index</code> will respond to <code>/</code></p>
+</li>
+<li>
+<p><code>Index.about</code> will respond to <code>/about</code></p>
+</li>
+<li>
+<p><code>Api.index</code> will respond to <code>/api</code> </p>
+</li>
+<li>
+<p><code>Admin.index</code> will respond to <code>/admin</code> </p>
+</li>
+<li>
+<p><code>Admin.settings</code> will respond to <code>/admin/settings</code> </p>
+</li>
+<li>
+<p><code>SuperHero.index</code> will respond to <code>/super-hero</code></p>
+</li>
+<li>
+<p><code>SuperHero.contact_us</code> will respond to <code>/super-hero/contact-us</code></p>
+</li>
+</ul>
+<hr />
 <h3 id="namespace">Namespace</h3>
-<p>Everything is properly namespaced, however the only time you may have some clashes is when more than one class has the same class name. To fix that, just use a different <strong>route endpoint</strong> for the class.</p>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__init__</span>
+<p>Everything is properly namespaced, however the only time you may see some clashes is when more than one class has the same class name. To fix that, just use a different <strong>route endpoint</strong> for the class.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
 
@@ -918,7 +1056,7 @@ the freedom to do whatever else. </p>
 
 <span class="o">---</span>
 
-<span class="c1"># admin/__init__</span>
+<span class="c1"># views/admin.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">request</span>
 
@@ -935,7 +1073,7 @@ the freedom to do whatever else. </p>
 <p>Assembly uses Jinja as templating language. </p>
 <p>Templates are mapped by their class and method name in the view.</p>
 <p>Having a View like this...</p>
-<div class="codehilite"><pre><span></span><span class="c1"># admin/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
 
@@ -967,28 +1105,38 @@ the freedom to do whatever else. </p>
 
 
 <p>will map to templates below</p>
-<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="k">admin</span>
-    <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">templates</span>
-        <span class="o">|-</span> <span class="k">Index</span>
-            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="n">login</span><span class="p">.</span><span class="n">html</span>
-        <span class="o">|-</span> <span class="n">Articles</span>
-            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="k">all</span><span class="p">.</span><span class="n">html</span>
-        <span class="o">|-</span> <span class="n">Movies</span>
-            <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="n">guide</span><span class="p">.</span><span class="n">html</span>            
-            <span class="o">|-</span> <span class="n">channels</span><span class="p">.</span><span class="n">html</span>            
-    <span class="o">|-</span> <span class="k">static</span>
-    <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
+<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="n">templates</span>
+  <span class="o">|-</span> <span class="n">main</span><span class="o">/</span>
+      <span class="o">|-</span> <span class="k">Index</span>
+          <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+          <span class="o">|-</span> <span class="n">login</span><span class="p">.</span><span class="n">html</span>
+      <span class="o">|-</span> <span class="n">Articles</span>
+          <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+          <span class="o">|-</span> <span class="k">all</span><span class="p">.</span><span class="n">html</span>
+      <span class="o">|-</span> <span class="n">Movies</span>
+          <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+          <span class="o">|-</span> <span class="n">guide</span><span class="p">.</span><span class="n">html</span>            
+          <span class="o">|-</span> <span class="n">channels</span><span class="p">.</span><span class="n">html</span>  
 </pre></div>
 
 
 <hr />
 <h2 id="view-static">View Static</h2>
 <p>Assembly uses Flask-Assets to help manage static assets, ie: images, js, css in your application</p>
+<hr />
+<h2 id="view-component">View Component</h2>
+<p>Similar to the default <code>/views</code> package that gets generated by Assembly, you can create a distributable or reusable package name <strong>View Component</strong>. </p>
+<div class="codehilite"><pre><span></span><span class="o">|-/</span><span class="n">my_view_component</span>
+  <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+  <span class="o">|-</span> <span class="n">main</span><span class="p">.</span><span class="n">py</span>
+  <span class="o">|-</span> <span class="n">models</span><span class="p">.</span><span class="n">py</span>
+  <span class="o">|-</span> <span class="n">templates</span><span class="o">/</span>
+    <span class="o">|-</span> <span class="k">Index</span>
+      <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
+  <span class="o">|-</span> <span class="k">static</span><span class="o">/</span>
+    <span class="o">|-</span> <span class="n">js</span>
+    <span class="o">|-</span> <span class="n">css</span>
+</pre></div>
                 
                   
                 

@@ -365,6 +365,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -415,6 +427,18 @@
   <li class="md-nav__item">
     <a href="../date/" title="Date" class="md-nav__link">
       Date
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
     </a>
   </li>
 
@@ -545,6 +569,30 @@
   <li class="md-nav__item">
     <a href="../storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -754,17 +802,17 @@
 <hr />
 <h3 id="html-forms">HTML Forms</h3>
 <p>In HTML, <code>csrf_token()</code> needs to be added for any POST forms.</p>
-<div class="codehilite"><pre><span></span><span class="x">&lt;input type=&#39;hidden&#39; name=&quot;_csrf_token&quot; value=&#39;</span><span class="cp">{{</span> <span class="nv">csrf_token</span><span class="o">()</span> <span class="cp">}}</span><span class="x">&#39;&gt;</span>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;hidden&#39;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;_csrf_token&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;{{ csrf_token() }}&#39;</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <p>Example:</p>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;h1&gt;</span>Upload<span class="nt">&lt;/h1&gt;</span>
-<span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">&quot;uploadbanner&quot;</span> <span class="na">action=</span><span class="s">&quot;/upload/&quot;</span> <span class="na">enctype=</span><span class="s">&quot;multipart/form-data&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&#39;hidden&#39;</span> <span class="na">name=</span><span class="s">&quot;_csrf_token&quot;</span> <span class="na">value=</span><span class="s">&#39;</span><span class="cp">{{</span> <span class="nv">csrf_token</span><span class="o">()</span> <span class="cp">}}</span><span class="s">&#39;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">&quot;fileupload&quot;</span> <span class="na">name=</span><span class="s">&quot;file&quot;</span> <span class="na">type=</span><span class="s">&quot;file&quot;</span> <span class="nt">/&gt;</span>
-    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Upload&quot;</span> <span class="na">id=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;/form&gt;</span> 
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Upload<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;uploadbanner&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;/upload/&quot;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&quot;multipart/form-data&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;hidden&#39;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;_csrf_token&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;{{ csrf_token() }}&#39;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;fileupload&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Upload&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span> 
 </pre></div>
 
 
@@ -808,8 +856,8 @@
 <hr />
 <h2 id="configuration">Configuration</h2>
 <p>Set the configuration below in your <code>config.py</code> file.</p>
-<div class="codehilite"><pre><span></span>    <span class="n">CSRF_COOKIE_NAME</span><span class="o">=</span><span class="ss">&quot;_csrf_token&quot;</span>
-    <span class="n">CSRF_HEADER_NAME</span><span class="o">=</span><span class="ss">&quot;X-CSRFToken&quot;</span>
+<div class="codehilite"><pre><span></span>    <span class="n">CSRF_COOKIE_NAME</span><span class="o">=</span><span class="s2">&quot;_csrf_token&quot;</span>
+    <span class="n">CSRF_HEADER_NAME</span><span class="o">=</span><span class="s2">&quot;X-CSRFToken&quot;</span>
     <span class="n">CSRF_DISABLE</span>
     <span class="n">CSRF_COOKIE_TIMEOUT</span>
     <span class="n">CSRF_COOKIE_SECURE</span>

@@ -629,6 +629,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced/core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../advanced/request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -689,6 +701,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced/form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../advanced/caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -727,6 +751,30 @@
   <li class="md-nav__item">
     <a href="../../advanced/storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced/flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../advanced/login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -1112,16 +1160,17 @@
                 
                 <h2 id="overview">Overview</h2>
 <p>Assembly supports RDBMS (Postgresql, MySQL, SQLite) via <strong>Active-Alchemy</strong>, a wrapper around <strong>SQLAlchemy</strong> that makes it simple to use your models in an active record like manner, while it still uses the SQLAlchemy <code>db.session</code> underneath. </p>
-<p>Assembly requires you to create your models in  <code>__models__.py</code>, in the View Package folder. <code>__models__.py</code> loads automatically. </p>
+<p>By default, Assembly will attempt to load the <code>lib/models.py</code> automatically. If you have a file at this location named <code>lib/models.py</code>, Assembly will load it. </p>
 <p>Models are classes that extends <code>db.Model</code> </p>
 <p>A simple Models would look like this</p>
-<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="n">main</span><span class="o">/</span>
+<div class="codehilite"><pre><span></span><span class="o">|-</span> <span class="n">lib</span><span class="o">/</span>
     <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">models</span><span class="p">.</span><span class="n">py</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1"># main/__models__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># lib/models.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">db</span>
 
@@ -1134,7 +1183,7 @@
 
 
 <p>in views, model can be accessed with <code>models.$ModelClassName</code>. </p>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">models</span>
 
@@ -1148,7 +1197,7 @@
 </pre></div>
 
 
-<p>Note: <strong>Every model class created have a reference in the <code>models</code> object</strong>. You can access any models in the application.</p>
+<p>Note: <strong>Every model class created has a reference in the <code>models</code> object</strong>. You can access any models in the application.</p>
 <p><strong>Extension: <a href="https://github.com/mardix/active-alchemy" target="_blank">Active-Alchemy</a></strong></p>
 <p>Extension: <a href="https://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a></p>
 <hr />
@@ -1177,7 +1226,7 @@ exists in the database. This feature allows you to un-delete an entry</li>
 <p>Assembly, via Active-Alchemy comes, with a <code>PyMySQL</code> and <code>PG8000</code> as drivers for MySQL 
 and PostgreSQL respectively, because they are in pure Python. But you can use 
 other drivers for better performance. <code>SQLite</code> is already built in Python. </p>
-<p>In the <code>config.py</code> set <strong>DB_URL</strong> </p>
+<p>In the <code>lib/config.py</code> set <strong>DB_URL</strong> </p>
 <p><strong>DB_URL</strong></p>
 <p><strong>DB_URL</strong> follows RFC-1738, and usually can include username, password, hostname, database name as well as optional keyword arguments for additional configuration. In some cases a file path is accepted, and in others a “data source name” replaces the “host” and “database” portions. The typical form of a database URL is:</p>
 <div class="codehilite"><pre><span></span><span class="n">dialect</span><span class="o">+</span><span class="nl">driver</span><span class="p">:</span><span class="o">//</span><span class="nl">username</span><span class="p">:</span><span class="n">password</span><span class="nv">@host</span><span class="err">:</span><span class="n">port</span><span class="o">/</span><span class="k">database</span><span class="w"></span>
@@ -1213,8 +1262,9 @@ other drivers for better performance. <code>SQLite</code> is already built in Py
 
 <hr />
 <h3 id="create-models">Create Models</h3>
-<p>Create model classes by extending your class to <code>db.Model</code>. By default Assembly will look for <code>__models__.py</code> to exist to automatically load your models.</p>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__models__.py</span>
+<p>Create model classes by extending your class to <code>db.Model</code>. By default Assembly will look for <code>lib/models.py</code> to exist to automatically load your models.</p>
+<p>But you can place your models anywhere, as long they are loaded.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># lib/models.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">db</span>
 
@@ -1250,8 +1300,8 @@ other drivers for better performance. <code>SQLite</code> is already built in Py
 </ul>
 <h5 id="define-table-name">Define table name</h5>
 <p>To define your own table name, or to create a model from an existing table name, assign <code>__tablename__</code> property to the value of the table name.</p>
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="n">TodoList</span>(<span class="n">db</span>.<span class="n">Model</span>):
-    <span class="n">__tablename__</span> = <span class="s">&quot;my_existing_table_name&quot;</span>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">TodoList</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">&quot;my_existing_table_name&quot;</span>
 </pre></div>
 
 
@@ -1434,7 +1484,7 @@ other drivers for better performance. <code>SQLite</code> is already built in Py
 
 
 <p>All the models created will have their reference in the <code>models</code> object.</p>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">models</span>
 
@@ -1627,16 +1677,16 @@ while on other databases its simply ‘text’.</p>
 
 
 <p><strong> Read </strong></p>
-<div class="codehilite"><pre><span></span><span class="n">article</span> <span class="o">=</span> <span class="n">models</span><span class="p">.</span><span class="n">Article</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">article</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Article</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">article</span><span class="p">.</span><span class="k">data</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;reference&quot;</span><span class="p">)</span>
-<span class="o">#</span> <span class="n">blah</span>
+<span class="n">article</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">)</span>
+<span class="c1"># blah</span>
 
-<span class="n">article</span><span class="p">.</span><span class="k">data</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;tags&quot;</span><span class="p">)</span>
-<span class="o">#</span> <span class="p">[</span><span class="ss">&quot;A&quot;</span><span class="p">,</span> <span class="ss">&quot;B&quot;</span><span class="p">,</span> <span class="ss">&quot;C&quot;</span><span class="p">]</span>
+<span class="n">article</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">)</span>
+<span class="c1"># [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;]</span>
 
-<span class="n">article</span><span class="p">.</span><span class="k">data</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;location&quot;</span><span class="p">,</span> <span class="ss">&quot;Charlotte&quot;</span><span class="p">)</span>
-<span class="o">#</span> <span class="n">Charlotte</span>
+<span class="n">article</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="s2">&quot;Charlotte&quot;</span><span class="p">)</span>
+<span class="c1"># Charlotte</span>
 </pre></div>
 
 

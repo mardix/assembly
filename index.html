@@ -479,6 +479,18 @@
 
 
   <li class="md-nav__item">
+    <a href="advanced/core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="advanced/request/" title="Request" class="md-nav__link">
       Request
     </a>
@@ -539,6 +551,18 @@
 
 
   <li class="md-nav__item">
+    <a href="advanced/form-validations/" title="Form Validations" class="md-nav__link">
+      Form Validations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="advanced/caching/" title="Caching" class="md-nav__link">
       Caching
     </a>
@@ -577,6 +601,30 @@
   <li class="md-nav__item">
     <a href="advanced/storage/" title="Storage" class="md-nav__link">
       Storage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced/flash/" title="Flash" class="md-nav__link">
+      Flash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advanced/login-manager/" title="Login Manager" class="md-nav__link">
+      Login Manager
     </a>
   </li>
 
@@ -851,37 +899,39 @@ use VirtualenvWrapper (you can use any that is convenient for you)</p>
 
 
 <h3 id="2-initialize-your-application">2. Initialize your application</h3>
-<p>Initialize Assembly with <code>asm-admin init</code></p>
-<p>CD into the folder you intend to create the application, then run <code>asm-admin init</code>. 
+<p>Initialize Assembly with <code>asm gen:init</code></p>
+<p>CD into the folder you intend to create the application, then run <code>asm gen:init</code>. 
 This will setup the structure along with the necessary files to get started</p>
 <div class="codehilite"><pre><span></span><span class="n">cd</span> <span class="n">app</span><span class="o">-</span><span class="n">dir</span>
 
-<span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">init</span>
+<span class="n">asm</span> <span class="n">gen</span><span class="p">:</span><span class="n">init</span>
 </pre></div>
 
 
 <p>Upon initialization you should have a structure similar to this:</p>
 <div class="codehilite"><pre><span></span><span class="c1">-- /</span>
     <span class="o">|-</span> <span class="n">wsgi</span><span class="p">.</span><span class="n">py</span>
-    <span class="o">|-</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span>
     <span class="o">|-</span> <span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
-    <span class="o">|-</span> <span class="n">main</span>
-        <span class="o">|-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
-        <span class="o">|-</span> <span class="n">__models__</span><span class="p">.</span><span class="n">py</span>
-        <span class="o">|-</span> <span class="n">templates</span>
-            <span class="o">|-</span> <span class="k">Index</span>
+    <span class="o">|-</span> <span class="n">lib</span><span class="o">/</span>
+        <span class="o">|-</span> <span class="n">config</span><span class="p">.</span><span class="n">py</span>
+        <span class="o">|-</span> <span class="n">models</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">run</span>
+        <span class="o">|-</span> <span class="n">scripts</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">views</span><span class="o">/</span>
+        <span class="o">|-</span> <span class="n">main</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">|-</span> <span class="n">templates</span><span class="o">/</span>
+        <span class="o">|-</span> <span class="n">layouts</span><span class="o">/</span>
+            <span class="o">|-</span> <span class="n">base</span><span class="p">.</span><span class="n">html</span>
+        <span class="o">|-</span> <span class="n">main</span><span class="o">/</span>
+            <span class="o">|-</span> <span class="k">Index</span><span class="o">/</span>
                 <span class="o">|-</span> <span class="k">index</span><span class="p">.</span><span class="n">html</span>
-            <span class="o">|-</span> <span class="n">layouts</span>
-                <span class="o">|-</span> <span class="n">base</span><span class="p">.</span><span class="n">html</span>
-        <span class="o">|-</span> <span class="k">static</span>
-        <span class="o">|-</span> <span class="n">cli</span><span class="p">.</span><span class="n">py</span>
-
-    <span class="o">|-</span> <span class="n">_data</span><span class="o">/</span>
+    <span class="o">|-</span> <span class="k">static</span><span class="o">/</span>
+    <span class="o">|-</span> <span class="k">data</span><span class="o">/</span>
 </pre></div>
 
 
 <h3 id="3-edit-your-first-view">3. Edit your first view</h3>
-<div class="codehilite"><pre><span></span><span class="c1"># main/__init__.py</span>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
 
 <span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
 
@@ -904,44 +954,44 @@ This will setup the structure along with the necessary files to get started</p>
 
 <h3 id="4-edit-your-template">4. Edit your template</h3>
 <h4 id="40-edit-base-layout">4.0 Edit base layout</h4>
-<div class="codehilite"><pre><span></span><span class="c">&lt;!-- main/templates/layouts/base.html --&gt;</span>
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- templates/layouts/base.html --&gt;</span>
 
 <span class="cp">&lt;!doctype html&gt;</span>
-<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;head&gt;</span>
-    <span class="nt">&lt;title&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="nt">&lt;/title&gt;</span>
-  <span class="nt">&lt;/head&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{% block title %}{% endblock %}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 
-  <span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
-      <span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
-    <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+      {% block body %}{% endblock %}
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <h4 id="41-edit-indexindexhtml">4.1  Edit Index/index.html</h4>
-<div class="codehilite"><pre><span></span><span class="c">&lt;!-- main/templates/Index/index.html --&gt;</span>
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- templates/main/Index/index.html --&gt;</span>
 
-<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;main/layouts/base.html&#39;</span> <span class="cp">%}</span>
+{% extends &#39;layouts/base.html&#39; %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>Welcome to my Assembly Site <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block title %}Welcome to my Assembly Site {% endblock %}
 
-<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
-    <span class="nt">&lt;div&gt;</span>
-        <span class="nt">&lt;h1&gt;</span><span class="cp">{{</span> <span class="nv">title</span> <span class="cp">}}</span><span class="nt">&lt;/h1&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;div&gt;</span>
-        <span class="cp">{{</span> <span class="nv">content</span> <span class="cp">}}</span>
-    <span class="nt">&lt;/div&gt;</span>
-<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+{% block body %}
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{ title }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        {{ content }}
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endblock %}
 </pre></div>
 
 
 <h3 id="5-serve-your-first-application">5. Serve your first application</h3>
 <p>If everything is all set, all you need to do now is run your site:</p>
-<div class="codehilite"><pre><span></span><span class="n">asm</span><span class="o">-</span><span class="k">admin</span> <span class="n">serve</span>
+<div class="codehilite"><pre><span></span><span class="n">asm</span> <span class="n">gen</span><span class="p">:</span><span class="n">serve</span>
 </pre></div>
 
 
@@ -955,7 +1005,7 @@ This will setup the structure along with the necessary files to get started</p>
 <h2 id="features-list">Features List</h2>
 <ul>
 <li>
-<p>Smart routing: automatically generates routes based on the classes and methods in your views</p>
+<p>Smart Pythonic Routing: automatically generates routes based on the classes and methods in your views</p>
 </li>
 <li>
 <p>Class name as the base url, ie: class UserAccount will be accessed at '/user-account'</p>
@@ -964,16 +1014,19 @@ This will setup the structure along with the necessary files to get started</p>
 <p>Class methods (action) could be accessed: hello_world(self) becomes 'hello-world'</p>
 </li>
 <li>
-<p>RESTful API</p>
+<p>RESTful: good to create API endpoints, which can also return JSON object</p>
 </li>
 <li>
 <p>Automatic view rendering</p>
 </li>
 <li>
-<p>Auto route can be edited with @route()</p>
+<p>Auto route can be edited with @request.route()</p>
 </li>
 <li>
-<p>Markdown friendly. Inclusion of a markdown file will turn into HTML</p>
+<p>Multi responses type: HTML, JSON, Text </p>
+</li>
+<li>
+<p>Markdown friendly: Inclusion of a markdown file will turn into HTML</p>
 </li>
 <li>
 <p>BCRYPT is chosen as the password hasher</p>
@@ -982,25 +1035,34 @@ This will setup the structure along with the necessary files to get started</p>
 <p>Session: Redis, AWS S3, Google Storage, SQLite, MySQL, PostgreSQL</p>
 </li>
 <li>
-<p>Database/ORM: <a href="https://github.com/mardix/active-alchemy">Active-Alchemy</a> (SQLALchemy wrapper)</p>
+<p>Database/ORM: SQLAlchemy base to work DB models via <a href="https://github.com/mardix/active-alchemy">Active-Alchemy</a></p>
 </li>
 <li>
-<p>CSRF on all POST</p>
+<p>Login Manager: for user session management via Flask-Login</p>
+</li>
+<li>
+<p>Form Validations: Validate your forms via WTForms</p>
+</li>
+<li>
+<p>CSRF on all POST: to protect against CSRF attacks </p>
 </li>
 <li>
 <p>Idiomatic HTTP error responses</p>
 </li>
 <li>
-<p>Storage: Local, S3, Google Storage <a href="https://github.com/mardix/flask-cloudy">Flask-Cloudy</a></p>
+<p>Storage: to access and store files from  Local, S3, Google Storage with <a href="https://github.com/mardix/flask-cloudy">Flask-Cloudy</a></p>
 </li>
 <li>
-<p>Mailer (SES or SMTP)</p>
+<p>Mailer: To send email using SMTP or AWS SES</p>
 </li>
 <li>
-<p>Arrow for date and time</p>
+<p>Arrow: Human friendly date and time library</p>
 </li>
 <li>
-<p>Caching</p>
+<p>CLI/Scripts: Create your own scripts to be used on the command line.</p>
+</li>
+<li>
+<p>Caching: To cache responses</p>
 </li>
 <li>
 <p>JWT</p>
@@ -1018,16 +1080,16 @@ This will setup the structure along with the necessary files to get started</p>
 <p>Jinja2 for templating language</p>
 </li>
 <li>
-<p>Multi application</p>
+<p>Multi application: Allow to share the same codebase but with multiple applications.</p>
 </li>
 <li>
-<p>Web Assets</p>
-</li>
-<li>
-<p>CLI</p>
+<p>Web Assets: To easily manage your static content: css, js, images etc...</p>
 </li>
 <li>
 <p>Inbuilt development server</p>
+</li>
+<li>
+<p>And much more...</p>
 </li>
 </ul>
 <hr />

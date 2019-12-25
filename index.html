@@ -261,6 +261,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#assembly-in-action" class="md-nav__link">
+    Assembly in action
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pythonic-routes" class="md-nav__link">
+    Pythonic Routes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restful" class="md-nav__link">
+    RESTful
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-response-type" class="md-nav__link">
+    Multi Response Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     Quick Start
   </a>
@@ -763,6 +797,40 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#assembly-in-action" class="md-nav__link">
+    Assembly in action
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pythonic-routes" class="md-nav__link">
+    Pythonic Routes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restful" class="md-nav__link">
+    RESTful
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-response-type" class="md-nav__link">
+    Multi Response Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     Quick Start
   </a>
@@ -883,6 +951,129 @@
 <p>Assembly automatically loads your models and configuration. </p>
 <p>Assembly is very extensible, as every View is it's own package. Making it easy to add and remove.</p>
 <p><strong>Assembly</strong> Makes Flask Great Again!</p>
+<hr />
+<h2 id="assembly-in-action">Assembly in action</h2>
+<h3 id="pythonic-routes">Pythonic Routes</h3>
+<p>Routes are created based on the class and the method names by default. 
+Class named <em>Index</em> and method named <em>index</em> will be the entry point of the route.</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span>
+
+<span class="c1"># Extends to Assembly makes it a route automatically</span>
+<span class="c1"># By default, Index will be the root url</span>
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="c1"># index is the entry route</span>
+    <span class="c1"># -&gt; /</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;welcome to my site&quot;</span>
+
+    <span class="c1"># method name becomes the route</span>
+    <span class="c1"># -&gt; /hello/</span>
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;I am a string&quot;</span>
+
+    <span class="c1"># undescore method name will be dasherize</span>
+    <span class="c1"># -&gt; /about-us/</span>
+    <span class="k">def</span> <span class="nf">about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;I am a string&quot;</span>
+
+<span class="c1"># The class name is part of the url prefix</span>
+<span class="c1"># This will become -&gt; /blog</span>
+<span class="k">class</span> <span class="nc">Blog</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="c1"># index will be the root</span>
+    <span class="c1"># -&gt; /blog/</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;title 1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;content&quot;</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
+
+    <span class="c1"># with params. The order will be respected</span>
+    <span class="c1"># -&gt; /blog/comments/1234/</span>
+    <span class="c1"># 1234 will be passed to the id</span>
+    <span class="k">def</span> <span class="nf">comments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="c1"># comments</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+</pre></div>
+
+
+<h3 id="restful">RESTful</h3>
+<p>Methods named <strong>get</strong>, <strong>post</strong>, <strong>put</strong>, <strong>delete</strong>, <strong>update</strong> will automatically accept the associated methods GET, POST, PUT, DELETE UPDATE respectively.</p>
+<p>But you can also assign a different method by using the appropriate request decorator.</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">request</span>
+
+<span class="k">class</span> <span class="nc">Api</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="c1"># method named get, automatically accepts get method</span>
+    <span class="c1"># -&gt; GET /api/&lt;id&gt;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This will show on get call&quot;</span>
+        <span class="p">}</span>
+
+    <span class="c1"># method named post, automatically accepts post method</span>
+    <span class="c1"># -&gt; POST /api/</span>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;This will show on POST call&quot;</span>
+        <span class="p">}</span>
+
+    <span class="c1"># Example of a different route assigned a method</span>
+    <span class="c1"># /submit/ will only accept POST call</span>
+    <span class="c1"># -&gt; POST /submit/</span>
+    <span class="nd">@request.post</span>
+    <span class="k">def</span> <span class="nf">submit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Submitted!&quot;</span>
+</pre></div>
+
+
+<h3 id="multi-response-type">Multi Response Type</h3>
+<p>By default Assembly will map the route to its associated template. It's very convenient as you don't have to explicitely render the template.</p>
+<p>But you can also make the route return JSON.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># views/main.py</span>
+
+<span class="kn">from</span> <span class="nn">assembly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Assembly</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">HTTPError</span><span class="p">)</span>
+
+<span class="c1"># Extends to Assembly makes it a route automatically</span>
+<span class="c1"># By default, Index will be the root url</span>
+<span class="k">class</span> <span class="nc">Index</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="c1"># index is the entry route</span>
+    <span class="c1"># -&gt; /</span>
+    <span class="c1"># it will render its associated template from </span>
+    <span class="c1"># &#39;templates/main/Index/index.html&#39;</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> 
+
+    <span class="c1"># returning string will be rendered as string.</span>
+    <span class="c1"># -&gt; /hello/</span>
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;I am a string&quot;</span>
+
+    <span class="c1"># returns a json response</span>
+    <span class="c1"># -&gt; /api/</span>
+    <span class="nd">@response.json</span>
+    <span class="k">def</span> <span class="nf">api</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Assembly for ever&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="c1"># list of items</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+
+    <span class="c1"># This will throw an Unauthorize error</span>
+    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">HTTPError</span><span class="o">.</span><span class="n">Unauthorized</span><span class="p">()</span>
+</pre></div>
+
+
 <hr />
 <h2 id="quick-start">Quick Start</h2>
 <p>This quickstart will allow us to go with Assembly from 0 to 100!</p>

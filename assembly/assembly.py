@@ -320,14 +320,12 @@ class Assembly(object):
         cls._setup_db__(app)
 
         # Load models implicitely from lib.models
-        werkzeug.import_string("lib.models")
+        werkzeug.import_string("lib.models", True)
 
         # Load views
         try:           
             if app_name not in views_list:
                 raise AssemblyError("Missing project: %s" % app_name)
-
-            # load the views from the app list
             for view in views_list[app_name]:
                 cls._load_view_from_string__(view)
         except ImportError as ie1:

@@ -20,7 +20,6 @@ wsgi:app
 
 ```
 -- /
--- /
     |- wsgi.py
     |- requirements.txt
     |- lib/
@@ -29,18 +28,19 @@ wsgi:app
     |- run
         |- scripts.py
     |- views/
-        |- __init__.py
         |- main.py
         |- error.py
     |- templates/
         |- main/
             |- Index/
                 |- index.html
-
         |- error/
+            |- Error
+                |- error_404.html
+                |- error_handler.html
     |- static/
     |- data/
-    
+
 ```
 
 

@@ -9,11 +9,15 @@
 - Expose asm functions as *. Now all functions in asm will be available from assembly
 - Flatter structure
     $ROOT/
+      |- wsgi.py
+      |- requirements.txt
       |-/views/: contains the views
       |-/templates/ contains templates
-      |-/static/ contains static
+      |-/static/ contains static file and non user-generated data
       |-/lib/ contains shared code
-      
+      |-/run/ contains executables and scripts
+      |-/data/ contains random files and user-generated data
+
 - Models are explicit, must be loaded manually
 - Consolidate CLI asm-admin to asm
 - rename cli.py to scripts.py 

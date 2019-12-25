@@ -259,23 +259,25 @@ Upon initialization you should have a structure similar to this:
 ```
 -- /
     |- wsgi.py
-    |- config.py
     |- requirements.txt
+    |- lib/
+        |- config.py
+        |- models.py
+    |- run
+        |- scripts.py
     |- views/
-      |- __init__.py
-      |- main.py
-      |- models.py
-      |- scripts.py
+        |- main.py
+        |- error.py
     |- templates/
-      |- main
-        |- Index
-          |- index.html
+        |- main/
+            |- Index/
+                |- index.html
+        |- error/
+            |- Error
+                |- error_404.html
+                |- error_handler.html
     |- static/
-      |- js
-      |- css
-      |- imgs
     |- data/
-
 ```
 
 ### 3. Edit your first view

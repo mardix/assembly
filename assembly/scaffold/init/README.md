@@ -22,14 +22,16 @@ wsgi:app
 -- /
 -- /
     |- wsgi.py
-    |- config.py
     |- requirements.txt
+    |- lib/
+        |- config.py
+        |- models.py
+    |- run
+        |- scripts.py
     |- views/
         |- __init__.py
         |- main.py
         |- error.py
-        |- scripts.py
-        |- models.py
     |- templates/
         |- main/
             |- Index/
@@ -38,6 +40,7 @@ wsgi:app
         |- error/
     |- static/
     |- data/
+    
 ```
 
 
@@ -72,6 +75,8 @@ asm-admin serve
 # Assembly Template View
 
 Assembly is composed of 
+- `lib` contains shared libraries, config and models
+- `run` contains scripts to execute
 - `views` contains the views
 - `models` contains the models
 - `templates` contains the HTML template

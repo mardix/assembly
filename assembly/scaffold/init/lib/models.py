@@ -2,9 +2,9 @@
 """
 Assembly: models.py
 
-Contains applications models and other databases connections.
+*This module is loading implicitely by Assembly. Do not import*
 
-Do not `import`. This module is loaded implicitely by Assembly
+Contains applications models and other databases connections.
 
 To setup: `asm gen:sync-models`
 

@@ -2,10 +2,10 @@
 """
 Assembly: config.py
 
+*This module is loading implicitely by Assembly. Do not import*
+
 Class based config file, where each class is an environment:
 ie: Dev = Development, Production=Production, ...
-
-Assembly: Global Configuration
 
 Global config shared by all applications
 
@@ -23,9 +23,10 @@ ie:
 """
 
 import os
+from pathlib import Path
 
-# The root dir
-ROOT_DIR = os.path.dirname(__file__)
+# Root directory
+ROOT_DIR = Path(__file__).parent.parent
 
 # Data directory
 DATA_DIR = os.path.join(ROOT_DIR, "data")
@@ -121,7 +122,7 @@ class BaseConfig(object):
     #: SQLite in memory: sqlite://
     #: Postgresql: postgresql+pg8000://user:password@host:port/dbname
     #: MySQL: mysql+pymysql://user:password@host:port/dbname
-    DB_URL = "sqlite:////%s/db.db" % DATA_DIR
+    DB_URL = "sqlite:////%s/db.sqlite" % DATA_DIR
 
     #: DB_REDIS_URL
     #: format: USERNAME:PASSWORD@HOST:PORT

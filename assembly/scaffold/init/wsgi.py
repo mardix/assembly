@@ -37,7 +37,7 @@ from assembly import Assembly
 """
 Import your views scripts to enable their command line interface
 """
-import views.scripts
+import run.scripts
 
 """
 APPS = {}
@@ -49,7 +49,7 @@ ie: 'export ASSEMBLY_APP=default'
 
 APPS = {
     "default": [
-        "views.main"
+        "views"
     ]
 }
 

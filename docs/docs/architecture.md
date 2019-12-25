@@ -14,21 +14,23 @@ A basic application structure looks like this
 ```sh
 -- /
     |- wsgi.py
-    |- config.py
     |- requirements.txt
+    |- lib/
+        |- config.py
+        |- models.py
+    |- run
+        |- scripts.py
     |- views/
-      |- __init__.py
-      |- main.py
-      |- article.py
-      |- models.py
-      |- scripts.py
+        |- main.py
+        |- error.py
     |- templates/
-      |- main
-        |- Index
-          |- index.html
-      |- article
-        |- Index
-          |- index.html
+        |- main/
+            |- Index/
+                |- index.html
+        |- error/
+            |- Error
+                |- error_404.html
+                |- error_handler.html
     |- static/
       |- js
       |- css
@@ -37,31 +39,18 @@ A basic application structure looks like this
 
 ```
 
----
 
-### Base files
-
-Base files are at the root of the application. And `wsgi.py`, `config.py` are required by Assembly.
-
-
-```sh
--- /
-    |- wsgi.py
-    |- config.py
-    |- requirements.txt
-    |- views/
-    |- templates/
-    |- static/
-    |- data/  
-```
+### Structure Description
 
 - `wsgi.py` is the application object. (required)
 
-- `config.py`: contains class based configurations (required)
-
 - `requirements.txt`: contains application dependencies including `assembly` (required)
 
-- `views`: a directory containing the view modules. It must contain  `__init__.py`, you may also import `models.py` in there.
+- `lib` contains config and models, including shared modules (directory required)
+
+- `run` contains scripts and executable files to run
+
+- `views`: a directory containing the view modules. It must contain  `__init__.py`
 
 - `templates`: contains the HTML templates associated to the views from `/views`. 
 
@@ -80,37 +69,20 @@ The view package is simply a package/directory that contains a `__init__.py` and
 
 *You can also create View Component to have distributable or shared package to import, learn more about it below.* 
 
-Additionally, it may contain `models.py`, `templates/`, `static/`
-
 The view name is the folder. The example below show the `main` view.
 
 ```sh
 |- views/
   |- __init__.py
   |- main.py
-  |- models.py
-  |- scripts.py
-
-|- main
-    |- __views__.py
-    |- __models__.py
-    |- templates
-        |- Index
-            |- index.html
-        |- layouts
-            |- base.html
-    |- static
-    |- scripts.py
+|- templates
+    |- main/
+      |- Index
+          |- index.html
+    |- layouts
+        |- base.html
 
 ```
-
-- `views` view module directory
-- `__init__.py` the init file
-- `main.py` or `*.py` can be used 
-- `models.py` contains all the Models for that View
-- `scripts.py` Custom scripts for that view.
-
-
 ---
 
 ## View Class structure
@@ -230,7 +202,7 @@ class SuperHero(Assembly):
 Everything is properly namespaced, however the only time you may see some clashes is when more than one class has the same class name. To fix that, just use a different **route endpoint** for the class.
 
 ```python
-# modules/main/__views__.py
+# views/main.py
 
 from assembly import Assembly
 
@@ -241,7 +213,7 @@ class Index(Assembly):
 
 ---
 
-# modules/admin/__views__.py
+# views/admin.py
 
 from assembly import Assembly, request
 

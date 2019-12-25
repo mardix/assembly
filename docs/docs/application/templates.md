@@ -3,16 +3,6 @@
 
 Assembly uses Jinja as template language, files are organized per Class and Methods name.
 
-```
-|- modules/
-    |- main/
-      |- __init__.py
-      |- views.py
-      |- models.py
-      |- templates/
-      |- static/
-
-```
 
 ## Structure
 

@@ -1,9 +1,8 @@
 
 ## Overview
 
-`./config.py` contains class-based configurations. 
-This file must exist at the root of the application 
-where `wsgi.py` exists.
+`lib/config.py` contains class-based configurations. 
+This file must exist inside of the `lib` folder and will imported implicitely.
 
 It is recommended to have a base class, `BaseConfig`, and your environment classes `Development`, `Production` which are subclasses
 of the `BaseConfig`, this way they can share some common config.
@@ -119,11 +118,11 @@ By default Assembly will load the `Development` class during development.
 
 Assembly uses class-based configuration, and the config will be loaded implicitely.
 
-`./config.py` is required at the root of the application.
+`lib/config.py` is required at the root of the application.
 
 
 ```python
-# config.py
+# lib/config.py
 
 import os
 

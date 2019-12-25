@@ -3,23 +3,23 @@
 
 Assembly supports RDBMS (Postgresql, MySQL, SQLite) via **Active-Alchemy**, a wrapper around **SQLAlchemy** that makes it simple to use your models in an active record like manner, while it still uses the SQLAlchemy `db.session` underneath. 
 
-Assembly requires you to create your models in  `__models__.py`, in the View Package folder. `__models__.py` loads automatically. 
+By default, Assembly will attempt to load the `lib/models.py` automatically. If you have a file at this location named `lib/models.py`, Assembly will load it. 
 
 Models are classes that extends `db.Model` 
 
 A simple Models would look like this
 
 ```
-|- views/
+|- lib/
     |- __init__.py
-    |- views.py
+    |- config.py
     |- models.py
 
 ```
  
 
 ```python
-# views/models.py
+# lib/models.py
 
 from assembly import db
 
@@ -34,7 +34,7 @@ class Article(db.Model):
 in views, model can be accessed with `models.$ModelClassName`. 
 
 ```python
-# modules/main/__views__.py
+# views/main.py
 
 from assembly import Assembly, models
 
@@ -85,7 +85,7 @@ and PostgreSQL respectively, because they are in pure Python. But you can use
 other drivers for better performance. `SQLite` is already built in Python. 
   
 
-In the `config.py` set **DB_URL** 
+In the `lib/config.py` set **DB_URL** 
 
 
 **DB_URL**
@@ -135,11 +135,13 @@ from assembly import db
 
 ### Create Models
 
-Create model classes by extending your class to `db.Model`. By default Assembly will look for `__models__.py` to exist to automatically load your models.
+Create model classes by extending your class to `db.Model`. By default Assembly will look for `lib/models.py` to exist to automatically load your models.
+
+But you can place your models anywhere, as long they are loaded.
 
 
 ```python
-# views/models.py
+# lib/models.py
 
 from assembly import db
 
@@ -438,7 +440,7 @@ from assembly import Assembly, models
 All the models created will have their reference in the `models` object.
 
 ```python
-# modules/main/__init__.py
+# views/main.py
 
 from assembly import Assembly, models
 

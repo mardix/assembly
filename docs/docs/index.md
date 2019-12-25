@@ -95,15 +95,12 @@ Upon initialization you should have a structure similar to this:
         |- scripts.py
     |- views/
         |- main.py
-        |- error.py
     |- templates/
+        |- layouts/
+            |- base.html
         |- main/
             |- Index/
                 |- index.html
-        |- error/
-            |- Error
-                |- error_404.html
-                |- error_handler.html
     |- static/
     |- data/
 ```

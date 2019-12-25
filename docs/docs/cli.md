@@ -17,9 +17,7 @@ There are the Generator commands start with `asm gen:*` and your custom commands
 
 ---
 
-## Generator
-
-This command allows you to access Assembly specific commands
+## Commands
 
 ### gen:init
 
@@ -113,6 +111,8 @@ asm gen:version
 
 Assembly also allows you to create your own CLI scripts, to use with your application. 
 
+It's recommended to place your scripts at `run/scripts.py`.
+
 You probably need CLI to run some routines and setup outside of the web environment, ie: setup database, run worker/task, cronjob, scheduler, etc...
 
 
@@ -127,7 +127,7 @@ NOTE: `@command` is the alias to the custom command. Use it, otherwise your CLI 
 Learn more about **<a href="https://click.palletsprojects.com/" target="_blank">Click</a>**
 
 ```python
-# views/scripts.py
+# run/scripts.py
 
 from assembly.scripts import (command, option, argument, click)
 
@@ -149,7 +149,7 @@ def do_something(name):
 from assembly import Assembly
 
 #->>> Import scripts wsgi.py
-import views.scripts
+import run.scripts
 
 APPS = {
     "default": [
@@ -169,7 +169,7 @@ Commands can easily be executed by invoking `asm` followed by the name of the fu
 Example:
 
 ```python
-# views/scripts.py
+# run/scripts.py
 
 from assembly.scripts import (command, option, argument, click)
 

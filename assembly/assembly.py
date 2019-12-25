@@ -300,7 +300,7 @@ class Assembly(object):
         app_env = app_env.lower().capitalize()
 
         # load the config file
-        app.config.from_object("config.%s" % app_env)
+        app.config.from_object("lib.config.%s" % app_env)
 
         # update config object. Return a DotDict object
         if not config:
@@ -319,29 +319,17 @@ class Assembly(object):
         cls.assets = Environment(app)
         cls._setup_db__(app)
 
+        # Load models implicitely from lib.models
+        werkzeug.import_string("lib.models")
+
         # Load views
-        try:
+        try:           
             if app_name not in views_list:
                 raise AssemblyError("Missing project: %s" % app_name)
 
-            """
-                {
-                    "main": [
-                        "application",
-                        "another_app",
-                        "another.app.path"
-                    ]
-                }
-            """
-
-            logging.info("Initializing app: [%s]" % app_name)
+            # load the views from the app list
             for view in views_list[app_name]:
-                logging.info("Importing views: %s " % view)
-                # auto load views.py
-                werkzeug.import_string(view)
-                # auto register templates an static
-                _register_application_template(view, view)
-
+                cls._load_view_from_string__(view)
         except ImportError as ie1:
             logging.critical(ie1)
 
@@ -374,6 +362,11 @@ class Assembly(object):
                     base_route = "/"
             subcls._register__(app, base_route=base_route)
         return app
+
+    @classmethod
+    def _load_view_from_string__(cls, view):
+        werkzeug.import_string(view)
+        _register_application_template(view, view)
 
     @classmethod
     def render(cls, data={}, __template__=None, **kwargs):

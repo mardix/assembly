@@ -35,7 +35,7 @@ Import the base Assembly
 from assembly import Assembly
 
 """
-Import your views scripts to enable their command line interface
+Import scripts to enable their command line interface
 """
 import run.scripts
 

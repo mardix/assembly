@@ -22,6 +22,30 @@ Assembly Version: 1.3.x
 
 ## Assembly in action
 
+### Structure
+
+```
+-- /
+    |- wsgi.py
+    |- requirements.txt
+    |- lib/
+        |- config.py
+        |- models.py
+    |- run
+        |- scripts.py
+    |- views/
+        |- main.py
+    |- templates/
+        |- layouts/
+            |- base.html    
+        |- main/
+            |- Index/
+                |- index.html
+    |- static/
+    |- data/
+```
+
+
 ### Pythonic Routes
 
 Routes are created based on the class and the method names by default. 

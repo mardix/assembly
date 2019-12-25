@@ -1,23 +1,24 @@
-## 1.3.0-dev
-(date: TBD)
+## 1.3.0
+(date: Dec 25 2019)
 - ** Restructure application layout
+    $ROOT/
+      |- wsgi.py
+      |- requirements.txt
+      |-/views/ :contains the views
+      |-/templates/ :contains templates
+      |-/static/ :contains static file and non user-generated data
+      |-/lib/ "contains shared code
+        |- config.py
+        |- models.py
+      |-/run/ :contains executables and scripts
+        |- scripts.py
+      |-/data/ :contains random files and user-generated data
 - Added Flask-Login extension. And have ext.login_manager to access FL setup
 - forms validation with WTForms
 - flash_data, get_flashed_data: to add data instead of message for the user
 - `Assembly.initialize`, can now accept Flask instance as first argument to make it work with 
   existing flask application.
 - Expose asm functions as *. Now all functions in asm will be available from assembly
-- Flatter structure
-    $ROOT/
-      |- wsgi.py
-      |- requirements.txt
-      |-/views/: contains the views
-      |-/templates/ contains templates
-      |-/static/ contains static file and non user-generated data
-      |-/lib/ contains shared code
-      |-/run/ contains executables and scripts
-      |-/data/ contains random files and user-generated data
-
 - Models are explicit, must be loaded manually
 - Consolidate CLI asm-admin to asm
 - rename cli.py to scripts.py 

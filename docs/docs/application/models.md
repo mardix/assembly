@@ -199,10 +199,10 @@ class TodoList(db.Model):
 
 #### CLI Command
 
-Having created all your models in `__models__.py`, to create the tables, you need to use the CLI command.
+Having created all your models in `lib/models.py` or imported in your views, to create the tables, you need to use the CLI command.
 
 ```
-asm-admin sync-models
+asm gen:sync-models
 ```
 
 This command automatically connects to the DB and only creates the tables that don't exist in the DB.
@@ -217,7 +217,7 @@ This command automatically connects to the DB and only creates the tables that d
 
 *Version: 1.2.0*
 
-`Model.__sync__()` is a class method to add in your Model class that will be executed, when `asm-admin sync-models` is run. It will allow you to run some routines to setup some data once it's created, or if you want to do some other updates or housekeeping
+`Model.__sync__()` is a class method to add in your Model class that will be executed, when `asm gen:sync-models` is run. It will allow you to run some routines to setup some data once it's created, or if you want to do some other updates or housekeeping
 
 ```python
 from assembly import db
@@ -233,7 +233,7 @@ class Test(db.Model):
 
 ```
 
-Upon running `asm-admin sync-models`, `__sync__()` will also be executed.
+Upon running `asm gen:sync-models`, `__sync__()` will also be executed.
 
 
 ---
@@ -414,7 +414,7 @@ models.User.get(345).delete().delete(False).update(location="St. Louis")
 ---
 
 
-#### Aggegated selects
+#### Aggregated selects
 
 ```
 class Product(db.Model):
@@ -537,8 +537,8 @@ datetime objects back to Arrow objects on the way out (when querying database).
 
 *Example*
 
-```
-# __models__.py
+```python
+# lib/models.py
 
 from assembly import db
 
@@ -550,7 +550,9 @@ class Article(db.Model):
 
 ** Create **
 
-```
+```python
+
+
 from assembly import date, models
 
 models.Article.create(title='Hi', published_at=date.utcnow)
@@ -559,7 +561,9 @@ models.Article.create(title='Hi', published_at=date.utcnow)
 
 ** Read **
 
-```
+```python 
+
+
 from assembly import models
 
 article = models.Article.get(1)

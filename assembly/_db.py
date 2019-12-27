@@ -48,6 +48,7 @@ class ActiveAlchemyProxy(active_alchemy.ActiveAlchemy):
 # ------------------------------------------------------------------------------
 # StorageObjectType
 
+
 class StorageObjectType(sa_utils.JSONType):
     """
     A type to store flask_cloudy Storage Object Type:
@@ -98,24 +99,32 @@ class StorageObjectType(sa_utils.JSONType):
 
     """
 
-    DEFAULT_KEYS = ["name", "size", "hash", "url", "full_url",
-                    "extension", "type", "path", "provider_name"]
-
     def process_bind_param(self, obj, dialect):
-        """Get a flask_cloudy.Object and save it as a dict"""
         value = obj or {}
+        """Get a flask_cloudy.Object and save it as a dict"""
+        # save the flask_cloudy.Object as dict
         if isinstance(obj, flask_cloudy.Object):
-            value = {}
-            for k in self.DEFAULT_KEYS:
-                value[k] = getattr(obj, k)
-
+            value = obj.info
+            
+        # If a string url/path is provided, 
+        elif isinstance(obj, str):
+            value = {
+                "name": obj,
+                "url": obj,
+                "full_url": obj,
+                "size": None,
+                "extension": None,
+                "type": None,
+                "path": None,
+                "provider_name": "EXTERNAL_URL"
+            }
         return super(self.__class__, self).process_bind_param(value, dialect)
 
     def process_result_value(self, value, dialect):
         value = super(self.__class__, self).process_result_value(value, dialect)
         return StorageObject(value) if value else None
 
-
+ 
 class StorageObject(dict):
     """
     This object will be loaded when querying the table
@@ -132,22 +141,22 @@ class StorageObject(dict):
         self._storage_obj = None
         self._storage_loaded = False
         self._data = data
-        super(self.__class__, self).__init__(data)
+        super(self.__class__, self).__init__(self._data)
 
     def __getattr__(self, item):
-        if item in self._data and not self._storage_loaded:
+        if item in self._data:
             return self._data.get(item)
-
-        if not self._storage_loaded:
+            
+        if "provider_name" in self._data and self._data["provider_name"] is "EXTERNAL_URL":
+            if item in ["secure_url", "download_url", "get_url"]:
+                return self.full_url
+            else:
+                raise Exception("StorageObject is EXTERNAL_URL. Can't provide property '%s'" % item)
+        
+        if not self._storage_obj:
             from Assembly.ext import storage
-            self.from_storage(storage)
+            self._storage_obj = storage.get(self._data["name"])
         return getattr(self._storage_obj, item)
 
-    def from_storage(self, storage):
-        """
-        To use a different storage
-        :param storage: flask_cloudy.Storage instance
-        """
-        self._storage_obj = storage.get(self._data["name"])
-        self._storage_loaded = True
+
 

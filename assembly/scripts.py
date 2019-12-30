@@ -15,6 +15,7 @@ import pkg_resources
 from . import about
 from .assembly import db
 from werkzeug import import_string
+from tabulate import tabulate
 
 CWD = os.getcwd()
 SKELETON_DIR = "scaffold"
@@ -231,6 +232,23 @@ def version():
     """Get the version"""
     print(about.__version__)
 
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+@cli.command("show:routes")
+@click.argument('routes', nargs=-1)
+def show_routes(routes):
+    """Show routes"""
+    global asm_app
+    headers, table = ["Route", "Defaults", "Methods", "Endpoint"], []
+    for rule in asm_app.url_map.iter_rules():
+        if not routes or any(map(lambda r: rule.rule.startswith(r), routes)):
+            defaults = ''
+            if rule.defaults:
+                defaults = ' '.join(['{}={}'.format(k,v) for k,v in rule.defaults.items()])
+            table.append([rule.rule, defaults, ', '.join(rule.methods), rule.endpoint])
+    print(tabulate(table, headers=headers))
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------

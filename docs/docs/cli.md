@@ -74,6 +74,20 @@ ie:
 asm gen:view admin
 ```
 
+### show:routes
+
+To show the routes of the application, this command uses the `url_map` of Flask application
+
+```sh
+asm show:routes 
+```
+
+or:
+
+```sh
+asm show:routes /cached /api
+```
+
 #### Restful
 
 This command can also create a view without templates, by appending `--resftul` or `-x` 

@@ -1,5 +1,7 @@
 ## 1.3.1
+(date: TBD)
 - _db.StorageObjectType, convert external string to storage object. When a string of a URL is provided instead of of the object.
+- scripts.py: (Mohamed Cherkaoui, @chermed) add show:routes to the CLI.q
 
 ## 1.3.0
 (date: Dec 25 2019)

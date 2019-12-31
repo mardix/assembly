@@ -16,7 +16,7 @@ import itsdangerous
 import flask_cloudy
 from passlib.hash import bcrypt
 from . import (app_context, ext, config, utils)
-from flask import (send_file, session, g)
+from flask import (send_file, session, g, flash)
 
 __all__ = [
     "signal",
@@ -32,7 +32,9 @@ __all__ = [
     "encode_jwt",
     "decode_jwt",
     "sign_data",
-    "unsign_data"
+    "unsign_data",
+    "flash",
+    "session"
 ]
 
 # ------------------------------------------------------------------------------

@@ -291,7 +291,26 @@ def login_manager_init(app):
 # ------------------------------------------------------------------------------
 # Markdown
 
-class JinjaMDTagExt(Extension):
+_mkd = markdown.Markdown(extensions=[
+    'markdown.extensions.extra',
+    'markdown.extensions.nl2br',
+    'markdown.extensions.sane_lists',
+    'markdown.extensions.toc'
+])
+
+def convert_makdown(text):
+    '''
+    Convert MD text to HTML
+    :param text:
+    :return:
+    '''
+    _mkd.reset()
+    return _mkd.convert(text)
+
+# The extension
+ext.convert_markdown = convert_makdown
+
+class MarkdownExt(Extension):
     """
     A simple extension for adding a {% markdown %}{% endmarkdown %} tag to Jinja
 
@@ -302,9 +321,11 @@ class JinjaMDTagExt(Extension):
     </div>
     """
     tags = set(['markdown'])
+    
+    file_extensions = ['.md', '.markdown', '.mkd', '.mkdown']
 
     def __init__(self, environment):
-        super(JinjaMDTagExt, self).__init__(environment)
+        super().__init__(environment)
         environment.extend(
             markdowner=markdown.Markdown(extensions=['extra'])
         )
@@ -348,51 +369,23 @@ class JinjaMDTagExt(Extension):
         block = self.environment.markdowner.convert(block)
         return block
 
-
-class JinjaMDExt(Extension):
-    """
-    JINJA Convert Markdown file to HTML
-    """
-    options = {}
-    file_extensions = '.md'
-
     def preprocess(self, source, name, filename=None):
-        if (not name or
-                (name and not os.path.splitext(name)[1] in self.file_extensions)):
+        """
+        Process files with extensions
+        """
+        if (not name or (name and not os.path.splitext(name)[1] in self.file_extensions)):
             return source
-        return md_to_html(source)
-
-
-# Markdown
-mkd = markdown.Markdown(extensions=[
-    'markdown.extensions.extra',
-    'markdown.extensions.nl2br',
-    'markdown.extensions.sane_lists',
-    'markdown.extensions.toc'
-])
-
-
-def md_to_html(text):
-    '''
-    Convert MD text to HTML
-    :param text:
-    :return:
-    '''
-    mkd.reset()
-    return mkd.convert(text)
-
+        return convert_makdown(source)
+        
 
 @app_context
-def setup_markdown(app):
+def load_markdown(app):
     """
     Load markdown extension
     """
-    app.jinja_env.add_extension(JinjaMDTagExt)
-    app.jinja_env.add_extension(JinjaMDExt)
+    app.jinja_env.add_extension(MarkdownExt)
 
 
-# The extension
-ext.markdown = md_to_html
 
 # --------
 
@@ -569,7 +562,7 @@ def setup_compress_html(app):
 """
 # INJECT BLOCK
 
-This extension allows you to define placeholders where your blocks get rendered 
+This allows you to define placeholders where your blocks get rendered 
 and at different places in your templates append to those blocks. 
 This is especially useful for css and javascript. 
 Your sub-templates can now define css and Javascript files 

@@ -17,7 +17,7 @@ import flask_kvsession
 from jinja2 import Markup
 from jinja2.ext import Extension
 from urllib.parse import urlparse
-from jinja2.nodes import CallBlock
+from jinja2.nodes import CallBlock, Const
 from jinja2 import TemplateSyntaxError
 from . import (ext, config, app_context, utils)
 from jinja2.lexer import Token, describe_token
@@ -567,38 +567,40 @@ def setup_compress_html(app):
 # ------------------------------------------------------------------------------
 
 """
-PLACEHOLDER
+# INJECT BLOCK
 
-With this extension you can define placeholders where your blocks get rendered 
+This extension allows you to define placeholders where your blocks get rendered 
 and at different places in your templates append to those blocks. 
 This is especially useful for css and javascript. 
 Your sub-templates can now define css and Javascript files 
 to be included, and the css will be nicely put at the top and 
 the Javascript to the bottom, just like you should. 
 It will also ignore any duplicate content in a single block.
+It is scoped per `request.endpoint`, preventing leakage of other blocks.
 
+### Example
 <html>
     <head>
-        {% placeholder "css" %}
+        {% inject_block "css" %}
     </head>
     <body>
         Your content comes here.
         Maybe you want to throw in some css:
 
-        {% addto "css" %}
+        {% inject_into "css" %}
             <link href="/media/css/stylesheet.css" media="screen" rel="[stylesheet](stylesheet)" type="text/css" />
-        {% endaddto %}
+        {% endinject_into %}
 
         Some more content here.
 
-        {% addto "js" %}
+        {% inject_into "js" %}
             <script type="text/javascript">
-                alert("Hello flask");
+                alert("Hello Assembly");
             </script>
-        {% endaddto %}
+        {% endinject_into %}
 
         And even more content.
-        {% placeholder "js" %}
+        {% inject_block "js" %}
     </body>
 </html>
 """
@@ -606,37 +608,61 @@ It will also ignore any duplicate content in a single block.
 
 @app_context
 def init_app(app):
-    app.jinja_env.add_extension(PlaceholderAddTo)
-    app.jinja_env.add_extension(PlaceholderRender)
-    app.jinja_env.placeholder_tags = {}
+    app.jinja_env.add_extension(InjectIntoExt)
+    app.jinja_env.add_extension(InjectBlockExt)
+    app.jinja_env.inject_block_tags = dict()
 
 
-class PlaceholderAddTo(Extension):
-    tags = set(['addtoblock'])
-    def _render_tag(self, name, caller):
-        context = self.environment.placeholder_tags
-        blocks = context.get(name)
+class InjectIntoExt(Extension):
+    tags = set(['inject_into'])
+    
+    def _render_tag(self, name:str, dynamic, caller):
+
+        endpoint = request.endpoint
+        context = self.environment.inject_block_tags
+        if endpoint not in context:
+            context[endpoint] = dict()
+            
+        blocks = context[endpoint].get(name)
         if blocks is None:
             blocks = set()
+            
         blocks.add(caller().strip())
-        context[name] = blocks
+        context[endpoint][name] = blocks    
         return Markup("")
 
     def parse(self, parser):
         lineno = next(parser.stream).lineno
         name = parser.parse_expression()
-        body = parser.parse_statements(['name:endaddtoblock'], drop_needle=True)
-        args = [name]
+        dynamic = Const(None)
+        
+        # while parser.stream.current.type != 'block_end':
+        #     parser.stream.expect('comma')
+        #     if parser.stream.current.test('name') and parser.stream.look().test('assign'):
+        #         name = next(parser.stream).value
+        #         parser.stream.skip()
+        #         value = parser.parse_expression()
+        #         if name == 'dynamic':
+        #             dynamic = value
+        # print("DYB", dynamic)
+        
+        body = parser.parse_statements(['name:endinject_into'], drop_needle=True)
+        args = [name, dynamic]
         return CallBlock(self.call_method('_render_tag', args),
                          [], [], body).set_lineno(lineno)
 
 
-class PlaceholderRender(Extension):
-    tags = set(['renderblock'])
+class InjectBlockExt(Extension):
+    tags = set(['inject_block'])
 
-    def _render_tag(self, name: str, caller):
-        context = self.environment.placeholder_tags
-        return Markup('\n'.join(context.get(name, [])))
+    def _render_tag(self, name, caller):
+        endpoint = request.endpoint
+        context = self.environment.inject_block_tags
+        if endpoint not in context:
+            context[endpoint] = dict()
+        blocks = context[endpoint].get(name, [])        
+        return Markup('\n'.join(blocks))
+        
 
     def parse(self, parser):
         lineno = next(parser.stream).lineno

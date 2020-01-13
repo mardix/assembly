@@ -3,3 +3,4 @@ __pycache__*
 .sass-cache
 .DS_Store
 .cache
+node_modules

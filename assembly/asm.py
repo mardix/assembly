@@ -132,22 +132,23 @@ def signal(fn):
 
 # ------------------------------------------------------------------------------
 
-def flash_data(data):
+def flash_data(data, key=None):
     """
     Set temporary data in the session.
     It will replace the previous one
     :param data:
+    :param key: a key to identify this data
     :return:
     """
-    session["_flash_data"] = data
+    session["_flash_data"] = (data, key)
 
 
 def get_flashed_data():
     """
     Retrieve and pop data from the session
-    :return: mixed
+    :return: tuple(data, key)
     """
-    return session.pop("_flash_data", None)
+    return session.pop("_flash_data", (None, None))
 
 
 # ------------------------------------------------------------------------------

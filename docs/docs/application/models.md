@@ -3,14 +3,14 @@
 
 Assembly supports RDBMS (Postgresql, MySQL, SQLite) via **Active-Alchemy**, a wrapper around **SQLAlchemy** that makes it simple to use your models in an active record like manner, while it still uses the SQLAlchemy `db.session` underneath. 
 
-By default, Assembly will attempt to load the `lib/models.py` automatically. If you have a file at this location named `lib/models.py`, Assembly will load it. 
+By default, Assembly will attempt to load the `includes/models.py` automatically. If you have a file at this location named `includes/models.py`, Assembly will load it. 
 
 Models are classes that extends `db.Model` 
 
 A simple Models would look like this
 
 ```
-|- lib/
+|- includes/
     |- __init__.py
     |- config.py
     |- models.py
@@ -19,7 +19,7 @@ A simple Models would look like this
  
 
 ```python
-# lib/models.py
+# includes/models.py
 
 from assembly import db
 
@@ -85,7 +85,7 @@ and PostgreSQL respectively, because they are in pure Python. But you can use
 other drivers for better performance. `SQLite` is already built in Python. 
   
 
-In the `lib/config.py` set **DB_URL** 
+In the `includes/config.py` set **DB_URL** 
 
 
 **DB_URL**
@@ -135,13 +135,13 @@ from assembly import db
 
 ### Create Models
 
-Create model classes by extending your class to `db.Model`. By default Assembly will look for `lib/models.py` to exist to automatically load your models.
+Create model classes by extending your class to `db.Model`. By default Assembly will look for `includes/models.py` to exist to automatically load your models.
 
 But you can place your models anywhere, as long they are loaded.
 
 
 ```python
-# lib/models.py
+# includes/models.py
 
 from assembly import db
 
@@ -199,7 +199,7 @@ class TodoList(db.Model):
 
 #### CLI Command
 
-Having created all your models in `lib/models.py` or imported in your views, to create the tables, you need to use the CLI command.
+Having created all your models in `includes/models.py` or imported in your views, to create the tables, you need to use the CLI command.
 
 ```
 asm gen:sync-models
@@ -538,7 +538,7 @@ datetime objects back to Arrow objects on the way out (when querying database).
 *Example*
 
 ```python
-# lib/models.py
+# includes/models.py
 
 from assembly import db
 

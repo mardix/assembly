@@ -15,7 +15,7 @@ A basic application structure looks like this
 -- /
     |- wsgi.py
     |- requirements.txt
-    |- lib/
+    |- includes/
         |- config.py
         |- models.py
     |- run
@@ -43,7 +43,7 @@ A basic application structure looks like this
 
 - `requirements.txt`: contains application dependencies including `assembly` (required)
 
-- `lib` contains config and models, including shared modules (directory required)
+- `includes/` contains config and models, including shared modules (directory required)
 
 - `run` contains scripts and executable files to run
 

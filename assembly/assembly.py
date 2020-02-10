@@ -300,7 +300,7 @@ class Assembly(object):
         app_env = app_env.lower().capitalize()
 
         # load the config file
-        app.config.from_object("lib.config.%s" % app_env)
+        app.config.from_object("includes.config.%s" % app_env)
 
         # update config object. Return a DotDict object
         if not config:
@@ -319,8 +319,8 @@ class Assembly(object):
         cls.assets = Environment(app)
         cls._setup_db__(app)
 
-        # Load models implicitely from lib.models
-        werkzeug.import_string("lib.models", True)
+        # Load models implicitely from includes.models
+        werkzeug.import_string("includes.models", True)
 
         # Load views
         try:           

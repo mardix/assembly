@@ -1,10 +1,12 @@
 ## 1.3.1
-(date: Jan 19 2020)
+(date: Feb * 2020)
 - _db.StorageObjectType, convert external string to storage object. When a string of a URL is provided instead of of the object.
 - scripts.py: (Mohamed Cherkaoui, @chermed) add show:routes to the CLI.
 - Exposed flash, session from flask for convenience
 - Markdown: Support extensions .md, .mkd, .markdown, .mkdown
 - Fixed inject_block. Now it is scoped to the request.endpoint, to prevent leakage of blocks 
+- flash_data(data, key=None) and get_flashed_data() -> tuple(data, key). Key is to identify the data 
+- rename folder '/lib' to '/includes'
 - 'inject_block' & 'inject_into' extension to add content from subtemplate
   ```
     {% inject_block "css" %}

@@ -55,7 +55,7 @@ Assembly is very extensible, as every View is it's own package. Making it easy t
 -- /
     |- wsgi.py
     |- requirements.txt
-    |- lib/
+    |- includes/
         |- config.py
         |- models.py
     |- run
@@ -251,7 +251,7 @@ Upon initialization you should have a structure similar to this:
 -- /
     |- wsgi.py
     |- requirements.txt
-    |- lib/
+    |- includes/
         |- config.py
         |- models.py
     |- run

@@ -192,7 +192,7 @@ In this code, the title filter will take `article.title` and return a title-case
 We're going to define our filter in a module located at myapp/util/filters.py. This gives us a util package in which to put other miscellaneous modules.
 
 ```python
-# /lib/filters.py
+# /includes/filters.py
 
 from assembly import app_context
 

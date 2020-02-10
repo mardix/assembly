@@ -28,7 +28,7 @@ Assembly Version: 1.3.x
 -- /
     |- wsgi.py
     |- requirements.txt
-    |- lib/
+    |- includes/
         |- config.py
         |- models.py
     |- run
@@ -284,7 +284,7 @@ Upon initialization you should have a structure similar to this:
 -- /
     |- wsgi.py
     |- requirements.txt
-    |- lib/
+    |- includes/
         |- config.py
         |- models.py
     |- run

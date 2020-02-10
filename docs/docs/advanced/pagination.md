@@ -9,6 +9,11 @@ Extension: <a href="https://github.com/mardix/paginator.py" target="_blank">Pagi
 
 ## Usage
 
+### Import
+
+```python
+from assembly import  paginate
+```
 
 ### Paginate Models
 
@@ -16,7 +21,7 @@ Paginate models
 
 ```python
 
-from assembly import Assembly, models, request
+from assembly import Assembly, paginate, models, request
 
 class Index(Assembly):
 
@@ -24,9 +29,8 @@ class Index(Assembly):
         per_page = 10
         page = int(request.args.get("page", 1))
 
-        posts = models.Posts.query()
-
-        posts = posts.paginate(page=page, per_page=per_page)
+        query = models.Posts.query()
+        posts = paginate(query, page=page, per_page=per_page)
 
         return {
             "posts": posts
@@ -44,8 +48,7 @@ To paginate a list of items
 
 ```python
 
-from assembly import Assembly, request
-from paginator import Paginator
+from assembly import Assembly, request, paginate
 
 class Index(Assembly):
 
@@ -53,11 +56,11 @@ class Index(Assembly):
         per_page = 10
         page = int(request.args.get("page", 1))
 
-        items = range(1, 1000)
-        items = Paginator(items, page=page, per_page=per_page)
+        items = list(range(1, 1000))
+        items = paginate(items, page=page, per_page=per_page)
 
         return {
-            "items": [i for i in items]
+            "items": items
         }
 
 ```
@@ -66,7 +69,7 @@ class Index(Assembly):
 
 ## API
 
-**Paginator(query, page=1, per_page=10, total=None, padding=0, callback=None, static_query=False)**
+**paginate(query, page=1, per_page=10, total=None, padding=0, callback=None, static_query=False)**
 
 ```python
 :param query: Iterable to paginate. Can be a query object, list or any iterables
